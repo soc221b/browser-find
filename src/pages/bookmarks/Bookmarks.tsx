@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react'
 
-import logo from "@assets/img/logo.svg";
-import "./Bookmarks.css";
+import logo from '@assets/img/logo-dark.svg'
+import './Bookmarks.css'
 
 export default function Bookmarks(): JSX.Element {
   return (
@@ -9,7 +9,8 @@ export default function Bookmarks(): JSX.Element {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/pages/bookmarks/Bookmarks.tsx</code> and save to reload.
+          Edit <code>src/pages/bookmarks/Bookmarks.tsx</code> and save to
+          reload.
         </p>
         <a
           className="App-link"
@@ -21,5 +22,5 @@ export default function Bookmarks(): JSX.Element {
         </a>
       </header>
     </div>
-  );
+  )
 }

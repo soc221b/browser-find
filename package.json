@@ -1,22 +1,25 @@
 {
-  "name": "browser-extension",
-  "displayName": "Browser Extension",
-  "version": "2.0.0",
-  "description": "Browser Extension Boilerplate",
+  "name": "browser-find",
+  "displayName": "Find",
+  "version": "0.1.0",
+  "description": "Quickly find text in the currently opened file",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/debdut/browser-extension.git"
   },
   "scripts": {
-    "start": "ts-node-esm scripts/build.ts --dev",
-    "build": "ts-node-esm scripts/build.ts"
+    "start": "tsx scripts/build-icons && tsx scripts/build.ts chrome --dev",
+    "build": "rimraf dist && mkdirp dist/v3 && tsx scripts/build-icons && tsx scripts/build.ts chrome"
   },
   "type": "module",
   "dependencies": {
     "@types/webextension-polyfill": "^0.10.0",
+    "mkdirp": "^3.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "tsx": "^4.7.1",
+    "ua-parser-js": "^1.0.37",
     "webextension-polyfill": "^0.10.0"
   },
   "devDependencies": {
@@ -26,25 +29,18 @@
     "@types/node": "^18.11.18",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
-    "@typescript-eslint/eslint-plugin": "^5.48.2",
-    "@typescript-eslint/parser": "^5.48.2",
     "autoprefixer": "^10.4.13",
     "concurrently": "^7.6.0",
     "esbuild": "^0.17.4",
     "esbuild-style-plugin": "^1.6.1",
-    "eslint": "^8.32.0",
-    "eslint-config-prettier": "^8.6.0",
-    "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-jsx-a11y": "^6.7.1",
-    "eslint-plugin-react": "^7.32.1",
-    "eslint-plugin-react-hooks": "^4.6.0",
     "fs-extra": "^11.1.0",
     "get-installed-browsers": "^0.1.7",
     "node-watch": "^0.7.3",
     "postcss": "^8.4.21",
+    "prettier": "^3.2.5",
     "rimraf": "^4.1.1",
+    "sharp": "^0.33.3",
     "tailwindcss": "^3.2.6",
-    "ts-node": "^10.9.1",
     "typescript": "^4.9.4",
     "web-ext": "^7.4.0"
   }

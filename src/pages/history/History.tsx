@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react'
 
-import logo from "@assets/img/logo.svg";
-import "./History.css";
+import logo from '@assets/img/logo-dark.svg'
+import './History.css'
 
 export default function History(): JSX.Element {
   return (
@@ -21,5 +21,5 @@ export default function History(): JSX.Element {
         </a>
       </header>
     </div>
-  );
+  )
 }

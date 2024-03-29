@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react'
 
-import logo from "@assets/img/logo.svg";
-import "./Newtab.css";
+import logo from '@assets/img/logo-dark.svg'
+import './Newtab.css'
 
 export default function Newtab(): JSX.Element {
   return (
@@ -21,5 +21,5 @@ export default function Newtab(): JSX.Element {
         </a>
       </header>
     </div>
-  );
+  )
 }

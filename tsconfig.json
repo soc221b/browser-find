@@ -20,8 +20,8 @@
       "@src/*": ["src/*"],
       "@assets/*": ["src/assets/*"],
       "@pages/*": ["src/pages/*"],
-      "@lib/*": ["src/lib/*"],
+      "@lib/*": ["src/lib/*"]
     }
   },
-  "include": ["src", "scripts"],
+  "include": ["src", "scripts"]
 }
