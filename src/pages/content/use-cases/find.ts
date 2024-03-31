@@ -107,6 +107,8 @@ const find: Find = ({
           CSS.highlights.set('browser-find-match', new Highlight(range))
           range.startContainer.parentElement?.scrollIntoView({
             behavior: 'instant',
+            block: 'nearest',
+            inline: 'nearest',
           })
         },
       })
