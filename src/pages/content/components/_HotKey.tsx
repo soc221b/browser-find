@@ -49,12 +49,30 @@ export default function _UseFind(): JSX.Element {
       if (shouldFindNext({ event, state, isOSMacOS })) {
         event.preventDefault()
         state.dispatch({ type: 'FindNext' })
+        setTimeout(() => {
+          const inputElement = document.querySelector(
+            '#browser-find-top-layer .input',
+          )
+          if (inputElement instanceof HTMLInputElement) {
+            inputElement.focus()
+            inputElement.select()
+          }
+        })
         return
       }
 
       if (shouldFindPrevious({ event, state, isOSMacOS })) {
         event.preventDefault()
         state.dispatch({ type: 'FindPrevious' })
+        setTimeout(() => {
+          const inputElement = document.querySelector(
+            '#browser-find-top-layer .input',
+          )
+          if (inputElement instanceof HTMLInputElement) {
+            inputElement.focus()
+            inputElement.select()
+          }
+        })
         return
       }
 
