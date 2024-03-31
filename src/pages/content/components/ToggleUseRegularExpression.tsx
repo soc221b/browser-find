@@ -1,4 +1,5 @@
 import useStore from '../store'
+import { isOSMacOS } from '../utils/ua'
 
 export default function ToggleUseRegularExpression(): JSX.Element {
   const shouldUseRegularExpression = useStore(
@@ -16,7 +17,9 @@ export default function ToggleUseRegularExpression(): JSX.Element {
         })
       }
       className="icon"
-      data-tooltip-content="Match Case (MetaKey+AltKey+R)"
+      data-tooltip-content={
+        isOSMacOS() ? 'Match Case (Command+Option+R)' : 'Match Case (Alt+R)'
+      }
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

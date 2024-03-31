@@ -1,4 +1,5 @@
 import useStore from '../store'
+import { isOSMacOS } from '../utils/ua'
 
 export default function ToggleMatchCase(): JSX.Element {
   const shouldMatchCase = useStore((state) => state.shouldMatchCase)
@@ -14,7 +15,9 @@ export default function ToggleMatchCase(): JSX.Element {
         })
       }
       className="icon"
-      data-tooltip-content="Match Case (MetaKey+AltKey+C)"
+      data-tooltip-content={
+        isOSMacOS() ? 'Match Case (Command+Option+C)' : 'Match Case (Alt+C)'
+      }
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
