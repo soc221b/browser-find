@@ -33,7 +33,9 @@ export default function Tooltip(): JSX.Element {
     }
 
     function handleMouseover(e: MouseEvent) {
-      const tooltip = document.querySelector('#tooltip') as HTMLElement
+      const tooltip = document.querySelector(
+        '#browser-find-top-layer #tooltip',
+      ) as HTMLElement
       if (tooltip instanceof HTMLElement === false) return
 
       let target: any = e.target
