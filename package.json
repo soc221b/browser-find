@@ -2,7 +2,7 @@
   "name": "browser-find",
   "displayName": "Find",
   "version": "0.1.0",
-  "description": "Quickly find text in the currently opened file",
+  "description": "Quickly find text in the currently opened tab",
   "license": "MIT",
   "repository": {
     "type": "git",
