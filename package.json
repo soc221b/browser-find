@@ -1,7 +1,7 @@
 {
   "name": "browser-find",
   "displayName": "Find",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Quickly find text in the currently opened file",
   "license": "MIT",
   "repository": {
