@@ -44,7 +44,7 @@ export default function _StyleSheet(): JSX.Element {
       #browser-find-top-layer .icon {
         width: 24px;
         height: 24px;
-        padding: 4px;
+        padding: 2px;
         border-radius: 99999px;
         transition: background-color linear 200ms;
       }
