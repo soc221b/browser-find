@@ -7,6 +7,9 @@ type Reducer = (
 ) => State
 
 const reducer: Reducer = (state, action) => {
+  chrome.storage.local.set({
+    shouldMatchCase: action.value,
+  })
   return {
     ...state,
     matchId: null,
