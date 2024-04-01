@@ -9,7 +9,7 @@ export default function FindNext(): JSX.Element {
       disabled={!matches.length}
       onClick={() => dispatch({ type: 'FindNext' })}
       className="icon"
-      data-tooltip-content="Next Match (Enter)"
+      data-tooltip-content="Next Match <kbd>Enter</kbd>"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

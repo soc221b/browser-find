@@ -7,7 +7,7 @@ export default function Close(): JSX.Element {
     <button
       onClick={() => dispatch({ type: 'ToggleOpen', value: false })}
       className="icon"
-      data-tooltip-content="Close (Escape)"
+      data-tooltip-content="Close <kbd>Escape</kbd>"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

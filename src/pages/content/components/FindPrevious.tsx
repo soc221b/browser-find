@@ -9,7 +9,7 @@ export default function FindPrevious(): JSX.Element {
       disabled={!matches.length}
       onClick={() => dispatch({ type: 'FindPrevious' })}
       className="icon"
-      data-tooltip-content="Previous Match (Shit+Enter)"
+      data-tooltip-content="Previous Match <kbd>Shit</kbd>+<kbd>Enter</kbd>"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

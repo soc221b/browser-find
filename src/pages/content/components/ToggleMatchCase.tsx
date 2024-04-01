@@ -16,7 +16,9 @@ export default function ToggleMatchCase(): JSX.Element {
       }
       className="icon"
       data-tooltip-content={
-        isOSMacOS() ? 'Match Case (Command+Option+C)' : 'Match Case (Alt+C)'
+        isOSMacOS()
+          ? 'Match Case <kbd>Command</kbd>+<kbd>Option</kbd>+<kbd>C</kbd>'
+          : 'Match Case <kbd>Alt</kbd>+<kbd>C</kbd>'
       }
     >
       <svg

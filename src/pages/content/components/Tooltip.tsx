@@ -79,7 +79,7 @@ export default function Tooltip(): JSX.Element {
 
   return (
     <div id="tooltip" style={{ opacity: delayedVisible ? 100 : 0 }}>
-      {tooltip}
+      <span dangerouslySetInnerHTML={{ __html: tooltip }}></span>
     </div>
   )
 }
