@@ -1,3 +1,25 @@
+export function createRegex({
+  text,
+  shouldMatchCase,
+  shouldMatchWholeWord,
+  shouldUseRegularExpression,
+}: {
+  text: string
+  shouldMatchCase: boolean
+  shouldMatchWholeWord: boolean
+  shouldUseRegularExpression: boolean
+}): RegExp {
+  let pattern = text
+  pattern = shouldUseRegularExpression
+    ? pattern
+    : pattern.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') // https://stackoverflow.com/a/9310752/7122623
+  pattern = shouldMatchWholeWord ? `\\b${pattern}\\b` : `${pattern}`
+  let flags = ''
+  flags += 'g'
+  flags += shouldMatchCase ? '' : 'i'
+  return new RegExp(pattern, flags)
+}
+
 export function getAllNodeInnerText({ body }: { body: HTMLElement }) {
   const treeWalker = document.createTreeWalker(body, NodeFilter.SHOW_TEXT)
   let node
