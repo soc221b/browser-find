@@ -384,3 +384,5 @@ $RECYCLE.BIN/
 .idea
 
 tmp
+
+public/logo*
