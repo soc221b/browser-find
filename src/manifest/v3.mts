@@ -21,7 +21,6 @@ const manifest: ManifestTypeV3 = {
       matches: ['<all_urls>'],
     },
   ],
-  permissions: ['storage'],
 }
 
 function getManifestV3(pageDirMap: { [x: string]: any }): ManifestTypeV3 {
