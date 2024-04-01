@@ -35,10 +35,10 @@ export function createSearchStringList({
   return searchStringList
 }
 
-export function getAllNodeInnerText({ body }: { body: HTMLElement }) {
+export function getNodeWithInnerTextList({ body }: { body: HTMLElement }) {
   const treeWalker = document.createTreeWalker(body, NodeFilter.SHOW_TEXT)
   let node
-  let allNodeInnerText: { node: Node; innerText: string }[] = []
+  let nodeWithInnerTextList: { node: Node; innerText: string }[] = []
   while ((node = treeWalker.nextNode()) !== null) {
     let parentElement = node.parentElement
     while (parentElement !== null) {
@@ -76,15 +76,15 @@ export function getAllNodeInnerText({ body }: { body: HTMLElement }) {
       }
       innerText = innerText.trim() + '\n'
 
-      allNodeInnerText.push({
+      nodeWithInnerTextList.push({
         node,
         innerText,
       })
     }
   }
-  if (allNodeInnerText.length) {
-    allNodeInnerText[allNodeInnerText.length - 1].innerText =
-      allNodeInnerText[allNodeInnerText.length - 1].innerText.trim()
+  if (nodeWithInnerTextList.length) {
+    nodeWithInnerTextList[nodeWithInnerTextList.length - 1].innerText =
+      nodeWithInnerTextList[nodeWithInnerTextList.length - 1].innerText.trim()
   }
-  return allNodeInnerText
+  return nodeWithInnerTextList
 }

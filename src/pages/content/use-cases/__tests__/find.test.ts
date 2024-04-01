@@ -1,7 +1,7 @@
 import {
   createRegex,
   createSearchStringList,
-  getAllNodeInnerText,
+  getNodeWithInnerTextList,
 } from '../find-v2'
 
 describe('createRegex', () => {
@@ -113,7 +113,7 @@ describe('getAllNodeInnerText', () => {
     noscript.textContent = 'abc'
     body.appendChild(noscript)
 
-    const result = getAllNodeInnerText({ body })
+    const result = getNodeWithInnerTextList({ body })
 
     expect(result).toHaveLength(0)
   })
@@ -125,7 +125,7 @@ describe('getAllNodeInnerText', () => {
     div.style.display = 'none'
     body.appendChild(div)
 
-    const result = getAllNodeInnerText({ body })
+    const result = getNodeWithInnerTextList({ body })
 
     expect(result).toHaveLength(0)
   })
@@ -137,7 +137,7 @@ describe('getAllNodeInnerText', () => {
     div.style.visibility = 'hidden'
     body.appendChild(div)
 
-    const result = getAllNodeInnerText({ body })
+    const result = getNodeWithInnerTextList({ body })
 
     expect(result).toHaveLength(0)
   })
@@ -149,7 +149,7 @@ describe('getAllNodeInnerText', () => {
     div.style.textTransform = 'uppercase'
     body.appendChild(div)
 
-    const result = getAllNodeInnerText({ body })
+    const result = getNodeWithInnerTextList({ body })
 
     expect(result.length).toBe(1)
     expect(result[0].innerText).toBe('ABC')
@@ -162,7 +162,7 @@ describe('getAllNodeInnerText', () => {
     div.style.textTransform = 'lowercase'
     body.appendChild(div)
 
-    const result = getAllNodeInnerText({ body })
+    const result = getNodeWithInnerTextList({ body })
 
     expect(result.length).toBe(1)
     expect(result[0].innerText).toBe('abc')
@@ -177,7 +177,7 @@ describe('getAllNodeInnerText', () => {
     div2.textContent = 'abc'
     body.appendChild(div2)
 
-    const result = getAllNodeInnerText({ body })
+    const result = getNodeWithInnerTextList({ body })
 
     expect(result.length).toBe(2)
     expect(result[0].innerText).toBe('abc\n')
