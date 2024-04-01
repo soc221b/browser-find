@@ -29,7 +29,7 @@ export default function _StyleSheet(): JSX.Element {
         display: flex;
         align-items: center;
         gap: 4px;
-        font-family: "Times New Roman", Times, serif;
+        font-family: Arial, Helvetica, sans-serif;
       }
 
       #browser-find-top-layer .input {
@@ -60,7 +60,7 @@ export default function _StyleSheet(): JSX.Element {
       #browser-find-top-layer #tooltip {
         width: max-content;
         position: absolute;
-        font-size: 12px;
+        font-size: 14px;
         line-height: 1;
         padding: 2px 4px;
         z-index 9999;
@@ -115,7 +115,7 @@ export default function _StyleSheet(): JSX.Element {
         }
 
         #browser-find-top-layer .input {
-          color: #D9D9D9;
+          color: #e3e3e3;
         }
 
         #browser-find-top-layer .input:hover:not(:focus) {
