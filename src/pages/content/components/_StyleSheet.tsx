@@ -91,11 +91,11 @@ export default function _StyleSheet(): JSX.Element {
 
       #browser-find-top-layer .icon:hover:not(:disabled),
       #browser-find-top-layer .icon:focus:not(:disabled) {
-        background-color: #EBEBEB;
+        background-color: #f4f4f4;
       }
 
       #browser-find-top-layer .icon[data-active='true'] {
-        background-color: #E1E1E1 !important;
+        background-color: #e5e5e5 !important;
       }
 
       #browser-find-top-layer .result {
@@ -111,7 +111,7 @@ export default function _StyleSheet(): JSX.Element {
       @media (prefers-color-scheme: dark) {
         #browser-find-top-layer .root {
           background-color: #1F1F1F;
-          box-shadow: 0px 3px 10px #161619;
+          box-shadow: 0px 2px 6px #000000;
         }
 
         #browser-find-top-layer .input {
@@ -146,7 +146,7 @@ export default function _StyleSheet(): JSX.Element {
         #browser-find-top-layer #tooltip {
           color: #EAEAEA;
           background-color: #2E2D32;
-          box-shadow: 0px 3px 10px #161619;
+          box-shadow: 0px 2px 6px #000000;
         }
       }
     `
