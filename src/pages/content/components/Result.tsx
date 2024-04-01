@@ -15,9 +15,11 @@ export default function Result(): JSX.Element {
       ?.focus()
   }
 
-  return (
+  return text ? (
     <div onClick={handleClick} className="result">
-      {text ? `${index}/${total}` : ' '}
+      {`${index}/${total}`}
     </div>
+  ) : (
+    <></>
   )
 }
