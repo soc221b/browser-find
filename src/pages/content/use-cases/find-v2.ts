@@ -20,6 +20,21 @@ export function createRegex({
   return new RegExp(pattern, flags)
 }
 
+export function createSearchStringList({
+  regex,
+  innerText,
+}: {
+  regex: RegExp
+  innerText: string
+}): string[] {
+  const searchStringList: string[] = []
+  let array: null | RegExpExecArray
+  while ((array = regex.exec(innerText)) !== null) {
+    searchStringList.push(array[0])
+  }
+  return searchStringList
+}
+
 export function getAllNodeInnerText({ body }: { body: HTMLElement }) {
   const treeWalker = document.createTreeWalker(body, NodeFilter.SHOW_TEXT)
   let node

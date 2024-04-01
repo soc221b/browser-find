@@ -1,4 +1,8 @@
-import { createRegex, getAllNodeInnerText } from '../find-v2'
+import {
+  createRegex,
+  createSearchStringList,
+  getAllNodeInnerText,
+} from '../find-v2'
 
 describe('createRegex', () => {
   const suits: {
@@ -56,6 +60,48 @@ describe('createRegex', () => {
   suits.forEach((suit) => {
     it(suit.name, () => {
       expect(createRegex(suit.param).toString()).toBe(String(suit.returnValue))
+    })
+  })
+})
+
+describe('createSearchStringList', () => {
+  const suits: {
+    name: string
+    param: {
+      innerText: string
+      regex: RegExp
+    }
+    returnValue: string[]
+  }[] = [
+    {
+      name: 'basic',
+      param: {
+        innerText: 'abc? ABC?D',
+        regex: /abc\?/gi,
+      },
+      returnValue: ['abc?', 'ABC?'],
+    },
+    {
+      name: 'match case',
+      param: {
+        innerText: 'abc? ABC? abc? ABC?',
+        regex: /abc\?/g,
+      },
+      returnValue: ['abc?', 'abc?'],
+    },
+    {
+      name: 'match whole word',
+      param: {
+        innerText: 'abc? ABc?abc? ABC?',
+        regex: /\babc\?\b/gi,
+      },
+      returnValue: ['ABc?'],
+    },
+  ]
+
+  suits.forEach((suit) => {
+    it(suit.name, () => {
+      expect(createSearchStringList(suit.param)).toEqual(suit.returnValue)
     })
   })
 })
