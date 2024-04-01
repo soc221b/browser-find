@@ -28,8 +28,8 @@ export default function _StyleSheet(): JSX.Element {
         border-radius: 8px;
         display: flex;
         align-items: center;
-        gap: 2px;
-        font-size: 14px;
+        gap: 4px;
+        font-family: "Times New Roman", Times, serif;
       }
 
       #browser-find-top-layer .input {
@@ -52,9 +52,6 @@ export default function _StyleSheet(): JSX.Element {
       #browser-find-top-layer .result {
         user-select: none;
         height: 32px;
-        min-width: 28px;
-        padding-left: 10px;
-        margin-left: -2px;
         display: flex;
         justify-content: end;
         align-items: center;
