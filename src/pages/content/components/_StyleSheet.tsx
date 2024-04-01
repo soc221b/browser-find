@@ -111,7 +111,7 @@ export default function _StyleSheet(): JSX.Element {
       @media (prefers-color-scheme: dark) {
         #browser-find-top-layer .root {
           background-color: #1F1F1F;
-          box-shadow: 0px 3px 10px #252525A4;
+          box-shadow: 0px 3px 10px #161619;
         }
 
         #browser-find-top-layer .input {
@@ -146,7 +146,7 @@ export default function _StyleSheet(): JSX.Element {
         #browser-find-top-layer #tooltip {
           color: #EAEAEA;
           background-color: #2E2D32;
-          box-shadow: 0px 3px 10px #252525A4;
+          box-shadow: 0px 3px 10px #161619;
         }
       }
     `
