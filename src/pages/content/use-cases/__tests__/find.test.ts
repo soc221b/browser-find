@@ -500,14 +500,33 @@ describe('createRangesList', () => {
       ],
     },
     (() => {
-      const nodeWithInnerTextList = Array(5000)
+      const node = document.createTextNode('aaa')
+      const nodeWithInnerTextList = [{ node, innerText: 'aaa' }]
+      const searchStringList = ['a', 'a', 'a']
+      const returnValue = [
+        [createRange({ node, startOffset: 0, endOffset: 1 })],
+        [createRange({ node, startOffset: 1, endOffset: 2 })],
+        [createRange({ node, startOffset: 2, endOffset: 3 })],
+      ]
+      return {
+        name: 'multiple matches in single node',
+        param: {
+          nodeWithInnerTextList,
+          searchStringList,
+          shouldMatchWholeWord: false,
+        },
+        returnValue,
+      }
+    })(),
+    (() => {
+      const nodeWithInnerTextList = Array(3)
         .fill('a')
         .map((textContent) => {
           const node = document.createTextNode(textContent)
           const innerText = textContent
           return { node, innerText }
         })
-      const searchStringList = Array(1000).fill('a')
+      const searchStringList = Array(3).fill('a')
       const returnValue = nodeWithInnerTextList.map(({ node }) => {
         return [
           createRange({
@@ -518,7 +537,99 @@ describe('createRangesList', () => {
         ]
       })
       return {
-        name: 'performance',
+        name: 'multiple matches in multiple nodes',
+        param: {
+          nodeWithInnerTextList,
+          searchStringList,
+          shouldMatchWholeWord: false,
+        },
+        returnValue,
+      }
+    })(),
+    (() => {
+      const textContent = 'a'
+      const searchStringLength = 500
+      const searchStringListLength = 20
+      const nodeWithInnerTextList = Array(
+        searchStringListLength * searchStringLength,
+      )
+        .fill(textContent)
+        .map((textContent) => {
+          const node = document.createTextNode(textContent)
+          const innerText = textContent
+          return { node, innerText }
+        })
+      const searchStringList = Array(searchStringListLength).fill(
+        textContent.repeat(searchStringLength),
+      )
+      const returnValue = nodeWithInnerTextList
+        .map(({ node }) => {
+          return [
+            createRange({
+              node,
+              startOffset: 0,
+              endOffset: textContent.length,
+            }),
+          ]
+        })
+        .reduce((acc, ranges) => {
+          if (acc[acc.length - 1] === undefined) {
+            acc.push([])
+          }
+          if (acc[acc.length - 1].length === searchStringLength) {
+            acc.push([])
+          }
+          acc[acc.length - 1].push(...ranges)
+          return acc
+        }, [] as Range[][])
+      return {
+        name: 'performance - multiple matches across multiple nodes',
+        param: {
+          nodeWithInnerTextList,
+          searchStringList,
+          shouldMatchWholeWord: false,
+        },
+        returnValue,
+      }
+    })(),
+    (() => {
+      const textContent = 'a'
+      const searchStringLength = 2
+      const searchStringListLength = 5000
+      const nodeWithInnerTextList = Array(
+        searchStringListLength * searchStringLength,
+      )
+        .fill(textContent)
+        .map((textContent) => {
+          const node = document.createTextNode(textContent)
+          const innerText = textContent
+          return { node, innerText }
+        })
+      const searchStringList = Array(searchStringListLength).fill(
+        textContent.repeat(searchStringLength),
+      )
+      const returnValue = nodeWithInnerTextList
+        .map(({ node }) => {
+          return [
+            createRange({
+              node,
+              startOffset: 0,
+              endOffset: textContent.length,
+            }),
+          ]
+        })
+        .reduce((acc, ranges) => {
+          if (acc[acc.length - 1] === undefined) {
+            acc.push([])
+          }
+          if (acc[acc.length - 1].length === searchStringLength) {
+            acc.push([])
+          }
+          acc[acc.length - 1].push(...ranges)
+          return acc
+        }, [] as Range[][])
+      return {
+        name: 'performance - multiple matches in multiple nodes',
         param: {
           nodeWithInnerTextList,
           searchStringList,
