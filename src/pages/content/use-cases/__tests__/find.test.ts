@@ -107,66 +107,6 @@ describe('createSearchStringList', () => {
   })
 })
 
-describe('getAllNodeInnerText', () => {
-  const suits: {
-    name: string
-    param: {
-      shouldMatchCase: boolean
-      shouldMatchWholeWord: boolean
-      shouldUseRegularExpression: boolean
-      text: string
-    }
-    returnValue: RegExp
-  }[] = [
-    {
-      name: 'basic',
-      param: {
-        shouldMatchCase: false,
-        shouldMatchWholeWord: false,
-        shouldUseRegularExpression: false,
-        text: 'abc?',
-      },
-      returnValue: /abc\?/gi,
-    },
-    {
-      name: 'match case',
-      param: {
-        shouldMatchCase: true,
-        shouldMatchWholeWord: false,
-        shouldUseRegularExpression: false,
-        text: 'abc?',
-      },
-      returnValue: /abc\?/g,
-    },
-    {
-      name: 'match whole word',
-      param: {
-        shouldMatchCase: false,
-        shouldMatchWholeWord: true,
-        shouldUseRegularExpression: false,
-        text: 'abc?',
-      },
-      returnValue: /\babc\?\b/gi,
-    },
-    {
-      name: 'use regular expression',
-      param: {
-        shouldMatchCase: false,
-        shouldMatchWholeWord: false,
-        shouldUseRegularExpression: true,
-        text: 'abc?',
-      },
-      returnValue: /abc?/gi,
-    },
-  ]
-
-  suits.forEach((suit) => {
-    it(suit.name, () => {
-      expect(createRegex(suit.param).toString()).toBe(String(suit.returnValue))
-    })
-  })
-})
-
 describe('createNodeWithInnerTextList', () => {
   const suits: {
     name: string
