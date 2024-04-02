@@ -83,3 +83,32 @@ export function getNodeWithInnerTextList({ body }: { body: HTMLElement }) {
   }
   return nodeWithInnerTextList
 }
+
+function match({
+  rangesList,
+  onMatch,
+}: {
+  rangesList: Range[][]
+  onMatch: (match: { id: string; scrollIntoView: () => void }) => void
+}) {
+  rangesList.forEach((ranges, index) => {
+    onMatch({
+      id: index.toString(),
+      scrollIntoView: () => {
+        CSS.highlights.set(
+          'browser-find',
+          new Highlight(
+            ...rangesList.slice(0, index).flat(),
+            ...rangesList.slice(index + 1).flat(),
+          ),
+        )
+        CSS.highlights.set('browser-find-match', new Highlight(...ranges))
+        ranges[0].startContainer.parentElement?.scrollIntoView({
+          behavior: 'instant',
+          block: 'nearest',
+          inline: 'nearest',
+        })
+      },
+    })
+  })
+}
