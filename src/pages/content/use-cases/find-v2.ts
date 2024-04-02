@@ -97,7 +97,11 @@ export function createSearchStringList({
   return searchStringList
 }
 
-export function createNodeWithInnerTextList({ body }: { body: HTMLElement }) {
+export function createNodeWithInnerTextList({
+  body,
+}: {
+  body: HTMLElement
+}): { node: Node; innerText: string }[] {
   const treeWalker = document.createTreeWalker(body, NodeFilter.SHOW_TEXT)
   let node
   let nodeWithInnerTextList: { node: Node; innerText: string }[] = []
