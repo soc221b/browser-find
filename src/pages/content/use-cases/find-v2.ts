@@ -47,6 +47,7 @@ const find: Find = ({
   const rangesList = createRangesList({
     nodeWithInnerTextList: nodeWithInnerTextList,
     searchStringList,
+    shouldMatchWholeWord,
   })
   console.log('rangesList', rangesList)
 
@@ -153,12 +154,14 @@ export function createNodeWithInnerTextList({
 export function createRangesList({
   nodeWithInnerTextList,
   searchStringList,
+  shouldMatchWholeWord,
 }: {
   nodeWithInnerTextList: {
     node: Node
     innerText: string
   }[]
   searchStringList: string[]
+  shouldMatchWholeWord: boolean
 }): Range[][] {
   const rangesList: Range[][] = []
 

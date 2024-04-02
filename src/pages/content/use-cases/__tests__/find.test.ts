@@ -184,6 +184,7 @@ describe('createRangesList', () => {
         innerText: string
       }[]
       searchStringList: string[]
+      shouldMatchWholeWord: boolean
     }
     returnValue: Range[][]
   }[] = [
@@ -196,6 +197,7 @@ describe('createRangesList', () => {
           { node: node3, innerText: innerText3 },
         ],
         searchStringList: ['a'],
+        shouldMatchWholeWord: false,
       },
       returnValue: [
         [createRange({ node: node1, startOffset: 0, endOffset: 1 })],
@@ -210,6 +212,7 @@ describe('createRangesList', () => {
           { node: node3, innerText: innerText3 },
         ],
         searchStringList: ['abc'],
+        shouldMatchWholeWord: false,
       },
       returnValue: [
         [createRange({ node: node1, startOffset: 0, endOffset: 3 })],
@@ -224,6 +227,7 @@ describe('createRangesList', () => {
           { node: node3, innerText: innerText3 },
         ],
         searchStringList: ['abcd'],
+        shouldMatchWholeWord: false,
       },
       returnValue: [
         [createRange({ node: node1, startOffset: 0, endOffset: 4 })],
@@ -238,6 +242,7 @@ describe('createRangesList', () => {
           { node: node3, innerText: innerText3 },
         ],
         searchStringList: ['abcde'],
+        shouldMatchWholeWord: false,
       },
       returnValue: [
         [
@@ -255,6 +260,7 @@ describe('createRangesList', () => {
           { node: node3, innerText: innerText3 },
         ],
         searchStringList: ['abcdef'],
+        shouldMatchWholeWord: false,
       },
       returnValue: [
         [
@@ -272,6 +278,7 @@ describe('createRangesList', () => {
           { node: node3, innerText: innerText3 },
         ],
         searchStringList: ['abcdefg'],
+        shouldMatchWholeWord: false,
       },
       returnValue: [
         [
@@ -289,6 +296,7 @@ describe('createRangesList', () => {
           { node: node3, innerText: innerText3 },
         ],
         searchStringList: ['abcdefgh'],
+        shouldMatchWholeWord: false,
       },
       returnValue: [
         [
@@ -307,6 +315,7 @@ describe('createRangesList', () => {
           { node: node3, innerText: innerText3 },
         ],
         searchStringList: ['abcdefghi'],
+        shouldMatchWholeWord: false,
       },
       returnValue: [
         [
@@ -325,6 +334,7 @@ describe('createRangesList', () => {
           { node: node3, innerText: innerText3 },
         ],
         searchStringList: ['b'],
+        shouldMatchWholeWord: false,
       },
       returnValue: [
         [createRange({ node: node1, startOffset: 1, endOffset: 2 })],
@@ -339,6 +349,7 @@ describe('createRangesList', () => {
           { node: node3, innerText: innerText3 },
         ],
         searchStringList: ['bc'],
+        shouldMatchWholeWord: false,
       },
       returnValue: [
         [createRange({ node: node1, startOffset: 1, endOffset: 3 })],
@@ -353,6 +364,7 @@ describe('createRangesList', () => {
           { node: node3, innerText: innerText3 },
         ],
         searchStringList: ['bcd'],
+        shouldMatchWholeWord: false,
       },
       returnValue: [
         [createRange({ node: node1, startOffset: 1, endOffset: 4 })],
@@ -367,6 +379,7 @@ describe('createRangesList', () => {
           { node: node3, innerText: innerText3 },
         ],
         searchStringList: ['bcdef'],
+        shouldMatchWholeWord: false,
       },
       returnValue: [
         [
@@ -384,6 +397,7 @@ describe('createRangesList', () => {
           { node: node3, innerText: innerText3 },
         ],
         searchStringList: ['bcdefg'],
+        shouldMatchWholeWord: false,
       },
       returnValue: [
         [
@@ -401,6 +415,7 @@ describe('createRangesList', () => {
           { node: node3, innerText: innerText3 },
         ],
         searchStringList: ['bcdefgh'],
+        shouldMatchWholeWord: false,
       },
       returnValue: [
         [
@@ -419,6 +434,7 @@ describe('createRangesList', () => {
           { node: node3, innerText: innerText3 },
         ],
         searchStringList: ['bcdefghi'],
+        shouldMatchWholeWord: false,
       },
       returnValue: [
         [
@@ -437,6 +453,7 @@ describe('createRangesList', () => {
           { node: node3, innerText: innerText3 },
         ],
         searchStringList: ['d'],
+        shouldMatchWholeWord: false,
       },
       returnValue: [
         [createRange({ node: node1, startOffset: 3, endOffset: 4 })],
@@ -451,6 +468,7 @@ describe('createRangesList', () => {
           { node: node3, innerText: innerText3 },
         ],
         searchStringList: ['def'],
+        shouldMatchWholeWord: false,
       },
       returnValue: [
         [createRange({ node: node1, startOffset: 3, endOffset: 4 })],
@@ -466,11 +484,40 @@ describe('createRangesList', () => {
           { node: node3, innerText: innerText3 },
         ],
         searchStringList: ['ef'],
+        shouldMatchWholeWord: false,
       },
       returnValue: [
         [createRange({ node: node2, startOffset: 0, endOffset: 2 })],
       ],
     },
+    (() => {
+      const nodeWithInnerTextList = Array(5000)
+        .fill('a')
+        .map((textContent) => {
+          const node = document.createTextNode(textContent)
+          const innerText = textContent
+          return { node, innerText }
+        })
+      const searchStringList = Array(1000).fill('a')
+      const returnValue = nodeWithInnerTextList.map(({ node }) => {
+        return [
+          createRange({
+            node,
+            startOffset: 0,
+            endOffset: 1,
+          }),
+        ]
+      })
+      return {
+        name: 'performance',
+        param: {
+          nodeWithInnerTextList,
+          searchStringList,
+          shouldMatchWholeWord: false,
+        },
+        returnValue,
+      }
+    })(),
   ]
 
   suits.forEach((suit) => {
