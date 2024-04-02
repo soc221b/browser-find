@@ -24,6 +24,10 @@ const find: Find = ({
     isCancelled = true
   }
 
+  if (text === '') {
+    return cancel
+  }
+
   console.log('====')
   const regex = createRegex({
     text,
