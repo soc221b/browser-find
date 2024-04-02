@@ -107,84 +107,123 @@ describe('createSearchStringList', () => {
 })
 
 describe('getAllNodeInnerText', () => {
-  it('should ignore <noscript>', () => {
+  const suits: {
+    name: string
+    param: {
+      shouldMatchCase: boolean
+      shouldMatchWholeWord: boolean
+      shouldUseRegularExpression: boolean
+      text: string
+    }
+    returnValue: RegExp
+  }[] = [
+    {
+      name: 'basic',
+      param: {
+        shouldMatchCase: false,
+        shouldMatchWholeWord: false,
+        shouldUseRegularExpression: false,
+        text: 'abc?',
+      },
+      returnValue: /abc\?/gi,
+    },
+    {
+      name: 'match case',
+      param: {
+        shouldMatchCase: true,
+        shouldMatchWholeWord: false,
+        shouldUseRegularExpression: false,
+        text: 'abc?',
+      },
+      returnValue: /abc\?/g,
+    },
+    {
+      name: 'match whole word',
+      param: {
+        shouldMatchCase: false,
+        shouldMatchWholeWord: true,
+        shouldUseRegularExpression: false,
+        text: 'abc?',
+      },
+      returnValue: /\babc\?\b/gi,
+    },
+    {
+      name: 'use regular expression',
+      param: {
+        shouldMatchCase: false,
+        shouldMatchWholeWord: false,
+        shouldUseRegularExpression: true,
+        text: 'abc?',
+      },
+      returnValue: /abc?/gi,
+    },
+  ]
+
+  suits.forEach((suit) => {
+    it(suit.name, () => {
+      expect(createRegex(suit.param).toString()).toBe(String(suit.returnValue))
+    })
+  })
+})
+
+describe('createSearchStringList', () => {
+  const suits: {
+    name: string
+    param: {
+      body: HTMLBodyElement
+    }
+    returnValue: { node: Node; innerText: string }[]
+  }[] = [
+    {
+      name: 'should ignore <noscript>',
+      param: {
+        body: createElementBody(`<noscript>abc</noscript>`),
+      },
+      returnValue: [],
+    },
+    {
+      name: 'should ignore display: none',
+      param: {
+        body: createElementBody(`<span style="display: none;">abc</span>`),
+      },
+      returnValue: [],
+    },
+    {
+      name: 'should ignore visibility: hidden',
+      param: {
+        body: createElementBody(`<span style="visibility: hidden;">abc</span>`),
+      },
+      returnValue: [],
+    },
+    {
+      name: 'should do text transform: uppercase',
+      param: {
+        body: createElementBody(
+          `<span style="text-transform: uppercase;">abc</span>`,
+        ),
+      },
+      returnValue: [{ node: document.createTextNode('abc'), innerText: 'ABC' }],
+    },
+    {
+      name: 'should do text transform: lowercase',
+      param: {
+        body: createElementBody(
+          `<span style="text-transform: lowercase;">ABC</span>`,
+        ),
+      },
+      returnValue: [{ node: document.createTextNode('ABC'), innerText: 'abc' }],
+    },
+  ]
+
+  suits.forEach((suit) => {
+    it(suit.name, () => {
+      expect(getNodeWithInnerTextList(suit.param)).toEqual(suit.returnValue)
+    })
+  })
+
+  function createElementBody(innerHTML: string): HTMLBodyElement {
     const body = document.createElement('body')
-    const noscript = document.createElement('noscript')
-    noscript.textContent = 'abc'
-    body.appendChild(noscript)
-
-    const actual = getNodeWithInnerTextList({ body })
-
-    expect(actual).toHaveLength(0)
-  })
-
-  it('should ignore display: none', () => {
-    const body = document.createElement('body')
-    const div = document.createElement('span')
-    div.textContent = 'abc'
-    div.style.display = 'none'
-    body.appendChild(div)
-
-    const actual = getNodeWithInnerTextList({ body })
-
-    expect(actual).toHaveLength(0)
-  })
-
-  it('should ignore visibility: hidden', () => {
-    const body = document.createElement('body')
-    const div = document.createElement('span')
-    div.textContent = 'abc'
-    div.style.visibility = 'hidden'
-    body.appendChild(div)
-
-    const actual = getNodeWithInnerTextList({ body })
-
-    expect(actual).toHaveLength(0)
-  })
-
-  it('should works with textTransform: uppercase', () => {
-    const body = document.createElement('body')
-    const div = document.createElement('span')
-    div.textContent = 'ABc'
-    div.style.textTransform = 'uppercase'
-    body.appendChild(div)
-
-    const actual = getNodeWithInnerTextList({ body })
-
-    expect(actual.length).toBe(1)
-    expect(actual[0].innerText).toBe('ABC')
-  })
-
-  it('should works with textTransform: lowercase', () => {
-    const body = document.createElement('body')
-    const div = document.createElement('span')
-    div.textContent = 'ABc'
-    div.style.textTransform = 'lowercase'
-    body.appendChild(div)
-
-    const actual = getNodeWithInnerTextList({ body })
-
-    expect(actual.length).toBe(1)
-    expect(actual[0].innerText).toBe('abc')
-  })
-
-  it('should add line breaks between nodes', () => {
-    const body = document.createElement('body')
-    const div1 = document.createElement('div')
-    div1.textContent = 'abc'
-    body.appendChild(div1)
-    const div2 = document.createElement('div')
-    div2.textContent = 'abc'
-    body.appendChild(div2)
-
-    const actual = getNodeWithInnerTextList({ body })
-
-    expect(actual.length).toBe(2)
-    expect(actual[0].innerText).toBe('abc\n')
-    expect(actual[1].innerText).toBe('abc')
-  })
-
-  it.skip('should works with white-space', () => {
-    // TODO: https://stackoverflow.com/a/19032002
-  })
+    body.innerHTML = innerHTML
+    return body
+  }
 })

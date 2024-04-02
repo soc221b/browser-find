@@ -74,17 +74,12 @@ export function getNodeWithInnerTextList({ body }: { body: HTMLElement }) {
           innerText = innerText.toLowerCase()
         }
       }
-      innerText = innerText.trim() + '\n'
 
       nodeWithInnerTextList.push({
         node,
         innerText,
       })
     }
-  }
-  if (nodeWithInnerTextList.length) {
-    nodeWithInnerTextList[nodeWithInnerTextList.length - 1].innerText =
-      nodeWithInnerTextList[nodeWithInnerTextList.length - 1].innerText.trim()
   }
   return nodeWithInnerTextList
 }
