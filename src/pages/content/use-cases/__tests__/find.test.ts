@@ -167,7 +167,7 @@ describe('getAllNodeInnerText', () => {
   })
 })
 
-describe('createSearchStringList', () => {
+describe('createNodeWithInnerTextList', () => {
   const suits: {
     name: string
     param: {
