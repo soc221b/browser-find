@@ -140,6 +140,7 @@ export function createNodeWithInnerTextList({
         if (parentComputedStyle.textTransform === 'lowercase') {
           innerText = innerText.toLowerCase()
         }
+        innerText = innerText.trim()
       }
 
       nodeWithInnerTextList.push({

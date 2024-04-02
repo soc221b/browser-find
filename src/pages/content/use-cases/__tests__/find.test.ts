@@ -154,6 +154,15 @@ describe('createNodeWithInnerTextList', () => {
       },
       returnValue: [{ node: document.createTextNode('ABC'), innerText: 'abc' }],
     },
+    {
+      name: 'should trim',
+      param: {
+        body: createElementBody(`<span"> abc </span>`),
+      },
+      returnValue: [
+        { node: document.createTextNode(' abc '), innerText: 'abc' },
+      ],
+    },
   ]
 
   suits.forEach((suit) => {
