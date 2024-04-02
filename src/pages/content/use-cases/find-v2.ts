@@ -1,3 +1,65 @@
+type Find = (_: {
+  text: string
+
+  shouldMatchCase: boolean
+
+  shouldMatchWholeWord: boolean
+
+  shouldUseRegularExpression: boolean
+
+  onMatch: (match: { id: string; scrollIntoView: () => void }) => void
+}) => Cancel
+
+type Cancel = () => void
+
+const find: Find = ({
+  text,
+  shouldMatchCase,
+  shouldMatchWholeWord,
+  shouldUseRegularExpression,
+  onMatch,
+}) => {
+  let isCancelled = false
+  const cancel = () => {
+    isCancelled = true
+  }
+
+  console.log('====')
+  const regex = createRegex({
+    text,
+    shouldMatchCase,
+    shouldMatchWholeWord,
+    shouldUseRegularExpression,
+  })
+  console.log('regex', regex)
+
+  const nodeWithInnerTextList = getNodeWithInnerTextList({
+    body: document.body,
+  })
+  console.log('nodeWithInnerTextList', nodeWithInnerTextList)
+
+  const searchStringList = createSearchStringList({
+    regex,
+    innerText: document.body.innerText,
+  })
+  console.log('searchStringList', searchStringList)
+
+  const rangesList = createRangesList({
+    nodeWithInnerTextList: nodeWithInnerTextList,
+    searchStringList,
+  })
+  console.log('rangesList', rangesList)
+
+  match({
+    rangesList,
+    onMatch,
+  })
+
+  return cancel
+}
+
+export default find
+
 export function createRegex({
   text,
   shouldMatchCase,

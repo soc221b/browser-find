@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import find from '../use-cases/find'
+import find from '../use-cases/find-v2'
 import useStore from '../store'
 
 export default function _Find(): JSX.Element {
