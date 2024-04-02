@@ -24,6 +24,9 @@ const find: Find = ({
     isCancelled = true
   }
 
+  CSS.highlights.delete('browser-find')
+  CSS.highlights.delete('browser-find-match')
+
   if (text === '') {
     return cancel
   }
