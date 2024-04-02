@@ -2,7 +2,7 @@ import {
   createRangesList,
   createRegex,
   createSearchStringList,
-  getNodeWithInnerTextList,
+  createNodeWithInnerTextList,
 } from '../find-v2'
 
 describe('createRegex', () => {
@@ -218,7 +218,7 @@ describe('createSearchStringList', () => {
 
   suits.forEach((suit) => {
     it(suit.name, () => {
-      expect(getNodeWithInnerTextList(suit.param)).toEqual(suit.returnValue)
+      expect(createNodeWithInnerTextList(suit.param)).toEqual(suit.returnValue)
     })
   })
 

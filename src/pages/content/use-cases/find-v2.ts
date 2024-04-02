@@ -33,7 +33,7 @@ const find: Find = ({
   })
   console.log('regex', regex)
 
-  const nodeWithInnerTextList = getNodeWithInnerTextList({
+  const nodeWithInnerTextList = createNodeWithInnerTextList({
     body: document.body,
   })
   console.log('nodeWithInnerTextList', nodeWithInnerTextList)
@@ -97,7 +97,7 @@ export function createSearchStringList({
   return searchStringList
 }
 
-export function getNodeWithInnerTextList({ body }: { body: HTMLElement }) {
+export function createNodeWithInnerTextList({ body }: { body: HTMLElement }) {
   const treeWalker = document.createTreeWalker(body, NodeFilter.SHOW_TEXT)
   let node
   let nodeWithInnerTextList: { node: Node; innerText: string }[] = []
