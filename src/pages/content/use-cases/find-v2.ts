@@ -84,6 +84,41 @@ export function getNodeWithInnerTextList({ body }: { body: HTMLElement }) {
   return nodeWithInnerTextList
 }
 
+export function createRangesList({
+  nodeWithInnerTextList,
+  searchStringList,
+}: {
+  nodeWithInnerTextList: {
+    node: Node
+    innerText: string
+  }[]
+  searchStringList: string[]
+}): Range[][] {
+  const rangesList: Range[][] = []
+
+  let index = 0
+  searchStringList.forEach((searchString) => {
+    const ranges: Range[] = []
+
+    return ranges
+  })
+
+  const range = new Range()
+  if (searchStringList.includes('Do not share my personal information')) {
+    const tempNodeWithInnerText =
+      nodeWithInnerTextList[nodeWithInnerTextList.length - 2]
+    console.log('123', tempNodeWithInnerText)
+    range.setStart(tempNodeWithInnerText.node, 0)
+    range.setEnd(
+      tempNodeWithInnerText.node,
+      tempNodeWithInnerText.node.textContent!.length,
+    )
+    rangesList.push([range])
+  }
+
+  return rangesList
+}
+
 function match({
   rangesList,
   onMatch,
