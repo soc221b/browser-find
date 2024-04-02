@@ -113,9 +113,9 @@ describe('getAllNodeInnerText', () => {
     noscript.textContent = 'abc'
     body.appendChild(noscript)
 
-    const result = getNodeWithInnerTextList({ body })
+    const actual = getNodeWithInnerTextList({ body })
 
-    expect(result).toHaveLength(0)
+    expect(actual).toHaveLength(0)
   })
 
   it('should ignore display: none', () => {
@@ -125,9 +125,9 @@ describe('getAllNodeInnerText', () => {
     div.style.display = 'none'
     body.appendChild(div)
 
-    const result = getNodeWithInnerTextList({ body })
+    const actual = getNodeWithInnerTextList({ body })
 
-    expect(result).toHaveLength(0)
+    expect(actual).toHaveLength(0)
   })
 
   it('should ignore visibility: hidden', () => {
@@ -137,9 +137,9 @@ describe('getAllNodeInnerText', () => {
     div.style.visibility = 'hidden'
     body.appendChild(div)
 
-    const result = getNodeWithInnerTextList({ body })
+    const actual = getNodeWithInnerTextList({ body })
 
-    expect(result).toHaveLength(0)
+    expect(actual).toHaveLength(0)
   })
 
   it('should works with textTransform: uppercase', () => {
@@ -149,10 +149,10 @@ describe('getAllNodeInnerText', () => {
     div.style.textTransform = 'uppercase'
     body.appendChild(div)
 
-    const result = getNodeWithInnerTextList({ body })
+    const actual = getNodeWithInnerTextList({ body })
 
-    expect(result.length).toBe(1)
-    expect(result[0].innerText).toBe('ABC')
+    expect(actual.length).toBe(1)
+    expect(actual[0].innerText).toBe('ABC')
   })
 
   it('should works with textTransform: lowercase', () => {
@@ -162,10 +162,10 @@ describe('getAllNodeInnerText', () => {
     div.style.textTransform = 'lowercase'
     body.appendChild(div)
 
-    const result = getNodeWithInnerTextList({ body })
+    const actual = getNodeWithInnerTextList({ body })
 
-    expect(result.length).toBe(1)
-    expect(result[0].innerText).toBe('abc')
+    expect(actual.length).toBe(1)
+    expect(actual[0].innerText).toBe('abc')
   })
 
   it('should add line breaks between nodes', () => {
@@ -177,11 +177,11 @@ describe('getAllNodeInnerText', () => {
     div2.textContent = 'abc'
     body.appendChild(div2)
 
-    const result = getNodeWithInnerTextList({ body })
+    const actual = getNodeWithInnerTextList({ body })
 
-    expect(result.length).toBe(2)
-    expect(result[0].innerText).toBe('abc\n')
-    expect(result[1].innerText).toBe('abc')
+    expect(actual.length).toBe(2)
+    expect(actual[0].innerText).toBe('abc\n')
+    expect(actual[1].innerText).toBe('abc')
   })
 
   it.skip('should works with white-space', () => {
