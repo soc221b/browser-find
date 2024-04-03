@@ -223,7 +223,7 @@ export function createRangesList({
      */
     let walkingIndexOfNodeWithInnerTextInfoList =
       usedIndexOfNodeWithInnerTextInfoList
-    while (
+    level2: while (
       walkingIndexOfNodeWithInnerTextInfoList < nodeWithInnerTextInfoList.length
     ) {
       const nodeWithInnerTextInfo =
@@ -275,17 +275,35 @@ export function createRangesList({
         while (restOfSearchString.length) {
           const currentNodeWithInnerTextInfo =
             nodeWithInnerTextInfoList[matchedIndexOfNodeWithInnerTextInfoList]
+          endOffset = Math.min(
+            currentNodeWithInnerTextInfo.node.textContent!.length,
+            currentNodeWithInnerTextInfo.innerText.length,
+            startOffset + restOfSearchString.length,
+          )
+          restOfSearchString = restOfSearchString.slice(
+            endOffset -
+              startOffset +
+              (/\s$/.test(currentNodeWithInnerTextInfo.innerText) ? 1 : 0),
+          )
+          if (shouldMatchWholeWord) {
+            if (startOffset !== 0) {
+              ++walkingIndexOfNodeWithInnerTextInfoList
+              continue level2
+            }
+            if (
+              restOfSearchString === '' &&
+              endOffset !== currentNodeWithInnerTextInfo.innerText.length
+            ) {
+              ++walkingIndexOfNodeWithInnerTextInfoList
+              continue level2
+            }
+          }
           const range = new Range()
           range.setStart(
             currentNodeWithInnerTextInfo.node,
             startOffset +
               (currentNodeWithInnerTextInfo.node.textContent!.match(/^\s+/)?.[0]
                 .length ?? 0),
-          )
-          endOffset = Math.min(
-            currentNodeWithInnerTextInfo.node.textContent!.length,
-            currentNodeWithInnerTextInfo.innerText.length,
-            startOffset + restOfSearchString.length,
           )
           range.setEnd(
             currentNodeWithInnerTextInfo.node,
@@ -294,11 +312,6 @@ export function createRangesList({
                 .length ?? 0),
           )
           ranges.push(range)
-          restOfSearchString = restOfSearchString.slice(
-            endOffset -
-              startOffset +
-              (/\s$/.test(currentNodeWithInnerTextInfo.innerText) ? 1 : 0),
-          )
           startOffset = 0
           if (endOffset === currentNodeWithInnerTextInfo.innerText.length) {
             endOffset = 0

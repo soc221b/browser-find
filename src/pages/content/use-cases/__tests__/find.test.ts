@@ -538,6 +538,58 @@ describe('createRangesList', () => {
       ],
     },
     (() => {
+      const nodeWithInnerTextList = ['abc', 'ab'].map((textContent, index) => {
+        const node = document.createTextNode(textContent)
+        const innerText = textContent + (index === 0 ? ' ' : '')
+        return { node, innerText }
+      })
+      const searchStringList = ['ab']
+      const returnValue = [
+        [
+          createRange({
+            node: nodeWithInnerTextList[1].node,
+            startOffset: 0,
+            endOffset: 2,
+          }),
+        ],
+      ]
+      return {
+        name: 'abc _ab_',
+        param: {
+          nodeWithInnerTextList,
+          searchStringList,
+          shouldMatchWholeWord: true,
+        },
+        returnValue,
+      }
+    })(),
+    (() => {
+      const nodeWithInnerTextList = ['abc', 'bc'].map((textContent, index) => {
+        const node = document.createTextNode(textContent)
+        const innerText = textContent + (index === 0 ? ' ' : '')
+        return { node, innerText }
+      })
+      const searchStringList = ['bc']
+      const returnValue = [
+        [
+          createRange({
+            node: nodeWithInnerTextList[1].node,
+            startOffset: 0,
+            endOffset: 2,
+          }),
+        ],
+      ]
+      return {
+        name: 'abc _bc_',
+        param: {
+          nodeWithInnerTextList,
+          searchStringList,
+          shouldMatchWholeWord: true,
+        },
+        returnValue,
+      }
+    })(),
+    (() => {
       const nodeWithInnerTextList = ['a', 'b'].map((textContent, index) => {
         const node = document.createTextNode(textContent)
         const innerText = textContent + (index === 0 ? ' ' : '')
