@@ -231,6 +231,28 @@ describe('createNodeWithInnerTextList', () => {
         { node: document.createTextNode('b\n\t '), innerText: 'b' },
       ],
     },
+    {
+      name: 'performance: deep nested elements',
+      param: {
+        documentElement: createDocumentElement(
+          `<span>`.repeat(512) + 'abc' + `</span>`.repeat(512),
+        ),
+      },
+      returnValue: [{ node: document.createTextNode('abc'), innerText: 'abc' }],
+    },
+    {
+      name: 'performance: lots of siblings',
+      param: {
+        documentElement: createDocumentElement(`<span>abc</span>`.repeat(1024)),
+      },
+      returnValue: Array(1024)
+        .fill(null)
+        .map(() => ({
+          node: document.createTextNode('abc'),
+          innerText: 'abc',
+        })),
+    },
+
     // TODO: shadow DOM
 
     // TODO: https://kangax.github.io/jstests/innerText/
