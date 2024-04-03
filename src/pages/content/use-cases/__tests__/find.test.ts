@@ -56,6 +56,16 @@ describe('createRegex', () => {
       },
       returnValue: /abc?/gi,
     },
+    {
+      name: 'ignore invalid regular expression',
+      param: {
+        shouldMatchCase: false,
+        shouldMatchWholeWord: false,
+        shouldUseRegularExpression: true,
+        text: '(',
+      },
+      returnValue: /^\b$/,
+    },
   ]
 
   suits.forEach((suit) => {

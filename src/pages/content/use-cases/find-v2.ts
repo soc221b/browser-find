@@ -81,15 +81,19 @@ export function createRegex({
   shouldMatchWholeWord: boolean
   shouldUseRegularExpression: boolean
 }): RegExp {
-  let pattern = text
-  pattern = shouldUseRegularExpression
-    ? pattern
-    : pattern.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') // https://stackoverflow.com/a/9310752/7122623
-  pattern = shouldMatchWholeWord ? `\\b${pattern}\\b` : `${pattern}`
-  let flags = ''
-  flags += 'g'
-  flags += shouldMatchCase ? '' : 'i'
-  return new RegExp(pattern, flags)
+  try {
+    let pattern = text
+    pattern = shouldUseRegularExpression
+      ? pattern
+      : pattern.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') // https://stackoverflow.com/a/9310752/7122623
+    pattern = shouldMatchWholeWord ? `\\b${pattern}\\b` : `${pattern}`
+    let flags = ''
+    flags += 'g'
+    flags += shouldMatchCase ? '' : 'i'
+    return new RegExp(pattern, flags)
+  } catch {
+    return new RegExp('^\\b$')
+  }
 }
 
 export function createSearchStringList({
