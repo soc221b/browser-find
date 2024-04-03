@@ -31,32 +31,34 @@ const find: Find = ({
     return cancel
   }
 
-  console.log('====')
   const regex = createRegex({
     text,
     shouldMatchCase,
     shouldMatchWholeWord,
     shouldUseRegularExpression,
   })
-  console.log('regex', regex)
+  console.debug('[chrome-extension] [find] regex', regex)
 
   const nodeWithInnerTextList = createNodeWithInnerTextList({
     body: document.body,
   })
-  console.log('nodeWithInnerTextList', nodeWithInnerTextList)
+  console.debug(
+    '[chrome-extension] [find] nodeWithInnerTextList',
+    nodeWithInnerTextList,
+  )
 
   const searchStringList = createSearchStringList({
     regex,
     innerText: document.body.innerText,
   })
-  console.log('searchStringList', searchStringList)
+  console.debug('[chrome-extension] [find] searchStringList', searchStringList)
 
   const rangesList = createRangesList({
     nodeWithInnerTextList: nodeWithInnerTextList,
     searchStringList,
     shouldMatchWholeWord,
   })
-  console.log('rangesList', rangesList)
+  console.debug('[chrome-extension] [find] rangesList', rangesList)
 
   match({
     rangesList,
