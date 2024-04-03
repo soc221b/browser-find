@@ -602,6 +602,34 @@ describe('createRangesList', () => {
       }
     })(),
     (() => {
+      const nodeWithInnerTextList = Array(3)
+        .fill('\n a\n ')
+        .map((textContent) => {
+          const node = document.createTextNode(textContent)
+          const innerText = textContent.trim()
+          return { node, innerText }
+        })
+      const searchStringList = Array(3).fill('a')
+      const returnValue = nodeWithInnerTextList.map(({ node }) => {
+        return [
+          createRange({
+            node,
+            startOffset: 2,
+            endOffset: 3,
+          }),
+        ]
+      })
+      return {
+        name: 'adjust offset for spaces',
+        param: {
+          nodeWithInnerTextList,
+          searchStringList,
+          shouldMatchWholeWord: false,
+        },
+        returnValue,
+      }
+    })(),
+    (() => {
       const nodeWithInnerTextList = Array(5e4)
         .fill('b')
         .map((textContent) => {

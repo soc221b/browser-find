@@ -255,12 +255,22 @@ export function createRangesList({
           const currentNodeWithInnerTextInfo =
             nodeWithInnerTextInfoList[matchedIndexOfNodeWithInnerTextInfoList]
           const range = new Range()
-          range.setStart(currentNodeWithInnerTextInfo.node, startOffset)
+          range.setStart(
+            currentNodeWithInnerTextInfo.node,
+            startOffset +
+              (currentNodeWithInnerTextInfo.node.textContent!.match(/^\s+/)?.[0]
+                .length ?? 0),
+          )
           endOffset = Math.min(
             currentNodeWithInnerTextInfo.innerText.length,
             startOffset + restOfSearchString.length,
           )
-          range.setEnd(currentNodeWithInnerTextInfo.node, endOffset)
+          range.setEnd(
+            currentNodeWithInnerTextInfo.node,
+            endOffset +
+              (currentNodeWithInnerTextInfo.node.textContent!.match(/^\s+/)?.[0]
+                .length ?? 0),
+          )
           ranges.push(range)
           restOfSearchString = restOfSearchString.slice(endOffset - startOffset)
           startOffset = 0
