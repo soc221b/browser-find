@@ -527,6 +527,37 @@ describe('createRangesList', () => {
       ],
     },
     (() => {
+      const nodeWithInnerTextList = ['a', 'b'].map((textContent, index) => {
+        const node = document.createTextNode(textContent)
+        const innerText = textContent + (index === 0 ? ' ' : '')
+        return { node, innerText }
+      })
+      const searchStringList = ['a b']
+      const returnValue = [
+        [
+          createRange({
+            node: nodeWithInnerTextList[0].node,
+            startOffset: 0,
+            endOffset: 1,
+          }),
+          createRange({
+            node: nodeWithInnerTextList[1].node,
+            startOffset: 0,
+            endOffset: 1,
+          }),
+        ],
+      ]
+      return {
+        name: 'matches across nodes',
+        param: {
+          nodeWithInnerTextList,
+          searchStringList,
+          shouldMatchWholeWord: false,
+        },
+        returnValue,
+      }
+    })(),
+    (() => {
       const nodeWithInnerTextList = Array(10)
         .fill('b')
         .map((textContent) => {

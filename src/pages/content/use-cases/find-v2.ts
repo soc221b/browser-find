@@ -269,6 +269,7 @@ export function createRangesList({
                 .length ?? 0),
           )
           endOffset = Math.min(
+            currentNodeWithInnerTextInfo.node.textContent!.length,
             currentNodeWithInnerTextInfo.innerText.length,
             startOffset + restOfSearchString.length,
           )
@@ -279,7 +280,11 @@ export function createRangesList({
                 .length ?? 0),
           )
           ranges.push(range)
-          restOfSearchString = restOfSearchString.slice(endOffset - startOffset)
+          restOfSearchString = restOfSearchString.slice(
+            endOffset -
+              startOffset +
+              (/\s$/.test(currentNodeWithInnerTextInfo.innerText) ? 1 : 0),
+          )
           startOffset = 0
           if (endOffset === currentNodeWithInnerTextInfo.innerText.length) {
             ++usedIndexOfNodeWithInnerTextInfoList
