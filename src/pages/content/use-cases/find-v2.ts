@@ -316,13 +316,15 @@ export function createRangesList({
             console.debug(
               '[chrome-extension] [find] invalid start/end offset',
               {
+                searchStringList,
+                usedIndexOfSearchStringList,
                 nodeWithInnerTextInfoList,
-                walkingIndexOfNodeWithInnerTextInfoList,
                 usedIndexOfNodeWithInnerTextInfoList,
-                nodeWithInnerTextInfo,
+                searchString,
+                walkingIndexOfNodeWithInnerTextInfoList,
+                matchedIndexOfNodeWithInnerTextInfoList,
                 startOffset,
                 endOffset,
-                searchString,
                 restOfSearchString,
               },
             )
