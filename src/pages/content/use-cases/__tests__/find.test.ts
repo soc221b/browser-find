@@ -621,6 +621,39 @@ describe('createRangesList', () => {
       }
     })(),
     (() => {
+      const nodes: Node[] = []
+      nodes.push(document.createTextNode('a '))
+      nodes.push(document.createTextNode('b'))
+      const nodeWithInnerTextList = nodes.map((node, index) => {
+        const innerText = node.textContent!.trim() + (index === 0 ? ' ' : '')
+        return { node, innerText }
+      })
+      const searchStringList = ['a b']
+      const returnValue = [
+        [
+          createRange({
+            node: nodeWithInnerTextList[0].node,
+            startOffset: 0,
+            endOffset: 1,
+          }),
+          createRange({
+            node: nodeWithInnerTextList[1].node,
+            startOffset: 0,
+            endOffset: 1,
+          }),
+        ],
+      ]
+      return {
+        name: 'spaces at the end of textContent should not be taken',
+        param: {
+          nodeWithInnerTextList,
+          searchStringList,
+          shouldMatchWholeWord: false,
+        },
+        returnValue,
+      }
+    })(),
+    (() => {
       const nodeWithInnerTextList = Array(10)
         .fill('b')
         .map((textContent) => {

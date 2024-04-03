@@ -303,7 +303,7 @@ export function createRangesList({
           const nodeWithInnerTextInfo =
             nodeWithInnerTextInfoList[startOffsetOfNodeWithInnerTextInfoList]
           endOffset = Math.min(
-            nodeWithInnerTextInfo.node.textContent!.length,
+            nodeWithInnerTextInfo.node.textContent!.trim().length,
             nodeWithInnerTextInfo.innerText.length,
             startOffset + restOfSearchString.length,
           )
