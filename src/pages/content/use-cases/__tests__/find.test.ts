@@ -222,6 +222,13 @@ describe('createNodeWithInnerTextList', () => {
       ],
     },
     {
+      name: 'should trim leading spaces if previous child node is br',
+      param: {
+        documentElement: createDocumentElement(`<br>\na`),
+      },
+      returnValue: [{ node: document.createTextNode('\na'), innerText: 'a' }],
+    },
+    {
       name: 'should trim trailing spaces of last child node',
       param: {
         documentElement: createDocumentElement(`<span>a</span>b\n\t `),

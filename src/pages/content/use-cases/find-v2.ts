@@ -185,14 +185,21 @@ export function createNodeWithInnerTextList({
             ) {
               innerText = innerText.toLowerCase()
             }
-            if (parentElement.childNodes[0] === childNode) {
+            const index = Array.from(parentElement.childNodes).indexOf(
+              childNode,
+            )
+            if (index === 0) {
+              innerText = innerText.replace(/^\s+/, '')
+            } else if (
+              parentElement.childNodes[index - 1] instanceof HTMLBRElement
+            ) {
               innerText = innerText.replace(/^\s+/, '')
             }
             if (
               parentElement.childNodes[parentElement.childNodes.length - 1] ===
               childNode
             ) {
-              innerText = innerText.replace(/\s+$/, '')
+              innerText = innerText.replace(/\s+$/g, '')
             }
             if (parentElement.tagName === 'OPTION') {
               const parentParentElement = parentElement.parentElement
