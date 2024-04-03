@@ -299,18 +299,38 @@ export function createRangesList({
             }
           }
           const range = new Range()
-          range.setStart(
-            currentNodeWithInnerTextInfo.node,
-            startOffset +
-              (currentNodeWithInnerTextInfo.node.textContent!.match(/^\s+/)?.[0]
-                .length ?? 0),
-          )
-          range.setEnd(
-            currentNodeWithInnerTextInfo.node,
-            endOffset +
-              (currentNodeWithInnerTextInfo.node.textContent!.match(/^\s+/)?.[0]
-                .length ?? 0),
-          )
+          try {
+            range.setStart(
+              currentNodeWithInnerTextInfo.node,
+              startOffset +
+                (currentNodeWithInnerTextInfo.node.textContent!.match(
+                  /^\s+/,
+                )?.[0].length ?? 0),
+            )
+            range.setEnd(
+              currentNodeWithInnerTextInfo.node,
+              endOffset +
+                (currentNodeWithInnerTextInfo.node.textContent!.match(
+                  /^\s+/,
+                )?.[0].length ?? 0),
+            )
+          } catch (e) {
+            console.debug(
+              '[chrome-extension] [find] invalid start/end offset',
+              {
+                nodeWithInnerTextInfoList,
+                walkingIndexOfNodeWithInnerTextInfoList,
+                usedIndexOfNodeWithInnerTextInfoList,
+                currentNodeWithInnerTextInfo,
+                startOffset,
+                endOffset,
+                searchString,
+                restOfSearchString,
+              },
+            )
+            console.debug(e)
+            return rangesList
+          }
           ranges.push(range)
           startOffset = 0
           if (endOffset === currentNodeWithInnerTextInfo.innerText.length) {
