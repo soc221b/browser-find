@@ -838,6 +838,67 @@ describe('createRangesList', () => {
         returnValue,
       }
     })(),
+    (() => {
+      const nodes: Node[] = []
+      nodes.push(document.createTextNode('abc'))
+      nodes.push(document.createTextNode('bca'))
+      nodes.push(document.createTextNode('cab'))
+      nodes.push(document.createTextNode('bca'))
+      nodes.push(document.createTextNode('abc'))
+      const nodeWithInnerTextList = nodes.map((node, index) => {
+        return {
+          node,
+          innerText: node.textContent + (index < nodes.length - 1 ? ' ' : ''),
+        }
+      })
+      const searchStringList = ['a', 'a', 'a', 'a', 'a']
+      const returnValue = [
+        [
+          createRange({
+            node: nodes[0],
+            startOffset: 0,
+            endOffset: 1,
+          }),
+        ],
+        [
+          createRange({
+            node: nodes[1],
+            startOffset: 2,
+            endOffset: 3,
+          }),
+        ],
+        [
+          createRange({
+            node: nodes[2],
+            startOffset: 1,
+            endOffset: 2,
+          }),
+        ],
+        [
+          createRange({
+            node: nodes[3],
+            startOffset: 2,
+            endOffset: 3,
+          }),
+        ],
+        [
+          createRange({
+            node: nodes[4],
+            startOffset: 0,
+            endOffset: 1,
+          }),
+        ],
+      ]
+      return {
+        name: 'should skip used nodes',
+        param: {
+          nodeWithInnerTextList,
+          searchStringList,
+          shouldMatchWholeWord: false,
+        },
+        returnValue,
+      }
+    })(),
   ]
 
   suits.forEach((suit) => {

@@ -256,6 +256,8 @@ export function createRangesList({
         ) {
           endOffset = 0
         }
+        usedIndexOfNodeWithInnerTextInfoList =
+          matchedIndexOfNodeWithInnerTextInfoList
         let startOffset =
           nodeWithInnerTextInfo.innerTextFromStart
             .slice(
@@ -293,7 +295,6 @@ export function createRangesList({
           )
           startOffset = 0
           if (endOffset === currentNodeWithInnerTextInfo.innerText.length) {
-            ++usedIndexOfNodeWithInnerTextInfoList
             endOffset = 0
           }
           ++matchedIndexOfNodeWithInnerTextInfoList
