@@ -108,6 +108,7 @@ describe('createSearchStringList', () => {
 })
 
 describe('createNodeWithInnerTextList', () => {
+  // https://kangax.github.io/jstests/innerText/
   const suits: {
     name: string
     param: {
