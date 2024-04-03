@@ -169,29 +169,28 @@ describe('createNodeWithInnerTextList', () => {
       returnValue: [{ node: document.createTextNode('ABC'), innerText: 'abc' }],
     },
     {
-      name: 'should trim',
+      name: 'should trim leading spaces of first child node',
       param: {
-        documentElement: createDocumentElement(`<span> abc </span>`),
+        documentElement: createDocumentElement(` \t\na<span>b</span>`),
       },
       returnValue: [
-        { node: document.createTextNode(' abc '), innerText: 'abc' },
+        { node: document.createTextNode(' \t\na'), innerText: 'a' },
+        { node: document.createTextNode('b'), innerText: 'b' },
+      ],
+    },
+    {
+      name: 'should trim trailing spaces of last child node',
+      param: {
+        documentElement: createDocumentElement(`<span>a</span>b\n\t `),
+      },
+      returnValue: [
+        { node: document.createTextNode('a'), innerText: 'a' },
+        { node: document.createTextNode('b\n\t '), innerText: 'b' },
       ],
     },
     // TODO: shadow DOM
 
     // TODO: https://kangax.github.io/jstests/innerText/
-    {
-      name: 'add space between block nodes',
-      param: {
-        documentElement: createDocumentElement(
-          `<div> abc </div><div> def </div>`,
-        ),
-      },
-      returnValue: [
-        { node: document.createTextNode(' abc '), innerText: 'abc ' },
-        { node: document.createTextNode(' def '), innerText: 'def' },
-      ],
-    },
   ]
 
   suits.forEach((suit) => {
