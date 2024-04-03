@@ -221,7 +221,7 @@ describe('createRangesList', () => {
     returnValue: Range[][]
   }[] = [
     {
-      name: '__abcd efg hi',
+      name: '__abcd,efg,hi',
       param: {
         nodeWithInnerTextList: [
           { node: node1, innerText: innerText1 },
@@ -234,7 +234,7 @@ describe('createRangesList', () => {
       returnValue: [],
     },
     {
-      name: '_a_bcd efg hi',
+      name: '_a_bcd,efg,hi',
       param: {
         nodeWithInnerTextList: [
           { node: node1, innerText: innerText1 },
@@ -249,7 +249,7 @@ describe('createRangesList', () => {
       ],
     },
     {
-      name: '_abc_d efg hi',
+      name: '_abc_d,efg,hi',
       param: {
         nodeWithInnerTextList: [
           { node: node1, innerText: innerText1 },
@@ -264,7 +264,7 @@ describe('createRangesList', () => {
       ],
     },
     {
-      name: '_abcd_ efg hi',
+      name: '_abcd_,efg,hi',
       param: {
         nodeWithInnerTextList: [
           { node: node1, innerText: innerText1 },
@@ -279,7 +279,7 @@ describe('createRangesList', () => {
       ],
     },
     {
-      name: '_abcd e_fg hi',
+      name: '_abcd,e_fg,hi',
       param: {
         nodeWithInnerTextList: [
           { node: node1, innerText: innerText1 },
@@ -297,7 +297,7 @@ describe('createRangesList', () => {
       ],
     },
     {
-      name: '_abcd ef_g hi',
+      name: '_abcd,ef_g,hi',
       param: {
         nodeWithInnerTextList: [
           { node: node1, innerText: innerText1 },
@@ -315,7 +315,7 @@ describe('createRangesList', () => {
       ],
     },
     {
-      name: '_abcd efg_ hi',
+      name: '_abcd,efg_,hi',
       param: {
         nodeWithInnerTextList: [
           { node: node1, innerText: innerText1 },
@@ -333,7 +333,7 @@ describe('createRangesList', () => {
       ],
     },
     {
-      name: '_abcd efg h_i',
+      name: '_abcd,efg,h_i',
       param: {
         nodeWithInnerTextList: [
           { node: node1, innerText: innerText1 },
@@ -352,7 +352,7 @@ describe('createRangesList', () => {
       ],
     },
     {
-      name: '_abcd efg hi_',
+      name: '_abcd,efg,hi_',
       param: {
         nodeWithInnerTextList: [
           { node: node1, innerText: innerText1 },
@@ -371,7 +371,7 @@ describe('createRangesList', () => {
       ],
     },
     {
-      name: 'a_b_cd efg hi',
+      name: 'a_b_cd,efg,hi',
       param: {
         nodeWithInnerTextList: [
           { node: node1, innerText: innerText1 },
@@ -386,7 +386,7 @@ describe('createRangesList', () => {
       ],
     },
     {
-      name: 'a_bc_d efg hi',
+      name: 'a_bc_d,efg,hi',
       param: {
         nodeWithInnerTextList: [
           { node: node1, innerText: innerText1 },
@@ -401,7 +401,7 @@ describe('createRangesList', () => {
       ],
     },
     {
-      name: 'a_bcd_ efg hi',
+      name: 'a_bcd_,efg,hi',
       param: {
         nodeWithInnerTextList: [
           { node: node1, innerText: innerText1 },
@@ -416,7 +416,7 @@ describe('createRangesList', () => {
       ],
     },
     {
-      name: 'a_bcd ef_g hi',
+      name: 'a_bcd,ef_g,hi',
       param: {
         nodeWithInnerTextList: [
           { node: node1, innerText: innerText1 },
@@ -434,7 +434,7 @@ describe('createRangesList', () => {
       ],
     },
     {
-      name: 'a_bcd efg_ hi',
+      name: 'a_bcd,efg_,hi',
       param: {
         nodeWithInnerTextList: [
           { node: node1, innerText: innerText1 },
@@ -452,7 +452,7 @@ describe('createRangesList', () => {
       ],
     },
     {
-      name: 'a_bcd efg h_i',
+      name: 'a_bcd,efg,h_i',
       param: {
         nodeWithInnerTextList: [
           { node: node1, innerText: innerText1 },
@@ -471,7 +471,7 @@ describe('createRangesList', () => {
       ],
     },
     {
-      name: 'a_bcd efg hi_',
+      name: 'a_bcd,efg,hi_',
       param: {
         nodeWithInnerTextList: [
           { node: node1, innerText: innerText1 },
@@ -490,7 +490,7 @@ describe('createRangesList', () => {
       ],
     },
     {
-      name: 'abc_d_ efg hi',
+      name: 'abc_d_,efg,hi',
       param: {
         nodeWithInnerTextList: [
           { node: node1, innerText: innerText1 },
@@ -505,7 +505,7 @@ describe('createRangesList', () => {
       ],
     },
     {
-      name: 'abc_d ef_g hi',
+      name: 'abc_d,ef_g,hi',
       param: {
         nodeWithInnerTextList: [
           { node: node1, innerText: innerText1 },
@@ -523,7 +523,7 @@ describe('createRangesList', () => {
       ],
     },
     {
-      name: 'abcd _ef_g hi',
+      name: 'abcd,_ef_g,hi',
       param: {
         nodeWithInnerTextList: [
           { node: node1, innerText: innerText1 },
@@ -554,7 +554,7 @@ describe('createRangesList', () => {
         ],
       ]
       return {
-        name: 'abc _ab_',
+        name: 'abc,_ab_',
         param: {
           nodeWithInnerTextList,
           searchStringList,
@@ -580,7 +580,7 @@ describe('createRangesList', () => {
         ],
       ]
       return {
-        name: 'abc _bc_',
+        name: 'abc,_bc_',
         param: {
           nodeWithInnerTextList,
           searchStringList,
@@ -611,7 +611,7 @@ describe('createRangesList', () => {
         ],
       ]
       return {
-        name: 'matches across nodes',
+        name: '_a,b_',
         param: {
           nodeWithInnerTextList,
           searchStringList,
@@ -670,7 +670,7 @@ describe('createRangesList', () => {
         [createRange({ node, startOffset: 2, endOffset: 3 })],
       ]
       return {
-        name: 'multiple matches in single node',
+        name: '_a_a_a_',
         param: {
           nodeWithInnerTextList,
           searchStringList,
@@ -698,7 +698,7 @@ describe('createRangesList', () => {
         ]
       })
       return {
-        name: 'multiple matches in multiple nodes',
+        name: '_a_,_a_,_a_',
         param: {
           nodeWithInnerTextList,
           searchStringList,
