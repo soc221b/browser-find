@@ -116,62 +116,110 @@ export function createNodeWithInnerTextList({
 }: {
   documentElement: HTMLElement
 }): { node: Node; innerText: string }[] {
-  const treeWalker = document.createTreeWalker(
-    documentElement,
-    NodeFilter.SHOW_TEXT,
-  )
-  let node
   let nodeWithInnerTextList: { node: Node; innerText: string }[] = []
-  while ((node = treeWalker.nextNode()) !== null) {
-    let parentElement = node.parentElement
-    while (parentElement !== null) {
-      if (parentElement.tagName === 'NOSCRIPT') {
-        break
-      }
-
-      const computedStyle = getComputedStyle(parentElement)
-      if (computedStyle.display === 'none') {
-        break
-      }
-      if (computedStyle.visibility === 'hidden') {
-        break
-      }
-
-      parentElement = parentElement.parentElement
+  let stack: {
+    childNode: null | ChildNode
+    childNodeIndex: number
+  }[] = [
+    {
+      childNode: documentElement,
+      childNodeIndex: 0,
+    },
+  ]
+  while (stack.length) {
+    const top = stack[stack.length - 1]
+    if (top.childNode === null) {
+      stack.pop()
+      continue
     }
-    if (
-      parentElement === null &&
-      node.textContent !== null &&
-      node.textContent.trim()
-    ) {
-      let innerText = node.textContent
-      if (node.parentElement instanceof Element) {
-        const parentComputedStyle = getComputedStyle(node.parentElement)
-        if (parentComputedStyle.textTransform === 'uppercase') {
-          innerText = innerText.toUpperCase()
-        }
-        if (parentComputedStyle.textTransform === 'lowercase') {
-          innerText = innerText.toLowerCase()
-        }
-        if (parentComputedStyle.textTransform === 'lowercase') {
-          innerText = innerText.toLowerCase()
-        }
-        innerText = innerText.trim() + ' '
-      }
 
-      nodeWithInnerTextList.push({
-        node,
-        innerText,
-      })
+    const childNodes = top.childNode.childNodes
+    const childIndex = top.childNodeIndex
+    if (childNodes.length <= childIndex) {
+      stack.pop()
+      continue
     }
+
+    const childNode = childNodes[childIndex]
+    switchLabel: switch (childNode.nodeType) {
+      case Node.ELEMENT_NODE: {
+        const elementNode = childNode as Element
+        const ignoredTagNames = ['SCRIPT', 'NOSCRIPT', 'STYLE', 'SELECT']
+        if (ignoredTagNames.includes(elementNode.tagName)) {
+          break
+        }
+
+        stack.push({
+          childNode: elementNode,
+          childNodeIndex: 0,
+        })
+        break
+      }
+      case Node.TEXT_NODE: {
+        // FIXME: performance
+        let parentElement = childNode.parentElement
+        while (parentElement) {
+          const CSSStyleDeclaration = getComputedStyle(parentElement)
+          if (CSSStyleDeclaration.display === 'none') {
+            break switchLabel
+          }
+          if (CSSStyleDeclaration.visibility === 'hidden') {
+            break switchLabel
+          }
+          parentElement = parentElement.parentElement
+        }
+
+        if (childNode.textContent && childNode.textContent.trim()) {
+          let innerText = childNode.textContent
+          const parentElement = childNode.parentElement
+          if (parentElement) {
+            const CSSStyleDeclarationOfParentElement =
+              getComputedStyle(parentElement)
+            if (
+              CSSStyleDeclarationOfParentElement.textTransform === 'uppercase'
+            ) {
+              innerText = innerText.toUpperCase()
+            }
+            if (
+              CSSStyleDeclarationOfParentElement.textTransform === 'lowercase'
+            ) {
+              innerText = innerText.toLowerCase()
+            }
+            if (parentElement.childNodes[0] === childNode) {
+              innerText = innerText.replace(/^\s+/, '')
+            }
+            if (
+              parentElement.childNodes[parentElement.childNodes.length - 1] ===
+              childNode
+            ) {
+              innerText = innerText.replace(/\s+$/, '')
+            }
+            if (parentElement.tagName === 'OPTION') {
+              const parentParentElement = parentElement.parentElement
+              if (parentParentElement) {
+                if (parentParentElement.tagName === 'SELECT') {
+                  if (parentParentElement.childNodes[0] !== parentElement) {
+                    nodeWithInnerTextList.push({
+                      node: documentElement.ownerDocument.createTextNode(''),
+                      innerText: '\n',
+                    })
+                  }
+                }
+              }
+            }
+          }
+          nodeWithInnerTextList.push({
+            node: childNode,
+            innerText,
+          })
+        }
+        break
+      }
+    }
+
+    ++top.childNodeIndex
   }
-  if (nodeWithInnerTextList.length) {
-    nodeWithInnerTextList[nodeWithInnerTextList.length - 1].innerText =
-      nodeWithInnerTextList[nodeWithInnerTextList.length - 1].innerText.slice(
-        0,
-        -1,
-      )
-  }
+
   return nodeWithInnerTextList
 }
 
