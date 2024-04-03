@@ -140,6 +140,15 @@ describe('createNodeWithInnerTextList', () => {
       returnValue: [],
     },
     {
+      name: 'should ignore <style>',
+      param: {
+        documentElement: createDocumentElement(
+          `<style>* { all: unset; }</style>`,
+        ),
+      },
+      returnValue: [],
+    },
+    {
       name: 'should ignore <select>',
       param: {
         documentElement: createDocumentElement(
