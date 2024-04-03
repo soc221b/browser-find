@@ -121,35 +121,39 @@ describe('createNodeWithInnerTextList', () => {
   const suits: {
     name: string
     param: {
-      body: HTMLBodyElement
+      documentElement: HTMLElement
     }
     returnValue: { node: Node; innerText: string }[]
   }[] = [
     {
       name: 'should ignore <noscript>',
       param: {
-        body: createElementBody(`<noscript>abc</noscript>`),
+        documentElement: createDocumentElement(`<noscript>abc</noscript>`),
       },
       returnValue: [],
     },
     {
       name: 'should ignore display: none',
       param: {
-        body: createElementBody(`<span style="display: none;">abc</span>`),
+        documentElement: createDocumentElement(
+          `<span style="display: none;">abc</span>`,
+        ),
       },
       returnValue: [],
     },
     {
       name: 'should ignore visibility: hidden',
       param: {
-        body: createElementBody(`<span style="visibility: hidden;">abc</span>`),
+        documentElement: createDocumentElement(
+          `<span style="visibility: hidden;">abc</span>`,
+        ),
       },
       returnValue: [],
     },
     {
       name: 'should do text transform: uppercase',
       param: {
-        body: createElementBody(
+        documentElement: createDocumentElement(
           `<span style="text-transform: uppercase;">abc</span>`,
         ),
       },
@@ -158,7 +162,7 @@ describe('createNodeWithInnerTextList', () => {
     {
       name: 'should do text transform: lowercase',
       param: {
-        body: createElementBody(
+        documentElement: createDocumentElement(
           `<span style="text-transform: lowercase;">ABC</span>`,
         ),
       },
@@ -167,7 +171,7 @@ describe('createNodeWithInnerTextList', () => {
     {
       name: 'should trim',
       param: {
-        body: createElementBody(`<span> abc </span>`),
+        documentElement: createDocumentElement(`<span> abc </span>`),
       },
       returnValue: [
         { node: document.createTextNode(' abc '), innerText: 'abc' },
@@ -179,7 +183,9 @@ describe('createNodeWithInnerTextList', () => {
     {
       name: 'add space between block nodes',
       param: {
-        body: createElementBody(`<div> abc </div><div> def </div>`),
+        documentElement: createDocumentElement(
+          `<div> abc </div><div> def </div>`,
+        ),
       },
       returnValue: [
         { node: document.createTextNode(' abc '), innerText: 'abc ' },
@@ -194,10 +200,12 @@ describe('createNodeWithInnerTextList', () => {
     })
   })
 
-  function createElementBody(innerHTML: string): HTMLBodyElement {
+  function createDocumentElement(bodyInnerHTML: string): HTMLElement {
     const body = document.createElement('body')
-    body.innerHTML = innerHTML
-    return body
+    body.innerHTML = bodyInnerHTML
+    const documentElement = document.createElement('html')
+    documentElement.appendChild(body)
+    return documentElement
   }
 })
 

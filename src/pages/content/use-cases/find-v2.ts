@@ -40,7 +40,7 @@ const find: Find = ({
   console.debug('[chrome-extension] [find] regex', regex)
 
   const nodeWithInnerTextList = createNodeWithInnerTextList({
-    body: document.body,
+    documentElement: document.documentElement,
   })
   console.debug(
     '[chrome-extension] [find] nodeWithInnerTextList',
@@ -112,11 +112,14 @@ export function createSearchStringList({
 }
 
 export function createNodeWithInnerTextList({
-  body,
+  documentElement,
 }: {
-  body: HTMLElement
+  documentElement: HTMLElement
 }): { node: Node; innerText: string }[] {
-  const treeWalker = document.createTreeWalker(body, NodeFilter.SHOW_TEXT)
+  const treeWalker = document.createTreeWalker(
+    documentElement,
+    NodeFilter.SHOW_TEXT,
+  )
   let node
   let nodeWithInnerTextList: { node: Node; innerText: string }[] = []
   while ((node = treeWalker.nextNode()) !== null) {
