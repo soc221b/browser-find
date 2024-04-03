@@ -173,24 +173,111 @@ export function createRangesList({
 }): Range[][] {
   const rangesList: Range[][] = []
 
-  let index = 0
-  searchStringList.forEach((searchString) => {
+  const nodeWithInnerTextInfoList: {
+    node: Node
+    innerText: string
+    innerTextFromStart: string
+  }[] = nodeWithInnerTextList.reduce(
+    (acc, { node, innerText }) => {
+      return acc.concat({
+        node,
+        innerText,
+        innerTextFromStart:
+          (acc[acc.length - 1]?.innerTextFromStart ?? '') + innerText,
+      })
+    },
+    [] as {
+      node: Node
+      innerText: string
+      innerTextFromStart: string
+    }[],
+  )
+  let usedIndexOfSearchStringList = 0
+  /**
+   * 儲存 abcd ef_g_ hi 的 abcd 的偏移量
+   */
+  let usedIndexOfNodeWithInnerTextInfoList = 0
+  /**
+   * 儲存已使用過的 a_bc_abc 的 c 的偏移量 3，下次從第二的 abc 開始找 bc
+   */
+  let endOffset = 0
+  while (usedIndexOfSearchStringList < searchStringList.length) {
+    const searchString = searchStringList[usedIndexOfSearchStringList]
     const ranges: Range[] = []
 
-    return ranges
-  })
+    /**
+     * 儲存此次迴圈中 abcd ef_g_ hi 的 abcd 的偏移量
+     */
+    let walkingIndexOfNodeWithInnerTextInfoList =
+      usedIndexOfNodeWithInnerTextInfoList
+    while (
+      walkingIndexOfNodeWithInnerTextInfoList < nodeWithInnerTextInfoList.length
+    ) {
+      const nodeWithInnerTextInfo =
+        nodeWithInnerTextInfoList[walkingIndexOfNodeWithInnerTextInfoList]
+      let indexOfInnerTextDespiteUsedAndEndOffset =
+        nodeWithInnerTextInfo.innerTextFromStart
+          .slice(
+            (nodeWithInnerTextInfoList[usedIndexOfNodeWithInnerTextInfoList - 1]
+              ?.innerTextFromStart.length ?? 0) + endOffset,
+          )
+          .indexOf(searchString)
+      const isMatched = 0 <= indexOfInnerTextDespiteUsedAndEndOffset
+      if (isMatched) {
+        let restOfSearchString = searchString
+        let matchedIndexOfNodeWithInnerTextInfoList = (() => {
+          let l = 0
+          let r = usedIndexOfNodeWithInnerTextInfoList + 1
+          while (l < r) {
+            const m = l + Math.floor((r - l) / 2)
+            if (
+              0 <=
+              nodeWithInnerTextInfo.innerTextFromStart
+                .slice(nodeWithInnerTextInfoList[m].innerTextFromStart.length)
+                .indexOf(searchString)
+            ) {
+              l = m + 1
+            } else {
+              r = m - 1
+            }
+          }
+          return l
+        })()
+        let startOffset =
+          nodeWithInnerTextInfo.innerTextFromStart
+            .slice(
+              (nodeWithInnerTextInfoList[
+                matchedIndexOfNodeWithInnerTextInfoList - 1
+              ]?.innerTextFromStart.length ?? 0) + endOffset,
+            )
+            .indexOf(searchString) + endOffset
+        while (restOfSearchString.length) {
+          const currentNodeWithInnerTextInfo =
+            nodeWithInnerTextInfoList[matchedIndexOfNodeWithInnerTextInfoList]
+          const range = new Range()
+          range.setStart(currentNodeWithInnerTextInfo.node, startOffset)
+          endOffset = Math.min(
+            currentNodeWithInnerTextInfo.innerText.length,
+            startOffset + restOfSearchString.length,
+          )
+          range.setEnd(currentNodeWithInnerTextInfo.node, endOffset)
+          ranges.push(range)
+          restOfSearchString = restOfSearchString.slice(endOffset - startOffset)
+          startOffset = 0
+          if (endOffset === currentNodeWithInnerTextInfo.innerText.length) {
+            ++usedIndexOfNodeWithInnerTextInfoList
+            endOffset = 0
+          }
+          ++matchedIndexOfNodeWithInnerTextInfoList
+        }
+        break
+      } else {
+        ++walkingIndexOfNodeWithInnerTextInfoList
+      }
+    }
 
-  const range = new Range()
-  if (searchStringList.includes('Do not share my personal information')) {
-    const tempNodeWithInnerText =
-      nodeWithInnerTextList[nodeWithInnerTextList.length - 2]
-    console.log('123', tempNodeWithInnerText)
-    range.setStart(tempNodeWithInnerText.node, 0)
-    range.setEnd(
-      tempNodeWithInnerText.node,
-      tempNodeWithInnerText.node.textContent!.length,
-    )
-    rangesList.push([range])
+    rangesList.push(ranges)
+    ++usedIndexOfSearchStringList
   }
 
   return rangesList
