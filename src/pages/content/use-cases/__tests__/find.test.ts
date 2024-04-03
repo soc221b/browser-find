@@ -515,6 +515,46 @@ describe('createRangesList', () => {
       ],
     },
     (() => {
+      const nodeWithInnerTextList = Array(10)
+        .fill('b')
+        .map((textContent) => {
+          const node = document.createTextNode(textContent)
+          const innerText = textContent
+          return { node, innerText }
+        })
+      nodeWithInnerTextList[0].innerText = 'a'
+      nodeWithInnerTextList[0].node.textContent = 'a'
+      nodeWithInnerTextList[nodeWithInnerTextList.length - 1].innerText = 'c'
+      nodeWithInnerTextList[nodeWithInnerTextList.length - 1].node.textContent =
+        'c'
+      const searchStringList = ['a', 'c']
+      const returnValue = [
+        [
+          createRange({
+            node: nodeWithInnerTextList[0].node,
+            startOffset: 0,
+            endOffset: 1,
+          }),
+        ],
+        [
+          createRange({
+            node: nodeWithInnerTextList[nodeWithInnerTextList.length - 1].node,
+            startOffset: 0,
+            endOffset: 1,
+          }),
+        ],
+      ]
+      return {
+        name: 'matches at start and end',
+        param: {
+          nodeWithInnerTextList,
+          searchStringList,
+          shouldMatchWholeWord: false,
+        },
+        returnValue,
+      }
+    })(),
+    (() => {
       const node = document.createTextNode('aaa')
       const nodeWithInnerTextList = [{ node, innerText: 'aaa' }]
       const searchStringList = ['a', 'a', 'a']
@@ -553,6 +593,46 @@ describe('createRangesList', () => {
       })
       return {
         name: 'multiple matches in multiple nodes',
+        param: {
+          nodeWithInnerTextList,
+          searchStringList,
+          shouldMatchWholeWord: false,
+        },
+        returnValue,
+      }
+    })(),
+    (() => {
+      const nodeWithInnerTextList = Array(5e4)
+        .fill('b')
+        .map((textContent) => {
+          const node = document.createTextNode(textContent)
+          const innerText = textContent
+          return { node, innerText }
+        })
+      nodeWithInnerTextList[0].innerText = 'a'
+      nodeWithInnerTextList[0].node.textContent = 'a'
+      nodeWithInnerTextList[nodeWithInnerTextList.length - 1].innerText = 'a'
+      nodeWithInnerTextList[nodeWithInnerTextList.length - 1].node.textContent =
+        'a'
+      const searchStringList = Array(2).fill('a')
+      const returnValue = [
+        [
+          createRange({
+            node: nodeWithInnerTextList[0].node,
+            startOffset: 0,
+            endOffset: 1,
+          }),
+        ],
+        [
+          createRange({
+            node: nodeWithInnerTextList[nodeWithInnerTextList.length - 1].node,
+            startOffset: 0,
+            endOffset: 1,
+          }),
+        ],
+      ]
+      return {
+        name: 'performance: matches at start and end',
         param: {
           nodeWithInnerTextList,
           searchStringList,

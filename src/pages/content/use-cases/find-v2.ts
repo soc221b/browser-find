@@ -227,7 +227,7 @@ export function createRangesList({
         let restOfSearchString = searchString
         let matchedIndexOfNodeWithInnerTextInfoList = (() => {
           let l = 0
-          let r = usedIndexOfNodeWithInnerTextInfoList + 1
+          let r = walkingIndexOfNodeWithInnerTextInfoList
           while (l < r) {
             const m = l + Math.floor((r - l) / 2)
             if (
