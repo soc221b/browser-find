@@ -126,6 +126,13 @@ describe('createNodeWithInnerTextList', () => {
     returnValue: { node: Node; innerText: string }[]
   }[] = [
     {
+      name: 'should ignore <script>',
+      param: {
+        documentElement: createDocumentElement(`<script>123</script>`),
+      },
+      returnValue: [],
+    },
+    {
       name: 'should ignore <noscript>',
       param: {
         documentElement: createDocumentElement(`<noscript>abc</noscript>`),
