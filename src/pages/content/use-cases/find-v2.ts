@@ -205,47 +205,81 @@ export function createRangesList({
       innerTextFromStart: string
     }[],
   )
-  let usedIndexOfSearchStringList = 0
   /**
-   * 儲存 abcd ef_g_ hi 的 abcd 的偏移量
+   * 儲存可使用的 searchStringList 偏移量
+   * 假如:
+   *  searchStringList = ["ab", "hi"]
+   *  上次搜尋了 ab，則 startOffsetOfSearchStringList 會是 1
    */
-  let usedIndexOfNodeWithInnerTextInfoList = 0
+  let startOffsetOfSearchStringList = 0
   /**
-   * 儲存已使用過的 a_bc_abc 的 c 的偏移量 3，下次從第二的 abc 開始找 bc
+   * 儲存可使用的 nodeWithInnerTextInfoList 偏移量
+   * 假如:
+   *  searchStringList = ["abc", "hi"]
+   *  nodeWithInnerTextInfoList = ["abcd", "efg", "hi"]
+   *  startOffsetOfSearchStringList = 1
+   *  因為上次搜尋過的 abc，而 d 還不確定是否會被匹配
+   *  nearestPossibleStartOffsetOfNodeWithInnerTextInfoList 會是 0
+   */
+  let nearestPossibleStartOffsetOfNodeWithInnerTextInfoList = 0
+  /**
+   * 儲存可使用的 nodeWithInnerTextInfoList[number].innerText 偏移量
+   * 假如:
+   *  searchStringList = ["abc", "hi"]
+   *  nodeWithInnerTextInfoList = ["abcd", "efg", "hi"]
+   *  startOffsetOfSearchStringList = 1
+   *  因為上次搜尋過的 abc，而 d 還不確定是否會被匹配
+   *  endOffset 會是 3
    */
   let endOffset = 0
-  while (usedIndexOfSearchStringList < searchStringList.length) {
-    const searchString = searchStringList[usedIndexOfSearchStringList]
+  while (startOffsetOfSearchStringList < searchStringList.length) {
+    const searchString = searchStringList[startOffsetOfSearchStringList]
     const ranges: Range[] = []
 
     /**
-     * 儲存此次迴圈中 abcd ef_g_ hi 的 abcd 的偏移量
+     * 儲存匹配時的最後一個 nodeWithInnerTextInfoList 偏移量
+     * 假如:
+     *  searchStringList = ["abcdef"]
+     *  nodeWithInnerTextInfoList = ["abcd", "efg", "hi"]
+     *  startOffsetOfSearchStringList = 0
+     *  lastOffsetOfNodeWithInnerTextInfoList 會是 1
      */
-    let walkingIndexOfNodeWithInnerTextInfoList =
-      usedIndexOfNodeWithInnerTextInfoList
+    let lastOffsetOfNodeWithInnerTextInfoList =
+      nearestPossibleStartOffsetOfNodeWithInnerTextInfoList
     level2: while (
-      walkingIndexOfNodeWithInnerTextInfoList < nodeWithInnerTextInfoList.length
+      lastOffsetOfNodeWithInnerTextInfoList < nodeWithInnerTextInfoList.length
     ) {
-      const walkingNodeWithInnerTextInfo =
-        nodeWithInnerTextInfoList[walkingIndexOfNodeWithInnerTextInfoList]
-      let indexOfInnerTextDespiteUsedAndEndOffset =
-        walkingNodeWithInnerTextInfo.innerTextFromStart
+      const lastNodeWithInnerTextInfo =
+        nodeWithInnerTextInfoList[lastOffsetOfNodeWithInnerTextInfoList]
+      const isMatched =
+        0 <=
+        lastNodeWithInnerTextInfo.innerTextFromStart
           .slice(
-            (nodeWithInnerTextInfoList[usedIndexOfNodeWithInnerTextInfoList - 1]
-              ?.innerTextFromStart.length ?? 0) + endOffset,
+            (nodeWithInnerTextInfoList[
+              nearestPossibleStartOffsetOfNodeWithInnerTextInfoList - 1
+            ]?.innerTextFromStart.length ?? 0) + endOffset,
           )
           .indexOf(searchString)
-      const isMatched = 0 <= indexOfInnerTextDespiteUsedAndEndOffset
       if (isMatched) {
         let restOfSearchString = searchString
-        let matchedIndexOfNodeWithInnerTextInfoList = (() => {
+        /**
+         * 儲存確認匹配時的正確 nodeWithInnerTextInfoList 開始偏移量
+         * 假如:
+         *  searchStringList = ["abc", "fghi"]
+         *  startOffsetOfSearchStringList = 1
+         *  nodeWithInnerTextInfoList = ["abcd", "efg", "hi"]
+         *  迴圈會從 nearestPossibleStartOffsetOfNodeWithInnerTextInfoList 0 開始找
+         *  但實際是從 efg 這個 node 開始匹配的
+         *  此時 startOffsetOfNodeWithInnerTextInfoList 會是 1
+         */
+        let startOffsetOfNodeWithInnerTextInfoList = (() => {
           let l = 0
-          let r = walkingIndexOfNodeWithInnerTextInfoList
+          let r = lastOffsetOfNodeWithInnerTextInfoList
           while (l < r) {
             const m = l + Math.floor((r - l) / 2)
             if (
               0 <=
-              walkingNodeWithInnerTextInfo.innerTextFromStart
+              lastNodeWithInnerTextInfo.innerTextFromStart
                 .slice(nodeWithInnerTextInfoList[m].innerTextFromStart.length)
                 .indexOf(searchString)
             ) {
@@ -257,24 +291,24 @@ export function createRangesList({
           return l
         })()
         if (
-          matchedIndexOfNodeWithInnerTextInfoList !==
-          usedIndexOfNodeWithInnerTextInfoList
+          startOffsetOfNodeWithInnerTextInfoList !==
+          nearestPossibleStartOffsetOfNodeWithInnerTextInfoList
         ) {
           endOffset = 0
         }
-        usedIndexOfNodeWithInnerTextInfoList =
-          matchedIndexOfNodeWithInnerTextInfoList
+        nearestPossibleStartOffsetOfNodeWithInnerTextInfoList =
+          startOffsetOfNodeWithInnerTextInfoList
         let startOffset =
-          walkingNodeWithInnerTextInfo.innerTextFromStart
+          lastNodeWithInnerTextInfo.innerTextFromStart
             .slice(
               (nodeWithInnerTextInfoList[
-                matchedIndexOfNodeWithInnerTextInfoList - 1
+                startOffsetOfNodeWithInnerTextInfoList - 1
               ]?.innerTextFromStart.length ?? 0) + endOffset,
             )
             .indexOf(searchString) + endOffset
         while (restOfSearchString.length) {
           const nodeWithInnerTextInfo =
-            nodeWithInnerTextInfoList[matchedIndexOfNodeWithInnerTextInfoList]
+            nodeWithInnerTextInfoList[startOffsetOfNodeWithInnerTextInfoList]
           endOffset = Math.min(
             nodeWithInnerTextInfo.node.textContent!.length,
             nodeWithInnerTextInfo.innerText.length,
@@ -287,14 +321,14 @@ export function createRangesList({
           )
           if (shouldMatchWholeWord) {
             if (startOffset !== 0) {
-              ++walkingIndexOfNodeWithInnerTextInfoList
+              ++lastOffsetOfNodeWithInnerTextInfoList
               continue level2
             }
             if (
               restOfSearchString === '' &&
               endOffset !== nodeWithInnerTextInfo.innerText.length
             ) {
-              ++walkingIndexOfNodeWithInnerTextInfoList
+              ++lastOffsetOfNodeWithInnerTextInfoList
               continue level2
             }
           }
@@ -317,12 +351,12 @@ export function createRangesList({
               '[chrome-extension] [find] invalid start/end offset',
               {
                 searchStringList,
-                usedIndexOfSearchStringList,
+                startOffsetOfSearchStringList,
                 nodeWithInnerTextInfoList,
-                usedIndexOfNodeWithInnerTextInfoList,
+                nearestPossibleStartOffsetOfNodeWithInnerTextInfoList,
                 searchString,
-                walkingIndexOfNodeWithInnerTextInfoList,
-                matchedIndexOfNodeWithInnerTextInfoList,
+                lastOffsetOfNodeWithInnerTextInfoList,
+                startOffsetOfNodeWithInnerTextInfoList,
                 startOffset,
                 endOffset,
                 restOfSearchString,
@@ -336,11 +370,11 @@ export function createRangesList({
           if (endOffset === nodeWithInnerTextInfo.innerText.length) {
             endOffset = 0
           }
-          ++matchedIndexOfNodeWithInnerTextInfoList
+          ++startOffsetOfNodeWithInnerTextInfoList
         }
         break
       } else {
-        ++walkingIndexOfNodeWithInnerTextInfoList
+        ++lastOffsetOfNodeWithInnerTextInfoList
       }
     }
 
@@ -349,7 +383,7 @@ export function createRangesList({
     } else {
       console.debug('[chrome-extension] [find] invalid state')
     }
-    ++usedIndexOfSearchStringList
+    ++startOffsetOfSearchStringList
   }
 
   return rangesList
