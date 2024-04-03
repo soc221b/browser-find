@@ -158,7 +158,7 @@ describe('createNodeWithInnerTextList', () => {
     {
       name: 'should trim',
       param: {
-        body: createElementBody(`<span"> abc </span>`),
+        body: createElementBody(`<span> abc </span>`),
       },
       returnValue: [
         { node: document.createTextNode(' abc '), innerText: 'abc' },
