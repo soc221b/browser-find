@@ -147,7 +147,7 @@ export function createNodeWithInnerTextList({
         if (parentComputedStyle.textTransform === 'lowercase') {
           innerText = innerText.toLowerCase()
         }
-        innerText = innerText.trim()
+        innerText = innerText.trim() + ' '
       }
 
       nodeWithInnerTextList.push({
@@ -155,6 +155,13 @@ export function createNodeWithInnerTextList({
         innerText,
       })
     }
+  }
+  if (nodeWithInnerTextList.length) {
+    nodeWithInnerTextList[nodeWithInnerTextList.length - 1].innerText =
+      nodeWithInnerTextList[nodeWithInnerTextList.length - 1].innerText.slice(
+        0,
+        -1,
+      )
   }
   return nodeWithInnerTextList
 }

@@ -108,7 +108,6 @@ describe('createSearchStringList', () => {
 })
 
 describe('createNodeWithInnerTextList', () => {
-  // https://kangax.github.io/jstests/innerText/
   const suits: {
     name: string
     param: {
@@ -162,6 +161,18 @@ describe('createNodeWithInnerTextList', () => {
       },
       returnValue: [
         { node: document.createTextNode(' abc '), innerText: 'abc' },
+      ],
+    },
+
+    // TODO: https://kangax.github.io/jstests/innerText/
+    {
+      name: 'add space between block nodes',
+      param: {
+        body: createElementBody(`<div> abc </div><div> def </div>`),
+      },
+      returnValue: [
+        { node: document.createTextNode(' abc '), innerText: 'abc ' },
+        { node: document.createTextNode(' def '), innerText: 'def' },
       ],
     },
   ]
