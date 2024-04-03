@@ -226,10 +226,10 @@ export function createRangesList({
     level2: while (
       walkingIndexOfNodeWithInnerTextInfoList < nodeWithInnerTextInfoList.length
     ) {
-      const nodeWithInnerTextInfo =
+      const walkingNodeWithInnerTextInfo =
         nodeWithInnerTextInfoList[walkingIndexOfNodeWithInnerTextInfoList]
       let indexOfInnerTextDespiteUsedAndEndOffset =
-        nodeWithInnerTextInfo.innerTextFromStart
+        walkingNodeWithInnerTextInfo.innerTextFromStart
           .slice(
             (nodeWithInnerTextInfoList[usedIndexOfNodeWithInnerTextInfoList - 1]
               ?.innerTextFromStart.length ?? 0) + endOffset,
@@ -245,7 +245,7 @@ export function createRangesList({
             const m = l + Math.floor((r - l) / 2)
             if (
               0 <=
-              nodeWithInnerTextInfo.innerTextFromStart
+              walkingNodeWithInnerTextInfo.innerTextFromStart
                 .slice(nodeWithInnerTextInfoList[m].innerTextFromStart.length)
                 .indexOf(searchString)
             ) {
@@ -265,7 +265,7 @@ export function createRangesList({
         usedIndexOfNodeWithInnerTextInfoList =
           matchedIndexOfNodeWithInnerTextInfoList
         let startOffset =
-          nodeWithInnerTextInfo.innerTextFromStart
+          walkingNodeWithInnerTextInfo.innerTextFromStart
             .slice(
               (nodeWithInnerTextInfoList[
                 matchedIndexOfNodeWithInnerTextInfoList - 1
@@ -273,17 +273,17 @@ export function createRangesList({
             )
             .indexOf(searchString) + endOffset
         while (restOfSearchString.length) {
-          const currentNodeWithInnerTextInfo =
+          const nodeWithInnerTextInfo =
             nodeWithInnerTextInfoList[matchedIndexOfNodeWithInnerTextInfoList]
           endOffset = Math.min(
-            currentNodeWithInnerTextInfo.node.textContent!.length,
-            currentNodeWithInnerTextInfo.innerText.length,
+            nodeWithInnerTextInfo.node.textContent!.length,
+            nodeWithInnerTextInfo.innerText.length,
             startOffset + restOfSearchString.length,
           )
           restOfSearchString = restOfSearchString.slice(
             endOffset -
               startOffset +
-              (/\s$/.test(currentNodeWithInnerTextInfo.innerText) ? 1 : 0),
+              (/\s$/.test(nodeWithInnerTextInfo.innerText) ? 1 : 0),
           )
           if (shouldMatchWholeWord) {
             if (startOffset !== 0) {
@@ -292,7 +292,7 @@ export function createRangesList({
             }
             if (
               restOfSearchString === '' &&
-              endOffset !== currentNodeWithInnerTextInfo.innerText.length
+              endOffset !== nodeWithInnerTextInfo.innerText.length
             ) {
               ++walkingIndexOfNodeWithInnerTextInfoList
               continue level2
@@ -301,18 +301,16 @@ export function createRangesList({
           const range = new Range()
           try {
             range.setStart(
-              currentNodeWithInnerTextInfo.node,
+              nodeWithInnerTextInfo.node,
               startOffset +
-                (currentNodeWithInnerTextInfo.node.textContent!.match(
-                  /^\s+/,
-                )?.[0].length ?? 0),
+                (nodeWithInnerTextInfo.node.textContent!.match(/^\s+/)?.[0]
+                  .length ?? 0),
             )
             range.setEnd(
-              currentNodeWithInnerTextInfo.node,
+              nodeWithInnerTextInfo.node,
               endOffset +
-                (currentNodeWithInnerTextInfo.node.textContent!.match(
-                  /^\s+/,
-                )?.[0].length ?? 0),
+                (nodeWithInnerTextInfo.node.textContent!.match(/^\s+/)?.[0]
+                  .length ?? 0),
             )
           } catch (e) {
             console.debug(
@@ -321,7 +319,7 @@ export function createRangesList({
                 nodeWithInnerTextInfoList,
                 walkingIndexOfNodeWithInnerTextInfoList,
                 usedIndexOfNodeWithInnerTextInfoList,
-                currentNodeWithInnerTextInfo,
+                nodeWithInnerTextInfo,
                 startOffset,
                 endOffset,
                 searchString,
@@ -333,7 +331,7 @@ export function createRangesList({
           }
           ranges.push(range)
           startOffset = 0
-          if (endOffset === currentNodeWithInnerTextInfo.innerText.length) {
+          if (endOffset === nodeWithInnerTextInfo.innerText.length) {
             endOffset = 0
           }
           ++matchedIndexOfNodeWithInnerTextInfoList
