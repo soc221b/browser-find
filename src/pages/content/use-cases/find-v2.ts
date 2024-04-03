@@ -324,7 +324,11 @@ export function createRangesList({
       }
     }
 
-    rangesList.push(ranges)
+    if (ranges.length) {
+      rangesList.push(ranges)
+    } else {
+      console.debug('[chrome-extension] [find] invalid state')
+    }
     ++usedIndexOfSearchStringList
   }
 
