@@ -769,7 +769,7 @@ describe('createRangesList', () => {
       }
     })(),
     (() => {
-      const nodeWithInnerTextList = Array(1e4)
+      const nodeWithInnerTextList = Array(10_000)
         .fill('b')
         .map((textContent) => {
           const node = document.createTextNode(textContent)
@@ -857,7 +857,7 @@ describe('createRangesList', () => {
     (() => {
       const textContent = 'a'
       const searchStringLength = 2
-      const searchStringListLength = 5000
+      const searchStringListLength = 5_000
       const nodeWithInnerTextList = Array(
         searchStringListLength * searchStringLength,
       )
