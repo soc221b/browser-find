@@ -173,6 +173,7 @@ describe('createNodeWithInnerTextList', () => {
         { node: document.createTextNode(' abc '), innerText: 'abc' },
       ],
     },
+    // TODO: shadow DOM
 
     // TODO: https://kangax.github.io/jstests/innerText/
     {
