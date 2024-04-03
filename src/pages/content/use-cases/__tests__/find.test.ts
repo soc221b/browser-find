@@ -198,6 +198,19 @@ describe('createRangesList', () => {
     returnValue: Range[][]
   }[] = [
     {
+      name: '__abcd efg hi',
+      param: {
+        nodeWithInnerTextList: [
+          { node: node1, innerText: innerText1 },
+          { node: node2, innerText: innerText2 },
+          { node: node3, innerText: innerText3 },
+        ],
+        searchStringList: [],
+        shouldMatchWholeWord: false,
+      },
+      returnValue: [],
+    },
+    {
       name: '_a_bcd efg hi',
       param: {
         nodeWithInnerTextList: [
@@ -480,8 +493,10 @@ describe('createRangesList', () => {
         shouldMatchWholeWord: false,
       },
       returnValue: [
-        [createRange({ node: node1, startOffset: 3, endOffset: 4 })],
-        [createRange({ node: node2, startOffset: 0, endOffset: 2 })],
+        [
+          createRange({ node: node1, startOffset: 3, endOffset: 4 }),
+          createRange({ node: node2, startOffset: 0, endOffset: 2 }),
+        ],
       ],
     },
     {
