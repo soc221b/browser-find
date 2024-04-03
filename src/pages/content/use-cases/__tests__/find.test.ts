@@ -804,6 +804,40 @@ describe('createRangesList', () => {
         returnValue,
       }
     })(),
+    (() => {
+      const node1 = document.createTextNode('abc')
+      const node2 = document.createTextNode('d')
+      const node3 = document.createTextNode('b')
+      const nodeWithInnerTextList = [node1, node2, node3].map((node, index) => {
+        return { node, innerText: node.textContent + (index < 2 ? ' ' : '') }
+      })
+      const searchStringList = Array(2).fill('b')
+      const returnValue = [
+        [
+          createRange({
+            node: node1,
+            startOffset: 1,
+            endOffset: 2,
+          }),
+        ],
+        [
+          createRange({
+            node: node3,
+            startOffset: 0,
+            endOffset: 1,
+          }),
+        ],
+      ]
+      return {
+        name: 'should reset endOffset if matched node is not the last used node',
+        param: {
+          nodeWithInnerTextList,
+          searchStringList,
+          shouldMatchWholeWord: false,
+        },
+        returnValue,
+      }
+    })(),
   ]
 
   suits.forEach((suit) => {
