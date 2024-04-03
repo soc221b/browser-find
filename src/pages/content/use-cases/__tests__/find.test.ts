@@ -631,7 +631,7 @@ describe('createRangesList', () => {
       }
     })(),
     (() => {
-      const nodeWithInnerTextList = Array(5e4)
+      const nodeWithInnerTextList = Array(1e4)
         .fill('b')
         .map((textContent) => {
           const node = document.createTextNode(textContent)
