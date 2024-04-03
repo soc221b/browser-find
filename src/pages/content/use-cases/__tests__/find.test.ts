@@ -140,6 +140,33 @@ describe('createNodeWithInnerTextList', () => {
       returnValue: [],
     },
     {
+      name: 'should ignore <select>',
+      param: {
+        documentElement: createDocumentElement(
+          `<select><option>Option1</option></select>`,
+        ),
+      },
+      returnValue: [],
+    },
+    {
+      name: 'should ignore <datalist>',
+      param: {
+        documentElement: createDocumentElement(
+          `
+<label for="ice-cream-choice">Choose a flavor:</label>
+<input list="ice-cream-flavors" id="ice-cream-choice" name="ice-cream-choice"/>
+<datalist id="ice-cream-flavors"><option value="Chocolate"></option></datalist>
+          `.trim(),
+        ),
+      },
+      returnValue: [
+        {
+          node: document.createTextNode('Choose a flavor:'),
+          innerText: 'Choose a flavor:',
+        },
+      ],
+    },
+    {
       name: 'should ignore display: none',
       param: {
         documentElement: createDocumentElement(
