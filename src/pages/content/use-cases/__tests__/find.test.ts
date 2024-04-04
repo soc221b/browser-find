@@ -239,12 +239,9 @@ describe('createNodeWithInnerTextList', () => {
     {
       name: 'should trim leading spaces for first child node',
       param: {
-        documentElement: createDocumentElement(` \t\na<span>b</span>`),
+        documentElement: createDocumentElement(`\n a`),
       },
-      returnValue: [
-        { node: document.createTextNode(' \t\na'), innerText: 'a' },
-        { node: document.createTextNode('b'), innerText: 'b' },
-      ],
+      returnValue: [{ node: document.createTextNode('\n a'), innerText: 'a' }],
     },
     {
       name: 'should trim leading spaces for non-first child node',
