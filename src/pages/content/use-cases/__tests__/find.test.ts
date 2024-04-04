@@ -174,6 +174,15 @@ describe('createNodeWithInnerTextList', () => {
       returnValue: [],
     },
     {
+      name: 'should ignore .sr-only (conventional class for screen readers)',
+      param: {
+        documentElement: createDocumentElement(
+          `<span class="sr-only">abc</span>`,
+        ),
+      },
+      returnValue: [],
+    },
+    {
       name: 'should ignore <datalist>',
       param: {
         documentElement: createDocumentElement(

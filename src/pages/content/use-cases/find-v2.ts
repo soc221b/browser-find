@@ -152,6 +152,10 @@ export function createNodeWithInnerTextList({
           break
         }
 
+        if (elementNode.classList.contains('sr-only')) {
+          break
+        }
+
         stack.push({
           childNode: elementNode,
           childNodeIndex: 0,
