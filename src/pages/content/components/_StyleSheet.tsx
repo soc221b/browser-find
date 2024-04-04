@@ -30,6 +30,7 @@ export default function _StyleSheet(): JSX.Element {
         align-items: center;
         gap: 4px;
         font-family: Arial, Helvetica, sans-serif;
+        font-size: 16px;
       }
 
       #browser-find-top-layer .input {
