@@ -206,7 +206,9 @@ export function createNodeWithInnerTextList({
               parentElement.childNodes[parentElement.childNodes.length - 1] ===
               childNode
             ) {
-              innerText = innerText.replace(/\s+$/g, '')
+              innerText = innerText.replace(/\s+$/, '')
+            } else {
+              innerText = innerText.replace(/\s+$/, ' ')
             }
             if (parentElement.tagName === 'OPTION') {
               const parentParentElement = parentElement.parentElement
