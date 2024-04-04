@@ -334,7 +334,7 @@ export function createRangesList({
          *  此時 startOffsetOfNodeWithInnerTextInfoList 會是 1
          */
         let startOffsetOfNodeWithInnerTextInfoList = (() => {
-          let l = 0
+          let l = nearestPossibleStartOffsetOfNodeWithInnerTextInfoList
           let r = lastOffsetOfNodeWithInnerTextInfoList
           while (l < r) {
             const m = l + Math.floor((r - l) / 2)
@@ -428,10 +428,12 @@ export function createRangesList({
           }
           ranges.push(range)
           startOffset = 0
+          ++startOffsetOfNodeWithInnerTextInfoList
           if (endOffset === nodeWithInnerTextInfo.innerText.length) {
             endOffset = 0
+            nearestPossibleStartOffsetOfNodeWithInnerTextInfoList =
+              startOffsetOfNodeWithInnerTextInfoList
           }
-          ++startOffsetOfNodeWithInnerTextInfoList
         }
         break
       } else {

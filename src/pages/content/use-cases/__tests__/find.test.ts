@@ -826,7 +826,76 @@ describe('createRangesList', () => {
         ]
       })
       return {
-        name: '_a_,_a_,_a_',
+        name: '(_a_,){3}',
+        param: {
+          nodeWithInnerTextList,
+          searchStringList,
+          shouldMatchWholeWord: false,
+        },
+        returnValue,
+      }
+    })(),
+    (() => {
+      const nodeWithInnerTextList = Array(8)
+        .fill('a')
+        .map((textContent) => {
+          const node = document.createTextNode(textContent)
+          const innerText = textContent
+          return { node, innerText }
+        })
+      const searchStringList = Array(4).fill('aa')
+      const returnValue = [
+        [
+          createRange({
+            node: nodeWithInnerTextList[0].node,
+            startOffset: 0,
+            endOffset: 1,
+          }),
+          createRange({
+            node: nodeWithInnerTextList[1].node,
+            startOffset: 0,
+            endOffset: 1,
+          }),
+        ],
+        [
+          createRange({
+            node: nodeWithInnerTextList[2].node,
+            startOffset: 0,
+            endOffset: 1,
+          }),
+          createRange({
+            node: nodeWithInnerTextList[3].node,
+            startOffset: 0,
+            endOffset: 1,
+          }),
+        ],
+        [
+          createRange({
+            node: nodeWithInnerTextList[4].node,
+            startOffset: 0,
+            endOffset: 1,
+          }),
+          createRange({
+            node: nodeWithInnerTextList[5].node,
+            startOffset: 0,
+            endOffset: 1,
+          }),
+        ],
+        [
+          createRange({
+            node: nodeWithInnerTextList[6].node,
+            startOffset: 0,
+            endOffset: 1,
+          }),
+          createRange({
+            node: nodeWithInnerTextList[7].node,
+            startOffset: 0,
+            endOffset: 1,
+          }),
+        ],
+      ]
+      return {
+        name: '(_a,a_),{4}',
         param: {
           nodeWithInnerTextList,
           searchStringList,
@@ -1094,9 +1163,20 @@ describe('createRangesList', () => {
 
   suits.forEach((suit) => {
     it(suit.name, () => {
-      expect(convertRangesListToObject(createRangesList(suit.param))).toEqual(
-        convertRangesListToObject(suit.returnValue),
-      )
+      const expectedRangesList = suit.returnValue
+      const actualRangesList = createRangesList(suit.param)
+      expect(actualRangesList.length).toBe(expectedRangesList.length)
+      actualRangesList.forEach((actualRanges, rangesListIndex) => {
+        const expectedRanges = expectedRangesList[rangesListIndex]
+        expect(actualRanges.length).toBe(expectedRanges.length)
+        actualRanges.forEach((actualRange, rangesIndex) => {
+          const expectedRange = expectedRanges[rangesIndex]
+          expect(actualRange.startContainer).toBe(expectedRange.startContainer)
+          expect(actualRange.startOffset).toBe(expectedRange.startOffset)
+          expect(actualRange.endContainer).toBe(expectedRange.endContainer)
+          expect(actualRange.endOffset).toBe(expectedRange.endOffset)
+        })
+      })
     })
   })
 
@@ -1113,22 +1193,5 @@ describe('createRangesList', () => {
     range.setStart(node, startOffset)
     range.setEnd(node, endOffset)
     return range
-  }
-
-  function convertRangesListToObject(rangesList: Range[][]): object {
-    return rangesList.map((ranges) => {
-      return ranges.map((range) => {
-        return {
-          startContainer: {
-            textContent: range.startContainer.textContent,
-          },
-          startOffset: range.startOffset,
-          endContainer: {
-            textContent: range.endContainer.textContent,
-          },
-          endOffset: range.endOffset,
-        }
-      })
-    })
   }
 })
