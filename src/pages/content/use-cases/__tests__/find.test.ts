@@ -716,39 +716,6 @@ describe('createRangesList', () => {
       }
     })(),
     (() => {
-      const nodes: Node[] = []
-      nodes.push(document.createTextNode('a '))
-      nodes.push(document.createTextNode('b'))
-      const nodeWithInnerTextList = nodes.map((node, index) => {
-        const innerText = node.textContent!.trim() + (index === 0 ? ' ' : '')
-        return { node, innerText }
-      })
-      const searchStringList = ['a b']
-      const returnValue = [
-        [
-          createRange({
-            node: nodeWithInnerTextList[0].node,
-            startOffset: 0,
-            endOffset: 1,
-          }),
-          createRange({
-            node: nodeWithInnerTextList[1].node,
-            startOffset: 0,
-            endOffset: 1,
-          }),
-        ],
-      ]
-      return {
-        name: '_a\\s,b_',
-        param: {
-          nodeWithInnerTextList,
-          searchStringList,
-          shouldMatchWholeWord: false,
-        },
-        returnValue,
-      }
-    })(),
-    (() => {
       const nodeWithInnerTextList = Array(10)
         .fill('b')
         .map((textContent) => {
@@ -896,34 +863,6 @@ describe('createRangesList', () => {
       ]
       return {
         name: '(_a,a_),{4}',
-        param: {
-          nodeWithInnerTextList,
-          searchStringList,
-          shouldMatchWholeWord: false,
-        },
-        returnValue,
-      }
-    })(),
-    (() => {
-      const nodeWithInnerTextList = Array(3)
-        .fill('\n a\n ')
-        .map((textContent) => {
-          const node = document.createTextNode(textContent)
-          const innerText = textContent.trim()
-          return { node, innerText }
-        })
-      const searchStringList = Array(3).fill('a')
-      const returnValue = nodeWithInnerTextList.map(({ node }) => {
-        return [
-          createRange({
-            node,
-            startOffset: 2,
-            endOffset: 3,
-          }),
-        ]
-      })
-      return {
-        name: 'adjust offset for spaces',
         param: {
           nodeWithInnerTextList,
           searchStringList,
@@ -1151,6 +1090,67 @@ describe('createRangesList', () => {
       ]
       return {
         name: '_a_bc,bc_a_,c_a_b,bc_a_,_a_bc',
+        param: {
+          nodeWithInnerTextList,
+          searchStringList,
+          shouldMatchWholeWord: false,
+        },
+        returnValue,
+      }
+    })(),
+    (() => {
+      const nodes: Node[] = []
+      nodes.push(document.createTextNode('a '))
+      nodes.push(document.createTextNode('b'))
+      const nodeWithInnerTextList = nodes.map((node, index) => {
+        const innerText = node.textContent!.trim() + (index === 0 ? ' ' : '')
+        return { node, innerText }
+      })
+      const searchStringList = ['a b']
+      const returnValue = [
+        [
+          createRange({
+            node: nodeWithInnerTextList[0].node,
+            startOffset: 0,
+            endOffset: 1,
+          }),
+          createRange({
+            node: nodeWithInnerTextList[1].node,
+            startOffset: 0,
+            endOffset: 1,
+          }),
+        ],
+      ]
+      return {
+        name: '_a\\s,b_',
+        param: {
+          nodeWithInnerTextList,
+          searchStringList,
+          shouldMatchWholeWord: false,
+        },
+        returnValue,
+      }
+    })(),
+    (() => {
+      const nodeWithInnerTextList = Array(3)
+        .fill('\n a\n ')
+        .map((textContent) => {
+          const node = document.createTextNode(textContent)
+          const innerText = textContent.trim()
+          return { node, innerText }
+        })
+      const searchStringList = Array(3).fill('a')
+      const returnValue = nodeWithInnerTextList.map(({ node }) => {
+        return [
+          createRange({
+            node,
+            startOffset: 2,
+            endOffset: 3,
+          }),
+        ]
+      })
+      return {
+        name: 'adjust offset for spaces',
         param: {
           nodeWithInnerTextList,
           searchStringList,
