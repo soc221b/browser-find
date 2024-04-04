@@ -346,8 +346,10 @@ describe('createNodeWithInnerTextList', () => {
   ]
 
   suits.forEach((suit) => {
-    it(suit.name, () => {
-      expect(createNodeWithInnerTextList(suit.param)).toEqual(suit.returnValue)
+    it(suit.name, async () => {
+      expect(await createNodeWithInnerTextList(suit.param)).toEqual(
+        suit.returnValue,
+      )
     })
   })
 
@@ -1193,9 +1195,9 @@ describe('createRangesList', () => {
   ]
 
   suits.forEach((suit) => {
-    it(suit.name, () => {
+    it(suit.name, async () => {
       const expectedRangesList = suit.returnValue
-      const actualRangesList = createRangesList(suit.param)
+      const actualRangesList = await createRangesList(suit.param)
       expect(actualRangesList.length).toBe(expectedRangesList.length)
       actualRangesList.forEach((actualRanges, rangesListIndex) => {
         const expectedRanges = expectedRangesList[rangesListIndex]

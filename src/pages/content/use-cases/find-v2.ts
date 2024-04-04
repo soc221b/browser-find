@@ -1,3 +1,5 @@
+import sleep from '../utils/sleep'
+
 type Find = (_: {
   text: string
 
@@ -11,6 +13,8 @@ type Find = (_: {
 }) => Cancel
 
 type Cancel = () => void
+
+const DEBUG = false
 
 const find: Find = ({
   text,
@@ -31,39 +35,59 @@ const find: Find = ({
     return cancel
   }
 
-  const regex = createRegex({
-    text,
-    shouldMatchCase,
-    shouldMatchWholeWord,
-    shouldUseRegularExpression,
-  })
-  // console.debug('[chrome-extension] [find] regex', regex)
+  ;(async () => {
+    const regex = createRegex({
+      text,
+      shouldMatchCase,
+      shouldMatchWholeWord,
+      shouldUseRegularExpression,
+    })
 
-  const nodeWithInnerTextList = createNodeWithInnerTextList({
-    documentElement: document.documentElement,
-  })
-  // console.debug(
-  //   '[chrome-extension] [find] nodeWithInnerTextList',
-  //   nodeWithInnerTextList,
-  // )
+    const searchStringList = createSearchStringList({
+      regex,
+      innerText: document.body.innerText,
+    })
 
-  const searchStringList = createSearchStringList({
-    regex,
-    innerText: document.body.innerText,
-  })
-  // console.debug('[chrome-extension] [find] searchStringList', searchStringList)
+    if (DEBUG) {
+      console.time('[chrome-extension] [find] nodeWithInnerTextList')
+    }
+    const nodeWithInnerTextList = await createNodeWithInnerTextList({
+      documentElement: document.documentElement,
+    })
+    if (DEBUG) {
+      console.timeEnd('[chrome-extension] [find] nodeWithInnerTextList')
+      console.debug(
+        '[chrome-extension] [find] nodeWithInnerTextList',
+        nodeWithInnerTextList,
+      )
+    }
+    await sleep('raf')
+    if (isCancelled) {
+      return
+    }
 
-  const rangesList = createRangesList({
-    nodeWithInnerTextList,
-    searchStringList,
-    shouldMatchWholeWord,
-  })
-  // console.debug('[chrome-extension] [find] rangesList', rangesList)
+    if (DEBUG) {
+      console.time('[chrome-extension] [find] rangesList')
+    }
+    const rangesList = await createRangesList({
+      nodeWithInnerTextList,
+      searchStringList,
+      shouldMatchWholeWord,
+    })
+    if (DEBUG) {
+      console.timeEnd('[chrome-extension] [find] rangesList')
+      console.debug('[chrome-extension] [find] rangesList', rangesList)
+    }
+    await sleep('raf')
+    if (isCancelled) {
+      return
+    }
 
-  match({
-    rangesList,
-    onMatch,
-  })
+    match({
+      rangesList,
+      onMatch,
+    })
+  })()
 
   return cancel
 }
@@ -108,11 +132,11 @@ export function createSearchStringList({
     .filter(Boolean)
 }
 
-export function createNodeWithInnerTextList({
+export async function createNodeWithInnerTextList({
   documentElement,
 }: {
   documentElement: HTMLElement
-}): { node: Node; innerText: string }[] {
+}): Promise<{ node: Node; innerText: string }[]> {
   let nodeWithInnerTextList: { node: Node; innerText: string }[] = []
   let stack: {
     childNode: null | ChildNode
@@ -240,7 +264,7 @@ export function createNodeWithInnerTextList({
   return nodeWithInnerTextList
 }
 
-export function createRangesList({
+export async function createRangesList({
   nodeWithInnerTextList,
   searchStringList,
   shouldMatchWholeWord,
@@ -251,7 +275,7 @@ export function createRangesList({
   }[]
   searchStringList: string[]
   shouldMatchWholeWord: boolean
-}): Range[][] {
+}): Promise<Range[][]> {
   const rangesList: Range[][] = []
 
   let allInnerText = ''
@@ -417,22 +441,24 @@ export function createRangesList({
             range.setStart(nodeWithInnerTextInfo.node, startOffset)
             range.setEnd(nodeWithInnerTextInfo.node, endOffset)
           } catch (e) {
-            console.debug(
-              '[chrome-extension] [find] invalid start/end offset',
-              {
-                searchStringList,
-                startOffsetOfSearchStringList,
-                nodeWithInnerTextInfoList,
-                nearestPossibleStartOffsetOfNodeWithInnerTextInfoList,
-                searchString,
-                lastOffsetOfNodeWithInnerTextInfoList,
-                startOffsetOfNodeWithInnerTextInfoList,
-                startOffset,
-                endOffset,
-                restOfSearchString,
-              },
-            )
-            console.debug(e)
+            if (DEBUG) {
+              console.debug(
+                '[chrome-extension] [find] invalid start/end offset',
+                {
+                  searchStringList,
+                  startOffsetOfSearchStringList,
+                  nodeWithInnerTextInfoList,
+                  nearestPossibleStartOffsetOfNodeWithInnerTextInfoList,
+                  searchString,
+                  lastOffsetOfNodeWithInnerTextInfoList,
+                  startOffsetOfNodeWithInnerTextInfoList,
+                  startOffset,
+                  endOffset,
+                  restOfSearchString,
+                },
+              )
+              console.debug(e)
+            }
             return rangesList
           }
           ranges.push(range)
@@ -453,7 +479,9 @@ export function createRangesList({
     if (ranges.length) {
       rangesList.push(ranges)
     } else {
-      console.debug('[chrome-extension] [find] invalid state')
+      if (DEBUG) {
+        console.debug('[chrome-extension] [find] invalid state')
+      }
     }
     ++startOffsetOfSearchStringList
   }
