@@ -264,6 +264,31 @@ describe('createNodeWithInnerTextList', () => {
       ],
     },
     {
+      name: 'should insert an empty node to consume space if there is no trailing space on non-last child node',
+      param: {
+        documentElement: createDocumentElement(
+          `<span>a</span><span>b</span><span>c</span>`,
+        ),
+      },
+      returnValue: [
+        { node: document.createTextNode('a'), innerText: 'a' },
+        { node: document.createTextNode(' '), innerText: ' ' },
+        { node: document.createTextNode('b'), innerText: 'b' },
+        { node: document.createTextNode(' '), innerText: ' ' },
+        { node: document.createTextNode('c'), innerText: 'c' },
+      ],
+    },
+    {
+      name: 'should insert an empty node to consume space if there is no trailing space on non-last child node and next sibling is not a text node',
+      param: {
+        documentElement: createDocumentElement(`<span>a</span>b`),
+      },
+      returnValue: [
+        { node: document.createTextNode('a'), innerText: 'a' },
+        { node: document.createTextNode('b'), innerText: 'b' },
+      ],
+    },
+    {
       name: 'should trim leading spaces if previous child node is br',
       param: {
         documentElement: createDocumentElement(`<br>\na`),

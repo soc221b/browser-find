@@ -203,7 +203,9 @@ export function createNodeWithInnerTextList({
             ) {
               innerText = innerText.replace(/\s+$/, '')
             } else {
-              innerText = innerText.replace(/\s+$/, ' ')
+              if (/\s+$/.test(innerText)) {
+                innerText = innerText.trimEnd() + ' '
+              }
             }
             if (parentElement.tagName === 'OPTION') {
               const parentParentElement = parentElement.parentElement
@@ -223,6 +225,30 @@ export function createNodeWithInnerTextList({
             node: childNode,
             innerText,
           })
+          if (parentElement) {
+            const parentParentElement = parentElement.parentElement
+            if (parentParentElement) {
+              if (
+                parentParentElement.childNodes[
+                  parentParentElement.childNodes.length - 1
+                ] === childNode
+              ) {
+              } else {
+                if (/\s+$/.test(innerText)) {
+                } else {
+                  if (
+                    parentElement.nextSibling &&
+                    parentElement.nextSibling.nodeType !== Node.TEXT_NODE
+                  ) {
+                    nodeWithInnerTextList.push({
+                      node: documentElement.ownerDocument.createTextNode(' '),
+                      innerText: ' ',
+                    })
+                  }
+                }
+              }
+            }
+          }
         }
         break
       }
