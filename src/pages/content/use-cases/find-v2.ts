@@ -375,15 +375,11 @@ export function createRangesList({
           const nodeWithInnerTextInfo =
             nodeWithInnerTextInfoList[startOffsetOfNodeWithInnerTextInfoList]
           endOffset = Math.min(
-            nodeWithInnerTextInfo.node.textContent!.trim().length,
+            nodeWithInnerTextInfo.node.textContent!.length,
             nodeWithInnerTextInfo.innerText.length,
             startOffset + restOfSearchString.length,
           )
-          restOfSearchString = restOfSearchString.slice(
-            endOffset -
-              startOffset +
-              (/\s$/.test(nodeWithInnerTextInfo.innerText) ? 1 : 0),
-          )
+          restOfSearchString = restOfSearchString.slice(endOffset - startOffset)
           if (shouldMatchWholeWord) {
             if (startOffset !== 0) {
               ++lastOffsetOfNodeWithInnerTextInfoList
@@ -399,18 +395,8 @@ export function createRangesList({
           }
           const range = new Range()
           try {
-            range.setStart(
-              nodeWithInnerTextInfo.node,
-              startOffset +
-                (nodeWithInnerTextInfo.node.textContent!.match(/^\s+/)?.[0]
-                  .length ?? 0),
-            )
-            range.setEnd(
-              nodeWithInnerTextInfo.node,
-              endOffset +
-                (nodeWithInnerTextInfo.node.textContent!.match(/^\s+/)?.[0]
-                  .length ?? 0),
-            )
+            range.setStart(nodeWithInnerTextInfo.node, startOffset)
+            range.setEnd(nodeWithInnerTextInfo.node, endOffset)
           } catch (e) {
             console.debug(
               '[chrome-extension] [find] invalid start/end offset',
