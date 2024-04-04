@@ -88,7 +88,7 @@ export function createRegex({
       : pattern.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') // https://stackoverflow.com/a/9310752/7122623
     pattern = shouldMatchWholeWord ? `\\b${pattern}\\b` : `${pattern}`
     let flags = ''
-    flags += 'g'
+    flags += 'gm'
     flags += shouldMatchCase ? '' : 'i'
     return new RegExp(pattern, flags)
   } catch {

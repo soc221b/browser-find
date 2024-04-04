@@ -24,7 +24,7 @@ describe('createRegex', () => {
         shouldUseRegularExpression: false,
         text: 'abc?',
       },
-      returnValue: /abc\?/gi,
+      returnValue: /abc\?/gim,
     },
     {
       name: 'match case',
@@ -34,7 +34,7 @@ describe('createRegex', () => {
         shouldUseRegularExpression: false,
         text: 'abc?',
       },
-      returnValue: /abc\?/g,
+      returnValue: /abc\?/gm,
     },
     {
       name: 'match whole word',
@@ -44,7 +44,7 @@ describe('createRegex', () => {
         shouldUseRegularExpression: false,
         text: 'abc?',
       },
-      returnValue: /\babc\?\b/gi,
+      returnValue: /\babc\?\b/gim,
     },
     {
       name: 'use regular expression',
@@ -54,7 +54,7 @@ describe('createRegex', () => {
         shouldUseRegularExpression: true,
         text: 'abc?',
       },
-      returnValue: /abc?/gi,
+      returnValue: /abc?/gim,
     },
     {
       name: 'ignore invalid regular expression',
@@ -88,7 +88,7 @@ describe('createSearchStringList', () => {
       name: 'basic',
       param: {
         innerText: 'abc? ABC?D',
-        regex: /abc\?/gi,
+        regex: /abc\?/gim,
       },
       returnValue: ['abc?', 'ABC?'],
     },
@@ -96,7 +96,7 @@ describe('createSearchStringList', () => {
       name: 'match case',
       param: {
         innerText: 'abc? ABC? abc? ABC?',
-        regex: /abc\?/g,
+        regex: /abc\?/gm,
       },
       returnValue: ['abc?', 'abc?'],
     },
@@ -104,15 +104,23 @@ describe('createSearchStringList', () => {
       name: 'match whole word',
       param: {
         innerText: 'abc? ABc?abc? ABC?',
-        regex: /\babc\?\b/gi,
+        regex: /\babc\?\b/gim,
       },
       returnValue: ['ABc?'],
+    },
+    {
+      name: 'should match multiple line',
+      param: {
+        innerText: '\nabc',
+        regex: /\w/gim,
+      },
+      returnValue: ['a', 'b', 'c'],
     },
     {
       name: 'should break early if match nothing',
       param: {
         innerText: 'abc',
-        regex: /^/gi,
+        regex: /^/gim,
       },
       returnValue: [],
     },
