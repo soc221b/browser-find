@@ -103,15 +103,9 @@ export function createSearchStringList({
   regex: RegExp
   innerText: string
 }): string[] {
-  const searchStringList: string[] = []
-  let array: null | RegExpExecArray
-  while ((array = regex.exec(innerText)) !== null) {
-    if (array[0] === '') {
-      break
-    }
-    searchStringList.push(array[0])
-  }
-  return searchStringList
+  return Array.from(innerText.matchAll(regex))
+    .map((array) => array[0])
+    .filter(Boolean)
 }
 
 export function createNodeWithInnerTextList({
