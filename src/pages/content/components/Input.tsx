@@ -6,11 +6,9 @@ export default function Input(): JSX.Element {
   const text = useStore((store) => store.text)
 
   const handlePaste: ClipboardEventHandler<HTMLInputElement> = (event) => {
-    requestAnimationFrame(() => {
-      dispatch({
-        type: 'Type',
-        value: (event.target as HTMLInputElement).value.trim(),
-      })
+    dispatch({
+      type: 'Type',
+      value: (event.target as HTMLInputElement).value.trim(),
     })
   }
 
