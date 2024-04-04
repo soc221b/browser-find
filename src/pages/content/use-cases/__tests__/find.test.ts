@@ -237,13 +237,23 @@ describe('createNodeWithInnerTextList', () => {
       returnValue: [{ node: document.createTextNode('ABC'), innerText: 'abc' }],
     },
     {
-      name: 'should trim leading spaces of first child node',
+      name: 'should trim leading spaces for first child node',
       param: {
         documentElement: createDocumentElement(` \t\na<span>b</span>`),
       },
       returnValue: [
         { node: document.createTextNode(' \t\na'), innerText: 'a' },
         { node: document.createTextNode('b'), innerText: 'b' },
+      ],
+    },
+    {
+      name: 'should trim leading spaces for non-first child node',
+      param: {
+        documentElement: createDocumentElement(`<span>a</span> b`),
+      },
+      returnValue: [
+        { node: document.createTextNode('a'), innerText: 'a' },
+        { node: document.createTextNode(' b'), innerText: 'b' },
       ],
     },
     {

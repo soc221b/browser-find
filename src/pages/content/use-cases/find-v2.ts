@@ -192,14 +192,9 @@ export function createNodeWithInnerTextList({
             ) {
               innerText = innerText.toLowerCase()
             }
-            const index = Array.from(parentElement.childNodes).indexOf(
-              childNode,
-            )
-            if (index === 0) {
+            if (parentElement.childNodes[0] === childNode) {
               innerText = innerText.replace(/^\s+/, '')
-            } else if (
-              parentElement.childNodes[index - 1] instanceof HTMLBRElement
-            ) {
+            } else {
               innerText = innerText.replace(/^\s+/, '')
             }
             if (
