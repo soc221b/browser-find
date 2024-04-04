@@ -423,6 +423,14 @@ export function createRangesList({
           }
           const range = new Range()
           try {
+            const startSpaceOffset =
+              nodeWithInnerTextInfo.node.textContent?.startsWith(
+                nodeWithInnerTextInfo.innerText,
+              )
+                ? 0
+                : 1
+            startOffset += startSpaceOffset
+            endOffset += startSpaceOffset
             range.setStart(nodeWithInnerTextInfo.node, startOffset)
             range.setEnd(nodeWithInnerTextInfo.node, endOffset)
           } catch (e) {
