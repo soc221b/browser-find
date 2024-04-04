@@ -54,7 +54,7 @@ const find: Find = ({
   console.debug('[chrome-extension] [find] searchStringList', searchStringList)
 
   const rangesList = createRangesList({
-    nodeWithInnerTextList: nodeWithInnerTextList,
+    nodeWithInnerTextList,
     searchStringList,
     shouldMatchWholeWord,
   })
