@@ -260,23 +260,26 @@ export function createRangesList({
 }): Range[][] {
   const rangesList: Range[][] = []
 
+  let allInnerText = ''
   const nodeWithInnerTextInfoList: {
     node: Node
     innerText: string
-    innerTextFromStart: string
+    lastOffsetOfAllInnerText: number
   }[] = nodeWithInnerTextList.reduce(
     (acc, { node, innerText }) => {
+      allInnerText += innerText
       return acc.concat({
         node,
         innerText,
-        innerTextFromStart:
-          (acc[acc.length - 1]?.innerTextFromStart ?? '') + innerText,
+        lastOffsetOfAllInnerText:
+          (acc[acc.length - 1]?.lastOffsetOfAllInnerText ?? 0) +
+          innerText.length,
       })
     },
     [] as {
       node: Node
       innerText: string
-      innerTextFromStart: string
+      lastOffsetOfAllInnerText: number
     }[],
   )
   /**
@@ -327,11 +330,12 @@ export function createRangesList({
         nodeWithInnerTextInfoList[lastOffsetOfNodeWithInnerTextInfoList]
       const isMatched =
         0 <=
-        lastNodeWithInnerTextInfo.innerTextFromStart
+        allInnerText
           .slice(
             (nodeWithInnerTextInfoList[
               nearestPossibleStartOffsetOfNodeWithInnerTextInfoList - 1
-            ]?.innerTextFromStart.length ?? 0) + endOffset,
+            ]?.lastOffsetOfAllInnerText ?? 0) + endOffset,
+            lastNodeWithInnerTextInfo.lastOffsetOfAllInnerText,
           )
           .indexOf(searchString)
       if (isMatched) {
@@ -353,8 +357,11 @@ export function createRangesList({
             const m = l + Math.floor((r - l) / 2)
             if (
               0 <=
-              lastNodeWithInnerTextInfo.innerTextFromStart
-                .slice(nodeWithInnerTextInfoList[m].innerTextFromStart.length)
+              allInnerText
+                .slice(
+                  nodeWithInnerTextInfoList[m].lastOffsetOfAllInnerText,
+                  lastNodeWithInnerTextInfo.lastOffsetOfAllInnerText,
+                )
                 .indexOf(searchString)
             ) {
               l = m + 1
@@ -373,11 +380,12 @@ export function createRangesList({
         nearestPossibleStartOffsetOfNodeWithInnerTextInfoList =
           startOffsetOfNodeWithInnerTextInfoList
         let startOffset =
-          lastNodeWithInnerTextInfo.innerTextFromStart
+          allInnerText
             .slice(
               (nodeWithInnerTextInfoList[
                 startOffsetOfNodeWithInnerTextInfoList - 1
-              ]?.innerTextFromStart.length ?? 0) + endOffset,
+              ]?.lastOffsetOfAllInnerText ?? 0) + endOffset,
+              lastNodeWithInnerTextInfo.lastOffsetOfAllInnerText,
             )
             .indexOf(searchString) + endOffset
         while (restOfSearchString.length) {
