@@ -147,7 +147,11 @@ export async function createNodeWithInnerTextList({
       childNodeIndex: 0,
     },
   ]
+  let i = 0
   while (stack.length) {
+    if (++i % 5_000 === 0) {
+      await sleep('raf')
+    }
     const top = stack[stack.length - 1]
     if (top.childNode === null) {
       stack.pop()
@@ -327,7 +331,12 @@ export async function createRangesList({
    *  endOffset 會是 3
    */
   let endOffset = 0
+  let i = 0
   while (startOffsetOfSearchStringList < searchStringList.length) {
+    if (++i % 100 === 0) {
+      await sleep('raf')
+    }
+
     const searchString = searchStringList[startOffsetOfSearchStringList]
     const ranges: Range[] = []
 
