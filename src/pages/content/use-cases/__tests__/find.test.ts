@@ -739,7 +739,7 @@ describe('createRangesList', () => {
         ],
       ]
       return {
-        name: 'spaces at the end of textContent should not be taken',
+        name: '_a\\s,b_',
         param: {
           nodeWithInnerTextList,
           searchStringList,
@@ -779,7 +779,7 @@ describe('createRangesList', () => {
         ],
       ]
       return {
-        name: 'matches at start and end',
+        name: '_a_,b,b,b,b,b,b,b,b,_c_',
         param: {
           nodeWithInnerTextList,
           searchStringList,
@@ -894,7 +894,7 @@ describe('createRangesList', () => {
         ],
       ]
       return {
-        name: 'performance: matches at start and end',
+        name: '_a_,(b,){10_000},_a_',
         param: {
           nodeWithInnerTextList,
           searchStringList,
@@ -940,7 +940,7 @@ describe('createRangesList', () => {
           return acc
         }, [] as Range[][])
       return {
-        name: 'performance - multiple matches across multiple nodes',
+        name: '(_(a){20}_,){500}',
         param: {
           nodeWithInnerTextList,
           searchStringList,
@@ -986,7 +986,7 @@ describe('createRangesList', () => {
           return acc
         }, [] as Range[][])
       return {
-        name: 'performance - multiple matches in multiple nodes',
+        name: '(_(a,){2}_,){5_000}',
         param: {
           nodeWithInnerTextList,
           searchStringList,
@@ -1020,7 +1020,7 @@ describe('createRangesList', () => {
         ],
       ]
       return {
-        name: 'should reset endOffset if matched node is not the last used node',
+        name: 'a_b_c,d,_b_',
         param: {
           nodeWithInnerTextList,
           searchStringList,
@@ -1081,7 +1081,7 @@ describe('createRangesList', () => {
         ],
       ]
       return {
-        name: 'should skip used nodes',
+        name: '_a_bc,bc_a_,c_a_b,bc_a_,_a_bc',
         param: {
           nodeWithInnerTextList,
           searchStringList,
