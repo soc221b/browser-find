@@ -11,7 +11,7 @@
   "scripts": {
     "test": "jest",
     "start": "tsx scripts/build-icons && tsx scripts/build.ts chrome --dev",
-    "build": "rimraf dist && mkdirp dist/v3 && tsx scripts/build-icons && tsx scripts/build.ts chrome"
+    "build": "mkdirp dist/v3 && tsx scripts/build-icons && tsx scripts/build.ts chrome"
   },
   "type": "module",
   "dependencies": {
