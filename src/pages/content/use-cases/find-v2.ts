@@ -37,28 +37,28 @@ const find: Find = ({
     shouldMatchWholeWord,
     shouldUseRegularExpression,
   })
-  console.debug('[chrome-extension] [find] regex', regex)
+  // console.debug('[chrome-extension] [find] regex', regex)
 
   const nodeWithInnerTextList = createNodeWithInnerTextList({
     documentElement: document.documentElement,
   })
-  console.debug(
-    '[chrome-extension] [find] nodeWithInnerTextList',
-    nodeWithInnerTextList,
-  )
+  // console.debug(
+  //   '[chrome-extension] [find] nodeWithInnerTextList',
+  //   nodeWithInnerTextList,
+  // )
 
   const searchStringList = createSearchStringList({
     regex,
     innerText: document.body.innerText,
   })
-  console.debug('[chrome-extension] [find] searchStringList', searchStringList)
+  // console.debug('[chrome-extension] [find] searchStringList', searchStringList)
 
   const rangesList = createRangesList({
     nodeWithInnerTextList,
     searchStringList,
     shouldMatchWholeWord,
   })
-  console.debug('[chrome-extension] [find] rangesList', rangesList)
+  // console.debug('[chrome-extension] [find] rangesList', rangesList)
 
   match({
     rangesList,
