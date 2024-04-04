@@ -106,6 +106,9 @@ export function createSearchStringList({
   const searchStringList: string[] = []
   let array: null | RegExpExecArray
   while ((array = regex.exec(innerText)) !== null) {
+    if (array[0] === '') {
+      break
+    }
     searchStringList.push(array[0])
   }
   return searchStringList

@@ -108,6 +108,14 @@ describe('createSearchStringList', () => {
       },
       returnValue: ['ABc?'],
     },
+    {
+      name: 'should break early if match nothing',
+      param: {
+        innerText: 'abc',
+        regex: /^/gi,
+      },
+      returnValue: [],
+    },
   ]
 
   suits.forEach((suit) => {
