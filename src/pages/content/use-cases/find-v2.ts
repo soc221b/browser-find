@@ -195,7 +195,12 @@ export function createNodeWithInnerTextList({
             if (parentElement.childNodes[0] === childNode) {
               innerText = innerText.replace(/^\s+/, '')
             } else {
-              innerText = innerText.replace(/^\s+/, '')
+              if (
+                childNode.previousSibling instanceof Element &&
+                childNode.previousSibling.tagName === 'BR'
+              ) {
+                innerText = innerText.trimStart()
+              }
             }
             if (
               parentElement.childNodes[parentElement.childNodes.length - 1] ===

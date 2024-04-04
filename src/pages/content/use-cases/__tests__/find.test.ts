@@ -244,16 +244,6 @@ describe('createNodeWithInnerTextList', () => {
       returnValue: [{ node: document.createTextNode('\n a'), innerText: 'a' }],
     },
     {
-      name: 'should trim leading spaces for non-first child node',
-      param: {
-        documentElement: createDocumentElement(`<span>a</span> b`),
-      },
-      returnValue: [
-        { node: document.createTextNode('a'), innerText: 'a' },
-        { node: document.createTextNode(' b'), innerText: 'b' },
-      ],
-    },
-    {
       name: 'should keep one trailing space if there is any for non-last child node',
       param: {
         documentElement: createDocumentElement(`a \n<span>b</span>`),
@@ -289,24 +279,34 @@ describe('createNodeWithInnerTextList', () => {
       ],
     },
     {
-      name: 'should trim leading spaces if previous child node is br',
+      name: '"<span>a</span>b "',
+      param: {
+        documentElement: createDocumentElement(`<span>a</span>b `),
+      },
+      returnValue: [
+        { node: document.createTextNode('a'), innerText: 'a' },
+        { node: document.createTextNode('b '), innerText: 'b' },
+      ],
+    },
+    {
+      name: '"<br>\\na"',
       param: {
         documentElement: createDocumentElement(`<br>\na`),
       },
       returnValue: [{ node: document.createTextNode('\na'), innerText: 'a' }],
     },
     {
-      name: 'should trim trailing spaces of last child node',
+      name: '"<span>a</span> b"',
       param: {
-        documentElement: createDocumentElement(`<span>a</span>b\n\t `),
+        documentElement: createDocumentElement(`<span>a</span> b`),
       },
       returnValue: [
         { node: document.createTextNode('a'), innerText: 'a' },
-        { node: document.createTextNode('b\n\t '), innerText: 'b' },
+        { node: document.createTextNode(' b'), innerText: ' b' },
       ],
     },
     {
-      name: 'performance: deep nested elements',
+      name: '(<span>){512}abc(</span>{512})',
       param: {
         documentElement: createDocumentElement(
           `<span>`.repeat(512) + 'abc' + `</span>`.repeat(512),
@@ -315,7 +315,7 @@ describe('createNodeWithInnerTextList', () => {
       returnValue: [{ node: document.createTextNode('abc'), innerText: 'abc' }],
     },
     {
-      name: 'performance: lots of siblings',
+      name: '(<span>abc</span>){1_024}',
       param: {
         documentElement: createDocumentElement(`<span>abc</span>`.repeat(1024)),
       },
@@ -324,7 +324,16 @@ describe('createNodeWithInnerTextList', () => {
         .map(() => ({
           node: document.createTextNode('abc'),
           innerText: 'abc',
-        })),
+        }))
+        .reduce(
+          (acc, nodeWithInnerText) => {
+            acc.push(nodeWithInnerText)
+            acc.push({ node: document.createTextNode(' '), innerText: ' ' })
+            return acc
+          },
+          [] as { node: Node; innerText: string }[],
+        )
+        .slice(0, -1),
     },
 
     // TODO: shadow DOM
