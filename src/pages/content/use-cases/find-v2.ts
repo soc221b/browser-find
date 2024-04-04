@@ -230,30 +230,11 @@ export function createNodeWithInnerTextList({
             node: childNode,
             innerText,
           })
-          if (parentElement) {
-            const parentParentElement = parentElement.parentElement
-            if (parentParentElement) {
-              if (
-                parentParentElement.childNodes[
-                  parentParentElement.childNodes.length - 1
-                ] === childNode
-              ) {
-              } else {
-                if (/\s+$/.test(innerText)) {
-                } else {
-                  if (
-                    parentElement.nextSibling &&
-                    parentElement.nextSibling.nodeType !== Node.TEXT_NODE
-                  ) {
-                    nodeWithInnerTextList.push({
-                      node: documentElement.ownerDocument.createTextNode(' '),
-                      innerText: ' ',
-                    })
-                  }
-                }
-              }
-            }
-          }
+        } else {
+          nodeWithInnerTextList.push({
+            node: childNode,
+            innerText: ' ',
+          })
         }
         break
       }

@@ -190,7 +190,7 @@ describe('createNodeWithInnerTextList', () => {
             `<label for="ice-cream-choice">Choose a flavor:</label>`,
             `<input list="ice-cream-flavors" id="ice-cream-choice" name="ice-cream-choice"/>`,
             `<datalist id="ice-cream-flavors"><option value="Chocolate"></option></datalist>`,
-          ].join('\n'),
+          ].join(''),
         ),
       },
       returnValue: [
@@ -254,21 +254,6 @@ describe('createNodeWithInnerTextList', () => {
       ],
     },
     {
-      name: 'should insert an empty node to consume space if there is no trailing space on non-last child node',
-      param: {
-        documentElement: createDocumentElement(
-          `<span>a</span><span>b</span><span>c</span>`,
-        ),
-      },
-      returnValue: [
-        { node: document.createTextNode('a'), innerText: 'a' },
-        { node: document.createTextNode(' '), innerText: ' ' },
-        { node: document.createTextNode('b'), innerText: 'b' },
-        { node: document.createTextNode(' '), innerText: ' ' },
-        { node: document.createTextNode('c'), innerText: 'c' },
-      ],
-    },
-    {
       name: 'should insert an empty node to consume space if there is no trailing space on non-last child node and next sibling is not a text node',
       param: {
         documentElement: createDocumentElement(`<span>a</span>b`),
@@ -306,6 +291,34 @@ describe('createNodeWithInnerTextList', () => {
       ],
     },
     {
+      name: '"<span>a</span> <span>b</span> <span>c</span>"',
+      param: {
+        documentElement: createDocumentElement(
+          `<span>a</span> <span>b</span> <span>c</span>`,
+        ),
+      },
+      returnValue: [
+        { node: document.createTextNode('a'), innerText: 'a' },
+        { node: document.createTextNode(' '), innerText: ' ' },
+        { node: document.createTextNode('b'), innerText: 'b' },
+        { node: document.createTextNode(' '), innerText: ' ' },
+        { node: document.createTextNode('c'), innerText: 'c' },
+      ],
+    },
+    {
+      name: '"<span>a</span><span>b</span><span>c</span>"',
+      param: {
+        documentElement: createDocumentElement(
+          `<span>a</span><span>b</span><span>c</span>`,
+        ),
+      },
+      returnValue: [
+        { node: document.createTextNode('a'), innerText: 'a' },
+        { node: document.createTextNode('b'), innerText: 'b' },
+        { node: document.createTextNode('c'), innerText: 'c' },
+      ],
+    },
+    {
       name: '(<span>){512}abc(</span>{512})',
       param: {
         documentElement: createDocumentElement(
@@ -324,16 +337,7 @@ describe('createNodeWithInnerTextList', () => {
         .map(() => ({
           node: document.createTextNode('abc'),
           innerText: 'abc',
-        }))
-        .reduce(
-          (acc, nodeWithInnerText) => {
-            acc.push(nodeWithInnerText)
-            acc.push({ node: document.createTextNode(' '), innerText: ' ' })
-            return acc
-          },
-          [] as { node: Node; innerText: string }[],
-        )
-        .slice(0, -1),
+        })),
     },
 
     // TODO: shadow DOM
