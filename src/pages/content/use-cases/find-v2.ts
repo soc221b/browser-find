@@ -492,6 +492,14 @@ export async function createRangesList({
             nearestPossibleStartOffsetOfNodeWithInnerTextInfoList =
               startOffsetOfNodeWithInnerTextInfoList
           }
+          if (
+            nodeWithInnerTextInfo.node.textContent!.slice(endOffset).trim() ===
+            ''
+          ) {
+            endOffset = 0
+            nearestPossibleStartOffsetOfNodeWithInnerTextInfoList =
+              startOffsetOfNodeWithInnerTextInfoList
+          }
         }
         break
       } else {
