@@ -19,6 +19,7 @@ specifiers:
   get-installed-browsers: ^0.1.7
   jest: ^29.7.0
   jest-environment-jsdom: ^29.7.0
+  lru-cache: ^10.2.0
   mkdirp: ^3.0.1
   node-watch: ^0.7.3
   postcss: ^8.4.21
@@ -39,6 +40,7 @@ specifiers:
 dependencies:
   '@floating-ui/dom': 1.6.3
   '@types/webextension-polyfill': 0.10.0
+  lru-cache: 10.2.0
   mkdirp: 3.0.1
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -4648,6 +4650,11 @@ packages:
     resolution: {integrity: sha512-ozCC6gdQ+glXOQsveKD0YsDy8DSQFjDTz4zyzEHNV5+JP5D62LmfDZ6o1cycFx9ouG940M5dE8C8CTewdj2YWQ==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     dev: true
+
+  /lru-cache/10.2.0:
+    resolution: {integrity: sha512-2bIM8x+VAf6JT4bKAljS1qUWgMsqZRPGJS6FSahIMPVvctcNhyVp7AJu7quxOW9jwkryBReKZY5tY5JYv2n/7Q==}
+    engines: {node: 14 || >=16.14}
+    dev: false
 
   /lru-cache/5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}

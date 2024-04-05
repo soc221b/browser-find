@@ -1,4 +1,5 @@
 import sleep from '../utils/sleep'
+import { LRUCache } from 'lru-cache'
 
 type Find = (_: {
   text: string
@@ -15,6 +16,10 @@ type Find = (_: {
 type Cancel = () => void
 
 const DEBUG = false
+
+const cache = new LRUCache<{}, Range[][]>({
+  max: 500,
+})
 
 const find: Find = ({
   text,
@@ -86,11 +91,26 @@ const find: Find = ({
     if (DEBUG) {
       console.time('[chrome-extension][find][rangesList]')
     }
-    const rangesList = await createRangesList({
-      nodeWithInnerTextList,
+    const key = JSON.stringify({
+      type: 'rangesList',
+      regex,
+      innerText: document.body.innerText,
       searchStringList,
-      shouldMatchWholeWord,
     })
+    if (cache.has(key) === false) {
+      await (async () => {
+        const rangesList = await createRangesList({
+          nodeWithInnerTextList,
+          searchStringList,
+          shouldMatchWholeWord,
+        })
+        if (isCancelled) {
+          return
+        }
+        cache.set(key, rangesList)
+      })()
+    }
+    const rangesList = cache.get(key)!
     if (DEBUG) {
       console.timeEnd('[chrome-extension][find][rangesList]')
       console.debug('[chrome-extension][find][rangesList]', rangesList)
