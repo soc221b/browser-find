@@ -251,6 +251,7 @@ export async function createNodeWithInnerTextList({
             ) {
               innerText = innerText.toLowerCase()
             }
+            innerText = innerText.replace(/(\S.*)\s+(.*\S)/g, '$1 $2')
             if (parentElement.childNodes[0] === childNode) {
               innerText = innerText.trimStart()
             } else {

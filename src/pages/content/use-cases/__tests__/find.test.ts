@@ -303,6 +303,15 @@ describe('createNodeWithInnerTextList', () => {
       ],
     },
     {
+      name: '"a\\nb"',
+      param: {
+        documentElement: createDocumentElement(`a\nb`),
+      },
+      returnValue: [
+        { node: document.createTextNode('a\nb'), innerText: 'a b' },
+      ],
+    },
+    {
       name: '"<br>\\na"',
       param: {
         documentElement: createDocumentElement(`<br>\na`),
