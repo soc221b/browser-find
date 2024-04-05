@@ -2,7 +2,7 @@
   "name": "browser-find",
   "displayName": "Find",
   "version": "0.1.2",
-  "description": "Quickly find text in the currently opened tab",
+  "description": "An extension for Regex Find. Search for regular expressions within webpages",
   "license": "MIT",
   "repository": {
     "type": "git",
