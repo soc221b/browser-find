@@ -10,7 +10,7 @@ type Find = (_: {
 
   shouldUseRegularExpression: boolean
 
-  onMatch: (match: { id: string; scrollIntoView: () => void }) => void
+  onMatch: (match: { id: string; ranges: Range[] }) => void
 }) => Cancel
 
 type Cancel = () => void
@@ -32,9 +32,6 @@ const find: Find = ({
   const cancel = () => {
     isCancelled = true
   }
-
-  CSS.highlights.delete('browser-find')
-  CSS.highlights.delete('browser-find-match')
 
   if (text === '') {
     return cancel
@@ -120,9 +117,11 @@ const find: Find = ({
       return
     }
 
-    match({
-      rangesList,
-      onMatch,
+    rangesList.forEach((ranges) => {
+      onMatch({
+        id: Math.random().toString(36),
+        ranges,
+      })
     })
   })()
 
@@ -550,33 +549,4 @@ export async function createRangesList({
   }
 
   return rangesList
-}
-
-function match({
-  rangesList,
-  onMatch,
-}: {
-  rangesList: Range[][]
-  onMatch: (match: { id: string; scrollIntoView: () => void }) => void
-}) {
-  rangesList.forEach((ranges, index) => {
-    onMatch({
-      id: index.toString(),
-      scrollIntoView: () => {
-        CSS.highlights.set(
-          'browser-find',
-          new Highlight(
-            ...rangesList.slice(0, index).flat(),
-            ...rangesList.slice(index + 1).flat(),
-          ),
-        )
-        CSS.highlights.set('browser-find-match', new Highlight(...ranges))
-        ranges[0].startContainer.parentElement?.scrollIntoView({
-          behavior: 'instant',
-          block: 'nearest',
-          inline: 'nearest',
-        })
-      },
-    })
-  })
 }

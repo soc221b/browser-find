@@ -10,7 +10,20 @@ const reducer: Reducer = (state, action) => {
   nextState.matches = state.matches.concat(action.match)
   if (nextState.matchId === null) {
     nextState.matchId = nextState.matches[0].id
-    nextState.matches[0].scrollIntoView()
+    action.match.ranges.forEach((range, index) => {
+      if (index === 0) {
+        range.startContainer.parentElement?.scrollIntoView({
+          behavior: 'instant',
+          block: 'nearest',
+          inline: 'nearest',
+        })
+      }
+      CSS.highlights.get('browser-find-match')?.add(range)
+    })
+  } else {
+    action.match.ranges.forEach((range) => {
+      CSS.highlights.get('browser-find')?.add(range)
+    })
   }
 
   return nextState

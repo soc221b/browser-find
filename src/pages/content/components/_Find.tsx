@@ -17,12 +17,13 @@ export default function _Find(): JSX.Element {
       return
     }
 
+    CSS.highlights.set('browser-find-match', new Highlight())
+    CSS.highlights.set('browser-find', new Highlight())
+
     const cancel = find({
-      onMatch: (match) =>
-        dispatch({
-          type: 'Match',
-          match,
-        }),
+      onMatch: (match) => {
+        dispatch({ type: 'Match', match })
+      },
       shouldMatchCase,
       shouldMatchWholeWord,
       shouldUseRegularExpression,

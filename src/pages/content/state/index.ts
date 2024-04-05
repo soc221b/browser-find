@@ -3,7 +3,7 @@ export type State = {
 
   matchId: null | string
 
-  matches: { id: string; scrollIntoView: () => void }[]
+  matches: { id: string; ranges: Range[] }[]
 
   open: boolean
 

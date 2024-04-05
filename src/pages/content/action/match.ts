@@ -3,6 +3,7 @@ export type Match = {
 
   match: {
     id: string
-    scrollIntoView: () => void
+
+    ranges: Range[]
   }
 }
