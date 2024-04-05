@@ -453,11 +453,9 @@ export async function createRangesList({
           const range = new Range()
           try {
             const startSpaceOffset =
-              nodeWithInnerTextInfo.node.textContent?.startsWith(
+              nodeWithInnerTextInfo.node.textContent?.indexOf(
                 nodeWithInnerTextInfo.innerText,
-              )
-                ? 0
-                : 1
+              ) ?? 0
             startOffset += startSpaceOffset
             endOffset += startSpaceOffset
             range.setStart(nodeWithInnerTextInfo.node, startOffset)
