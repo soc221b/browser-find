@@ -178,6 +178,15 @@ export async function createNodeWithInnerTextList({
           break
         }
 
+        // FIXME: performance
+        const CSSStyleDeclaration = getComputedStyle(elementNode)
+        if (CSSStyleDeclaration.display === 'none') {
+          break switchLabel
+        }
+        if (CSSStyleDeclaration.visibility === 'hidden') {
+          break switchLabel
+        }
+
         stack.push({
           childNode: elementNode,
           childNodeIndex: 0,
@@ -185,19 +194,6 @@ export async function createNodeWithInnerTextList({
         break
       }
       case Node.TEXT_NODE: {
-        // FIXME: performance
-        let parentElement = childNode.parentElement
-        while (parentElement) {
-          const CSSStyleDeclaration = getComputedStyle(parentElement)
-          if (CSSStyleDeclaration.display === 'none') {
-            break switchLabel
-          }
-          if (CSSStyleDeclaration.visibility === 'hidden') {
-            break switchLabel
-          }
-          parentElement = parentElement.parentElement
-        }
-
         if (childNode.textContent && childNode.textContent.trim()) {
           let innerText = childNode.textContent
           const parentElement = childNode.parentElement

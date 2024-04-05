@@ -330,9 +330,11 @@ describe('createNodeWithInnerTextList', () => {
     {
       name: '(<span>abc</span>){1_024}',
       param: {
-        documentElement: createDocumentElement(`<span>abc</span>`.repeat(1024)),
+        documentElement: createDocumentElement(
+          `<span>abc</span>`.repeat(1_024),
+        ),
       },
-      returnValue: Array(1024)
+      returnValue: Array(1_024)
         .fill(null)
         .map(() => ({
           node: document.createTextNode('abc'),
