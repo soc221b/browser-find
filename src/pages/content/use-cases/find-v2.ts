@@ -469,7 +469,6 @@ export async function createRangesList({
                   startOffsetOfSearchStringList,
                   nodeWithInnerTextInfoList,
                   nearestPossibleStartOffsetOfNodeWithInnerTextInfoList,
-                  searchString,
                   lastOffsetOfNodeWithInnerTextInfoList,
                   startOffsetOfNodeWithInnerTextInfoList,
                   startOffset,
@@ -505,7 +504,6 @@ export async function createRangesList({
           startOffsetOfSearchStringList,
           nodeWithInnerTextInfoList,
           nearestPossibleStartOffsetOfNodeWithInnerTextInfoList,
-          searchString,
           lastOffsetOfNodeWithInnerTextInfoList,
           endOffset,
         })
