@@ -458,7 +458,7 @@ export async function createRangesList({
           try {
             const startSpaceOffset =
               nodeWithInnerTextInfo.node.textContent!.indexOf(
-                nodeWithInnerTextInfo.innerText,
+                nodeWithInnerTextInfo.innerText.trimEnd(),
               )
             startOffset += startSpaceOffset
             endOffset += startSpaceOffset
