@@ -64,7 +64,7 @@ describe('createRegex', () => {
         shouldUseRegularExpression: true,
         text: '(',
       },
-      returnValue: /^\b$/,
+      returnValue: /^\b$/gm,
     },
   ]
 

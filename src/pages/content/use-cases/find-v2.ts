@@ -133,7 +133,7 @@ export function createRegex({
     flags += shouldMatchCase ? '' : 'i'
     return new RegExp(pattern, flags)
   } catch {
-    return new RegExp('^\\b$')
+    return new RegExp('^\\b$', 'gm')
   }
 }
 
