@@ -142,6 +142,15 @@ describe('createNodeWithInnerTextList', () => {
     returnValue: { node: Node; innerText: string }[]
   }[] = [
     {
+      name: 'should ignore browser-find itself',
+      param: {
+        documentElement: createDocumentElement(
+          `<div id="browser-find-top-layer">123</div>`,
+        ),
+      },
+      returnValue: [],
+    },
+    {
       name: 'should ignore <script>',
       param: {
         documentElement: createDocumentElement(`<script>123</script>`),

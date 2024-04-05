@@ -186,6 +186,10 @@ export async function createNodeWithInnerTextList({
     switchLabel: switch (childNode.nodeType) {
       case Node.ELEMENT_NODE: {
         const elementNode = childNode as Element
+        if (elementNode.id === 'browser-find-top-layer') {
+          break
+        }
+
         const ignoredTagNames = ['SCRIPT', 'NOSCRIPT', 'STYLE', 'SELECT']
         if (ignoredTagNames.includes(elementNode.tagName)) {
           break
