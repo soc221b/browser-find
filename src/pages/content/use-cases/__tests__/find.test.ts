@@ -1383,6 +1383,30 @@ describe('createRangesList', () => {
         returnValue,
       }
     })(),
+    (() => {
+      const nodeWithInnerTextList = [
+        { node: document.createTextNode('a\nb'), innerText: 'a b' },
+      ]
+      const searchStringList = ['a']
+      const returnValue = [
+        [
+          createRange({
+            node: nodeWithInnerTextList[0].node,
+            startOffset: 0,
+            endOffset: 1,
+          }),
+        ],
+      ]
+      return {
+        name: '"a" in "_a_\\nb"',
+        param: {
+          nodeWithInnerTextList,
+          searchStringList,
+          shouldMatchWholeWord: false,
+        },
+        returnValue,
+      }
+    })(),
   ]
 
   suits.forEach((suit) => {
