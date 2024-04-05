@@ -307,7 +307,7 @@ export async function createRangesList({
         node,
         innerText,
         lastOffsetOfAllInnerText:
-          (acc[acc.length - 1]?.lastOffsetOfAllInnerText ?? 0) +
+          (acc.length ? acc[acc.length - 1]!.lastOffsetOfAllInnerText : 0) +
           innerText.length,
       })
     },
@@ -372,9 +372,11 @@ export async function createRangesList({
         0 <=
         allInnerText
           .slice(
-            (nodeWithInnerTextInfoList[
-              nearestPossibleStartOffsetOfNodeWithInnerTextInfoList - 1
-            ]?.lastOffsetOfAllInnerText ?? 0) + endOffset,
+            (nearestPossibleStartOffsetOfNodeWithInnerTextInfoList
+              ? nodeWithInnerTextInfoList[
+                  nearestPossibleStartOffsetOfNodeWithInnerTextInfoList - 1
+                ]!.lastOffsetOfAllInnerText
+              : 0) + endOffset,
             lastNodeWithInnerTextInfo.lastOffsetOfAllInnerText,
           )
           .indexOf(searchString)
@@ -422,9 +424,11 @@ export async function createRangesList({
         let startOffset =
           allInnerText
             .slice(
-              (nodeWithInnerTextInfoList[
-                startOffsetOfNodeWithInnerTextInfoList - 1
-              ]?.lastOffsetOfAllInnerText ?? 0) + endOffset,
+              (startOffsetOfNodeWithInnerTextInfoList
+                ? nodeWithInnerTextInfoList[
+                    startOffsetOfNodeWithInnerTextInfoList - 1
+                  ]!.lastOffsetOfAllInnerText
+                : 0) + endOffset,
               lastNodeWithInnerTextInfo.lastOffsetOfAllInnerText,
             )
             .indexOf(searchString) + endOffset
@@ -453,9 +457,9 @@ export async function createRangesList({
           const range = new Range()
           try {
             const startSpaceOffset =
-              nodeWithInnerTextInfo.node.textContent?.indexOf(
+              nodeWithInnerTextInfo.node.textContent!.indexOf(
                 nodeWithInnerTextInfo.innerText,
-              ) ?? 0
+              )
             startOffset += startSpaceOffset
             endOffset += startSpaceOffset
             range.setStart(nodeWithInnerTextInfo.node, startOffset)
