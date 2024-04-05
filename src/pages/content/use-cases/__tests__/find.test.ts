@@ -1217,6 +1217,39 @@ describe('createRangesList', () => {
         returnValue,
       }
     })(),
+    (() => {
+      const nodeWithInnerTextList = [
+        { node: document.createTextNode(' '), innerText: ' ' },
+        { node: document.createTextNode(' a'), innerText: 'a' },
+        { node: document.createTextNode('a'), innerText: 'a' },
+      ]
+      const searchStringList = ['a', 'a']
+      const returnValue = [
+        [
+          createRange({
+            node: nodeWithInnerTextList[1].node,
+            startOffset: 1,
+            endOffset: 2,
+          }),
+        ],
+        [
+          createRange({
+            node: nodeWithInnerTextList[2].node,
+            startOffset: 0,
+            endOffset: 1,
+          }),
+        ],
+      ]
+      return {
+        name: ' _a_,_a_',
+        param: {
+          nodeWithInnerTextList,
+          searchStringList,
+          shouldMatchWholeWord: false,
+        },
+        returnValue,
+      }
+    })(),
   ]
 
   suits.forEach((suit) => {

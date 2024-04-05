@@ -483,7 +483,7 @@ export async function createRangesList({
           ranges.push(range)
           startOffset = 0
           ++startOffsetOfNodeWithInnerTextInfoList
-          if (endOffset === nodeWithInnerTextInfo.innerText.length) {
+          if (endOffset === nodeWithInnerTextInfo.node.textContent!.length) {
             endOffset = 0
             nearestPossibleStartOffsetOfNodeWithInnerTextInfoList =
               startOffsetOfNodeWithInnerTextInfoList
