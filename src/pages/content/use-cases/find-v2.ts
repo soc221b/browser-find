@@ -228,7 +228,7 @@ export async function createNodeWithInnerTextList({
               innerText = innerText.toLowerCase()
             }
             if (parentElement.childNodes[0] === childNode) {
-              innerText = innerText.replace(/^\s+/, '')
+              innerText = innerText.trimStart()
             } else {
               if (
                 childNode.previousSibling instanceof Element &&
@@ -241,7 +241,7 @@ export async function createNodeWithInnerTextList({
               parentElement.childNodes[parentElement.childNodes.length - 1] ===
               childNode
             ) {
-              innerText = innerText.replace(/\s+$/, '')
+              innerText = innerText.trimEnd()
             } else {
               if (/\s+$/.test(innerText)) {
                 innerText = innerText.trimEnd() + ' '
