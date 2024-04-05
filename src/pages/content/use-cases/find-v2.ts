@@ -500,7 +500,15 @@ export async function createRangesList({
       rangesList.push(ranges)
     } else {
       if (DEBUG) {
-        console.debug('[chrome-extension][find][rangesList] invalid state')
+        console.debug('[chrome-extension][find][rangesList] invalid state', {
+          searchStringList,
+          startOffsetOfSearchStringList,
+          nodeWithInnerTextInfoList,
+          nearestPossibleStartOffsetOfNodeWithInnerTextInfoList,
+          searchString,
+          lastOffsetOfNodeWithInnerTextInfoList,
+          endOffset,
+        })
       }
     }
     ++startOffsetOfSearchStringList
