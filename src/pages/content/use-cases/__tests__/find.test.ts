@@ -254,6 +254,26 @@ describe('createNodeWithInnerTextList', () => {
       ],
     },
     {
+      name: '"a <span>b</span>"',
+      param: {
+        documentElement: createDocumentElement(`a <span>b</span>`),
+      },
+      returnValue: [
+        { node: document.createTextNode('a '), innerText: 'a ' },
+        { node: document.createTextNode('b'), innerText: 'b' },
+      ],
+    },
+    {
+      name: '"a \\n \\n <span>b</span>"',
+      param: {
+        documentElement: createDocumentElement(`a \n \n <span>b</span>`),
+      },
+      returnValue: [
+        { node: document.createTextNode('a \n \n '), innerText: 'a ' },
+        { node: document.createTextNode('b'), innerText: 'b' },
+      ],
+    },
+    {
       name: 'should insert an empty node to consume space if there is no trailing space on non-last child node and next sibling is not a text node',
       param: {
         documentElement: createDocumentElement(`<span>a</span>b`),
