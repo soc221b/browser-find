@@ -244,12 +244,12 @@ describe('createNodeWithInnerTextList', () => {
       returnValue: [{ node: document.createTextNode('\n a'), innerText: 'a' }],
     },
     {
-      name: 'should keep one trailing space if there is any for non-last child node',
+      name: '"a\\n<span>b</span>"',
       param: {
-        documentElement: createDocumentElement(`a \n<span>b</span>`),
+        documentElement: createDocumentElement(`a\n<span>b</span>`),
       },
       returnValue: [
-        { node: document.createTextNode('a \n'), innerText: 'a ' },
+        { node: document.createTextNode('a\n'), innerText: 'a ' },
         { node: document.createTextNode('b'), innerText: 'b' },
       ],
     },
