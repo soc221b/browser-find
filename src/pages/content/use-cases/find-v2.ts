@@ -36,28 +36,45 @@ const find: Find = ({
   }
 
   ;(async () => {
+    if (DEBUG) {
+      console.time('[chrome-extension][find][regex]')
+    }
     const regex = createRegex({
       text,
       shouldMatchCase,
       shouldMatchWholeWord,
       shouldUseRegularExpression,
     })
+    if (DEBUG) {
+      console.timeEnd('[chrome-extension][find][regex]')
+      console.debug('[chrome-extension][find][regex]', regex)
+    }
 
+    if (DEBUG) {
+      console.time('[chrome-extension][find][searchStringList]')
+    }
     const searchStringList = createSearchStringList({
       regex,
       innerText: document.body.innerText,
     })
+    if (DEBUG) {
+      console.timeEnd('[chrome-extension][find][searchStringList]')
+      console.debug(
+        '[chrome-extension][find][searchStringList]',
+        searchStringList,
+      )
+    }
 
     if (DEBUG) {
-      console.time('[chrome-extension] [find] nodeWithInnerTextList')
+      console.time('[chrome-extension][find][nodeWithInnerTextList]')
     }
     const nodeWithInnerTextList = await createNodeWithInnerTextList({
       documentElement: document.documentElement,
     })
     if (DEBUG) {
-      console.timeEnd('[chrome-extension] [find] nodeWithInnerTextList')
+      console.timeEnd('[chrome-extension][find][nodeWithInnerTextList]')
       console.debug(
-        '[chrome-extension] [find] nodeWithInnerTextList',
+        '[chrome-extension][find][nodeWithInnerTextList]',
         nodeWithInnerTextList,
       )
     }
@@ -67,7 +84,7 @@ const find: Find = ({
     }
 
     if (DEBUG) {
-      console.time('[chrome-extension] [find] rangesList')
+      console.time('[chrome-extension][find][rangesList]')
     }
     const rangesList = await createRangesList({
       nodeWithInnerTextList,
@@ -75,8 +92,8 @@ const find: Find = ({
       shouldMatchWholeWord,
     })
     if (DEBUG) {
-      console.timeEnd('[chrome-extension] [find] rangesList')
-      console.debug('[chrome-extension] [find] rangesList', rangesList)
+      console.timeEnd('[chrome-extension][find][rangesList]')
+      console.debug('[chrome-extension][find][rangesList]', rangesList)
     }
     await sleep('raf')
     if (isCancelled) {
@@ -448,7 +465,7 @@ export async function createRangesList({
           } catch (e) {
             if (DEBUG) {
               console.debug(
-                '[chrome-extension] [find] invalid start/end offset',
+                '[chrome-extension][find][rangesList] invalid start/end offset',
                 {
                   searchStringList,
                   startOffsetOfSearchStringList,
@@ -485,7 +502,7 @@ export async function createRangesList({
       rangesList.push(ranges)
     } else {
       if (DEBUG) {
-        console.debug('[chrome-extension] [find] invalid state')
+        console.debug('[chrome-extension][find][rangesList] invalid state')
       }
     }
     ++startOffsetOfSearchStringList
