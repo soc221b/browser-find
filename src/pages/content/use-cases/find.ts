@@ -149,30 +149,35 @@ function createNodeMaps({
           // let innerText = childNode.textContent
           const parentElement = childNode.parentElement!
           const CSSStyleDeclaration = getComputedStyle(parentElement)
-          let offset = 0
-          childNode.textContent.split('').forEach((char, index) => {
+          childNode.textContent.split('').forEach((textContentPart, index) => {
+            let innerTextLike = textContentPart
             switch (CSSStyleDeclaration.textTransform) {
               case 'uppercase':
-                char = char.toUpperCase()
+                innerTextLike = innerTextLike.toUpperCase()
                 break
               case 'lowercase':
-                char = char.toLowerCase()
+                innerTextLike = innerTextLike.toLowerCase()
                 break
               case 'capitalize':
-                char = (
+                innerTextLike = (
                   index === 0
-                    ? /\w/.test(char)
+                    ? /\w/.test(innerTextLike)
                     : /\W/.test(childNode.textContent![index - 1])
                 )
-                  ? char.toUpperCase()
-                  : char
+                  ? innerTextLike.toUpperCase()
+                  : innerTextLike
                 break
             }
+
+            let textContentStartOffset = index
+
+            let textContentEndOffset = textContentStartOffset + 1
+
             nodeMaps.push({
               node: childNode,
-              textContentStartOffset: index + offset,
-              textContentEndOffset: index + offset + 1,
-              innerTextLike: char,
+              textContentStartOffset,
+              textContentEndOffset,
+              innerTextLike,
             })
           })
         } else {
