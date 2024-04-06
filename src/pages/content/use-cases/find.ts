@@ -115,22 +115,22 @@ function createNodeMaps({
     const childNode = childNodes[childIndex]
     switchLabel: switch (childNode.nodeType) {
       case Node.ELEMENT_NODE: {
-        const elementNode = childNode as Element
-        if (elementNode.id === 'browser-find-top-layer') {
+        const element = childNode as Element
+        if (element.id === 'browser-find-top-layer') {
           break
         }
 
         const ignoredTagNames = ['SCRIPT', 'NOSCRIPT', 'STYLE', 'SELECT']
-        if (ignoredTagNames.includes(elementNode.tagName)) {
+        if (ignoredTagNames.includes(element.tagName)) {
           break
         }
 
-        if (elementNode.classList.contains('sr-only')) {
+        if (element.classList.contains('sr-only')) {
           break
         }
 
         // FIXME: performance
-        const CSSStyleDeclaration = getComputedStyle(elementNode)
+        const CSSStyleDeclaration = getComputedStyle(element)
         if (CSSStyleDeclaration.display === 'none') {
           break switchLabel
         }
@@ -139,7 +139,7 @@ function createNodeMaps({
         }
 
         DFSStack.push({
-          childNode: elementNode,
+          childNode: element,
           nextChildNodeIndex: 0,
         })
         break
