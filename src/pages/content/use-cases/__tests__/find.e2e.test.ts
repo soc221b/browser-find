@@ -11,7 +11,7 @@ type Suit = {
 
   shouldUseRegularExpression: boolean
 
-  expected: Range[][]
+  expected: '<snapshot>' | Range[][]
 }
 
 const suits: Suit[] = []
@@ -632,22 +632,33 @@ suits.forEach(
 
       // assert
       try {
-        expect(actual.length).toBe(expected.length)
+        if (expected === '<snapshot>') {
+          expect(
+            actual.map((ranges) =>
+              ranges.map((range) => ({
+                startOffset: range.startOffset,
+                endOffset: range.endOffset,
+              })),
+            ),
+          ).toMatchSnapshot()
+        } else {
+          expect(actual.length).toBe(expected.length)
 
-        actual.forEach((actualRanges, rangesListIndex) => {
-          const expectedRanges = expected[rangesListIndex]
-          expect(actualRanges.length).toBe(expectedRanges.length)
+          actual.forEach((actualRanges, rangesListIndex) => {
+            const expectedRanges = expected[rangesListIndex]
+            expect(actualRanges.length).toBe(expectedRanges.length)
 
-          actualRanges.forEach((actualRange, rangesIndex) => {
-            const expectedRange = expectedRanges[rangesIndex]
-            expect(actualRange.startContainer).toBe(
-              expectedRange.startContainer,
-            )
-            expect(actualRange.startOffset).toBe(expectedRange.startOffset)
-            expect(actualRange.endContainer).toBe(expectedRange.endContainer)
-            expect(actualRange.endOffset).toBe(expectedRange.endOffset)
+            actualRanges.forEach((actualRange, rangesIndex) => {
+              const expectedRange = expectedRanges[rangesIndex]
+              expect(actualRange.startContainer).toBe(
+                expectedRange.startContainer,
+              )
+              expect(actualRange.startOffset).toBe(expectedRange.startOffset)
+              expect(actualRange.endContainer).toBe(expectedRange.endContainer)
+              expect(actualRange.endOffset).toBe(expectedRange.endOffset)
+            })
           })
-        })
+        }
       } catch (e) {
         throw e
       }
