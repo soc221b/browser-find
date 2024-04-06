@@ -170,17 +170,21 @@ function createNodeMaps({
                   : innerTextLike
                 break
             }
-            if (innerTextLike === '\n') {
+            const whiteSpaceCollapse =
+              getWhiteSpaceCollapse(CSSStyleDeclaration)
+            if (whiteSpaceCollapse === 'collapse' && innerTextLike === '\n') {
               innerTextLike = ' '
             }
-            if (-1 < lastIndexOfSpace && lastIndexOfSpace < index) {
-              innerTextLike = ''
-            }
-            if (
-              /\s/.test(textContentPart) &&
-              /\s/.test(childNode.textContent?.[index - 1] ?? '')
-            ) {
-              innerTextLike = ''
+            if (['collapse', 'preserve-breaks'].includes(whiteSpaceCollapse)) {
+              if (-1 < lastIndexOfSpace && lastIndexOfSpace < index) {
+                innerTextLike = ''
+              }
+              if (
+                /\s/.test(textContentPart) &&
+                /\s/.test(childNode.textContent?.[index - 1] ?? '')
+              ) {
+                innerTextLike = ''
+              }
             }
 
             let textContentStartOffset = index
@@ -254,4 +258,31 @@ function createRangesList({
   }
 
   return rangesList
+}
+
+function getWhiteSpaceCollapse(
+  CSSStyleDeclaration: CSSStyleDeclaration,
+): string {
+  if ((CSSStyleDeclaration as any).whiteSpaceCollapse) {
+    return (CSSStyleDeclaration as any).whiteSpaceCollapse
+  } else {
+    // whiteSpaceCollapse is undefined in JSDOM
+  }
+
+  if (CSSStyleDeclaration.whiteSpace) {
+    return (
+      {
+        normal: 'collapse',
+        nowrap: 'collapse',
+        pre: 'preserve',
+        'pre-wrap': 'preserve',
+        'pre-line': 'preserve-breaks',
+        'break-spaces': 'break-spaces',
+      }[CSSStyleDeclaration.whiteSpace] ?? 'collapse'
+    )
+  } else {
+    // whiteSpace is undefined in JSDOM
+  }
+
+  return 'collapse'
 }
