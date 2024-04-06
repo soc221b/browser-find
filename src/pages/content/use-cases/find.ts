@@ -147,57 +147,27 @@ function createNodeMaps({
       case Node.TEXT_NODE: {
         if (childNode.textContent && childNode.textContent.trim()) {
           // let innerText = childNode.textContent
-          // const parentElement = childNode.parentElement
-          // if (parentElement) {
-          //   const CSSStyleDeclarationOfParentElement =
-          //     getComputedStyle(parentElement)
-          //   if (
-          //     CSSStyleDeclarationOfParentElement.textTransform === 'uppercase'
-          //   ) {
-          //     innerText = innerText.toUpperCase()
-          //   }
-          //   if (
-          //     CSSStyleDeclarationOfParentElement.textTransform === 'lowercase'
-          //   ) {
-          //     innerText = innerText.toLowerCase()
-          //   }
-          //   innerText = innerText.replace(/(\S.*)\s+(.*\S)/g, '$1 $2')
-          //   if (parentElement.childNodes[0] === childNode) {
-          //     innerText = innerText.trimStart()
-          //   } else {
-          //     if (
-          //       childNode.previousSibling instanceof Element &&
-          //       childNode.previousSibling.tagName === 'BR'
-          //     ) {
-          //       innerText = innerText.trimStart()
-          //     }
-          //   }
-          //   if (
-          //     parentElement.childNodes[parentElement.childNodes.length - 1] ===
-          //     childNode
-          //   ) {
-          //     innerText = innerText.trimEnd()
-          //   } else {
-          //     if (/\s+$/.test(innerText)) {
-          //       innerText = innerText.trimEnd() + ' '
-          //     }
-          //   }
-          //   if (parentElement.tagName === 'OPTION') {
-          //     const parentParentElement = parentElement.parentElement
-          //     if (parentParentElement) {
-          //       if (parentParentElement.tagName === 'SELECT') {
-          //         if (parentParentElement.childNodes[0] !== parentElement) {
-          //           // nodeMaps.push({
-          //           //   node: documentElement.ownerDocument.createTextNode(''),
-          //           //   innerTextLike: '\n',
-          //           // })
-          //         }
-          //       }
-          //     }
-          //   }
-          // }
+          const parentElement = childNode.parentElement!
+          const CSSStyleDeclaration = getComputedStyle(parentElement)
           let offset = 0
           childNode.textContent.split('').forEach((char, index) => {
+            switch (CSSStyleDeclaration.textTransform) {
+              case 'uppercase':
+                char = char.toUpperCase()
+                break
+              case 'lowercase':
+                char = char.toLowerCase()
+                break
+              case 'capitalize':
+                char = (
+                  index === 0
+                    ? /\w/.test(char)
+                    : /\W/.test(childNode.textContent![index - 1])
+                )
+                  ? char.toUpperCase()
+                  : char
+                break
+            }
             nodeMaps.push({
               node: childNode,
               textContentStartOffset: index + offset,
