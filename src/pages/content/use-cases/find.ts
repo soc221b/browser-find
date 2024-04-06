@@ -209,7 +209,7 @@ function createNodeMaps({
             node: childNode,
             textContentStartOffset: 0,
             textContentEndOffset: 1,
-            innerTextLike: ' ',
+            innerTextLike: childNode.textContent?.[0] ?? ' ',
           })
         }
         break

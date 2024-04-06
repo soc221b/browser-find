@@ -989,6 +989,17 @@ const suits: Suit[] = []
     ],
   })
 }
+{
+  const documentElement = createDocumentElement(`<span>a</span>\n`)
+  suits.push({
+    documentElement,
+    text: 'a ',
+    shouldMatchCase: false,
+    shouldMatchWholeWord: false,
+    shouldUseRegularExpression: false,
+    expected: [],
+  })
+}
 // === spaces end ====
 
 suits.forEach(
