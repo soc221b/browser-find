@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import find from '../use-cases/find-v2'
+import { find } from '../use-cases/find'
 import useStore from '../store'
 
 export default function _Find(): JSX.Element {
@@ -20,18 +20,23 @@ export default function _Find(): JSX.Element {
     CSS.highlights.set('browser-find-match', new Highlight())
     CSS.highlights.set('browser-find', new Highlight())
 
-    const cancel = find({
-      onMatch: (match) => {
-        dispatch({ type: 'Match', match })
-      },
+    const { stop } = find({
+      documentElement: document.documentElement,
+      text,
       shouldMatchCase,
       shouldMatchWholeWord,
       shouldUseRegularExpression,
-      text,
+      onNext: (ranges) => {
+        dispatch({
+          type: 'Match',
+          match: { id: Math.random().toString(36), ranges },
+        })
+      },
+      onComplete: () => {},
     })
 
     return () => {
-      cancel()
+      stop()
     }
   }, [shouldMatchCase, shouldMatchWholeWord, shouldUseRegularExpression, text])
 
