@@ -168,6 +168,9 @@ function createNodeMaps({
                   : innerTextLike
                 break
             }
+            if (innerTextLike === '\n') {
+              innerTextLike = ' '
+            }
 
             let textContentStartOffset = index
 
