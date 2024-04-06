@@ -1,21 +1,24 @@
-import { ChangeEventHandler, ClipboardEventHandler } from 'react'
+import { ChangeEventHandler, ClipboardEventHandler, useRef } from 'react'
 import useStore from '../store'
 
 export default function Input(): JSX.Element {
   const dispatch = useStore((store) => store.dispatch)
   const text = useStore((store) => store.text)
+  const isPasting = useRef(false)
 
   const handlePaste: ClipboardEventHandler<HTMLInputElement> = (event) => {
+    isPasting.current = true
     requestAnimationFrame(() => {
-      dispatch({
-        type: 'Type',
-        value: (event.target as HTMLInputElement).value.trim(),
-      })
+      isPasting.current = false
     })
   }
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    dispatch({ type: 'Type', value: event.target.value })
+    if (isPasting.current) {
+      dispatch({ type: 'Type', value: event.target.value.trim() })
+    } else {
+      dispatch({ type: 'Type', value: event.target.value })
+    }
   }
 
   return (
