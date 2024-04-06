@@ -196,10 +196,12 @@ function createNodeMaps({
             })
           })
         } else {
-          // nodeMaps.push({
-          //   node: childNode,
-          //   innerTextLike: ' ',
-          // })
+          nodeMaps.push({
+            node: childNode,
+            textContentStartOffset: 0,
+            textContentEndOffset: 1,
+            innerTextLike: ' ',
+          })
         }
         break
       }
