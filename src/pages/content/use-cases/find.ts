@@ -149,9 +149,9 @@ function createNodeMaps({
           // let innerText = childNode.textContent
           const parentElement = childNode.parentElement!
           const CSSStyleDeclaration = getComputedStyle(parentElement)
-          const firstIndexOfNonSpace =
+          const firstIndexAfterLeadingSpace =
             childNode.textContent.match(/\S/)?.index ?? -1
-          const lastIndexOfSpace =
+          const firstIndexOfTrailingSpace =
             childNode.textContent.match(/\s+$/)?.index ?? -1
           childNode.textContent.split('').forEach((textContentPart, index) => {
             let innerTextLike = textContentPart
@@ -178,10 +178,13 @@ function createNodeMaps({
               innerTextLike = ' '
             }
             if (['collapse', 'preserve-breaks'].includes(whiteSpaceCollapse)) {
-              if (index < firstIndexOfNonSpace) {
+              if (index < firstIndexAfterLeadingSpace) {
                 innerTextLike = ''
               }
-              if (-1 < lastIndexOfSpace && lastIndexOfSpace < index) {
+              if (
+                -1 < firstIndexOfTrailingSpace &&
+                firstIndexOfTrailingSpace < index
+              ) {
                 innerTextLike = ''
               }
               if (
