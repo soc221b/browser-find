@@ -176,6 +176,12 @@ function createNodeMaps({
             if (-1 < lastIndexOfSpace && lastIndexOfSpace < index) {
               innerTextLike = ''
             }
+            if (
+              /\s/.test(textContentPart) &&
+              /\s/.test(childNode.textContent?.[index - 1] ?? '')
+            ) {
+              innerTextLike = ''
+            }
 
             let textContentStartOffset = index
 
