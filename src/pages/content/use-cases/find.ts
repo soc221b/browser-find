@@ -149,6 +149,8 @@ function createNodeMaps({
           // let innerText = childNode.textContent
           const parentElement = childNode.parentElement!
           const CSSStyleDeclaration = getComputedStyle(parentElement)
+          const lastIndexOfSpace =
+            childNode.textContent.match(/\s+$/)?.index ?? -1
           childNode.textContent.split('').forEach((textContentPart, index) => {
             let innerTextLike = textContentPart
             switch (CSSStyleDeclaration.textTransform) {
@@ -171,10 +173,14 @@ function createNodeMaps({
             if (innerTextLike === '\n') {
               innerTextLike = ' '
             }
+            if (-1 < lastIndexOfSpace && lastIndexOfSpace < index) {
+              innerTextLike = ''
+            }
 
             let textContentStartOffset = index
 
-            let textContentEndOffset = textContentStartOffset + 1
+            let textContentEndOffset =
+              textContentStartOffset + innerTextLike.length
 
             nodeMaps.push({
               node: childNode,

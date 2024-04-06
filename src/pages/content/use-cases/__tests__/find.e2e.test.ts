@@ -537,6 +537,27 @@ const suits: Suit[] = []
     ],
   })
 }
+{
+  const documentElement = createDocumentElement(`a \n \n <span>b</span>`)
+  suits.push({
+    documentElement,
+    text: 'a b',
+    shouldMatchCase: false,
+    shouldMatchWholeWord: false,
+    shouldUseRegularExpression: false,
+    expected: [
+      [
+        createRange(documentElement.querySelector('body')!.childNodes[0], 0, 1),
+        createRange(documentElement.querySelector('body')!.childNodes[0], 1, 2),
+        createRange(
+          documentElement.querySelector('body')!.childNodes[1].childNodes[0],
+          0,
+          1,
+        ),
+      ],
+    ],
+  })
+}
 // === spaces end ====
 
 suits.forEach(
@@ -611,7 +632,7 @@ suits.forEach(
         '`' +
         '\n    ' +
         'innerHTML : `' +
-        documentElement.innerHTML +
+        documentElement.innerHTML.replace(/\n/g, '\\n') +
         '`' +
         '\n   '
       return testName
