@@ -8,6 +8,7 @@ import shouldFindPrevious from '../use-cases/should-find-previous'
 import shouldToggleMatchCase from '../use-cases/should-toggle-match-case'
 import shouldToggleMatchWholeWord from '../use-cases/should-toggle-match-whole-word'
 import shouldToggleUseRegularExpression from '../use-cases/should-toggle-use-regular-expression'
+import shouldSelectAll from '../use-cases/should-select-all'
 
 export default function _UseFind(): JSX.Element {
   const state = useStore()
@@ -34,9 +35,18 @@ export default function _UseFind(): JSX.Element {
           )
           if (inputElement instanceof HTMLInputElement) {
             inputElement.focus()
-            inputElement.select()
           }
         })
+        if (shouldSelectAll({ event, state, isOSMacOS })) {
+          setTimeout(() => {
+            const inputElement = document.querySelector(
+              '#browser-find-top-layer .input',
+            )
+            if (inputElement instanceof HTMLInputElement) {
+              inputElement.select()
+            }
+          })
+        }
         return
       }
 
@@ -55,9 +65,18 @@ export default function _UseFind(): JSX.Element {
           )
           if (inputElement instanceof HTMLInputElement) {
             inputElement.focus()
-            inputElement.select()
           }
         })
+        if (shouldSelectAll({ event, state, isOSMacOS })) {
+          setTimeout(() => {
+            const inputElement = document.querySelector(
+              '#browser-find-top-layer .input',
+            )
+            if (inputElement instanceof HTMLInputElement) {
+              inputElement.select()
+            }
+          })
+        }
         return
       }
 
@@ -70,9 +89,18 @@ export default function _UseFind(): JSX.Element {
           )
           if (inputElement instanceof HTMLInputElement) {
             inputElement.focus()
-            inputElement.select()
           }
         })
+        if (shouldSelectAll({ event, state, isOSMacOS })) {
+          setTimeout(() => {
+            const inputElement = document.querySelector(
+              '#browser-find-top-layer .input',
+            )
+            if (inputElement instanceof HTMLInputElement) {
+              inputElement.select()
+            }
+          })
+        }
         return
       }
 
