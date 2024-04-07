@@ -90,29 +90,29 @@ function createNodeMaps({
   let nodeMaps: NodeMap[] = []
 
   let DFSStack: {
-    childNode: null | ChildNode
+    parentElement: null | ChildNode
     nextChildNodeIndex: number
   }[] = [
     {
-      childNode: documentElement,
+      parentElement: documentElement,
       nextChildNodeIndex: 0,
     },
   ]
   while (DFSStack.length) {
     const top = DFSStack[DFSStack.length - 1]
-    if (top.childNode === null) {
+    if (top.parentElement === null) {
       DFSStack.pop()
       continue
     }
 
-    const childNodes = top.childNode.childNodes
-    const childIndex = top.nextChildNodeIndex
-    if (childNodes.length <= childIndex) {
+    const childNodes = top.parentElement.childNodes
+    const childNodeIndex = top.nextChildNodeIndex
+    if (childNodes.length <= childNodeIndex) {
       DFSStack.pop()
       continue
     }
 
-    const childNode = childNodes[childIndex]
+    const childNode = childNodes[childNodeIndex]
     switchLabel: switch (childNode.nodeType) {
       case Node.ELEMENT_NODE: {
         const element = childNode as Element
@@ -139,7 +139,7 @@ function createNodeMaps({
         }
 
         DFSStack.push({
-          childNode: element,
+          parentElement: element,
           nextChildNodeIndex: 0,
         })
         break
