@@ -1,3 +1,5 @@
+import sleep from '../utils/sleep'
+
 type Find = (_: {
   documentElement: HTMLElement
 
@@ -43,9 +45,22 @@ export const find: Find = ({
     regex,
     nodeMaps,
   })
-
-  rangesList.forEach((ranges) => onNext(ranges))
-  onComplete()
+  ;(async () => {
+    let i = 0
+    while (i < rangesList.length) {
+      const ranges = rangesList[i]
+      if (isStopped) {
+        break
+      } else {
+        onNext(ranges)
+      }
+      if (i % 1000 === 0) {
+        await sleep('raf')
+      }
+      ++i
+    }
+    onComplete()
+  })()
 
   return { stop }
 }
