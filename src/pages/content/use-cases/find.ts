@@ -192,8 +192,8 @@ function createNodeMaps({
                 innerTextLike = ''
               }
               if (
-                /\s/.test(textContentPart) &&
-                /\s/.test(childNode.textContent?.[index - 1] ?? '')
+                /[ \n]/.test(textContentPart) &&
+                /[ \n]/.test(childNode.textContent?.[index - 1] ?? '')
               ) {
                 innerTextLike = ''
               }
@@ -225,6 +225,13 @@ function createNodeMaps({
 
     ++top.nextChildNodeIndex
   }
+
+  nodeMaps = nodeMaps.map((nodeMap) => {
+    return {
+      ...nodeMap,
+      innerTextLike: nodeMap.innerTextLike.replace('\xa0', ' '),
+    }
+  })
 
   return nodeMaps
 }
