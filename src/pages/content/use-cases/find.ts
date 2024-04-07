@@ -146,8 +146,9 @@ function createNodeMaps({
         break
       }
       case Node.TEXT_NODE: {
+        const CSSStyleDeclaration = getComputedStyle(parentElement)
+        const whiteSpaceCollapse = getWhiteSpaceCollapse(CSSStyleDeclaration)
         if (childNode.textContent && childNode.textContent.trim()) {
-          const CSSStyleDeclaration = getComputedStyle(parentElement)
           const firstIndexAfterLeadingSpace =
             childNode.textContent.match(/\S/)?.index ?? -1
           const firstIndexOfTrailingSpace =
@@ -171,8 +172,6 @@ function createNodeMaps({
                   : innerTextLike
                 break
             }
-            const whiteSpaceCollapse =
-              getWhiteSpaceCollapse(CSSStyleDeclaration)
             if (whiteSpaceCollapse === 'collapse' && innerTextLike === '\n') {
               innerTextLike = ' '
             }
@@ -211,12 +210,44 @@ function createNodeMaps({
             })
           })
         } else {
-          nodeMaps.push({
-            node: childNode,
-            textContentStartOffset: 0,
-            textContentEndOffset: 1,
-            innerTextLike: childNode.textContent?.[0] ?? ' ',
-          })
+          if (whiteSpaceCollapse === 'collapse') {
+            let node: ChildNode = childNode
+            let shouldCollapse = true
+            while (node.parentElement !== null) {
+              const CSSStyleDeclaration = getComputedStyle(node.parentElement)
+              const whiteSpaceCollapse =
+                getWhiteSpaceCollapse(CSSStyleDeclaration)
+              if (whiteSpaceCollapse === 'collapse') {
+                if (node.parentElement.lastChild === node) {
+                  node = node.parentElement
+                } else {
+                  if (
+                    nodeMaps.length &&
+                    /\s/.test(nodeMaps[nodeMaps.length - 1].innerTextLike)
+                  ) {
+                  } else {
+                    shouldCollapse = false
+                  }
+                  break
+                }
+              } else {
+                break
+              }
+            }
+            nodeMaps.push({
+              node: childNode,
+              textContentStartOffset: 0,
+              textContentEndOffset: 1,
+              innerTextLike: shouldCollapse ? '' : ' ',
+            })
+          } else {
+            nodeMaps.push({
+              node: childNode,
+              textContentStartOffset: 0,
+              textContentEndOffset: 1,
+              innerTextLike: childNode.textContent?.[0] ?? ' ',
+            })
+          }
         }
         break
       }
