@@ -1,5 +1,6 @@
 import { Action } from '../action'
 import { State } from '../state'
+import clearMatch from './clear-match'
 import findNext from './find-next'
 import findPrevious from './find-previous'
 import match from './match'
@@ -14,6 +15,8 @@ type Reducer = (state: State, action: Action) => State
 
 const reducer: Reducer = (state, action) => {
   switch (action.type) {
+    case 'ClearMatch':
+      return clearMatch(state, action)
     case 'FindNext':
       return findNext(state, action)
     case 'FindPrevious':

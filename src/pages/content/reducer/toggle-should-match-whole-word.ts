@@ -6,8 +6,6 @@ type Reducer = (state: State, action: Action & { type: 'ToggleShouldMatchWholeWo
 const reducer: Reducer = (state, action) => {
   return {
     ...state,
-    matchId: null,
-    matches: [],
     shouldMatchWholeWord: action.value,
   }
 }

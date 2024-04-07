@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import useStore from '../store'
+import { theOthersKey, thisKey } from '../constants/highlight'
 
 export default function _StyleSheet(): JSX.Element {
   const store = useStore()
@@ -163,24 +164,36 @@ export default function _StyleSheet(): JSX.Element {
       return
     }
 
-    const topLayerStyleSheet = document.createElement('style')
-    topLayerStyleSheet.textContent = `
-      ::highlight(browser-find) {
-        background-color: #FEFF03;
-        color: #000000;
+    const documents = [document]
+    document.querySelectorAll('iframe').forEach((iframe) => {
+      if (iframe.contentDocument) {
+        documents.push(iframe.contentDocument)
       }
+    })
 
-      ::highlight(browser-find-match) {
-        background-color: #FF9632 !important;
-        color: #000000 !important;
+    const removeChildList = documents.map((document) => {
+      const topLayerStyleSheet = document.createElement('style')
+      topLayerStyleSheet.textContent = `
+        ::highlight(${theOthersKey}) {
+          background-color: #FEFF03;
+          color: #000000;
+        }
+
+        ::highlight(${thisKey}) {
+          background-color: #FF9632 !important;
+          color: #000000 !important;
+        }
+      `
+      document.head.appendChild(topLayerStyleSheet)
+      return () => {
+        document.head.removeChild(topLayerStyleSheet)
       }
-    `
-    document.head.appendChild(topLayerStyleSheet)
+    })
 
     return () => {
-      document.head.removeChild(topLayerStyleSheet)
+      removeChildList.forEach((removeChild) => removeChild())
     }
-  }, [store.open])
+  }, [store.open, store.matchId])
 
   return <></>
 }

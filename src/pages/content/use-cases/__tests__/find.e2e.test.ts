@@ -73,6 +73,23 @@ const suits: Suit[] = []
     expected: [],
   })
 }
+// TODO: contentDocument is null?
+// {
+//   const iframe = document.createElement('iframe')
+//   iframe.srcdoc = 'a'
+//   const body = document.createElement('body')
+//   body.appendChild(iframe)
+//   const documentElement = document.createElement('html')
+//   documentElement.appendChild(body)
+//   suits.push({
+//     documentElement,
+//     text: 'a',
+//     shouldMatchCase: false,
+//     shouldMatchWholeWord: false,
+//     shouldUseRegularExpression: false,
+//     expected: [[expect.anything()]],
+//   })
+// }
 // {
 //   // TODO: we cannot highlight input value, because its textContent is empty, but is there a workaround
 //   const documentElement = createDocumentElement(`<input value="a">`)

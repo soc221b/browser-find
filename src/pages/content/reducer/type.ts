@@ -7,8 +7,6 @@ const reducer: Reducer = (state, action) => {
   return {
     ...state,
     text: action.value,
-    matches: [],
-    matchId: null,
   }
 }
 

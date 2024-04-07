@@ -6,8 +6,6 @@ type Reducer = (state: State, action: Action & { type: 'ToggleShouldUseRegularEx
 const reducer: Reducer = (state, action) => {
   return {
     ...state,
-    matchId: null,
-    matches: [],
     shouldUseRegularExpression: action.value,
   }
 }

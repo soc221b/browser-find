@@ -1,3 +1,4 @@
+import { ClearMatch } from './clear-match'
 import { FindNext } from './find-next'
 import { FindPrevious } from './find-previous'
 import { Match } from './match'
@@ -9,6 +10,7 @@ import { ToggleShouldUseRegularExpression } from './toggle-should-use-regular-ex
 import { Type } from './type'
 
 export type Action =
+  | ClearMatch
   | FindNext
   | FindPrevious
   | Match

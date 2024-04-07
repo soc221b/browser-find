@@ -134,6 +134,15 @@ function createNodeMaps({ documentElement }: { documentElement: HTMLElement }): 
         if (ignoredTagNames.includes(element.tagName)) {
           break
         }
+        if (element instanceof HTMLIFrameElement) {
+          if (element.contentDocument) {
+            DFSStack.push({
+              parentElement: element.contentDocument.documentElement,
+              nextChildNodeIndex: 0,
+            })
+          }
+          break
+        }
 
         if (element.classList.contains('sr-only')) {
           break
