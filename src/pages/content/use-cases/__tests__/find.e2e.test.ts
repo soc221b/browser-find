@@ -1029,6 +1029,45 @@ const suits: Suit[] = []
     expected: [],
   })
 }
+{
+  const documentElement = createDocumentElement(`<span>a &nbsp; b</span>`)
+  suits.push({
+    documentElement,
+    text: 'a   b',
+    shouldMatchCase: false,
+    shouldMatchWholeWord: false,
+    shouldUseRegularExpression: false,
+    expected: [
+      [
+        createRange(
+          documentElement.querySelector('body')!.childNodes[0].childNodes[0],
+          0,
+          1,
+        ),
+        createRange(
+          documentElement.querySelector('body')!.childNodes[0].childNodes[0],
+          1,
+          2,
+        ),
+        createRange(
+          documentElement.querySelector('body')!.childNodes[0].childNodes[0],
+          2,
+          3,
+        ),
+        createRange(
+          documentElement.querySelector('body')!.childNodes[0].childNodes[0],
+          3,
+          4,
+        ),
+        createRange(
+          documentElement.querySelector('body')!.childNodes[0].childNodes[0],
+          4,
+          5,
+        ),
+      ],
+    ],
+  })
+}
 // === spaces end ====
 
 suits.forEach(
