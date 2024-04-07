@@ -178,7 +178,11 @@ function createNodeMaps({
               innerTextLike = ' '
             }
             if (['collapse', 'preserve-breaks'].includes(whiteSpaceCollapse)) {
-              if (index < firstIndexAfterLeadingSpace) {
+              if (
+                nodeMaps.length &&
+                nodeMaps[nodeMaps.length - 1].innerTextLike === ' ' &&
+                index < firstIndexAfterLeadingSpace
+              ) {
                 innerTextLike = ''
               }
               if (
