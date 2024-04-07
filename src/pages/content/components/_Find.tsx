@@ -8,9 +8,7 @@ export default function _Find(): JSX.Element {
   const open = useStore((state) => state.open)
   const shouldMatchCase = useStore((state) => state.shouldMatchCase)
   const shouldMatchWholeWord = useStore((state) => state.shouldMatchWholeWord)
-  const shouldUseRegularExpression = useStore(
-    (state) => state.shouldUseRegularExpression,
-  )
+  const shouldUseRegularExpression = useStore((state) => state.shouldUseRegularExpression)
   const text = useStore((state) => state.text)
   useEffect(() => {
     if (open === false) {

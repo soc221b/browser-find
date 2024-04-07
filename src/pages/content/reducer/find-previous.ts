@@ -1,10 +1,7 @@
 import { Action } from '../action'
 import { State } from '../state'
 
-type Reducer = (
-  state: State,
-  action: Action & { type: 'FindPrevious' },
-) => State
+type Reducer = (state: State, action: Action & { type: 'FindPrevious' }) => State
 
 const reducer: Reducer = (state) => {
   const nextState = {

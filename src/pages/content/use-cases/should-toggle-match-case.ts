@@ -7,30 +7,14 @@ type ShouldToggleMatchCase = (_: {
   isOSMacOS: IsOSMacOS
 }) => boolean
 
-const shouldToggleMatchCase: ShouldToggleMatchCase = ({
-  event,
-  state,
-  isOSMacOS,
-}) => {
+const shouldToggleMatchCase: ShouldToggleMatchCase = ({ event, state, isOSMacOS }) => {
   if (state.focusing) {
     if (isOSMacOS()) {
-      if (
-        event.altKey &&
-        !event.ctrlKey &&
-        event.metaKey &&
-        !event.shiftKey &&
-        event.code === 'KeyC'
-      ) {
+      if (event.altKey && !event.ctrlKey && event.metaKey && !event.shiftKey && event.code === 'KeyC') {
         return true
       }
     } else {
-      if (
-        event.altKey &&
-        !event.ctrlKey &&
-        !event.metaKey &&
-        !event.shiftKey &&
-        event.code === 'KeyC'
-      ) {
+      if (event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey && event.code === 'KeyC') {
         return true
       }
     }

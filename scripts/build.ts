@@ -98,12 +98,7 @@ function buildPage(name: string, entry: string, outdir: string, dev = false) {
   throw new Error(`Unknown entry point extension: ${entry} ${ext}`)
 }
 
-async function buildHtmlPage(
-  name: string,
-  entry: string,
-  outdir: string,
-  dev = false,
-) {
+async function buildHtmlPage(name: string, entry: string, outdir: string, dev = false) {
   const prompt = `Building "${name}" from ${entry}`
   console.time(prompt)
 
@@ -127,11 +122,7 @@ async function buildHtmlPage(
       }),
       stylePlugin({
         postcss: {
-          plugins: [
-            require('postcss-import'),
-            require('tailwindcss'),
-            require('autoprefixer'),
-          ],
+          plugins: [require('postcss-import'), require('tailwindcss'), require('autoprefixer')],
         },
       }),
     ],
@@ -142,12 +133,7 @@ async function buildHtmlPage(
   return out
 }
 
-async function buildJSPage(
-  name: string,
-  entry: string,
-  outdir: string,
-  dev: boolean = false,
-) {
+async function buildJSPage(name: string, entry: string, outdir: string, dev: boolean = false) {
   const prompt = `Building "${name}" from ${entry}:`
   console.time(prompt)
 
@@ -168,11 +154,7 @@ async function buildJSPage(
     plugins: [
       stylePlugin({
         postcss: {
-          plugins: [
-            require('postcss-import'),
-            require('tailwindcss'),
-            require('autoprefixer'),
-          ],
+          plugins: [require('postcss-import'), require('tailwindcss'), require('autoprefixer')],
         },
       }),
     ],
@@ -246,19 +228,12 @@ function BuildManifest(version: 2 | 3, pageDirMap: { [x: string]: any }) {
 
   const manifest = getManifest(version, pageDistMap)
 
-  fs.writeFileSync(
-    resolve(extDir, 'manifest.json'),
-    JSON.stringify(manifest, null, 2),
-  )
+  fs.writeFileSync(resolve(extDir, 'manifest.json'), JSON.stringify(manifest, null, 2))
 
   console.timeEnd(prompt)
 }
 
-async function BuildPages(
-  version: 2 | 3,
-  pageDirMap: { [x: string]: any },
-  dev: boolean = false,
-) {
+async function BuildPages(version: 2 | 3, pageDirMap: { [x: string]: any }, dev: boolean = false) {
   const extDir = resolve(OutDir, `v${version}`)
   const promises: Promise<any>[] = []
 
@@ -280,17 +255,11 @@ async function BuildVersionedExt(versions: (2 | 3)[], dev: boolean = false) {
 
   let version = versions[0]
 
-  await Promise.all([
-    BuildPages(version, pageDirMap, dev),
-    CopyPublicFiles(version),
-  ])
+  await Promise.all([BuildPages(version, pageDirMap, dev), CopyPublicFiles(version)])
 
   if (versions.length > 1) {
     version = versions[1]
-    fse.copySync(
-      resolve(OutDir, `v${versions[0]}`),
-      resolve(OutDir, `v${version}`),
-    )
+    fse.copySync(resolve(OutDir, `v${versions[0]}`), resolve(OutDir, `v${version}`))
   }
 
   for (const v of versions.slice(0, 2)) {
@@ -341,18 +310,12 @@ async function DevVersionedExt(versions: (2 | 3)[]) {
     }
 
     if (event == 'remove') {
-      console.log(
-        'Removed public file or folder: ',
-        filePath.replace(RootDir, '').substring(1),
-      )
+      console.log('Removed public file or folder: ', filePath.replace(RootDir, '').substring(1))
       return
     }
 
     fse.copySync(filePath, outFile)
-    console.log(
-      'Copied public file or folder: ',
-      filePath.replace(RootDir, '').substring(1),
-    )
+    console.log('Copied public file or folder: ', filePath.replace(RootDir, '').substring(1))
 
     console.log('Watching for changes...\n')
   })
@@ -394,10 +357,7 @@ async function DevVersionedExt(versions: (2 | 3)[]) {
 
       fse.removeSync(resolve(OutDir, `v${version}`, root[1]))
 
-      fse.copySync(
-        resolve(OutDir, `v${versions[0]}`, root[1]),
-        resolve(OutDir, `v${version}`, root[1]),
-      )
+      fse.copySync(resolve(OutDir, `v${versions[0]}`, root[1]), resolve(OutDir, `v${version}`, root[1]))
 
       console.log('Watching for changes...\n')
 
@@ -591,10 +551,7 @@ function DevBrowserExt(browsers: string[]) {
   const commands: string[] = []
 
   for (const matchedBrowser of matchedBrowsers) {
-    const profileDir = createProfile(
-      toKebabCase(matchedBrowser.name),
-      profileRoot,
-    )
+    const profileDir = createProfile(toKebabCase(matchedBrowser.name), profileRoot)
     const command = LaunchCommand(matchedBrowser, profileDir)
 
     if (command) {

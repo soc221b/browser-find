@@ -21,13 +21,7 @@ const cache = new LRUCache<{}, Range[][]>({
   max: 500,
 })
 
-const find: Find = ({
-  text,
-  shouldMatchCase,
-  shouldMatchWholeWord,
-  shouldUseRegularExpression,
-  onMatch,
-}) => {
+const find: Find = ({ text, shouldMatchCase, shouldMatchWholeWord, shouldUseRegularExpression, onMatch }) => {
   let isCancelled = false
   const cancel = () => {
     isCancelled = true
@@ -61,10 +55,7 @@ const find: Find = ({
     })
     if (DEBUG) {
       console.timeEnd('[chrome-extension][find][searchStringList]')
-      console.debug(
-        '[chrome-extension][find][searchStringList]',
-        searchStringList,
-      )
+      console.debug('[chrome-extension][find][searchStringList]', searchStringList)
     }
 
     if (DEBUG) {
@@ -75,10 +66,7 @@ const find: Find = ({
     })
     if (DEBUG) {
       console.timeEnd('[chrome-extension][find][nodeWithInnerTextList]')
-      console.debug(
-        '[chrome-extension][find][nodeWithInnerTextList]',
-        nodeWithInnerTextList,
-      )
+      console.debug('[chrome-extension][find][nodeWithInnerTextList]', nodeWithInnerTextList)
     }
     await sleep('raf')
     if (isCancelled) {
@@ -143,9 +131,7 @@ export function createRegex({
 }): RegExp {
   try {
     let pattern = text
-    pattern = shouldUseRegularExpression
-      ? pattern
-      : pattern.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') // https://stackoverflow.com/a/9310752/7122623
+    pattern = shouldUseRegularExpression ? pattern : pattern.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') // https://stackoverflow.com/a/9310752/7122623
     pattern = shouldMatchWholeWord ? `\\b${pattern}\\b` : `${pattern}`
     let flags = ''
     flags += 'gm'
@@ -156,13 +142,7 @@ export function createRegex({
   }
 }
 
-export function createSearchStringList({
-  regex,
-  innerText,
-}: {
-  regex: RegExp
-  innerText: string
-}): string[] {
+export function createSearchStringList({ regex, innerText }: { regex: RegExp; innerText: string }): string[] {
   return Array.from(innerText.matchAll(regex))
     .map((array) => array[0])
     .filter(Boolean)
@@ -238,33 +218,22 @@ export async function createNodeWithInnerTextList({
           let innerText = childNode.textContent
           const parentElement = childNode.parentElement
           if (parentElement) {
-            const CSSStyleDeclarationOfParentElement =
-              getComputedStyle(parentElement)
-            if (
-              CSSStyleDeclarationOfParentElement.textTransform === 'uppercase'
-            ) {
+            const CSSStyleDeclarationOfParentElement = getComputedStyle(parentElement)
+            if (CSSStyleDeclarationOfParentElement.textTransform === 'uppercase') {
               innerText = innerText.toUpperCase()
             }
-            if (
-              CSSStyleDeclarationOfParentElement.textTransform === 'lowercase'
-            ) {
+            if (CSSStyleDeclarationOfParentElement.textTransform === 'lowercase') {
               innerText = innerText.toLowerCase()
             }
             innerText = innerText.replace(/(\S.*)\s+(.*\S)/g, '$1 $2')
             if (parentElement.childNodes[0] === childNode) {
               innerText = innerText.trimStart()
             } else {
-              if (
-                childNode.previousSibling instanceof Element &&
-                childNode.previousSibling.tagName === 'BR'
-              ) {
+              if (childNode.previousSibling instanceof Element && childNode.previousSibling.tagName === 'BR') {
                 innerText = innerText.trimStart()
               }
             }
-            if (
-              parentElement.childNodes[parentElement.childNodes.length - 1] ===
-              childNode
-            ) {
+            if (parentElement.childNodes[parentElement.childNodes.length - 1] === childNode) {
               innerText = innerText.trimEnd()
             } else {
               if (/\s+$/.test(innerText)) {
@@ -330,9 +299,7 @@ export async function createRangesList({
       return acc.concat({
         node,
         innerText,
-        lastOffsetOfAllInnerText:
-          (acc.length ? acc[acc.length - 1]!.lastOffsetOfAllInnerText : 0) +
-          innerText.length,
+        lastOffsetOfAllInnerText: (acc.length ? acc[acc.length - 1]!.lastOffsetOfAllInnerText : 0) + innerText.length,
       })
     },
     [] as {
@@ -385,21 +352,16 @@ export async function createRangesList({
      *  startOffsetOfSearchStringList = 0
      *  lastOffsetOfNodeWithInnerTextInfoList 會是 1
      */
-    let lastOffsetOfNodeWithInnerTextInfoList =
-      nearestPossibleStartOffsetOfNodeWithInnerTextInfoList
-    level2: while (
-      lastOffsetOfNodeWithInnerTextInfoList < nodeWithInnerTextInfoList.length
-    ) {
-      const lastNodeWithInnerTextInfo =
-        nodeWithInnerTextInfoList[lastOffsetOfNodeWithInnerTextInfoList]
+    let lastOffsetOfNodeWithInnerTextInfoList = nearestPossibleStartOffsetOfNodeWithInnerTextInfoList
+    level2: while (lastOffsetOfNodeWithInnerTextInfoList < nodeWithInnerTextInfoList.length) {
+      const lastNodeWithInnerTextInfo = nodeWithInnerTextInfoList[lastOffsetOfNodeWithInnerTextInfoList]
       const isMatched =
         0 <=
         allInnerText
           .slice(
             (nearestPossibleStartOffsetOfNodeWithInnerTextInfoList
-              ? nodeWithInnerTextInfoList[
-                  nearestPossibleStartOffsetOfNodeWithInnerTextInfoList - 1
-                ]!.lastOffsetOfAllInnerText
+              ? nodeWithInnerTextInfoList[nearestPossibleStartOffsetOfNodeWithInnerTextInfoList - 1]!
+                  .lastOffsetOfAllInnerText
               : 0) + endOffset,
             lastNodeWithInnerTextInfo.lastOffsetOfAllInnerText,
           )
@@ -437,28 +399,21 @@ export async function createRangesList({
           }
           return l
         })()
-        if (
-          startOffsetOfNodeWithInnerTextInfoList !==
-          nearestPossibleStartOffsetOfNodeWithInnerTextInfoList
-        ) {
+        if (startOffsetOfNodeWithInnerTextInfoList !== nearestPossibleStartOffsetOfNodeWithInnerTextInfoList) {
           endOffset = 0
         }
-        nearestPossibleStartOffsetOfNodeWithInnerTextInfoList =
-          startOffsetOfNodeWithInnerTextInfoList
+        nearestPossibleStartOffsetOfNodeWithInnerTextInfoList = startOffsetOfNodeWithInnerTextInfoList
         let startOffset =
           allInnerText
             .slice(
               (startOffsetOfNodeWithInnerTextInfoList
-                ? nodeWithInnerTextInfoList[
-                    startOffsetOfNodeWithInnerTextInfoList - 1
-                  ]!.lastOffsetOfAllInnerText
+                ? nodeWithInnerTextInfoList[startOffsetOfNodeWithInnerTextInfoList - 1]!.lastOffsetOfAllInnerText
                 : 0) + endOffset,
               lastNodeWithInnerTextInfo.lastOffsetOfAllInnerText,
             )
             .indexOf(searchString) + endOffset
         while (restOfSearchString.length) {
-          const nodeWithInnerTextInfo =
-            nodeWithInnerTextInfoList[startOffsetOfNodeWithInnerTextInfoList]
+          const nodeWithInnerTextInfo = nodeWithInnerTextInfoList[startOffsetOfNodeWithInnerTextInfoList]
           endOffset = Math.min(
             nodeWithInnerTextInfo.node.textContent!.length,
             nodeWithInnerTextInfo.innerText.length,
@@ -470,40 +425,33 @@ export async function createRangesList({
               ++lastOffsetOfNodeWithInnerTextInfoList
               continue level2
             }
-            if (
-              restOfSearchString === '' &&
-              endOffset !== nodeWithInnerTextInfo.innerText.length
-            ) {
+            if (restOfSearchString === '' && endOffset !== nodeWithInnerTextInfo.innerText.length) {
               ++lastOffsetOfNodeWithInnerTextInfoList
               continue level2
             }
           }
           const range = new Range()
           try {
-            const startSpaceOffset =
-              nodeWithInnerTextInfo.node.textContent!.indexOf(
-                nodeWithInnerTextInfo.innerText.trimEnd(),
-              )
+            const startSpaceOffset = nodeWithInnerTextInfo.node.textContent!.indexOf(
+              nodeWithInnerTextInfo.innerText.trimEnd(),
+            )
             startOffset += startSpaceOffset
             endOffset += startSpaceOffset
             range.setStart(nodeWithInnerTextInfo.node, startOffset)
             range.setEnd(nodeWithInnerTextInfo.node, endOffset)
           } catch (e) {
             if (DEBUG) {
-              console.debug(
-                '[chrome-extension][find][rangesList] invalid start/end offset',
-                {
-                  searchStringList,
-                  startOffsetOfSearchStringList,
-                  nodeWithInnerTextInfoList,
-                  nearestPossibleStartOffsetOfNodeWithInnerTextInfoList,
-                  lastOffsetOfNodeWithInnerTextInfoList,
-                  startOffsetOfNodeWithInnerTextInfoList,
-                  startOffset,
-                  endOffset,
-                  restOfSearchString,
-                },
-              )
+              console.debug('[chrome-extension][find][rangesList] invalid start/end offset', {
+                searchStringList,
+                startOffsetOfSearchStringList,
+                nodeWithInnerTextInfoList,
+                nearestPossibleStartOffsetOfNodeWithInnerTextInfoList,
+                lastOffsetOfNodeWithInnerTextInfoList,
+                startOffsetOfNodeWithInnerTextInfoList,
+                startOffset,
+                endOffset,
+                restOfSearchString,
+              })
               console.debug(e)
             }
             return rangesList
@@ -513,16 +461,11 @@ export async function createRangesList({
           ++startOffsetOfNodeWithInnerTextInfoList
           if (endOffset === nodeWithInnerTextInfo.node.textContent!.length) {
             endOffset = 0
-            nearestPossibleStartOffsetOfNodeWithInnerTextInfoList =
-              startOffsetOfNodeWithInnerTextInfoList
+            nearestPossibleStartOffsetOfNodeWithInnerTextInfoList = startOffsetOfNodeWithInnerTextInfoList
           }
-          if (
-            nodeWithInnerTextInfo.node.textContent!.slice(endOffset).trim() ===
-            ''
-          ) {
+          if (nodeWithInnerTextInfo.node.textContent!.slice(endOffset).trim() === '') {
             endOffset = 0
-            nearestPossibleStartOffsetOfNodeWithInnerTextInfoList =
-              startOffsetOfNodeWithInnerTextInfoList
+            nearestPossibleStartOffsetOfNodeWithInnerTextInfoList = startOffsetOfNodeWithInnerTextInfoList
           }
         }
         break

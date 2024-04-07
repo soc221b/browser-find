@@ -17,9 +17,7 @@ export default function Input(): JSX.Element {
     if (isPasting.current) {
       dispatch({
         type: 'Type',
-        value: event.target.value.trim().length
-          ? event.target.value.trim()
-          : ' ',
+        value: event.target.value.trim().length ? event.target.value.trim() : ' ',
       })
     } else {
       dispatch({ type: 'Type', value: event.target.value })

@@ -63,9 +63,7 @@ function createRegex({
 }): RegExp {
   try {
     let pattern = text
-    pattern = shouldUseRegularExpression
-      ? pattern
-      : pattern.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') // https://stackoverflow.com/a/9310752/7122623
+    pattern = shouldUseRegularExpression ? pattern : pattern.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') // https://stackoverflow.com/a/9310752/7122623
     pattern = shouldMatchWholeWord ? `\\b${pattern}\\b` : `${pattern}`
     let flags = ''
     flags += 'gm'
@@ -82,11 +80,7 @@ type NodeMap = {
   textContentEndOffset: number
   innerTextLike: string
 }
-function createNodeMaps({
-  documentElement,
-}: {
-  documentElement: HTMLElement
-}): NodeMap[] {
+function createNodeMaps({ documentElement }: { documentElement: HTMLElement }): NodeMap[] {
   let nodeMaps: NodeMap[] = []
 
   let DFSStack: {
@@ -149,10 +143,8 @@ function createNodeMaps({
         const CSSStyleDeclaration = getComputedStyle(parentElement)
         const whiteSpaceCollapse = getWhiteSpaceCollapse(CSSStyleDeclaration)
         if (childNode.textContent && childNode.textContent.trim()) {
-          const firstIndexAfterLeadingSpace =
-            childNode.textContent.match(/\S/)?.index ?? -1
-          const firstIndexOfTrailingSpace =
-            childNode.textContent.match(/\s+$/)?.index ?? -1
+          const firstIndexAfterLeadingSpace = childNode.textContent.match(/\S/)?.index ?? -1
+          const firstIndexOfTrailingSpace = childNode.textContent.match(/\s+$/)?.index ?? -1
           childNode.textContent.split('').forEach((textContentPart, index) => {
             let innerTextLike = textContentPart
             switch (CSSStyleDeclaration.textTransform) {
@@ -163,11 +155,7 @@ function createNodeMaps({
                 innerTextLike = innerTextLike.toLowerCase()
                 break
               case 'capitalize':
-                innerTextLike = (
-                  index === 0
-                    ? /\w/.test(innerTextLike)
-                    : /\W/.test(childNode.textContent![index - 1])
-                )
+                innerTextLike = (index === 0 ? /\w/.test(innerTextLike) : /\W/.test(childNode.textContent![index - 1]))
                   ? innerTextLike.toUpperCase()
                   : innerTextLike
                 break
@@ -183,24 +171,17 @@ function createNodeMaps({
               ) {
                 innerTextLike = ''
               }
-              if (
-                -1 < firstIndexOfTrailingSpace &&
-                firstIndexOfTrailingSpace < index
-              ) {
+              if (-1 < firstIndexOfTrailingSpace && firstIndexOfTrailingSpace < index) {
                 innerTextLike = ''
               }
-              if (
-                /[ \n]/.test(textContentPart) &&
-                /[ \n]/.test(childNode.textContent?.[index - 1] ?? '')
-              ) {
+              if (/[ \n]/.test(textContentPart) && /[ \n]/.test(childNode.textContent?.[index - 1] ?? '')) {
                 innerTextLike = ''
               }
             }
 
             let textContentStartOffset = index
 
-            let textContentEndOffset =
-              textContentStartOffset + innerTextLike.length
+            let textContentEndOffset = textContentStartOffset + innerTextLike.length
 
             nodeMaps.push({
               node: childNode,
@@ -215,16 +196,12 @@ function createNodeMaps({
             let shouldCollapse = true
             while (node.parentElement !== null) {
               const CSSStyleDeclaration = getComputedStyle(node.parentElement)
-              const whiteSpaceCollapse =
-                getWhiteSpaceCollapse(CSSStyleDeclaration)
+              const whiteSpaceCollapse = getWhiteSpaceCollapse(CSSStyleDeclaration)
               if (whiteSpaceCollapse === 'collapse') {
                 if (node.parentElement.lastChild === node) {
                   node = node.parentElement
                 } else {
-                  if (
-                    nodeMaps.length &&
-                    /\s/.test(nodeMaps[nodeMaps.length - 1].innerTextLike)
-                  ) {
+                  if (nodeMaps.length && /\s/.test(nodeMaps[nodeMaps.length - 1].innerTextLike)) {
                   } else {
                     shouldCollapse = false
                   }
@@ -266,13 +243,7 @@ function createNodeMaps({
   return nodeMaps
 }
 
-function createRangesList({
-  nodeMaps,
-  regex,
-}: {
-  nodeMaps: NodeMap[]
-  regex: RegExp
-}): Range[][] {
+function createRangesList({ nodeMaps, regex }: { nodeMaps: NodeMap[]; regex: RegExp }): Range[][] {
   const rangesList: Range[][] = []
 
   const innerTextLikeIndexToNodeMapIndex: Record<number, number> = {}
@@ -309,9 +280,7 @@ function createRangesList({
   return rangesList
 }
 
-function getWhiteSpaceCollapse(
-  CSSStyleDeclaration: CSSStyleDeclaration,
-): string {
+function getWhiteSpaceCollapse(CSSStyleDeclaration: CSSStyleDeclaration): string {
   if ((CSSStyleDeclaration as any).whiteSpaceCollapse) {
     return (CSSStyleDeclaration as any).whiteSpaceCollapse
   } else {

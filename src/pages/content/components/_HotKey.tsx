@@ -30,18 +30,14 @@ export default function _UseFind(): JSX.Element {
         event.preventDefault()
         state.dispatch({ type: 'ToggleOpen', value: true })
         setTimeout(() => {
-          const inputElement = document.querySelector(
-            '#browser-find-top-layer .input',
-          )
+          const inputElement = document.querySelector('#browser-find-top-layer .input')
           if (inputElement instanceof HTMLInputElement) {
             inputElement.focus()
           }
         })
         if (shouldSelectAll({ event, state, isOSMacOS })) {
           setTimeout(() => {
-            const inputElement = document.querySelector(
-              '#browser-find-top-layer .input',
-            )
+            const inputElement = document.querySelector('#browser-find-top-layer .input')
             if (inputElement instanceof HTMLInputElement) {
               inputElement.select()
             }
@@ -60,18 +56,14 @@ export default function _UseFind(): JSX.Element {
         event.preventDefault()
         state.dispatch({ type: 'FindNext' })
         setTimeout(() => {
-          const inputElement = document.querySelector(
-            '#browser-find-top-layer .input',
-          )
+          const inputElement = document.querySelector('#browser-find-top-layer .input')
           if (inputElement instanceof HTMLInputElement) {
             inputElement.focus()
           }
         })
         if (shouldSelectAll({ event, state, isOSMacOS })) {
           setTimeout(() => {
-            const inputElement = document.querySelector(
-              '#browser-find-top-layer .input',
-            )
+            const inputElement = document.querySelector('#browser-find-top-layer .input')
             if (inputElement instanceof HTMLInputElement) {
               inputElement.select()
             }
@@ -84,18 +76,14 @@ export default function _UseFind(): JSX.Element {
         event.preventDefault()
         state.dispatch({ type: 'FindPrevious' })
         setTimeout(() => {
-          const inputElement = document.querySelector(
-            '#browser-find-top-layer .input',
-          )
+          const inputElement = document.querySelector('#browser-find-top-layer .input')
           if (inputElement instanceof HTMLInputElement) {
             inputElement.focus()
           }
         })
         if (shouldSelectAll({ event, state, isOSMacOS })) {
           setTimeout(() => {
-            const inputElement = document.querySelector(
-              '#browser-find-top-layer .input',
-            )
+            const inputElement = document.querySelector('#browser-find-top-layer .input')
             if (inputElement instanceof HTMLInputElement) {
               inputElement.select()
             }
@@ -159,8 +147,7 @@ export default function _UseFind(): JSX.Element {
 
     function handleMouseup(event: MouseEvent) {
       const topLayer = document.querySelector('#browser-find-top-layer')
-      const value =
-        event.target instanceof Node && !!topLayer?.contains(event.target)
+      const value = event.target instanceof Node && !!topLayer?.contains(event.target)
       if (state.focusing === value) return
 
       state.dispatch({ type: 'ToggleFocus', value })
@@ -174,9 +161,7 @@ export default function _UseFind(): JSX.Element {
 
     function handleFocus() {
       const topLayer = document.querySelector('#browser-find-top-layer')
-      const value =
-        document.activeElement instanceof Node &&
-        !!topLayer?.contains(document.activeElement)
+      const value = document.activeElement instanceof Node && !!topLayer?.contains(document.activeElement)
       if (state.focusing === value) return
 
       state.dispatch({ type: 'ToggleFocus', value })

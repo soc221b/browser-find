@@ -7,30 +7,14 @@ type ShouldToggleUseRegularExpression = (_: {
   isOSMacOS: IsOSMacOS
 }) => boolean
 
-const shouldToggleUseRegularExpression: ShouldToggleUseRegularExpression = ({
-  event,
-  state,
-  isOSMacOS,
-}) => {
+const shouldToggleUseRegularExpression: ShouldToggleUseRegularExpression = ({ event, state, isOSMacOS }) => {
   if (state.focusing) {
     if (isOSMacOS()) {
-      if (
-        event.altKey &&
-        !event.ctrlKey &&
-        event.metaKey &&
-        !event.shiftKey &&
-        event.code === 'KeyR'
-      ) {
+      if (event.altKey && !event.ctrlKey && event.metaKey && !event.shiftKey && event.code === 'KeyR') {
         return true
       }
     } else {
-      if (
-        event.altKey &&
-        !event.ctrlKey &&
-        !event.metaKey &&
-        !event.shiftKey &&
-        event.code === 'KeyR'
-      ) {
+      if (event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey && event.code === 'KeyR') {
         return true
       }
     }

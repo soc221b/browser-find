@@ -10,9 +10,7 @@ export default function Result(): JSX.Element {
   const total = matches.length
 
   const handleClick: MouseEventHandler<HTMLDivElement> = () => {
-    document
-      .querySelector<HTMLInputElement>('#browser-find-top-layer .input')
-      ?.focus()
+    document.querySelector<HTMLInputElement>('#browser-find-top-layer .input')?.focus()
   }
 
   return text ? (

@@ -1,9 +1,4 @@
-import {
-  createRangesList,
-  createRegex,
-  createSearchStringList,
-  createNodeWithInnerTextList,
-} from '../find-v2'
+import { createRangesList, createRegex, createSearchStringList, createNodeWithInnerTextList } from '../find-v2'
 
 describe('createRegex', () => {
   const suits: {
@@ -144,9 +139,7 @@ describe('createNodeWithInnerTextList', () => {
     {
       name: 'should ignore browser-find itself',
       param: {
-        documentElement: createDocumentElement(
-          `<div id="browser-find-top-layer">123</div>`,
-        ),
+        documentElement: createDocumentElement(`<div id="browser-find-top-layer">123</div>`),
       },
       returnValue: [],
     },
@@ -167,27 +160,21 @@ describe('createNodeWithInnerTextList', () => {
     {
       name: 'should ignore <style>',
       param: {
-        documentElement: createDocumentElement(
-          `<style>* { all: unset; }</style>`,
-        ),
+        documentElement: createDocumentElement(`<style>* { all: unset; }</style>`),
       },
       returnValue: [],
     },
     {
       name: 'should ignore <select>',
       param: {
-        documentElement: createDocumentElement(
-          `<select><option>Option1</option></select>`,
-        ),
+        documentElement: createDocumentElement(`<select><option>Option1</option></select>`),
       },
       returnValue: [],
     },
     {
       name: 'should ignore .sr-only (conventional class for screen readers)',
       param: {
-        documentElement: createDocumentElement(
-          `<span class="sr-only">abc</span>`,
-        ),
+        documentElement: createDocumentElement(`<span class="sr-only">abc</span>`),
       },
       returnValue: [],
     },
@@ -212,36 +199,28 @@ describe('createNodeWithInnerTextList', () => {
     {
       name: 'should ignore display: none',
       param: {
-        documentElement: createDocumentElement(
-          `<span style="display: none;">abc</span>`,
-        ),
+        documentElement: createDocumentElement(`<span style="display: none;">abc</span>`),
       },
       returnValue: [],
     },
     {
       name: 'should ignore visibility: hidden',
       param: {
-        documentElement: createDocumentElement(
-          `<span style="visibility: hidden;">abc</span>`,
-        ),
+        documentElement: createDocumentElement(`<span style="visibility: hidden;">abc</span>`),
       },
       returnValue: [],
     },
     {
       name: 'should do text transform: uppercase',
       param: {
-        documentElement: createDocumentElement(
-          `<span style="text-transform: uppercase;">abc</span>`,
-        ),
+        documentElement: createDocumentElement(`<span style="text-transform: uppercase;">abc</span>`),
       },
       returnValue: [{ node: document.createTextNode('abc'), innerText: 'ABC' }],
     },
     {
       name: 'should do text transform: lowercase',
       param: {
-        documentElement: createDocumentElement(
-          `<span style="text-transform: lowercase;">ABC</span>`,
-        ),
+        documentElement: createDocumentElement(`<span style="text-transform: lowercase;">ABC</span>`),
       },
       returnValue: [{ node: document.createTextNode('ABC'), innerText: 'abc' }],
     },
@@ -307,9 +286,7 @@ describe('createNodeWithInnerTextList', () => {
       param: {
         documentElement: createDocumentElement(`a\nb`),
       },
-      returnValue: [
-        { node: document.createTextNode('a\nb'), innerText: 'a b' },
-      ],
+      returnValue: [{ node: document.createTextNode('a\nb'), innerText: 'a b' }],
     },
     {
       name: '"<br>\\na"',
@@ -331,9 +308,7 @@ describe('createNodeWithInnerTextList', () => {
     {
       name: '"<span>a</span> <span>b</span> <span>c</span>"',
       param: {
-        documentElement: createDocumentElement(
-          `<span>a</span> <span>b</span> <span>c</span>`,
-        ),
+        documentElement: createDocumentElement(`<span>a</span> <span>b</span> <span>c</span>`),
       },
       returnValue: [
         { node: document.createTextNode('a'), innerText: 'a' },
@@ -346,9 +321,7 @@ describe('createNodeWithInnerTextList', () => {
     {
       name: '"<span>a</span><span>b</span><span>c</span>"',
       param: {
-        documentElement: createDocumentElement(
-          `<span>a</span><span>b</span><span>c</span>`,
-        ),
+        documentElement: createDocumentElement(`<span>a</span><span>b</span><span>c</span>`),
       },
       returnValue: [
         { node: document.createTextNode('a'), innerText: 'a' },
@@ -359,18 +332,14 @@ describe('createNodeWithInnerTextList', () => {
     {
       name: '(<span>){512}abc(</span>{512})',
       param: {
-        documentElement: createDocumentElement(
-          `<span>`.repeat(512) + 'abc' + `</span>`.repeat(512),
-        ),
+        documentElement: createDocumentElement(`<span>`.repeat(512) + 'abc' + `</span>`.repeat(512)),
       },
       returnValue: [{ node: document.createTextNode('abc'), innerText: 'abc' }],
     },
     {
       name: '(<span>abc</span>){1_024}',
       param: {
-        documentElement: createDocumentElement(
-          `<span>abc</span>`.repeat(1_024),
-        ),
+        documentElement: createDocumentElement(`<span>abc</span>`.repeat(1_024)),
       },
       returnValue: Array(1_024)
         .fill(null)
@@ -387,9 +356,7 @@ describe('createNodeWithInnerTextList', () => {
 
   suits.forEach((suit) => {
     it(suit.name, async () => {
-      expect(await createNodeWithInnerTextList(suit.param)).toEqual(
-        suit.returnValue,
-      )
+      expect(await createNodeWithInnerTextList(suit.param)).toEqual(suit.returnValue)
     })
   })
 
@@ -445,9 +412,7 @@ describe('createRangesList', () => {
         searchStringList: ['a'],
         shouldMatchWholeWord: false,
       },
-      returnValue: [
-        [createRange({ node: node1, startOffset: 0, endOffset: 1 })],
-      ],
+      returnValue: [[createRange({ node: node1, startOffset: 0, endOffset: 1 })]],
     },
     {
       name: '_abc_d,efg,hi',
@@ -460,9 +425,7 @@ describe('createRangesList', () => {
         searchStringList: ['abc'],
         shouldMatchWholeWord: false,
       },
-      returnValue: [
-        [createRange({ node: node1, startOffset: 0, endOffset: 3 })],
-      ],
+      returnValue: [[createRange({ node: node1, startOffset: 0, endOffset: 3 })]],
     },
     {
       name: '_abcd_,efg,hi',
@@ -475,9 +438,7 @@ describe('createRangesList', () => {
         searchStringList: ['abcd'],
         shouldMatchWholeWord: false,
       },
-      returnValue: [
-        [createRange({ node: node1, startOffset: 0, endOffset: 4 })],
-      ],
+      returnValue: [[createRange({ node: node1, startOffset: 0, endOffset: 4 })]],
     },
     {
       name: '_abcd,e_fg,hi',
@@ -582,9 +543,7 @@ describe('createRangesList', () => {
         searchStringList: ['b'],
         shouldMatchWholeWord: false,
       },
-      returnValue: [
-        [createRange({ node: node1, startOffset: 1, endOffset: 2 })],
-      ],
+      returnValue: [[createRange({ node: node1, startOffset: 1, endOffset: 2 })]],
     },
     {
       name: 'a_bc_d,efg,hi',
@@ -597,9 +556,7 @@ describe('createRangesList', () => {
         searchStringList: ['bc'],
         shouldMatchWholeWord: false,
       },
-      returnValue: [
-        [createRange({ node: node1, startOffset: 1, endOffset: 3 })],
-      ],
+      returnValue: [[createRange({ node: node1, startOffset: 1, endOffset: 3 })]],
     },
     {
       name: 'a_bcd_,efg,hi',
@@ -612,9 +569,7 @@ describe('createRangesList', () => {
         searchStringList: ['bcd'],
         shouldMatchWholeWord: false,
       },
-      returnValue: [
-        [createRange({ node: node1, startOffset: 1, endOffset: 4 })],
-      ],
+      returnValue: [[createRange({ node: node1, startOffset: 1, endOffset: 4 })]],
     },
     {
       name: 'a_bcd,ef_g,hi',
@@ -701,9 +656,7 @@ describe('createRangesList', () => {
         searchStringList: ['d'],
         shouldMatchWholeWord: false,
       },
-      returnValue: [
-        [createRange({ node: node1, startOffset: 3, endOffset: 4 })],
-      ],
+      returnValue: [[createRange({ node: node1, startOffset: 3, endOffset: 4 })]],
     },
     {
       name: 'abc_d,ef_g,hi',
@@ -734,9 +687,7 @@ describe('createRangesList', () => {
         searchStringList: ['ef'],
         shouldMatchWholeWord: false,
       },
-      returnValue: [
-        [createRange({ node: node2, startOffset: 0, endOffset: 2 })],
-      ],
+      returnValue: [[createRange({ node: node2, startOffset: 0, endOffset: 2 })]],
     },
     (() => {
       const nodeWithInnerTextList = ['abc', 'ab'].map((textContent, index) => {
@@ -837,8 +788,7 @@ describe('createRangesList', () => {
       nodeWithInnerTextList[0].innerText = 'a'
       nodeWithInnerTextList[0].node.textContent = 'a'
       nodeWithInnerTextList[nodeWithInnerTextList.length - 1].innerText = 'c'
-      nodeWithInnerTextList[nodeWithInnerTextList.length - 1].node.textContent =
-        'c'
+      nodeWithInnerTextList[nodeWithInnerTextList.length - 1].node.textContent = 'c'
       const searchStringList = ['a', 'c']
       const returnValue = [
         [
@@ -993,8 +943,7 @@ describe('createRangesList', () => {
       nodeWithInnerTextList[0].innerText = 'a'
       nodeWithInnerTextList[0].node.textContent = 'a'
       nodeWithInnerTextList[nodeWithInnerTextList.length - 1].innerText = 'a'
-      nodeWithInnerTextList[nodeWithInnerTextList.length - 1].node.textContent =
-        'a'
+      nodeWithInnerTextList[nodeWithInnerTextList.length - 1].node.textContent = 'a'
       const searchStringList = Array(2).fill('a')
       const returnValue = [
         [
@@ -1026,18 +975,14 @@ describe('createRangesList', () => {
       const textContent = 'a'
       const searchStringLength = 500
       const searchStringListLength = 20
-      const nodeWithInnerTextList = Array(
-        searchStringListLength * searchStringLength,
-      )
+      const nodeWithInnerTextList = Array(searchStringListLength * searchStringLength)
         .fill(textContent)
         .map((textContent) => {
           const node = document.createTextNode(textContent)
           const innerText = textContent
           return { node, innerText }
         })
-      const searchStringList = Array(searchStringListLength).fill(
-        textContent.repeat(searchStringLength),
-      )
+      const searchStringList = Array(searchStringListLength).fill(textContent.repeat(searchStringLength))
       const returnValue = nodeWithInnerTextList
         .map(({ node }) => {
           return [
@@ -1072,18 +1017,14 @@ describe('createRangesList', () => {
       const textContent = 'a'
       const searchStringLength = 2
       const searchStringListLength = 5_000
-      const nodeWithInnerTextList = Array(
-        searchStringListLength * searchStringLength,
-      )
+      const nodeWithInnerTextList = Array(searchStringListLength * searchStringLength)
         .fill(textContent)
         .map((textContent) => {
           const node = document.createTextNode(textContent)
           const innerText = textContent
           return { node, innerText }
         })
-      const searchStringList = Array(searchStringListLength).fill(
-        textContent.repeat(searchStringLength),
-      )
+      const searchStringList = Array(searchStringListLength).fill(textContent.repeat(searchStringLength))
       const returnValue = nodeWithInnerTextList
         .map(({ node }) => {
           return [
@@ -1384,9 +1325,7 @@ describe('createRangesList', () => {
       }
     })(),
     (() => {
-      const nodeWithInnerTextList = [
-        { node: document.createTextNode('a\nb'), innerText: 'a b' },
-      ]
+      const nodeWithInnerTextList = [{ node: document.createTextNode('a\nb'), innerText: 'a b' }]
       const searchStringList = ['a']
       const returnValue = [
         [

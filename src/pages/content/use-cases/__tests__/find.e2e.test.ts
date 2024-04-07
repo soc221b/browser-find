@@ -17,9 +17,7 @@ type Suit = {
 const suits: Suit[] = []
 
 {
-  const documentElement = createDocumentElement(
-    `<div id="browser-find-top-layer">a</div>`,
-  )
+  const documentElement = createDocumentElement(`<div id="browser-find-top-layer">a</div>`)
   suits.push({
     documentElement,
     text: 'a',
@@ -65,9 +63,7 @@ const suits: Suit[] = []
   })
 }
 {
-  const documentElement = createDocumentElement(
-    `<select><option>a</option></select>`,
-  )
+  const documentElement = createDocumentElement(`<select><option>a</option></select>`)
   suits.push({
     documentElement,
     text: 'a',
@@ -93,9 +89,7 @@ const suits: Suit[] = []
 
 // === class start ====
 {
-  const documentElement = createDocumentElement(
-    `<span class="sr-only">a</span>`,
-  )
+  const documentElement = createDocumentElement(`<span class="sr-only">a</span>`)
   suits.push({
     documentElement,
     text: 'a',
@@ -109,9 +103,7 @@ const suits: Suit[] = []
 
 // === style start ====
 {
-  const documentElement = createDocumentElement(
-    `<span style="display: none;">a</span>`,
-  )
+  const documentElement = createDocumentElement(`<span style="display: none;">a</span>`)
   suits.push({
     documentElement,
     text: 'a',
@@ -122,9 +114,7 @@ const suits: Suit[] = []
   })
 }
 {
-  const documentElement = createDocumentElement(
-    `<span style="visibility: hidden;">a</span>`,
-  )
+  const documentElement = createDocumentElement(`<span style="visibility: hidden;">a</span>`)
   suits.push({
     documentElement,
     text: 'a',
@@ -149,14 +139,7 @@ const suits: Suit[] = []
       expected: [
         Array(57)
           .fill(null)
-          .map((_, i) =>
-            createRange(
-              documentElement.querySelector('body')!.childNodes[0]
-                .childNodes[0],
-              i,
-              i + 1,
-            ),
-          ),
+          .map((_, i) => createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], i, i + 1)),
       ],
     })
   }
@@ -174,14 +157,7 @@ const suits: Suit[] = []
         expected: [
           Array(74)
             .fill(null)
-            .map((_, i) =>
-              createRange(
-                documentElement.querySelector('body')!.childNodes[0]
-                  .childNodes[0],
-                i,
-                i + 1,
-              ),
-            ),
+            .map((_, i) => createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], i, i + 1)),
         ],
       })
     }
@@ -223,14 +199,7 @@ const suits: Suit[] = []
         expected: [
           Array(48)
             .fill(null)
-            .map((_, i) =>
-              createRange(
-                documentElement.querySelector('body')!.childNodes[0]
-                  .childNodes[0],
-                i,
-                i + 1,
-              ),
-            ),
+            .map((_, i) => createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], i, i + 1)),
         ],
       })
     }
@@ -249,14 +218,7 @@ const suits: Suit[] = []
         expected: [
           Array(57)
             .fill(null)
-            .map((_, i) =>
-              createRange(
-                documentElement.querySelector('body')!.childNodes[0]
-                  .childNodes[0],
-                i,
-                i + 1,
-              ),
-            ),
+            .map((_, i) => createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], i, i + 1)),
         ],
       })
     }
@@ -300,14 +262,7 @@ const suits: Suit[] = []
         expected: [
           Array(57)
             .fill(null)
-            .map((_, i) =>
-              createRange(
-                documentElement.querySelector('body')!.childNodes[0]
-                  .childNodes[0],
-                i,
-                i + 1,
-              ),
-            ),
+            .map((_, i) => createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], i, i + 1)),
         ],
       })
     }
@@ -349,27 +304,18 @@ const suits: Suit[] = []
         expected: [
           Array(33)
             .fill(null)
-            .map((_, i) =>
-              createRange(
-                documentElement.querySelector('body')!.childNodes[0]
-                  .childNodes[0],
-                i,
-                i + 1,
-              ),
-            ),
+            .map((_, i) => createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], i, i + 1)),
         ],
       })
     }
   }
 }
 // TODO:
-{
-  // https://developer.mozilla.org/en-US/docs/Web/CSS/white-space
-  {
+// prettier-ignore
+{ // white-space https://developer.mozilla.org/en-US/docs/Web/CSS/white-space
+  { // normal
     {
-      const documentElement = createDocumentElement(
-        `<span style="white-space: normal;">a\n</span><span>b</span>`,
-      )
+      const documentElement = createDocumentElement(`<span style="white-space: normal;">a\n</span><span>b</span>`)
       suits.push({
         documentElement,
         text: 'a b',
@@ -378,32 +324,15 @@ const suits: Suit[] = []
         shouldUseRegularExpression: false,
         expected: [
           [
-            createRange(
-              documentElement.querySelector('body')!.childNodes[0]
-                .childNodes[0],
-              0,
-              1,
-            ),
-            createRange(
-              documentElement.querySelector('body')!.childNodes[0]
-                .childNodes[0],
-              1,
-              2,
-            ),
-            createRange(
-              documentElement.querySelector('body')!.childNodes[1]
-                .childNodes[0],
-              0,
-              1,
-            ),
+            createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 0, 1),
+            createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 1, 2),
+            createRange(documentElement.querySelector('body')!.childNodes[1].childNodes[0], 0, 1),
           ],
         ],
       })
     }
     {
-      const documentElement = createDocumentElement(
-        `<span style="white-space: normal;">a  </span><span>b</span>`,
-      )
+      const documentElement = createDocumentElement(`<span style="white-space: normal;">a  </span><span>b</span>`)
       suits.push({
         documentElement,
         text: 'a b',
@@ -412,34 +341,17 @@ const suits: Suit[] = []
         shouldUseRegularExpression: false,
         expected: [
           [
-            createRange(
-              documentElement.querySelector('body')!.childNodes[0]
-                .childNodes[0],
-              0,
-              1,
-            ),
-            createRange(
-              documentElement.querySelector('body')!.childNodes[0]
-                .childNodes[0],
-              1,
-              2,
-            ),
-            createRange(
-              documentElement.querySelector('body')!.childNodes[1]
-                .childNodes[0],
-              0,
-              1,
-            ),
+            createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 0, 1),
+            createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 1, 2),
+            createRange(documentElement.querySelector('body')!.childNodes[1].childNodes[0], 0, 1),
           ],
         ],
       })
     }
   }
-  {
+  {  // nowrap
     {
-      const documentElement = createDocumentElement(
-        `<span style="white-space: nowrap;">a\n</span><span>b</span>`,
-      )
+      const documentElement = createDocumentElement(`<span style="white-space: nowrap;">a\n</span><span>b</span>`)
       suits.push({
         documentElement,
         text: 'a b',
@@ -448,32 +360,15 @@ const suits: Suit[] = []
         shouldUseRegularExpression: false,
         expected: [
           [
-            createRange(
-              documentElement.querySelector('body')!.childNodes[0]
-                .childNodes[0],
-              0,
-              1,
-            ),
-            createRange(
-              documentElement.querySelector('body')!.childNodes[0]
-                .childNodes[0],
-              1,
-              2,
-            ),
-            createRange(
-              documentElement.querySelector('body')!.childNodes[1]
-                .childNodes[0],
-              0,
-              1,
-            ),
+            createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 0, 1),
+            createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 1, 2),
+            createRange(documentElement.querySelector('body')!.childNodes[1].childNodes[0], 0, 1),
           ],
         ],
       })
     }
     {
-      const documentElement = createDocumentElement(
-        `<span style="white-space: nowrap;">a  </span><span>b</span>`,
-      )
+      const documentElement = createDocumentElement(`<span style="white-space: nowrap;">a  </span><span>b</span>`)
       suits.push({
         documentElement,
         text: 'a b',
@@ -482,34 +377,17 @@ const suits: Suit[] = []
         shouldUseRegularExpression: false,
         expected: [
           [
-            createRange(
-              documentElement.querySelector('body')!.childNodes[0]
-                .childNodes[0],
-              0,
-              1,
-            ),
-            createRange(
-              documentElement.querySelector('body')!.childNodes[0]
-                .childNodes[0],
-              1,
-              2,
-            ),
-            createRange(
-              documentElement.querySelector('body')!.childNodes[1]
-                .childNodes[0],
-              0,
-              1,
-            ),
+            createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 0, 1),
+            createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 1, 2),
+            createRange(documentElement.querySelector('body')!.childNodes[1].childNodes[0], 0, 1),
           ],
         ],
       })
     }
   }
-  {
+  { // pre
     {
-      const documentElement = createDocumentElement(
-        `<span style="white-space: pre;">a\n</span><span>b</span>`,
-      )
+      const documentElement = createDocumentElement(`<span style="white-space: pre;">a\n</span><span>b</span>`)
       suits.push({
         documentElement,
         text: 'a ',
@@ -520,9 +398,7 @@ const suits: Suit[] = []
       })
     }
     {
-      const documentElement = createDocumentElement(
-        `<span style="white-space: pre;">a  </span><span>b</span>`,
-      )
+      const documentElement = createDocumentElement(`<span style="white-space: pre;">a  </span><span>b</span>`)
       suits.push({
         documentElement,
         text: 'a  b',
@@ -531,40 +407,18 @@ const suits: Suit[] = []
         shouldUseRegularExpression: false,
         expected: [
           [
-            createRange(
-              documentElement.querySelector('body')!.childNodes[0]
-                .childNodes[0],
-              0,
-              1,
-            ),
-            createRange(
-              documentElement.querySelector('body')!.childNodes[0]
-                .childNodes[0],
-              1,
-              2,
-            ),
-            createRange(
-              documentElement.querySelector('body')!.childNodes[0]
-                .childNodes[0],
-              2,
-              3,
-            ),
-            createRange(
-              documentElement.querySelector('body')!.childNodes[1]
-                .childNodes[0],
-              0,
-              1,
-            ),
+            createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 0, 1),
+            createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 1, 2),
+            createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 2, 3),
+            createRange(documentElement.querySelector('body')!.childNodes[1].childNodes[0], 0, 1),
           ],
         ],
       })
     }
   }
-  {
+  { // pre-wrap
     {
-      const documentElement = createDocumentElement(
-        `<span style="white-space: pre-wrap;">a\n</span><span>b</span>`,
-      )
+      const documentElement = createDocumentElement(`<span style="white-space: pre-wrap;">a\n</span><span>b</span>`)
       suits.push({
         documentElement,
         text: 'a ',
@@ -575,9 +429,7 @@ const suits: Suit[] = []
       })
     }
     {
-      const documentElement = createDocumentElement(
-        `<span style="white-space: pre-wrap;">a  </span><span>b</span>`,
-      )
+      const documentElement = createDocumentElement(`<span style="white-space: pre-wrap;">a  </span><span>b</span>`)
       suits.push({
         documentElement,
         text: 'a  b',
@@ -586,40 +438,18 @@ const suits: Suit[] = []
         shouldUseRegularExpression: false,
         expected: [
           [
-            createRange(
-              documentElement.querySelector('body')!.childNodes[0]
-                .childNodes[0],
-              0,
-              1,
-            ),
-            createRange(
-              documentElement.querySelector('body')!.childNodes[0]
-                .childNodes[0],
-              1,
-              2,
-            ),
-            createRange(
-              documentElement.querySelector('body')!.childNodes[0]
-                .childNodes[0],
-              2,
-              3,
-            ),
-            createRange(
-              documentElement.querySelector('body')!.childNodes[1]
-                .childNodes[0],
-              0,
-              1,
-            ),
+            createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 0, 1),
+            createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 1, 2),
+            createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 2, 3),
+            createRange(documentElement.querySelector('body')!.childNodes[1].childNodes[0], 0, 1),
           ],
         ],
       })
     }
   }
-  {
+  { // pre-line
     {
-      const documentElement = createDocumentElement(
-        `<span style="white-space: pre-line;">a\n</span><span>b</span>`,
-      )
+      const documentElement = createDocumentElement(`<span style="white-space: pre-line;">a\n</span><span>b</span>`)
       suits.push({
         documentElement,
         text: 'a ',
@@ -630,9 +460,7 @@ const suits: Suit[] = []
       })
     }
     {
-      const documentElement = createDocumentElement(
-        `<span style="white-space: pre-line;">a  </span><span>b</span>`,
-      )
+      const documentElement = createDocumentElement(`<span style="white-space: pre-line;">a  </span><span>b</span>`)
       suits.push({
         documentElement,
         text: 'a b',
@@ -641,34 +469,17 @@ const suits: Suit[] = []
         shouldUseRegularExpression: false,
         expected: [
           [
-            createRange(
-              documentElement.querySelector('body')!.childNodes[0]
-                .childNodes[0],
-              0,
-              1,
-            ),
-            createRange(
-              documentElement.querySelector('body')!.childNodes[0]
-                .childNodes[0],
-              1,
-              2,
-            ),
-            createRange(
-              documentElement.querySelector('body')!.childNodes[1]
-                .childNodes[0],
-              0,
-              1,
-            ),
+            createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 0, 1),
+            createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 1, 2),
+            createRange(documentElement.querySelector('body')!.childNodes[1].childNodes[0], 0, 1),
           ],
         ],
       })
     }
   }
-  {
+  { // break-spaces
     {
-      const documentElement = createDocumentElement(
-        `<span style="white-space: break-spaces;">a\n</span><span>b</span>`,
-      )
+      const documentElement = createDocumentElement(`<span style="white-space: break-spaces;">a\n</span><span>b</span>`)
       suits.push({
         documentElement,
         text: 'a ',
@@ -679,9 +490,7 @@ const suits: Suit[] = []
       })
     }
     {
-      const documentElement = createDocumentElement(
-        `<span style="white-space: break-spaces;">a  </span><span>b</span>`,
-      )
+      const documentElement = createDocumentElement(`<span style="white-space: break-spaces;">a  </span><span>b</span>`)
       suits.push({
         documentElement,
         text: 'a  b',
@@ -690,30 +499,10 @@ const suits: Suit[] = []
         shouldUseRegularExpression: false,
         expected: [
           [
-            createRange(
-              documentElement.querySelector('body')!.childNodes[0]
-                .childNodes[0],
-              0,
-              1,
-            ),
-            createRange(
-              documentElement.querySelector('body')!.childNodes[0]
-                .childNodes[0],
-              1,
-              2,
-            ),
-            createRange(
-              documentElement.querySelector('body')!.childNodes[0]
-                .childNodes[0],
-              2,
-              3,
-            ),
-            createRange(
-              documentElement.querySelector('body')!.childNodes[1]
-                .childNodes[0],
-              0,
-              1,
-            ),
+            createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 0, 1),
+            createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 1, 2),
+            createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 2, 3),
+            createRange(documentElement.querySelector('body')!.childNodes[1].childNodes[0], 0, 1),
           ],
         ],
       })
@@ -731,9 +520,7 @@ const suits: Suit[] = []
     shouldMatchCase: false,
     shouldMatchWholeWord: false,
     shouldUseRegularExpression: false,
-    expected: [
-      [createRange(documentElement.querySelector('body')!.childNodes[0], 0, 1)],
-    ],
+    expected: [[createRange(documentElement.querySelector('body')!.childNodes[0], 0, 1)]],
   })
 }
 {
@@ -755,9 +542,7 @@ const suits: Suit[] = []
     shouldMatchCase: true,
     shouldMatchWholeWord: false,
     shouldUseRegularExpression: false,
-    expected: [
-      [createRange(documentElement.querySelector('body')!.childNodes[0], 0, 1)],
-    ],
+    expected: [[createRange(documentElement.querySelector('body')!.childNodes[0], 0, 1)]],
   })
 }
 // === match case end ====
@@ -771,9 +556,7 @@ const suits: Suit[] = []
     shouldMatchCase: false,
     shouldMatchWholeWord: false,
     shouldUseRegularExpression: false,
-    expected: [
-      [createRange(documentElement.querySelector('body')!.childNodes[0], 0, 1)],
-    ],
+    expected: [[createRange(documentElement.querySelector('body')!.childNodes[0], 0, 1)]],
   })
 }
 {
@@ -865,11 +648,7 @@ const suits: Suit[] = []
       [
         createRange(documentElement.querySelector('body')!.childNodes[0], 0, 1),
         createRange(documentElement.querySelector('body')!.childNodes[0], 1, 2),
-        createRange(
-          documentElement.querySelector('body')!.childNodes[1].childNodes[0],
-          0,
-          1,
-        ),
+        createRange(documentElement.querySelector('body')!.childNodes[1].childNodes[0], 0, 1),
       ],
     ],
   })
@@ -886,11 +665,7 @@ const suits: Suit[] = []
       [
         createRange(documentElement.querySelector('body')!.childNodes[0], 0, 1),
         createRange(documentElement.querySelector('body')!.childNodes[0], 1, 2),
-        createRange(
-          documentElement.querySelector('body')!.childNodes[1].childNodes[0],
-          0,
-          1,
-        ),
+        createRange(documentElement.querySelector('body')!.childNodes[1].childNodes[0], 0, 1),
       ],
     ],
   })
@@ -907,11 +682,7 @@ const suits: Suit[] = []
       [
         createRange(documentElement.querySelector('body')!.childNodes[0], 0, 1),
         createRange(documentElement.querySelector('body')!.childNodes[0], 1, 2),
-        createRange(
-          documentElement.querySelector('body')!.childNodes[1].childNodes[0],
-          0,
-          1,
-        ),
+        createRange(documentElement.querySelector('body')!.childNodes[1].childNodes[0], 0, 1),
       ],
     ],
   })
@@ -943,25 +714,15 @@ const suits: Suit[] = []
     shouldUseRegularExpression: false,
     expected: [
       [
-        createRange(
-          documentElement.querySelector('body')!.childNodes[0].childNodes[0],
-          0,
-          1,
-        ),
+        createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 0, 1),
         createRange(documentElement.querySelector('body')!.childNodes[1], 0, 1),
-        createRange(
-          documentElement.querySelector('body')!.childNodes[2].childNodes[0],
-          0,
-          1,
-        ),
+        createRange(documentElement.querySelector('body')!.childNodes[2].childNodes[0], 0, 1),
       ],
     ],
   })
 }
 {
-  const documentElement = createDocumentElement(
-    `<span>a </span><span> b</span>`,
-  )
+  const documentElement = createDocumentElement(`<span>a </span><span> b</span>`)
   suits.push({
     documentElement,
     text: 'a b',
@@ -970,21 +731,9 @@ const suits: Suit[] = []
     shouldUseRegularExpression: false,
     expected: [
       [
-        createRange(
-          documentElement.querySelector('body')!.childNodes[0].childNodes[0],
-          0,
-          1,
-        ),
-        createRange(
-          documentElement.querySelector('body')!.childNodes[0].childNodes[0],
-          1,
-          2,
-        ),
-        createRange(
-          documentElement.querySelector('body')!.childNodes[1].childNodes[0],
-          1,
-          2,
-        ),
+        createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 0, 1),
+        createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 1, 2),
+        createRange(documentElement.querySelector('body')!.childNodes[1].childNodes[0], 1, 2),
       ],
     ],
   })
@@ -999,21 +748,9 @@ const suits: Suit[] = []
     shouldUseRegularExpression: false,
     expected: [
       [
-        createRange(
-          documentElement.querySelector('body')!.childNodes[0].childNodes[0],
-          0,
-          1,
-        ),
-        createRange(
-          documentElement.querySelector('body')!.childNodes[1].childNodes[0],
-          0,
-          1,
-        ),
-        createRange(
-          documentElement.querySelector('body')!.childNodes[1].childNodes[0],
-          1,
-          2,
-        ),
+        createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 0, 1),
+        createRange(documentElement.querySelector('body')!.childNodes[1].childNodes[0], 0, 1),
+        createRange(documentElement.querySelector('body')!.childNodes[1].childNodes[0], 1, 2),
       ],
     ],
   })
@@ -1039,39 +776,17 @@ const suits: Suit[] = []
     shouldUseRegularExpression: false,
     expected: [
       [
-        createRange(
-          documentElement.querySelector('body')!.childNodes[0].childNodes[0],
-          0,
-          1,
-        ),
-        createRange(
-          documentElement.querySelector('body')!.childNodes[0].childNodes[0],
-          1,
-          2,
-        ),
-        createRange(
-          documentElement.querySelector('body')!.childNodes[0].childNodes[0],
-          2,
-          3,
-        ),
-        createRange(
-          documentElement.querySelector('body')!.childNodes[0].childNodes[0],
-          3,
-          4,
-        ),
-        createRange(
-          documentElement.querySelector('body')!.childNodes[0].childNodes[0],
-          4,
-          5,
-        ),
+        createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 0, 1),
+        createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 1, 2),
+        createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 2, 3),
+        createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 3, 4),
+        createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 4, 5),
       ],
     ],
   })
 }
 {
-  const documentElement = createDocumentElement(
-    `<span>a</span>\n<span>b</span>`,
-  )
+  const documentElement = createDocumentElement(`<span>a</span>\n<span>b</span>`)
   suits.push({
     documentElement,
     text: 'a b',
@@ -1080,17 +795,9 @@ const suits: Suit[] = []
     shouldUseRegularExpression: false,
     expected: [
       [
-        createRange(
-          documentElement.querySelector('body')!.childNodes[0].childNodes[0],
-          0,
-          1,
-        ),
+        createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 0, 1),
         createRange(documentElement.querySelector('body')!.childNodes[1], 0, 1),
-        createRange(
-          documentElement.querySelector('body')!.childNodes[2].childNodes[0],
-          0,
-          1,
-        ),
+        createRange(documentElement.querySelector('body')!.childNodes[2].childNodes[0], 0, 1),
       ],
     ],
   })
@@ -1098,14 +805,7 @@ const suits: Suit[] = []
 // === spaces end ====
 
 suits.forEach(
-  ({
-    documentElement,
-    text,
-    shouldMatchCase,
-    shouldMatchWholeWord,
-    shouldUseRegularExpression,
-    expected,
-  }) => {
+  ({ documentElement, text, shouldMatchCase, shouldMatchWholeWord, shouldUseRegularExpression, expected }) => {
     it(createTestName(), async () => {
       // arrange
       let onComplete = () => {}
@@ -1145,9 +845,7 @@ suits.forEach(
 
             actualRanges.forEach((actualRange, rangesIndex) => {
               const expectedRange = expectedRanges[rangesIndex]
-              expect(actualRange.startContainer).toBe(
-                expectedRange.startContainer,
-              )
+              expect(actualRange.startContainer).toBe(expectedRange.startContainer)
               expect(actualRange.startOffset).toBe(expectedRange.startOffset)
               expect(actualRange.endContainer).toBe(expectedRange.endContainer)
               expect(actualRange.endOffset).toBe(expectedRange.endOffset)
@@ -1196,11 +894,7 @@ function createDocumentElement(bodyInnerHTML: string): HTMLElement {
   return documentElement
 }
 
-function createRange(
-  node: Node,
-  startOffset: number,
-  endOffset: number,
-): Range {
+function createRange(node: Node, startOffset: number, endOffset: number): Range {
   const range = new Range()
   range.setStart(node, startOffset)
   range.setEnd(node, endOffset)
