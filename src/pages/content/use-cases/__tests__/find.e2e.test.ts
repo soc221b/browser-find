@@ -311,9 +311,9 @@ const suits: Suit[] = []
   }
 }
 // TODO:
-// prettier-ignore
-{ // white-space https://developer.mozilla.org/en-US/docs/Web/CSS/white-space
-  { // normal
+// https://developer.mozilla.org/en-US/docs/Web/CSS/white-space
+/* white-space */ {
+  /* normal */ {
     {
       const documentElement = createDocumentElement(`<span style="white-space: normal;">a\n</span><span>b</span>`)
       suits.push({
@@ -349,7 +349,7 @@ const suits: Suit[] = []
       })
     }
   }
-  {  // nowrap
+  /* nowrap */ {
     {
       const documentElement = createDocumentElement(`<span style="white-space: nowrap;">a\n</span><span>b</span>`)
       suits.push({
@@ -385,7 +385,7 @@ const suits: Suit[] = []
       })
     }
   }
-  { // pre
+  /* pre */ {
     {
       const documentElement = createDocumentElement(`<span style="white-space: pre;">a\n</span><span>b</span>`)
       suits.push({
@@ -416,7 +416,7 @@ const suits: Suit[] = []
       })
     }
   }
-  { // pre-wrap
+  /* pre-wrap */ {
     {
       const documentElement = createDocumentElement(`<span style="white-space: pre-wrap;">a\n</span><span>b</span>`)
       suits.push({
@@ -447,7 +447,7 @@ const suits: Suit[] = []
       })
     }
   }
-  { // pre-line
+  /* pre-line */ {
     {
       const documentElement = createDocumentElement(`<span style="white-space: pre-line;">a\n</span><span>b</span>`)
       suits.push({
@@ -477,7 +477,7 @@ const suits: Suit[] = []
       })
     }
   }
-  { // break-spaces
+  /* break-spaces */ {
     {
       const documentElement = createDocumentElement(`<span style="white-space: break-spaces;">a\n</span><span>b</span>`)
       suits.push({
