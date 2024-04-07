@@ -990,6 +990,35 @@ const suits: Suit[] = []
   })
 }
 {
+  const documentElement = createDocumentElement(`<span>a</span><span> b</span>`)
+  suits.push({
+    documentElement,
+    text: 'a b',
+    shouldMatchCase: false,
+    shouldMatchWholeWord: false,
+    shouldUseRegularExpression: false,
+    expected: [
+      [
+        createRange(
+          documentElement.querySelector('body')!.childNodes[0].childNodes[0],
+          0,
+          1,
+        ),
+        createRange(
+          documentElement.querySelector('body')!.childNodes[1].childNodes[0],
+          0,
+          1,
+        ),
+        createRange(
+          documentElement.querySelector('body')!.childNodes[1].childNodes[0],
+          1,
+          2,
+        ),
+      ],
+    ],
+  })
+}
+{
   const documentElement = createDocumentElement(`<span>a</span>\n`)
   suits.push({
     documentElement,
