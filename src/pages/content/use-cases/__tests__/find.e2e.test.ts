@@ -348,6 +348,30 @@ const suits: Suit[] = []
         ],
       })
     }
+    {
+      {
+        const documentElement = createDocumentElement(`<span style="white-space: normal;"> a</span>`)
+        suits.push({
+          documentElement,
+          text: 'a',
+          shouldMatchCase: false,
+          shouldMatchWholeWord: false,
+          shouldUseRegularExpression: false,
+          expected: [[createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 1, 2)]],
+        })
+      }
+      {
+        const documentElement = createDocumentElement(`<span style="white-space: normal;"> a</span>`)
+        suits.push({
+          documentElement,
+          text: ' a',
+          shouldMatchCase: false,
+          shouldMatchWholeWord: false,
+          shouldUseRegularExpression: false,
+          expected: [],
+        })
+      }
+    }
   }
   /* nowrap */ {
     {
@@ -384,6 +408,30 @@ const suits: Suit[] = []
         ],
       })
     }
+    {
+      {
+        const documentElement = createDocumentElement(`<span style="white-space: nowrap;"> a</span>`)
+        suits.push({
+          documentElement,
+          text: 'a',
+          shouldMatchCase: false,
+          shouldMatchWholeWord: false,
+          shouldUseRegularExpression: false,
+          expected: [[createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 1, 2)]],
+        })
+      }
+      {
+        const documentElement = createDocumentElement(`<span style="white-space: nowrap;"> a</span>`)
+        suits.push({
+          documentElement,
+          text: ' a',
+          shouldMatchCase: false,
+          shouldMatchWholeWord: false,
+          shouldUseRegularExpression: false,
+          expected: [],
+        })
+      }
+    }
   }
   /* pre */ {
     {
@@ -414,6 +462,46 @@ const suits: Suit[] = []
           ],
         ],
       })
+    }
+    {
+      {
+        const documentElement = createDocumentElement(`<span style="white-space: pre;"> a</span>`)
+        suits.push({
+          documentElement,
+          text: 'a',
+          shouldMatchCase: false,
+          shouldMatchWholeWord: false,
+          shouldUseRegularExpression: false,
+          expected: [[createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 1, 2)]],
+        })
+      }
+      {
+        const documentElement = createDocumentElement(`<span style="white-space: pre;"> a</span>`)
+        suits.push({
+          documentElement,
+          text: ' a',
+          shouldMatchCase: false,
+          shouldMatchWholeWord: false,
+          shouldUseRegularExpression: false,
+          expected: [
+            [
+              createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 0, 1),
+              createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 1, 2),
+            ],
+          ],
+        })
+      }
+      {
+        const documentElement = createDocumentElement(`<span style="white-space: pre;"> a</span>`)
+        suits.push({
+          documentElement,
+          text: '  a',
+          shouldMatchCase: false,
+          shouldMatchWholeWord: false,
+          shouldUseRegularExpression: false,
+          expected: [],
+        })
+      }
     }
   }
   /* pre-wrap */ {
@@ -446,6 +534,57 @@ const suits: Suit[] = []
         ],
       })
     }
+    {
+      const documentElement = createDocumentElement(`<span style="white-space: pre-wrap;">a\n</span>\nb`)
+      suits.push({
+        documentElement,
+        text: ' b',
+        shouldMatchCase: false,
+        shouldMatchWholeWord: false,
+        shouldUseRegularExpression: false,
+        expected: [],
+      })
+    }
+    {
+      {
+        const documentElement = createDocumentElement(`<span style="white-space: pre-wrap;"> a</span>`)
+        suits.push({
+          documentElement,
+          text: 'a',
+          shouldMatchCase: false,
+          shouldMatchWholeWord: false,
+          shouldUseRegularExpression: false,
+          expected: [[createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 1, 2)]],
+        })
+      }
+      {
+        const documentElement = createDocumentElement(`<span style="white-space: pre-wrap;"> a</span>`)
+        suits.push({
+          documentElement,
+          text: ' a',
+          shouldMatchCase: false,
+          shouldMatchWholeWord: false,
+          shouldUseRegularExpression: false,
+          expected: [
+            [
+              createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 0, 1),
+              createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 1, 2),
+            ],
+          ],
+        })
+      }
+      {
+        const documentElement = createDocumentElement(`<span style="white-space: pre-wrap;"> a</span>`)
+        suits.push({
+          documentElement,
+          text: '  a',
+          shouldMatchCase: false,
+          shouldMatchWholeWord: false,
+          shouldUseRegularExpression: false,
+          expected: [],
+        })
+      }
+    }
   }
   /* pre-line */ {
     {
@@ -475,6 +614,30 @@ const suits: Suit[] = []
           ],
         ],
       })
+    }
+    {
+      {
+        const documentElement = createDocumentElement(`<span style="white-space: pre-line;"> a</span>`)
+        suits.push({
+          documentElement,
+          text: 'a',
+          shouldMatchCase: false,
+          shouldMatchWholeWord: false,
+          shouldUseRegularExpression: false,
+          expected: [[createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 1, 2)]],
+        })
+      }
+      {
+        const documentElement = createDocumentElement(`<span style="white-space: pre-line;"> a</span>`)
+        suits.push({
+          documentElement,
+          text: ' a',
+          shouldMatchCase: false,
+          shouldMatchWholeWord: false,
+          shouldUseRegularExpression: false,
+          expected: [],
+        })
+      }
     }
   }
   /* break-spaces */ {
@@ -506,6 +669,46 @@ const suits: Suit[] = []
           ],
         ],
       })
+    }
+    {
+      {
+        const documentElement = createDocumentElement(`<span style="white-space: break-spaces;"> a</span>`)
+        suits.push({
+          documentElement,
+          text: 'a',
+          shouldMatchCase: false,
+          shouldMatchWholeWord: false,
+          shouldUseRegularExpression: false,
+          expected: [[createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 1, 2)]],
+        })
+      }
+      {
+        const documentElement = createDocumentElement(`<span style="white-space: break-spaces;"> a</span>`)
+        suits.push({
+          documentElement,
+          text: ' a',
+          shouldMatchCase: false,
+          shouldMatchWholeWord: false,
+          shouldUseRegularExpression: false,
+          expected: [
+            [
+              createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 0, 1),
+              createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], 1, 2),
+            ],
+          ],
+        })
+      }
+      {
+        const documentElement = createDocumentElement(`<span style="white-space: break-spaces;"> a</span>`)
+        suits.push({
+          documentElement,
+          text: '  a',
+          shouldMatchCase: false,
+          shouldMatchWholeWord: false,
+          shouldUseRegularExpression: false,
+          expected: [],
+        })
+      }
     }
   }
 }
