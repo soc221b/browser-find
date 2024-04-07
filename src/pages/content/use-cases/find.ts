@@ -105,6 +105,7 @@ function createNodeMaps({
       continue
     }
 
+    const parentElement = top.parentElement as Element
     const childNodes = top.parentElement.childNodes
     const childNodeIndex = top.nextChildNodeIndex
     if (childNodes.length <= childNodeIndex) {
@@ -146,8 +147,6 @@ function createNodeMaps({
       }
       case Node.TEXT_NODE: {
         if (childNode.textContent && childNode.textContent.trim()) {
-          // let innerText = childNode.textContent
-          const parentElement = childNode.parentElement!
           const CSSStyleDeclaration = getComputedStyle(parentElement)
           const firstIndexAfterLeadingSpace =
             childNode.textContent.match(/\S/)?.index ?? -1
