@@ -4,6 +4,7 @@ import clearMatch from './clear-match'
 import findNext from './find-next'
 import findPrevious from './find-previous'
 import match from './match'
+import toggleFinding from './toggle-finding'
 import toggleFocus from './toggle-focus'
 import toggleOpen from './toggle-open'
 import toggleShouldMatchCase from './toggle-should-match-case'
@@ -23,6 +24,8 @@ const reducer: Reducer = (state, action) => {
       return findPrevious(state, action)
     case 'Match':
       return match(state, action)
+    case 'ToggleFinding':
+      return toggleFinding(state, action)
     case 'ToggleFocus':
       return toggleFocus(state, action)
     case 'ToggleOpen':

@@ -104,6 +104,24 @@ export default function _StyleSheet(): JSX.Element {
         color: #474747;
       }
 
+      #browser-find-top-layer .spin {
+        width: 24px;
+        height: 24px;
+        animation-name: browser-find-spin;
+        animation-duration: 1s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+      }
+
+      @keyframes browser-find-spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
       #browser-find-top-layer #tooltip {
         color: #1F1F1F;
         background-color: #FFFFFF;

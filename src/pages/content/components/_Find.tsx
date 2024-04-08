@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { find } from '../use-cases/find'
 import useStore from '../store'
 import { highlights } from '../utils/highlights'
 
 export default function _Find(): JSX.Element {
   const store = useStore()
-  const [isCompleted, setIsCompleted] = useState(false)
 
   useEffect(() => {
     store.matches.forEach((match) => {
@@ -15,14 +14,8 @@ export default function _Find(): JSX.Element {
       })
     })
     store.dispatch({ type: 'ClearMatch' })
-  }, [store.shouldMatchCase, store.shouldMatchWholeWord, store.shouldUseRegularExpression, store.text])
+    store.dispatch({ type: 'ToggleFinding', value: true })
 
-  useEffect(() => {
-    if (store.open === false) {
-      return
-    }
-
-    setIsCompleted(false)
     const { stop } = find({
       documentElement: document.documentElement,
       text: store.text,
@@ -36,7 +29,7 @@ export default function _Find(): JSX.Element {
         })
       },
       onComplete: () => {
-        setIsCompleted(true)
+        store.dispatch({ type: 'ToggleFinding', value: false })
       },
     })
 
@@ -46,7 +39,7 @@ export default function _Find(): JSX.Element {
   }, [store.shouldMatchCase, store.shouldMatchWholeWord, store.shouldUseRegularExpression, store.text])
 
   useEffect(() => {
-    if (isCompleted === false) {
+    if (store.finding) {
       return
     }
 
@@ -68,7 +61,7 @@ export default function _Find(): JSX.Element {
         }
       })
     })
-  }, [isCompleted, store.matches, store.matchId])
+  }, [store.finding, store.matches, store.matchId])
 
   return <></>
 }

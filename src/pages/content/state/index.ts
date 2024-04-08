@@ -1,4 +1,6 @@
 export type State = {
+  finding: boolean
+
   focusing: boolean
 
   matchId: null | string
@@ -17,6 +19,8 @@ export type State = {
 }
 
 const initialState: State = {
+  finding: false,
+
   focusing: false,
 
   matchId: null,
