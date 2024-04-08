@@ -38,30 +38,5 @@ export default function _Find(): JSX.Element {
     }
   }, [store.shouldMatchCase, store.shouldMatchWholeWord, store.shouldUseRegularExpression, store.text])
 
-  useEffect(() => {
-    if (store.finding) {
-      return
-    }
-
-    store.matches.forEach((match) => {
-      match.ranges.forEach((range, index) => {
-        highlights({ range, isAdd: false, isThis: true })
-        highlights({ range, isAdd: false, isThis: false })
-        if (match.id === store.matchId) {
-          highlights({ range, isAdd: true, isThis: true })
-          if (index === 0) {
-            range.startContainer.parentElement?.scrollIntoView({
-              behavior: 'instant',
-              block: 'nearest',
-              inline: 'nearest',
-            })
-          }
-        } else {
-          highlights({ range, isAdd: true, isThis: false })
-        }
-      })
-    })
-  }, [store.finding, store.matches, store.matchId])
-
   return <></>
 }
