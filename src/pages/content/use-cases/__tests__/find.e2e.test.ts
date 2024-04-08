@@ -1078,30 +1078,27 @@ suits.forEach(
     })
 
     function createTestName() {
+      const digits = suits.length.toString().split('').length
+      const indent = ' '.repeat(4 + digits + 2)
       const booleanPadMaxLength = 5
       const testName =
-        index +
-        ' ' +
         [
+          index.toString().padEnd(digits, ' '),
           'C'.padEnd(booleanPadMaxLength, ' '),
           'W'.padEnd(booleanPadMaxLength, ' '),
           'R'.padEnd(booleanPadMaxLength, ' '),
         ].join('  ') +
-        '\n      ' +
+        `\n${indent}` +
         [
           String(shouldMatchCase).padEnd(booleanPadMaxLength, ' '),
           String(shouldMatchWholeWord).padEnd(booleanPadMaxLength, ' '),
           String(shouldUseRegularExpression).padEnd(booleanPadMaxLength, ' '),
         ].join('  ') +
-        '\n      ' +
-        'text      : `' +
-        text +
-        '`' +
-        '\n      ' +
-        'innerHTML : `' +
-        documentElement.innerHTML.replace(/\n/g, '\\n') +
-        '`' +
-        '\n   '
+        `\n${indent}` +
+        `text      : \`${text}\`` +
+        `\n${indent}` +
+        `innerHTML : \`${documentElement.innerHTML.replace(/\n/g, '\\n')}\`` +
+        `\n${indent.slice(0, -1)}`
       return testName
     }
   },
