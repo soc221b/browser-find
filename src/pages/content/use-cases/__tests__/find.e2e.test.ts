@@ -1025,7 +1025,7 @@ const suits: Suit[] = []
 // === spaces end ====
 
 suits.forEach(
-  ({ documentElement, text, shouldMatchCase, shouldMatchWholeWord, shouldUseRegularExpression, expected }) => {
+  ({ documentElement, text, shouldMatchCase, shouldMatchWholeWord, shouldUseRegularExpression, expected }, index) => {
     it(createTestName(), async () => {
       // arrange
       let onComplete = () => {}
@@ -1079,24 +1079,25 @@ suits.forEach(
 
     function createTestName() {
       const booleanPadMaxLength = 5
-      const textPadMaxLength = Math.max('text'.length, text.length) + 3
       const testName =
+        index +
+        ' ' +
         [
           'C'.padEnd(booleanPadMaxLength, ' '),
           'W'.padEnd(booleanPadMaxLength, ' '),
           'R'.padEnd(booleanPadMaxLength, ' '),
         ].join('  ') +
-        '\n    ' +
+        '\n      ' +
         [
           String(shouldMatchCase).padEnd(booleanPadMaxLength, ' '),
           String(shouldMatchWholeWord).padEnd(booleanPadMaxLength, ' '),
           String(shouldUseRegularExpression).padEnd(booleanPadMaxLength, ' '),
         ].join('  ') +
-        '\n    ' +
+        '\n      ' +
         'text      : `' +
         text +
         '`' +
-        '\n    ' +
+        '\n      ' +
         'innerHTML : `' +
         documentElement.innerHTML.replace(/\n/g, '\\n') +
         '`' +
