@@ -191,8 +191,7 @@ function createNodeMaps({ documentElement }: { documentElement: HTMLElement }): 
             }
             if (['collapse', 'preserve-breaks'].includes(whiteSpaceCollapse)) {
               if (
-                nodeMaps.length &&
-                nodeMaps[nodeMaps.length - 1].innerTextLike === ' ' &&
+                (nodeMaps.length ? nodeMaps[nodeMaps.length - 1].innerTextLike === ' ' : true) &&
                 index < firstIndexAfterLeadingSpace
               ) {
                 innerTextLike = ''
