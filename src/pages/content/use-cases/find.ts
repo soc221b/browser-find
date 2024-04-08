@@ -185,7 +185,9 @@ function createNodeMaps({ documentElement }: { documentElement: HTMLElement }): 
                 break
             }
             if (whiteSpaceCollapse === 'collapse' && innerTextLike === '\n') {
-              innerTextLike = ' '
+              if (nodeMaps.length ? nodeMaps[nodeMaps.length - 1].innerTextLike !== '\n' : true) {
+                innerTextLike = ' '
+              }
             }
             if (['collapse', 'preserve-breaks'].includes(whiteSpaceCollapse)) {
               if (
