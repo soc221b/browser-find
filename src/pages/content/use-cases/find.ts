@@ -169,6 +169,7 @@ function createNodeMaps({ documentElement }: { documentElement: HTMLElement }): 
         if (childNode.textContent && childNode.textContent.trim()) {
           const firstIndexAfterLeadingSpace = childNode.textContent.match(/\S/)?.index ?? -1
           const firstIndexOfTrailingSpace = childNode.textContent.match(/\s+$/)?.index ?? -1
+          const textContentLowerCase = childNode.textContent.toLowerCase()
           childNode.textContent.split('').forEach((textContentPart, index) => {
             let innerTextLike = textContentPart
             switch (CSSStyleDeclaration.textTransform) {
@@ -176,7 +177,7 @@ function createNodeMaps({ documentElement }: { documentElement: HTMLElement }): 
                 innerTextLike = innerTextLike.toUpperCase()
                 break
               case 'lowercase':
-                innerTextLike = innerTextLike.toLowerCase()
+                innerTextLike = textContentLowerCase[index]
                 break
               case 'capitalize':
                 innerTextLike = (index === 0 ? /\w/.test(innerTextLike) : /\W/.test(childNode.textContent![index - 1]))

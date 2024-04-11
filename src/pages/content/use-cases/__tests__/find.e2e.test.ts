@@ -284,30 +284,23 @@ const suits: Suit[] = []
       })
     }
     // TODO:
-    // {
-    //   const documentElement = createDocumentElement(
-    //     `<span style="text-transform: lowercase;">Σ IS A greek LETTER that appears SEVERAL TIMES IN ΟΔΥΣΣΕΥΣ.</span>`,
-    //   )
-    //   suits.push({
-    //     documentElement,
-    //     text: 'σ is a greek letter that appears several times in οδυσσευς.',
-    //     shouldMatchCase: true,
-    //     shouldMatchWholeWord: false,
-    //     shouldUseRegularExpression: false,
-    //     expected: [
-    //       Array(59)
-    //         .fill(null)
-    //         .map((_, i) =>
-    //           createRange(
-    //             documentElement.querySelector('body')!.childNodes[0]
-    //               .childNodes[0],
-    //             i,
-    //             i + 1,
-    //           ),
-    //         ),
-    //     ],
-    //   })
-    // }
+    {
+      const documentElement = createDocumentElement(
+        `<span style="text-transform: lowercase;">Σ IS A greek LETTER that appears SEVERAL TIMES IN ΟΔΥΣΣΕΥΣ.</span>`,
+      )
+      suits.push({
+        documentElement,
+        text: 'σ is a greek letter that appears several times in οδυσσευς.',
+        shouldMatchCase: true,
+        shouldMatchWholeWord: false,
+        shouldUseRegularExpression: false,
+        expected: [
+          Array(59)
+            .fill(null)
+            .map((_, i) => createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0], i, i + 1)),
+        ],
+      })
+    }
     {
       const documentElement = createDocumentElement(
         `<span style="text-transform: lowercase;">Ĩ is a Lithuanian LETTER as is J́</span>`,
