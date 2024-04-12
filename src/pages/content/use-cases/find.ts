@@ -32,34 +32,50 @@ export const find: Find = ({
     isStopped = true
   }
 
-  const regex = createRegex({
-    text,
-    shouldMatchCase,
-    shouldMatchWholeWord,
-    shouldUseRegularExpression,
-  })
-
-  const nodeMaps = createNodeMaps({ documentElement })
-
-  const rangesList = createRangesList({
-    regex,
-    nodeMaps,
-  })
   ;(async () => {
-    let i = 0
-    while (i < rangesList.length) {
-      const ranges = rangesList[i]
-      if (isStopped) {
-        break
-      } else {
-        onNext(ranges)
-      }
-      if (i % 1000 === 0) {
-        await sleep('raf')
-      }
-      ++i
+    await sleep('raf')
+    if (isStopped) {
+      return
     }
-    onComplete()
+
+    const regex = createRegex({
+      text,
+      shouldMatchCase,
+      shouldMatchWholeWord,
+      shouldUseRegularExpression,
+    })
+
+    await sleep('raf')
+    if (isStopped) {
+      return
+    }
+
+    const nodeMaps = createNodeMaps({ documentElement })
+
+    await sleep('raf')
+    if (isStopped) {
+      return
+    }
+
+    const rangesList = createRangesList({
+      regex,
+      nodeMaps,
+    })
+    ;(async () => {
+      let i = 0
+      while (i < rangesList.length) {
+        if (i % 1000 === 0) {
+          await sleep('raf')
+        }
+        if (isStopped) {
+          break
+        }
+
+        onNext(rangesList[i])
+        ++i
+      }
+      onComplete()
+    })()
   })()
 
   return { stop }
