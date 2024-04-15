@@ -1,9 +1,22 @@
 import { useEffect } from 'react'
 import { find } from '../use-cases/find'
 import useStore from '../store'
+import useToggle from '../hooks/use-toggle'
 
 export default function _Find(): JSX.Element {
   const store = useStore()
+
+  const [forceFindFlag, toggleForceFindFlag] = useToggle()
+  useEffect(() => {
+    ;(window as any).navigation?.addEventListener('navigate', handleNavigate)
+    return () => {
+      ;(window as any).navigation?.removeEventListener('navigate', handleNavigate)
+    }
+
+    function handleNavigate() {
+      toggleForceFindFlag()
+    }
+  }, [forceFindFlag])
 
   useEffect(() => {
     store.dispatch({ type: 'ClearMatch' })
@@ -29,7 +42,7 @@ export default function _Find(): JSX.Element {
     return () => {
       stop()
     }
-  }, [store.shouldMatchCase, store.shouldMatchWholeWord, store.shouldUseRegularExpression, store.text])
+  }, [store.shouldMatchCase, store.shouldMatchWholeWord, store.shouldUseRegularExpression, store.text, forceFindFlag])
 
   return <></>
 }
