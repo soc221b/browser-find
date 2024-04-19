@@ -150,10 +150,11 @@ function createNodeMaps({ documentElement }: { documentElement: HTMLElement }): 
         if (ignoredTagNames.includes(element.tagName)) {
           break
         }
-        if (element instanceof HTMLIFrameElement) {
-          if (element.contentDocument) {
+        if (element.tagName === 'IFRAME') {
+          const iframeElement = element as HTMLIFrameElement
+          if (iframeElement.contentDocument) {
             DFSStack.push({
-              parentElement: element.contentDocument.documentElement,
+              parentElement: iframeElement.contentDocument.documentElement,
               nextChildNodeIndex: 0,
             })
           }

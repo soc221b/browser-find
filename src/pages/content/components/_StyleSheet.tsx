@@ -182,14 +182,7 @@ export default function _StyleSheet(): JSX.Element {
       return
     }
 
-    const documents = [document]
-    document.querySelectorAll('iframe').forEach((iframe) => {
-      if (iframe.contentDocument) {
-        documents.push(iframe.contentDocument)
-      }
-    })
-
-    const removeChildList = documents.map((document) => {
+    const removeChildList = getAllDocuments(document).map((document) => {
       const topLayerStyleSheet = document.createElement('style')
       topLayerStyleSheet.textContent = `
         ::highlight(${theOthersKey}) {
@@ -214,4 +207,19 @@ export default function _StyleSheet(): JSX.Element {
   }, [store.open, store.matchId])
 
   return <></>
+}
+
+function getAllDocuments(document: Document): Document[] {
+  return [
+    document,
+    ...Array.from(document.querySelectorAll('iframe'))
+      .map((iframe) => {
+        if (iframe.contentDocument) {
+          return getAllDocuments(iframe.contentDocument)
+        } else {
+          return []
+        }
+      })
+      .flat(),
+  ]
 }
