@@ -38,8 +38,7 @@ function App(): JSX.Element {
 function init() {
   const topLayerContainer = document.createElement('div')
   topLayerContainer.id = 'browser-find-top-layer'
-  // TODO: remove any
-  ;(topLayerContainer as any).popover = 'manual'
+  topLayerContainer.popover = 'manual'
   document.body.appendChild(topLayerContainer)
 
   const root = createRoot(topLayerContainer)
