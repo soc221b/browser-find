@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { find } from '../use-cases/find'
 import useStore from '../store'
 import useToggle from '../hooks/use-toggle'
@@ -7,6 +7,7 @@ export default function _Find(): JSX.Element {
   const store = useStore()
 
   const [forceFindFlag, toggleForceFindFlag] = useToggle()
+  const hrefWithoutHash = useRef(getHrefWithoutHash(location.href))
   useEffect(() => {
     ;(window as any).navigation?.addEventListener('navigate', handleNavigate)
     return () => {
@@ -14,6 +15,10 @@ export default function _Find(): JSX.Element {
     }
 
     function handleNavigate() {
+      const currentHrefWithoutHash = getHrefWithoutHash(location.href)
+      if (currentHrefWithoutHash === hrefWithoutHash.current) return
+
+      hrefWithoutHash.current = currentHrefWithoutHash
       toggleForceFindFlag()
     }
   }, [forceFindFlag])
@@ -45,4 +50,10 @@ export default function _Find(): JSX.Element {
   }, [store.shouldMatchCase, store.shouldMatchWholeWord, store.shouldUseRegularExpression, store.text, forceFindFlag])
 
   return <></>
+}
+
+function getHrefWithoutHash(href: string): string {
+  const url = new URL(href)
+  url.hash = ''
+  return url.href
 }
