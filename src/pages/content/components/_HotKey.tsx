@@ -11,6 +11,7 @@ import shouldToggleUseRegularExpression from '../use-cases/should-toggle-use-reg
 import shouldSelectAll from '../use-cases/should-select-all'
 import shouldStopPropagationKeyDown from '../use-cases/should-trap-key-down'
 import { focusInput } from '../use-cases/focus-input'
+import { selectInput } from '../use-cases/select-input'
 
 export default function _UseFind(): JSX.Element {
   const state = useStore()
@@ -33,12 +34,7 @@ export default function _UseFind(): JSX.Element {
         state.dispatch({ type: 'ToggleOpen', value: true })
         focusInput()
         if (shouldSelectAll({ event, state, isOSMacOS })) {
-          setTimeout(() => {
-            const inputElement = document.querySelector('#browser-find-top-layer .input')
-            if (inputElement instanceof HTMLInputElement) {
-              inputElement.select()
-            }
-          })
+          selectInput()
         }
         return
       }
@@ -54,12 +50,7 @@ export default function _UseFind(): JSX.Element {
         state.dispatch({ type: 'FindNext' })
         focusInput()
         if (shouldSelectAll({ event, state, isOSMacOS })) {
-          setTimeout(() => {
-            const inputElement = document.querySelector('#browser-find-top-layer .input')
-            if (inputElement instanceof HTMLInputElement) {
-              inputElement.select()
-            }
-          })
+          selectInput()
         }
         return
       }
@@ -69,12 +60,7 @@ export default function _UseFind(): JSX.Element {
         state.dispatch({ type: 'FindPrevious' })
         focusInput()
         if (shouldSelectAll({ event, state, isOSMacOS })) {
-          setTimeout(() => {
-            const inputElement = document.querySelector('#browser-find-top-layer .input')
-            if (inputElement instanceof HTMLInputElement) {
-              inputElement.select()
-            }
-          })
+          selectInput()
         }
         return
       }
