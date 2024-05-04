@@ -9,6 +9,7 @@ import shouldToggleMatchCase from '../use-cases/should-toggle-match-case'
 import shouldToggleMatchWholeWord from '../use-cases/should-toggle-match-whole-word'
 import shouldToggleUseRegularExpression from '../use-cases/should-toggle-use-regular-expression'
 import shouldSelectAll from '../use-cases/should-select-all'
+import shouldStopPropagationKeyDown from '../use-cases/should-trap-key-down'
 
 export default function _UseFind(): JSX.Element {
   const state = useStore()
@@ -134,6 +135,25 @@ export default function _UseFind(): JSX.Element {
           type: 'ToggleShouldUseRegularExpression',
           value: !state.shouldUseRegularExpression,
         })
+        return
+      }
+    }
+  }, [state])
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeydown, { capture: true })
+    return () => {
+      window.removeEventListener('keydown', handleKeydown, { capture: true })
+    }
+
+    function handleKeydown(event: KeyboardEvent) {
+      if (
+        shouldStopPropagationKeyDown({
+          event,
+          state,
+          isOSMacOS,
+        })
+      ) {
+        event.stopImmediatePropagation()
         return
       }
     }

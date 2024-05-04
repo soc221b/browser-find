@@ -11,6 +11,7 @@ export default function Input(): JSX.Element {
     requestAnimationFrame(() => {
       isPasting.current = false
     })
+    event.stopPropagation()
   }
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
