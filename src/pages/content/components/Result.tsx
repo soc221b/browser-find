@@ -1,5 +1,6 @@
 import { MouseEventHandler } from 'react'
 import useStore from '../store'
+import { focusInput } from '../use-cases/focus-input'
 
 export default function Result(): JSX.Element {
   const finding = useStore((selector) => selector.finding)
@@ -11,7 +12,7 @@ export default function Result(): JSX.Element {
   const total = matches.length
 
   const handleClick: MouseEventHandler<HTMLDivElement> = () => {
-    document.querySelector<HTMLInputElement>('#browser-find-top-layer .input')?.focus()
+    focusInput()
   }
 
   return finding ? (

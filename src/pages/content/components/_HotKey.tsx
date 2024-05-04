@@ -10,6 +10,7 @@ import shouldToggleMatchWholeWord from '../use-cases/should-toggle-match-whole-w
 import shouldToggleUseRegularExpression from '../use-cases/should-toggle-use-regular-expression'
 import shouldSelectAll from '../use-cases/should-select-all'
 import shouldStopPropagationKeyDown from '../use-cases/should-trap-key-down'
+import { focusInput } from '../use-cases/focus-input'
 
 export default function _UseFind(): JSX.Element {
   const state = useStore()
@@ -30,12 +31,7 @@ export default function _UseFind(): JSX.Element {
       if (shouldOpen({ event, isOSMacOS })) {
         event.preventDefault()
         state.dispatch({ type: 'ToggleOpen', value: true })
-        setTimeout(() => {
-          const inputElement = document.querySelector('#browser-find-top-layer .input')
-          if (inputElement instanceof HTMLInputElement) {
-            inputElement.focus()
-          }
-        })
+        focusInput()
         if (shouldSelectAll({ event, state, isOSMacOS })) {
           setTimeout(() => {
             const inputElement = document.querySelector('#browser-find-top-layer .input')
@@ -56,12 +52,7 @@ export default function _UseFind(): JSX.Element {
       if (shouldFindNext({ event, state, isOSMacOS })) {
         event.preventDefault()
         state.dispatch({ type: 'FindNext' })
-        setTimeout(() => {
-          const inputElement = document.querySelector('#browser-find-top-layer .input')
-          if (inputElement instanceof HTMLInputElement) {
-            inputElement.focus()
-          }
-        })
+        focusInput()
         if (shouldSelectAll({ event, state, isOSMacOS })) {
           setTimeout(() => {
             const inputElement = document.querySelector('#browser-find-top-layer .input')
@@ -76,12 +67,7 @@ export default function _UseFind(): JSX.Element {
       if (shouldFindPrevious({ event, state, isOSMacOS })) {
         event.preventDefault()
         state.dispatch({ type: 'FindPrevious' })
-        setTimeout(() => {
-          const inputElement = document.querySelector('#browser-find-top-layer .input')
-          if (inputElement instanceof HTMLInputElement) {
-            inputElement.focus()
-          }
-        })
+        focusInput()
         if (shouldSelectAll({ event, state, isOSMacOS })) {
           setTimeout(() => {
             const inputElement = document.querySelector('#browser-find-top-layer .input')
