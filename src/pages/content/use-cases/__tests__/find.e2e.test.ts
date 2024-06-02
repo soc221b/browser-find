@@ -283,7 +283,6 @@ const suits: Suit[] = []
         ],
       })
     }
-    // TODO:
     {
       const documentElement = createDocumentElement(
         `<span style="text-transform: lowercase;">Σ IS A greek LETTER that appears SEVERAL TIMES IN ΟΔΥΣΣΕΥΣ.</span>`,
