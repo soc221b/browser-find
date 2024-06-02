@@ -182,7 +182,7 @@ export default function _StyleSheet(): JSX.Element {
       return
     }
 
-    const removeChildList = getAllDocuments(document).map((document) => {
+    const removeAllChildren = getAllDocuments(document).map((document) => {
       const topLayerStyleSheet = document.createElement('style')
       topLayerStyleSheet.textContent = `
         ::highlight(${theOthersKey}) {
@@ -202,7 +202,7 @@ export default function _StyleSheet(): JSX.Element {
     })
 
     return () => {
-      removeChildList.forEach((removeChild) => removeChild())
+      removeAllChildren.forEach((removeChild) => removeChild())
     }
   }, [store.open, store.matchId])
 
