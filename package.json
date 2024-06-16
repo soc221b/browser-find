@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@esbuilder/html": "^0.0.6",
-    "@types/chrome": "^0.0.209",
+    "@types/chrome": "^0.0.268",
     "@types/fs-extra": "^11.0.1",
     "@types/jest": "^29.5.12",
     "@types/node": "^18.11.18",
