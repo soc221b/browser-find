@@ -9,6 +9,7 @@
     "url": "https://github.com/debdut/browser-extension.git"
   },
   "scripts": {
+    "lint": "prettier --check .",
     "test": "jest",
     "start": "tsx scripts/build-icons && tsx scripts/build.ts chrome --dev",
     "build": "mkdirp dist/v3 && tsx scripts/build-icons && tsx scripts/build.ts chrome"
