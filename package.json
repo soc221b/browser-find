@@ -23,7 +23,7 @@
     "react-dom": "^18.2.0",
     "tsx": "^4.7.1",
     "ua-parser-js": "^1.0.37",
-    "webextension-polyfill": "^0.10.0",
+    "webextension-polyfill": "^0.12.0",
     "zustand": "^4.5.2"
   },
   "devDependencies": {
