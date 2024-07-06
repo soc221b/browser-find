@@ -61,7 +61,7 @@ jobs:
         if: ${{ github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, 'chore:') && contains(github.event.head_commit.message, 'release') }}
         with:
           file-path: dist.zip
-          extension-id: fohdnlaeecihjiendkfhifhlgldpeopm
+          extension-id: akaeoepndhnhffnginkbdcoigbpnnljh
           client-id: ${{ secrets.CLIENT_ID }}
           client-secret: ${{ secrets.CLIENT_SECRET }}
           refresh-token: ${{ secrets.REFRESH_TOKEN }}
