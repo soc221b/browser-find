@@ -375,6 +375,7 @@ $RECYCLE.BIN/
 
 # build
 /dist
+/dist.zip
 
 # etc
 .idea
