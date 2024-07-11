@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/soc221b/browser-find/compare/v0.3.0...v0.3.1) (2024-07-11)
+
+
+### Bug Fixes
+
+* page should not shift when navigating with fragments ([#57](https://github.com/soc221b/browser-find/issues/57)) ([14feb2c](https://github.com/soc221b/browser-find/commit/14feb2c9b5f1ca2b9a8354c5b9c95bb752e858ef))
+
 ## [0.3.0](https://github.com/soc221b/browser-find/compare/v0.2.7...v0.3.0) (2024-07-06)
 
 
