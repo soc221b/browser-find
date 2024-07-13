@@ -1,4 +1,4 @@
-import rimraf from 'rimraf'
+import { rimraf } from 'rimraf'
 import { mkdirp } from 'mkdirp'
 import sharp from 'sharp'
 
