@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.2](https://github.com/soc221b/browser-find/compare/v0.3.1...v0.3.2) (2024-07-20)
+
+
+### Bug Fixes
+
+* typo ([#65](https://github.com/soc221b/browser-find/issues/65)) ([fe86115](https://github.com/soc221b/browser-find/commit/fe86115d91f5f43b35010b3925cb89c4e44a3223))
+
 ## [0.3.1](https://github.com/soc221b/browser-find/compare/v0.3.0...v0.3.1) (2024-07-11)
 
 
