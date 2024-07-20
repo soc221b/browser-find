@@ -17,8 +17,8 @@ export default function ToggleMatchWholeWord(): JSX.Element {
       className="icon"
       data-tooltip-content={
         isOSMacOS()
-          ? 'Match Case <kbd>Command</kbd>+<kbd>Option</kbd>+<kbd>W</kbd>'
-          : 'Match Case <kbd>Alt</kbd>+<kbd>W</kbd>'
+          ? 'Match Whole Word <kbd>Command</kbd>+<kbd>Option</kbd>+<kbd>W</kbd>'
+          : 'Match Whole Word <kbd>Alt</kbd>+<kbd>W</kbd>'
       }
     >
       <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" fill="currentColor">
