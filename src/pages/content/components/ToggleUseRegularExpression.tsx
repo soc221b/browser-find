@@ -17,8 +17,8 @@ export default function ToggleUseRegularExpression(): JSX.Element {
       className="icon"
       data-tooltip-content={
         isOSMacOS()
-          ? 'Match Case <kbd>Command</kbd>+<kbd>Option</kbd>+<kbd>R</kbd>'
-          : 'Match Case <kbd>Alt</kbd>+<kbd>R</kbd>'
+          ? 'Use Regular Expression <kbd>Command</kbd>+<kbd>Option</kbd>+<kbd>R</kbd>'
+          : 'Use Regular Expression <kbd>Alt</kbd>+<kbd>R</kbd>'
       }
     >
       <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" fill="currentColor">
