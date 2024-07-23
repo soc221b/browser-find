@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.3](https://github.com/soc221b/browser-find/compare/v0.3.2...v0.3.3) (2024-07-23)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @floating-ui/dom to v1.6.8 ([#69](https://github.com/soc221b/browser-find/issues/69)) ([5f5f89f](https://github.com/soc221b/browser-find/commit/5f5f89f3cf100801f23574fcabc8663d13de4b68))
+
 ## [0.3.2](https://github.com/soc221b/browser-find/compare/v0.3.1...v0.3.2) (2024-07-20)
 
 
