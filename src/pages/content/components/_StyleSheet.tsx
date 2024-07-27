@@ -4,7 +4,6 @@ import { theOthersKey, thisKey } from '../constants/highlight'
 
 export default function _StyleSheet(): JSX.Element {
   const open = useStore((state) => state.open)
-  const matchId = useStore((state) => state.matchId)
 
   useEffect(() => {
     const topLayerStyleSheet = document.createElement('style')
@@ -205,7 +204,7 @@ export default function _StyleSheet(): JSX.Element {
     return () => {
       removeAllChildren.forEach((removeChild) => removeChild())
     }
-  }, [open, matchId])
+  }, [open])
 
   return <></>
 }
