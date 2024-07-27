@@ -9,7 +9,7 @@ export default function Result(): JSX.Element {
   const matchId = useStore((selector) => selector.matchId)
   const matches = useStore((selector) => selector.matches)
 
-  const index = binarySearchIndex(matches, matchId, (match) => match.id) + 1
+  const nth = binarySearchIndex(matches, matchId, (match) => match.id) + 1
   const total = matches.length
 
   const handleClick: MouseEventHandler<HTMLDivElement> = () => {
@@ -24,7 +24,7 @@ export default function Result(): JSX.Element {
     </div>
   ) : text ? (
     <div onClick={handleClick} className="result">
-      {`${index}/${total}`}
+      {`${nth}/${total}`}
     </div>
   ) : (
     <></>
