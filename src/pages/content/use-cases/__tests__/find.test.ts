@@ -16,18 +16,21 @@ type Suit = {
 
 const suits: Suit[] = []
 
-{
-  const documentElement = createDocumentElement(`<div id="browser-find-top-layer">a</div>`)
-  suits.push({
-    documentElement,
-    text: 'a',
-    shouldMatchCase: false,
-    shouldMatchWholeWord: false,
-    shouldUseRegularExpression: false,
-    expected: [],
-  })
-}
+;(function addIdSuits() {
+  ;(function browserFindTopLayer() {
+    const documentElement = createDocumentElement(`<div id="browser-find-top-layer">a</div>`)
+    suits.push({
+      documentElement,
+      text: 'a',
+      shouldMatchCase: false,
+      shouldMatchWholeWord: false,
+      shouldUseRegularExpression: false,
+      expected: [],
+    })
+  })()
+})()
 
+//
 ;(function addElementSuits() {
   ;(function script() {
     const documentElement = createDocumentElement(`<script>"a"</script>`)
