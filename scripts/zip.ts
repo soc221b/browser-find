@@ -1,11 +1,11 @@
 import { sync as rimrafSync } from 'rimraf'
 import { zipSync } from 'cross-zip'
 
-function build() {
+function main() {
   rimrafSync('dist.zip')
   zipSync('dist/v3', '../dist.zip')
 
   console.log('Finished.')
 }
 
-build()
+main()
