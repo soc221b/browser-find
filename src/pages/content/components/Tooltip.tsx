@@ -7,18 +7,17 @@ export default function Tooltip(): JSX.Element {
   const [delayedVisible, setDelayedVisible] = useState(false)
 
   useEffect(() => {
-    let id: number = -1
     if (visible) {
-      id = setTimeout(() => {
+      const id = setTimeout(() => {
         setDelayedVisible(true)
-      }, 1000) as unknown as number
+      }, 1000)
+      return () => clearTimeout(id)
     } else {
-      id = setTimeout(() => {
+      const id = setTimeout(() => {
         setDelayedVisible(false)
-      }, 300) as unknown as number
+      }, 300)
+      return () => clearTimeout(id)
     }
-
-    return () => clearTimeout(id)
   }, [visible])
 
   useLayoutEffect(() => {
@@ -63,12 +62,12 @@ export default function Tooltip(): JSX.Element {
     }
   }, [])
   useLayoutEffect(() => {
-    window.addEventListener('keydown', handleBlur)
+    window.addEventListener('keydown', handleKeydown)
     return () => {
-      window.removeEventListener('keydown', handleBlur)
+      window.removeEventListener('keydown', handleKeydown)
     }
 
-    function handleBlur() {
+    function handleKeydown() {
       setVisible(false)
     }
   }, [])

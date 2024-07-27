@@ -1,8 +1,8 @@
 import { useEffect, useLayoutEffect } from 'react'
-import shouldOpen from '../use-cases/should-open'
-import shouldClose from '../use-cases/should-close'
 import { isOSMacOS } from '../utils/ua'
 import useStore from '../store'
+import shouldOpen from '../use-cases/should-open'
+import shouldClose from '../use-cases/should-close'
 import shouldFindNext from '../use-cases/should-find-next'
 import shouldFindPrevious from '../use-cases/should-find-previous'
 import shouldToggleMatchCase from '../use-cases/should-toggle-match-case'
@@ -13,10 +13,15 @@ import shouldStopPropagationKeyDown from '../use-cases/should-trap-key-down'
 import { focusInput } from '../use-cases/focus-input'
 import { selectInput } from '../use-cases/select-input'
 
-export default function _UseFind(): JSX.Element {
-  const state = useStore()
+export default function _HotKey(): JSX.Element {
+  const dispatch = useStore((state) => state.dispatch)
+  const open = useStore((state) => state.open)
+  const shouldMatchCase = useStore((state) => state.shouldMatchCase)
+  const shouldMatchWholeWord = useStore((state) => state.shouldMatchWholeWord)
+  const shouldUseRegularExpression = useStore((state) => state.shouldUseRegularExpression)
+  const focusing = useStore((state) => state.focusing)
 
-  if (state.open) {
+  if (open) {
     ;(document.querySelector('#browser-find-top-layer') as any)?.showPopover()
   } else {
     ;(document.querySelector('#browser-find-top-layer') as any)?.hidePopover()
@@ -29,6 +34,7 @@ export default function _UseFind(): JSX.Element {
     }
 
     function handleKeydown(event: KeyboardEvent) {
+      const state = { dispatch, focusing, shouldMatchCase, shouldMatchWholeWord, shouldUseRegularExpression }
       if (shouldOpen({ event, isOSMacOS })) {
         event.preventDefault()
         state.dispatch({ type: 'ToggleOpen', value: true })
@@ -110,7 +116,7 @@ export default function _UseFind(): JSX.Element {
         return
       }
     }
-  }, [state])
+  }, [focusing, shouldMatchCase, shouldMatchWholeWord, shouldUseRegularExpression])
   useEffect(() => {
     window.addEventListener('keydown', handleKeydown, { capture: true })
     return () => {
@@ -121,7 +127,7 @@ export default function _UseFind(): JSX.Element {
       if (
         shouldStopPropagationKeyDown({
           event,
-          state,
+          state: { focusing },
           isOSMacOS,
         })
       ) {
@@ -129,7 +135,7 @@ export default function _UseFind(): JSX.Element {
         return
       }
     }
-  }, [state])
+  }, [focusing])
 
   useEffect(() => {
     window.addEventListener('mouseup', handleMouseup)
@@ -140,11 +146,11 @@ export default function _UseFind(): JSX.Element {
     function handleMouseup(event: MouseEvent) {
       const topLayer = document.querySelector('#browser-find-top-layer')
       const value = event.target instanceof Node && !!topLayer?.contains(event.target)
-      if (state.focusing === value) return
+      if (focusing === value) return
 
-      state.dispatch({ type: 'ToggleFocus', value })
+      dispatch({ type: 'ToggleFocus', value })
     }
-  }, [state])
+  }, [focusing])
   useLayoutEffect(() => {
     window.addEventListener('focus', handleFocus)
     return () => {
@@ -154,9 +160,9 @@ export default function _UseFind(): JSX.Element {
     function handleFocus() {
       const topLayer = document.querySelector('#browser-find-top-layer')
       const value = document.activeElement instanceof Node && !!topLayer?.contains(document.activeElement)
-      if (state.focusing === value) return
+      if (focusing === value) return
 
-      state.dispatch({ type: 'ToggleFocus', value })
+      dispatch({ type: 'ToggleFocus', value })
     }
   }, [])
 
