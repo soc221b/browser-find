@@ -62,12 +62,12 @@ export default function Tooltip(): JSX.Element {
     }
   }, [])
   useLayoutEffect(() => {
-    window.addEventListener('keydown', handleBlur)
+    window.addEventListener('keydown', handleKeydown)
     return () => {
-      window.removeEventListener('keydown', handleBlur)
+      window.removeEventListener('keydown', handleKeydown)
     }
 
-    function handleBlur() {
+    function handleKeydown() {
       setVisible(false)
     }
   }, [])
