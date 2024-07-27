@@ -5,33 +5,37 @@ import useStore from '../store'
 let id = 0
 
 export default function _Find(): JSX.Element {
-  const store = useStore()
+  const dispatch = useStore((state) => state.dispatch)
+  const shouldMatchCase = useStore((state) => state.shouldMatchCase)
+  const shouldMatchWholeWord = useStore((state) => state.shouldMatchWholeWord)
+  const shouldUseRegularExpression = useStore((state) => state.shouldUseRegularExpression)
+  const text = useStore((state) => state.text)
 
   useEffect(() => {
-    store.dispatch({ type: 'ClearMatch' })
-    store.dispatch({ type: 'ToggleFinding', value: true })
+    dispatch({ type: 'ClearMatch' })
+    dispatch({ type: 'ToggleFinding', value: true })
 
     const { stop } = find({
       documentElement: document.documentElement,
-      text: store.text,
-      shouldMatchCase: store.shouldMatchCase,
-      shouldMatchWholeWord: store.shouldMatchWholeWord,
-      shouldUseRegularExpression: store.shouldUseRegularExpression,
+      text,
+      shouldMatchCase,
+      shouldMatchWholeWord,
+      shouldUseRegularExpression,
       onNext: (ranges) => {
-        store.dispatch({
+        dispatch({
           type: 'Match',
           match: { id: id++, ranges },
         })
       },
       onComplete: () => {
-        store.dispatch({ type: 'ToggleFinding', value: false })
+        dispatch({ type: 'ToggleFinding', value: false })
       },
     })
 
     return () => {
       stop()
     }
-  }, [store.shouldMatchCase, store.shouldMatchWholeWord, store.shouldUseRegularExpression, store.text])
+  }, [shouldMatchCase, shouldMatchWholeWord, shouldUseRegularExpression, text])
 
   return <></>
 }
