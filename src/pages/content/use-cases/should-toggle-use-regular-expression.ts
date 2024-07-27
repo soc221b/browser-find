@@ -1,5 +1,6 @@
 import { State } from '../state'
 import { IsOSMacOS } from '../utils/ua'
+import { isPressing } from '../utils/is-pressing'
 
 type ShouldToggleUseRegularExpression = (_: {
   event: KeyboardEvent
@@ -10,11 +11,11 @@ type ShouldToggleUseRegularExpression = (_: {
 const shouldToggleUseRegularExpression: ShouldToggleUseRegularExpression = ({ event, state, isOSMacOS }) => {
   if (state.focusing) {
     if (isOSMacOS()) {
-      if (event.altKey && !event.ctrlKey && event.metaKey && !event.shiftKey && event.code === 'KeyR') {
+      if (isPressing({ event, code: 'KeyR', altKey: true, metaKey: true })) {
         return true
       }
     } else {
-      if (event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey && event.code === 'KeyR') {
+      if (isPressing({ event, code: 'KeyR', altKey: true })) {
         return true
       }
     }

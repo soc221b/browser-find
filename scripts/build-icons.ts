@@ -1,16 +1,34 @@
-import { rimraf } from 'rimraf'
-import { mkdirp } from 'mkdirp'
+import { rimrafSync } from 'rimraf'
+import { mkdirpSync } from 'mkdirp'
 import sharp from 'sharp'
 
-const icons = ['logo', 'logo-dark']
-const sizes = [16, 32, 48, 128]
+main()
 
-await rimraf((await import.meta.resolve?.(`../public`))!.replace(/^file:\/\//, '').replace(/\/index.js$/, ''))
-await mkdirp((await import.meta.resolve?.(`../public`))!.replace(/^file:\/\//, '').replace(/\/index.js$/, ''))
-for (const icon of icons) {
-  for (const size of sizes) {
-    sharp((await import.meta.resolve?.(`../src/assets/img/${icon}.svg`))!.replace(/^file:\/\//, ''))
-      .resize(size, size)
-      .toFile((await import.meta.resolve?.(`../public/${icon}-${size}.png`))!.replace(/^file:\/\//, ''))
+function main() {
+  removeAll()
+  addAll()
+}
+
+function removeAll() {
+  const publicDir = resolve(`../public`).replace(/\/index.jsx$/, '')
+
+  rimrafSync(publicDir)
+  mkdirpSync(publicDir)
+}
+
+function addAll() {
+  const icons = ['logo', 'logo-dark']
+  const sizes = [16, 32, 48, 128]
+
+  for (const icon of icons) {
+    for (const size of sizes) {
+      sharp(resolve(`../src/assets/img/${icon}.svg`))
+        .resize(size, size)
+        .toFile(resolve(`../public/${icon}-${size}.png`))
+    }
   }
+}
+
+function resolve(specifier: string) {
+  return import.meta.resolve(specifier).replace(/^file:\/\//, '')
 }

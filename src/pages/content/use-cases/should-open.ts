@@ -1,14 +1,15 @@
 import { IsOSMacOS } from '../utils/ua'
+import { isPressing } from '../utils/is-pressing'
 
 type ShouldOpen = (_: { event: KeyboardEvent; isOSMacOS: IsOSMacOS }) => boolean
 
 const shouldOpen: ShouldOpen = ({ event, isOSMacOS }) => {
   if (isOSMacOS()) {
-    if (!event.altKey && !event.ctrlKey && event.metaKey && !event.shiftKey && event.code === 'KeyF') {
+    if (isPressing({ event, code: 'KeyF', metaKey: true })) {
       return true
     }
   } else {
-    if (!event.altKey && event.ctrlKey && !event.metaKey && !event.shiftKey && event.code === 'KeyF') {
+    if (isPressing({ event, code: 'KeyF', ctrlKey: true })) {
       return true
     }
   }
