@@ -1099,7 +1099,7 @@ suits.forEach(
     it(createTestName(), async () => {
       // arrange
       let onComplete = () => {}
-      const promise = new Promise<void>((r) => (onComplete = r))
+      const onCompletePromise = new Promise<void>((resolve) => (onComplete = resolve))
       const actual: Range[][] = []
       const onNext = (ranges: Range[]) => actual.push(ranges)
 
@@ -1113,7 +1113,7 @@ suits.forEach(
         onNext,
         onComplete,
       })
-      await promise
+      await onCompletePromise
 
       // assert
       try {
