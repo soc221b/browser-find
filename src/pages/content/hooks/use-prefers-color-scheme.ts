@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react'
 
 const query = '(prefers-color-scheme: dark)'
 
+type PrefersColorScheme = 'dark' | 'light'
+
 export default function usePrefersColorScheme() {
-  const [prefersColorScheme, setPrefersColorScheme] = useState<'dark' | 'light'>(
+  const [prefersColorScheme, setPrefersColorScheme] = useState<PrefersColorScheme>(
     convertMatchesToColorScheme(window.matchMedia(query).matches),
   )
   useEffect(() => {
@@ -21,6 +23,6 @@ export default function usePrefersColorScheme() {
   return prefersColorScheme
 }
 
-function convertMatchesToColorScheme(matches: boolean) {
+function convertMatchesToColorScheme(matches: boolean): PrefersColorScheme {
   return matches ? 'dark' : 'light'
 }
