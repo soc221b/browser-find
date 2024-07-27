@@ -1,25 +1,26 @@
 import { State } from '../state'
 import { IsOSMacOS } from '../utils/ua'
+import { isPressing } from '../utils/is-pressing'
 
 type ShouldFindNext = (_: { event: KeyboardEvent; state: Pick<State, 'focusing'>; isOSMacOS: IsOSMacOS }) => boolean
 
 const shouldFindNext: ShouldFindNext = ({ event, state, isOSMacOS }) => {
   if (state.focusing) {
-    if (!event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey && event.code === 'Enter') {
+    if (isPressing({ event, code: 'Enter' })) {
       return true
     }
   }
 
   if (isOSMacOS()) {
-    if (!event.altKey && !event.ctrlKey && event.metaKey && !event.shiftKey && event.code === 'KeyG') {
+    if (isPressing({ event, code: 'KeyG', metaKey: true })) {
       return true
     }
 
-    if (!event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey && event.code === 'F3') {
+    if (isPressing({ event, code: 'F3' })) {
       return true
     }
   } else {
-    if (!event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey && event.code === 'F3') {
+    if (isPressing({ event, code: 'F3' })) {
       return true
     }
   }

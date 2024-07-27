@@ -1,5 +1,6 @@
 import { State } from '../state'
 import { IsOSMacOS } from '../utils/ua'
+import { isPressing } from '../utils/is-pressing'
 
 type ShouldToggleMatchCase = (_: {
   event: KeyboardEvent
@@ -10,11 +11,11 @@ type ShouldToggleMatchCase = (_: {
 const shouldToggleMatchCase: ShouldToggleMatchCase = ({ event, state, isOSMacOS }) => {
   if (state.focusing) {
     if (isOSMacOS()) {
-      if (event.altKey && !event.ctrlKey && event.metaKey && !event.shiftKey && event.code === 'KeyC') {
+      if (isPressing({ event, code: 'KeyC', altKey: true, metaKey: true })) {
         return true
       }
     } else {
-      if (event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey && event.code === 'KeyC') {
+      if (isPressing({ event, code: 'KeyC', altKey: true })) {
         return true
       }
     }

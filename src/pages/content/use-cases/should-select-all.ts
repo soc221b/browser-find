@@ -1,43 +1,44 @@
 import { State } from '../state'
 import { IsOSMacOS } from '../utils/ua'
+import { isPressing } from '../utils/is-pressing'
 
 type ShouldSelectAll = (_: { event: KeyboardEvent; state: Pick<State, 'focusing'>; isOSMacOS: IsOSMacOS }) => boolean
 
 const shouldSelectAll: ShouldSelectAll = ({ event, state, isOSMacOS }) => {
   if (isOSMacOS()) {
-    if (!event.altKey && !event.ctrlKey && event.metaKey && !event.shiftKey && event.code === 'KeyF') {
+    if (isPressing({ event, code: 'KeyF', metaKey: true })) {
       return true
     }
   } else {
-    if (!event.altKey && event.ctrlKey && !event.metaKey && !event.shiftKey && event.code === 'KeyF') {
+    if (isPressing({ event, code: 'KeyF', ctrlKey: true })) {
       return true
     }
   }
 
   if (isOSMacOS()) {
-    if (!event.altKey && !event.ctrlKey && event.metaKey && event.shiftKey && event.code === 'KeyG') {
+    if (isPressing({ event, code: 'KeyG', metaKey: true, shiftKey: true })) {
       return true
     }
 
-    if (!event.altKey && !event.ctrlKey && !event.metaKey && event.shiftKey && event.code === 'F3') {
+    if (isPressing({ event, code: 'F3', shiftKey: true })) {
       return true
     }
   } else {
-    if (!event.altKey && !event.ctrlKey && !event.metaKey && event.shiftKey && event.code === 'F3') {
+    if (isPressing({ event, code: 'F3', shiftKey: true })) {
       return true
     }
   }
 
   if (isOSMacOS()) {
-    if (!event.altKey && !event.ctrlKey && event.metaKey && !event.shiftKey && event.code === 'KeyG') {
+    if (isPressing({ event, code: 'KeyG', metaKey: true })) {
       return true
     }
 
-    if (!event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey && event.code === 'F3') {
+    if (isPressing({ event, code: 'F3' })) {
       return true
     }
   } else {
-    if (!event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey && event.code === 'F3') {
+    if (isPressing({ event, code: 'F3' })) {
       return true
     }
   }

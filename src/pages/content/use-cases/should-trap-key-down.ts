@@ -1,5 +1,6 @@
 import { State } from '../state'
 import { IsOSMacOS } from '../utils/ua'
+import { isPressing } from '../utils/is-pressing'
 
 type ShouldStopPropagationKeyDown = (_: {
   event: KeyboardEvent
@@ -10,65 +11,65 @@ type ShouldStopPropagationKeyDown = (_: {
 const shouldStopPropagationKeyDown: ShouldStopPropagationKeyDown = ({ event, state, isOSMacOS }) => {
   if (state.focusing) {
     if (isOSMacOS()) {
-      if (!event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey && event.code === 'Backspace') {
+      if (isPressing({ event, code: 'Backspace' })) {
         return true
       }
-      if (!event.altKey && !event.ctrlKey && event.metaKey && !event.shiftKey && event.code === 'Backspace') {
+      if (isPressing({ event, code: 'Backspace', metaKey: true })) {
         return true
       }
-      if (!event.altKey && !event.ctrlKey && event.metaKey && !event.shiftKey && event.code === 'KeyZ') {
+      if (isPressing({ event, code: 'KeyZ', metaKey: true })) {
         return true
       }
-      if (!event.altKey && !event.ctrlKey && event.metaKey && event.shiftKey && event.code === 'KeyZ') {
+      if (isPressing({ event, code: 'KeyZ', metaKey: true, shiftKey: true })) {
         return true
       }
-      if (!event.altKey && !event.ctrlKey && event.metaKey && !event.shiftKey && event.code === 'ArrowLeft') {
+      if (isPressing({ event, code: 'ArrowLeft', metaKey: true })) {
         return true
       }
-      if (!event.altKey && !event.ctrlKey && event.metaKey && event.shiftKey && event.code === 'ArrowLeft') {
+      if (isPressing({ event, code: 'ArrowLeft', metaKey: true, shiftKey: true })) {
         return true
       }
-      if (!event.altKey && !event.ctrlKey && event.metaKey && !event.shiftKey && event.code === 'ArrowRight') {
+      if (isPressing({ event, code: 'ArrowRight', metaKey: true })) {
         return true
       }
-      if (!event.altKey && !event.ctrlKey && event.metaKey && event.shiftKey && event.code === 'ArrowRight') {
+      if (isPressing({ event, code: 'ArrowRight', metaKey: true, shiftKey: true })) {
         return true
       }
-      if (event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey && event.code === 'ArrowLeft') {
+      if (isPressing({ event, code: 'ArrowLeft', altKey: true })) {
         return true
       }
-      if (event.altKey && !event.ctrlKey && !event.metaKey && event.shiftKey && event.code === 'ArrowLeft') {
+      if (isPressing({ event, code: 'ArrowLeft', altKey: true, shiftKey: true })) {
         return true
       }
-      if (event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey && event.code === 'ArrowRight') {
+      if (isPressing({ event, code: 'ArrowRight', altKey: true })) {
         return true
       }
-      if (event.altKey && !event.ctrlKey && !event.metaKey && event.shiftKey && event.code === 'ArrowRight') {
+      if (isPressing({ event, code: 'ArrowRight', altKey: true, shiftKey: true })) {
         return true
       }
     } else {
-      if (!event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey && event.code === 'Backspace') {
+      if (isPressing({ event, code: 'Backspace' })) {
         return true
       }
-      if (!event.altKey && event.ctrlKey && !event.metaKey && !event.shiftKey && event.code === 'Backspace') {
+      if (isPressing({ event, code: 'Backspace', ctrlKey: true })) {
         return true
       }
-      if (!event.altKey && event.ctrlKey && !event.metaKey && !event.shiftKey && event.code === 'KeyZ') {
+      if (isPressing({ event, code: 'KeyZ', ctrlKey: true })) {
         return true
       }
-      if (!event.altKey && event.ctrlKey && !event.metaKey && event.shiftKey && event.code === 'KeyZ') {
+      if (isPressing({ event, code: 'KeyZ', ctrlKey: true, shiftKey: true })) {
         return true
       }
-      if (!event.altKey && event.ctrlKey && !event.metaKey && !event.shiftKey && event.code === 'ArrowLeft') {
+      if (isPressing({ event, code: 'ArrowLeft', ctrlKey: true })) {
         return true
       }
-      if (!event.altKey && event.ctrlKey && !event.metaKey && event.shiftKey && event.code === 'ArrowLeft') {
+      if (isPressing({ event, code: 'ArrowLeft', ctrlKey: true, shiftKey: true })) {
         return true
       }
-      if (!event.altKey && event.ctrlKey && !event.metaKey && !event.shiftKey && event.code === 'ArrowRight') {
+      if (isPressing({ event, code: 'ArrowRight', ctrlKey: true })) {
         return true
       }
-      if (!event.altKey && event.ctrlKey && !event.metaKey && event.shiftKey && event.code === 'ArrowRight') {
+      if (isPressing({ event, code: 'ArrowRight', ctrlKey: true, shiftKey: true })) {
         return true
       }
     }

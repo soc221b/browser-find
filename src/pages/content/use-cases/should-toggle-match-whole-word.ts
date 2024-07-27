@@ -1,5 +1,6 @@
 import { State } from '../state'
 import { IsOSMacOS } from '../utils/ua'
+import { isPressing } from '../utils/is-pressing'
 
 type ShouldToggleMatchWholeWord = (_: {
   event: KeyboardEvent
@@ -10,11 +11,11 @@ type ShouldToggleMatchWholeWord = (_: {
 const shouldToggleMatchWholeWord: ShouldToggleMatchWholeWord = ({ event, state, isOSMacOS }) => {
   if (state.focusing) {
     if (isOSMacOS()) {
-      if (event.altKey && !event.ctrlKey && event.metaKey && !event.shiftKey && event.code === 'KeyW') {
+      if (isPressing({ event, code: 'KeyW', altKey: true, metaKey: true })) {
         return true
       }
     } else {
-      if (event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey && event.code === 'KeyW') {
+      if (isPressing({ event, code: 'KeyW', altKey: true })) {
         return true
       }
     }
