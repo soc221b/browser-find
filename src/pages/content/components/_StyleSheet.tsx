@@ -3,7 +3,8 @@ import useStore from '../store'
 import { theOthersKey, thisKey } from '../constants/highlight'
 
 export default function _StyleSheet(): JSX.Element {
-  const store = useStore()
+  const open = useStore((state) => state.open)
+  const matchId = useStore((state) => state.matchId)
 
   useEffect(() => {
     const topLayerStyleSheet = document.createElement('style')
@@ -178,7 +179,7 @@ export default function _StyleSheet(): JSX.Element {
   }, [])
 
   useEffect(() => {
-    if (store.open === false) {
+    if (open === false) {
       return
     }
 
@@ -204,7 +205,7 @@ export default function _StyleSheet(): JSX.Element {
     return () => {
       removeAllChildren.forEach((removeChild) => removeChild())
     }
-  }, [store.open, store.matchId])
+  }, [open, matchId])
 
   return <></>
 }
