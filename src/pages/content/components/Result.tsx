@@ -1,6 +1,7 @@
 import { MouseEventHandler } from 'react'
 import useStore from '../store'
 import { focusInput } from '../use-cases/focus-input'
+import { binarySearchIndex } from '../utils/binary-search-index'
 
 export default function Result(): JSX.Element {
   const finding = useStore((selector) => selector.finding)
@@ -8,7 +9,7 @@ export default function Result(): JSX.Element {
   const matchId = useStore((selector) => selector.matchId)
   const matches = useStore((selector) => selector.matches)
 
-  const index = matches.findIndex((match) => match.id === matchId) + 1
+  const nth = binarySearchIndex(matches, matchId, (match) => match.id) + 1
   const total = matches.length
 
   const handleClick: MouseEventHandler<HTMLDivElement> = () => {
@@ -23,7 +24,7 @@ export default function Result(): JSX.Element {
     </div>
   ) : text ? (
     <div onClick={handleClick} className="result">
-      {`${index}/${total}`}
+      {`${nth}/${total}`}
     </div>
   ) : (
     <></>
