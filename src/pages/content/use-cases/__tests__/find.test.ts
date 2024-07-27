@@ -916,7 +916,7 @@ const suits: Suit[] = []
 })()
 
 //
-;(function addSpaceSuits() {
+;(function addOtherSuits() {
   {
     const documentElement = createDocumentElement(`a <span>b</span>`)
     suits.push({
