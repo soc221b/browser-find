@@ -2,6 +2,8 @@ import { useEffect } from 'react'
 import { find } from '../use-cases/find'
 import useStore from '../store'
 
+let id = 0
+
 export default function _Find(): JSX.Element {
   const store = useStore()
 
@@ -18,7 +20,7 @@ export default function _Find(): JSX.Element {
       onNext: (ranges) => {
         store.dispatch({
           type: 'Match',
-          match: { id: Math.random().toString(36), ranges },
+          match: { id: id++, ranges },
         })
       },
       onComplete: () => {

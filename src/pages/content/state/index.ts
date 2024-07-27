@@ -3,9 +3,9 @@ export type State = {
 
   focusing: boolean
 
-  matchId: null | string
+  matchId: null | number
 
-  matches: { id: string; ranges: Range[] }[]
+  matches: { id: number; ranges: Range[] }[]
 
   open: boolean
 
