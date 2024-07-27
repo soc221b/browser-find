@@ -13,7 +13,7 @@ import shouldStopPropagationKeyDown from '../use-cases/should-trap-key-down'
 import { focusInput } from '../use-cases/focus-input'
 import { selectInput } from '../use-cases/select-input'
 
-export default function _UseFind(): JSX.Element {
+export default function _HotKey(): JSX.Element {
   const state = useStore()
 
   if (state.open) {
