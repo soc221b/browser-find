@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
 
+const query = '(prefers-color-scheme: dark)'
+
 export default function usePrefersColorScheme() {
   const [prefersColorScheme, setPrefersColorScheme] = useState<'dark' | 'light'>(
-    convertMatchesToColorScheme(window.matchMedia('(prefers-color-scheme: dark)').matches),
+    convertMatchesToColorScheme(window.matchMedia(query).matches),
   )
   useEffect(() => {
-    const mediaQueryList = window.matchMedia('(prefers-color-scheme: dark)')
+    const mediaQueryList = window.matchMedia(query)
     mediaQueryList.addEventListener('change', handleChange)
     return () => {
       mediaQueryList.removeEventListener('change', handleChange)
