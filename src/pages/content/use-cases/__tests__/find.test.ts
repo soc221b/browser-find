@@ -115,6 +115,12 @@ const suits: Suit[] = []
     //   expected: [],
     // })
   })()
+
+  //
+  ;(function shadowDOM() {
+    // TODO: e.g., highlights GitHub <relative-time /> custom element
+    //
+  })()
 })()
 
 //
