@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.5](https://github.com/soc221b/browser-find/compare/v0.3.4...v0.3.5) (2024-07-28)
+
+
+### Performance Improvements
+
+* render optimizations ([#82](https://github.com/soc221b/browser-find/issues/82)) ([652fd90](https://github.com/soc221b/browser-find/commit/652fd90ec0f2ffe56241ad239c8cadb3681e140b))
+
 ## [0.3.4](https://github.com/soc221b/browser-find/compare/v0.3.3...v0.3.4) (2024-07-27)
 
 
