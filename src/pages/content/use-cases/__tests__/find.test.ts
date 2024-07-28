@@ -357,8 +357,211 @@ const suits: Suit[] = []
     })()
   })()
 
-  // TODO:
-  // https://developer.mozilla.org/en-US/docs/Web/CSS/white-space
+  // TODO: https://developer.mozilla.org/en-US/docs/Web/CSS/text-wrap-mode
+  ;(function textWrapMode() {
+    //
+  })()
+
+  // TODO: https://developer.mozilla.org/en-US/docs/Web/CSS/text-wrap-style
+  ;(function textWrapStyle() {
+    //
+  })()
+
+  //
+  ;(function textWrap() {
+    ;(function wrap() {
+      const documentElement = createDocumentElement(
+        `<div style="text-wrap: wrap; width: 250px"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aut cum eum id quos est.</p></div>`,
+      )
+      suits.push({
+        documentElement,
+        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aut cum eum id quos est.',
+        shouldMatchCase: false,
+        shouldMatchWholeWord: false,
+        shouldUseRegularExpression: false,
+        expected: [
+          Array(92)
+            .fill(null)
+            .map((_, i) =>
+              createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0].childNodes[0], i, i + 1),
+            ),
+        ],
+      })
+    })()
+
+    //
+    ;(function nowrap() {
+      const documentElement = createDocumentElement(
+        `<div style="text-wrap: nowrap; width: 250px"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aut cum eum id quos est.</p></div>`,
+      )
+      suits.push({
+        documentElement,
+        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aut cum eum id quos est.',
+        shouldMatchCase: false,
+        shouldMatchWholeWord: false,
+        shouldUseRegularExpression: false,
+        expected: [
+          Array(92)
+            .fill(null)
+            .map((_, i) =>
+              createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0].childNodes[0], i, i + 1),
+            ),
+        ],
+      })
+    })()
+
+    //
+    ;(function balance() {
+      const documentElement = createDocumentElement(
+        `<div style="text-wrap: balance; width: 250px"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aut cum eum id quos est.</p></div>`,
+      )
+      suits.push({
+        documentElement,
+        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aut cum eum id quos est.',
+        shouldMatchCase: false,
+        shouldMatchWholeWord: false,
+        shouldUseRegularExpression: false,
+        expected: [
+          Array(92)
+            .fill(null)
+            .map((_, i) =>
+              createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0].childNodes[0], i, i + 1),
+            ),
+        ],
+      })
+    })()
+
+    //
+    ;(function pretty() {
+      const documentElement = createDocumentElement(
+        `<div style="text-wrap: pretty; width: 250px"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aut cum eum id quos est.</p></div>`,
+      )
+      suits.push({
+        documentElement,
+        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aut cum eum id quos est.',
+        shouldMatchCase: false,
+        shouldMatchWholeWord: false,
+        shouldUseRegularExpression: false,
+        expected: [
+          Array(92)
+            .fill(null)
+            .map((_, i) =>
+              createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0].childNodes[0], i, i + 1),
+            ),
+        ],
+      })
+    })()
+
+    //
+    ;(function stable() {
+      const documentElement = createDocumentElement(
+        `<div style="text-wrap: stable; width: 250px"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aut cum eum id quos est.</p></div>`,
+      )
+      suits.push({
+        documentElement,
+        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aut cum eum id quos est.',
+        shouldMatchCase: false,
+        shouldMatchWholeWord: false,
+        shouldUseRegularExpression: false,
+        expected: [
+          Array(92)
+            .fill(null)
+            .map((_, i) =>
+              createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0].childNodes[0], i, i + 1),
+            ),
+        ],
+      })
+    })()
+  })()
+
+  //
+  ;(function whiteSpaceCollapse() {
+    //
+    ;(function collapse() {
+      const documentElement = createDocumentElement(
+        `<div style="white-space-collapse: collapse; width: 250px"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aut cum eum id quos est.</p></div>`,
+      )
+      suits.push({
+        documentElement,
+        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aut cum eum id quos est.',
+        shouldMatchCase: false,
+        shouldMatchWholeWord: false,
+        shouldUseRegularExpression: false,
+        expected: [
+          Array(92)
+            .fill(null)
+            .map((_, i) =>
+              createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0].childNodes[0], i, i + 1),
+            ),
+        ],
+      })
+    })()
+
+    //
+    ;(function preserve() {
+      const documentElement = createDocumentElement(
+        `<div style="white-space-collapse: preserve; width: 250px"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aut cum eum id quos est.</p></div>`,
+      )
+      suits.push({
+        documentElement,
+        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aut cum eum id quos est.',
+        shouldMatchCase: false,
+        shouldMatchWholeWord: false,
+        shouldUseRegularExpression: false,
+        expected: [
+          Array(92)
+            .fill(null)
+            .map((_, i) =>
+              createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0].childNodes[0], i, i + 1),
+            ),
+        ],
+      })
+    })()
+
+    //
+    ;(function preserveBreaks() {
+      const documentElement = createDocumentElement(
+        `<div style="white-space-collapse: preserve-breaks; width: 250px"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aut cum eum id quos est.</p></div>`,
+      )
+      suits.push({
+        documentElement,
+        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aut cum eum id quos est.',
+        shouldMatchCase: false,
+        shouldMatchWholeWord: false,
+        shouldUseRegularExpression: false,
+        expected: [
+          Array(92)
+            .fill(null)
+            .map((_, i) =>
+              createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0].childNodes[0], i, i + 1),
+            ),
+        ],
+      })
+    })()
+
+    //
+    ;(function breakSpaces() {
+      const documentElement = createDocumentElement(
+        `<div style="white-space-collapse: break-spaces; width: 250px"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aut cum eum id quos est.</p></div>`,
+      )
+      suits.push({
+        documentElement,
+        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aut cum eum id quos est.',
+        shouldMatchCase: false,
+        shouldMatchWholeWord: false,
+        shouldUseRegularExpression: false,
+        expected: [
+          Array(92)
+            .fill(null)
+            .map((_, i) =>
+              createRange(documentElement.querySelector('body')!.childNodes[0].childNodes[0].childNodes[0], i, i + 1),
+            ),
+        ],
+      })
+    })()
+  })()
+
+  //
   ;(function whiteSpace() {
     ;(function normal() {
       {
