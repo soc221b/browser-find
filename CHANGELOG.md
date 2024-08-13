@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.12](https://github.com/soc221b/browser-find/compare/v0.3.11...v0.3.12) (2024-08-13)
+
+
+### Bug Fixes
+
+* **UX:** INP ([#110](https://github.com/soc221b/browser-find/issues/110)) ([40b63be](https://github.com/soc221b/browser-find/commit/40b63be669c383c72664f0a4eebb6c24cf017ee5)), closes [#106](https://github.com/soc221b/browser-find/issues/106)
+
 ## [0.3.11](https://github.com/soc221b/browser-find/compare/v0.3.10...v0.3.11) (2024-08-13)
 
 
