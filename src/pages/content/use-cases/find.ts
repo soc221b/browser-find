@@ -50,7 +50,7 @@ export const find: Find = ({
       return
     }
 
-    const nodeMaps = createNodeMaps({ documentElement })
+    const nodeMaps = await createNodeMaps({ documentElement })
 
     await sleep('raf')
     if (isStopped) {
@@ -111,7 +111,7 @@ type NodeMap = {
   textContentEndOffset: number
   innerTextLike: string
 }
-function createNodeMaps({ documentElement }: { documentElement: HTMLElement }): NodeMap[] {
+async function createNodeMaps({ documentElement }: { documentElement: HTMLElement }): Promise<NodeMap[]> {
   let nodeMaps: NodeMap[] = []
 
   let DFSStack: {
@@ -123,7 +123,11 @@ function createNodeMaps({ documentElement }: { documentElement: HTMLElement }): 
       nextChildNodeIndex: 0,
     },
   ]
+  let i = 0
   while (DFSStack.length) {
+    if (i++ % 1000 === 0) {
+      await sleep('raf')
+    }
     const top = DFSStack[DFSStack.length - 1]
     if (top.parentElement === null) {
       DFSStack.pop()
