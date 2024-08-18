@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.3.14](https://github.com/soc221b/browser-find/compare/v0.3.13...v0.3.14) (2024-08-18)
+
+
+### Bug Fixes
+
+* if cancelled it should not complete ([#118](https://github.com/soc221b/browser-find/issues/118)) ([783a549](https://github.com/soc221b/browser-find/commit/783a5490bbd7a2f6788363d0a45bf2892a624499))
+
+
+### Performance Improvements
+
+* INP ([#120](https://github.com/soc221b/browser-find/issues/120)) ([3f3b843](https://github.com/soc221b/browser-find/commit/3f3b843afff1a1799f5c962dea8db8a329a5ca3d))
+
 ## [0.3.13](https://github.com/soc221b/browser-find/compare/v0.3.12...v0.3.13) (2024-08-15)
 
 
