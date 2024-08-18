@@ -15,7 +15,7 @@ type Find = (_: {
 
   onComplete: () => void
 }) => {
-  stop: () => void
+  cancel: () => void
 }
 
 export const find: Find = ({
@@ -27,14 +27,14 @@ export const find: Find = ({
   onNext,
   onComplete,
 }) => {
-  let isStopped = false
-  const stop = () => {
-    isStopped = true
+  let isCancelled = false
+  const cancel = () => {
+    isCancelled = true
   }
 
   ;(async () => {
     await sleep('raf')
-    if (isStopped) {
+    if (isCancelled) {
       return
     }
 
@@ -46,14 +46,14 @@ export const find: Find = ({
     })
 
     await sleep('raf')
-    if (isStopped) {
+    if (isCancelled) {
       return
     }
 
     const nodeMaps = await createNodeMaps({ documentElement })
 
     await sleep('raf')
-    if (isStopped) {
+    if (isCancelled) {
       return
     }
 
@@ -67,7 +67,7 @@ export const find: Find = ({
         if (i % 1000 === 0) {
           await sleep('raf')
         }
-        if (isStopped) {
+        if (isCancelled) {
           break
         }
 
@@ -78,7 +78,7 @@ export const find: Find = ({
     })()
   })()
 
-  return { stop }
+  return { cancel }
 }
 
 function createRegex({
