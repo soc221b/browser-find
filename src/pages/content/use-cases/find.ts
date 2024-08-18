@@ -68,7 +68,7 @@ export const find: Find = ({
           await sleep('raf')
         }
         if (isCancelled) {
-          break
+          return
         }
 
         onNext(rangesList[i])
