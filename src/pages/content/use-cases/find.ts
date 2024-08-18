@@ -57,7 +57,7 @@ export const find: Find = ({
       return
     }
 
-    const rangesList = createRangesList({
+    const rangesList = matchAll({
       regex,
       nodeMaps,
     })
@@ -290,7 +290,7 @@ async function createNodeMaps({ documentElement }: { documentElement: HTMLElemen
   return nodeMaps
 }
 
-function createRangesList({ nodeMaps, regex }: { nodeMaps: NodeMap[]; regex: RegExp }): Range[][] {
+function matchAll({ nodeMaps, regex }: { nodeMaps: NodeMap[]; regex: RegExp }): Range[][] {
   const rangesList: Range[][] = []
 
   const innerTextLikeIndexToNodeMapIndex: Record<number, number> = {}
