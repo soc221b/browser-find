@@ -28,10 +28,10 @@ export const find: Find = ({
   onComplete,
 }) => {
   let isCancelled = false
-  const cancel = () => {
+  let cancel1 = () => {
     isCancelled = true
   }
-
+  let cancel2: undefined | (() => void)
   ;(async () => {
     await sleep('raf')
     if (isCancelled) {
@@ -57,28 +57,20 @@ export const find: Find = ({
       return
     }
 
-    const rangesList = matchAll({
+    cancel2 = matchAll({
       regex,
       nodeMaps,
+      onNext,
+      onComplete,
     })
-    ;(async () => {
-      let i = 0
-      while (i < rangesList.length) {
-        if (i % 1000 === 0) {
-          await sleep('raf')
-        }
-        if (isCancelled) {
-          return
-        }
-
-        onNext(rangesList[i])
-        ++i
-      }
-      onComplete()
-    })()
   })()
 
-  return { cancel }
+  return {
+    cancel: () => {
+      cancel1()
+      cancel2?.()
+    },
+  }
 }
 
 function createRegex({
@@ -125,7 +117,7 @@ async function createNodeMaps({ documentElement }: { documentElement: HTMLElemen
   ]
   let i = 0
   while (DFSStack.length) {
-    if (i++ % 1000 === 0) {
+    if (i++ % 200 === 0) {
       await sleep('raf')
     }
     const top = DFSStack[DFSStack.length - 1]
@@ -290,41 +282,67 @@ async function createNodeMaps({ documentElement }: { documentElement: HTMLElemen
   return nodeMaps
 }
 
-function matchAll({ nodeMaps, regex }: { nodeMaps: NodeMap[]; regex: RegExp }): Range[][] {
-  const rangesList: Range[][] = []
-
-  const innerTextLikeIndexToNodeMapIndex: Record<number, number> = {}
-  let innerTextLike = ''
-  for (const [index, nodeMap] of nodeMaps.entries()) {
-    innerTextLikeIndexToNodeMapIndex[innerTextLike.length] = index
-    innerTextLike += nodeMap.innerTextLike
+function matchAll({
+  nodeMaps,
+  regex,
+  onNext,
+  onComplete,
+}: {
+  nodeMaps: NodeMap[]
+  regex: RegExp
+  onNext: (ranges: Range[]) => void
+  onComplete: () => void
+}): () => void {
+  let isStopped = false
+  const stop = () => {
+    isStopped = true
   }
-  for (const array of innerTextLike.matchAll(regex)) {
-    if (array[0] === '') {
-      break
+  setTimeout(async () => {
+    const innerTextLikeIndexToNodeMapIndex: Record<number, number> = {}
+    let innerTextLike = ''
+    for (const [index, nodeMap] of nodeMaps.entries()) {
+      innerTextLikeIndexToNodeMapIndex[innerTextLike.length] = index
+      innerTextLike += nodeMap.innerTextLike
     }
 
-    const ranges: Range[] = []
+    let i = 0
+    for (const array of innerTextLike.matchAll(regex)) {
+      if (i++ % 200 === 0) {
+        await sleep('raf')
+      }
+      if (isStopped) {
+        return
+      }
+      if (array[0] === '') {
+        break
+      }
 
-    for (
-      let innerTextLikeIndex = array.index;
-      innerTextLikeIndex < array.index + array[0].length;
-      ++innerTextLikeIndex
-    ) {
-      const range = new Range()
+      const ranges: Range[] = []
 
-      const nodeMapIndex = innerTextLikeIndexToNodeMapIndex[innerTextLikeIndex]
-      const nodeMap = nodeMaps[nodeMapIndex]
-      range.setStart(nodeMap.node, nodeMap.textContentStartOffset)
-      range.setEnd(nodeMap.node, nodeMap.textContentEndOffset)
+      for (
+        let innerTextLikeIndex = array.index;
+        innerTextLikeIndex < array.index + array[0].length;
+        ++innerTextLikeIndex
+      ) {
+        if (isStopped) {
+          return
+        }
 
-      ranges.push(range)
+        const range = new Range()
+
+        const nodeMapIndex = innerTextLikeIndexToNodeMapIndex[innerTextLikeIndex]
+        const nodeMap = nodeMaps[nodeMapIndex]
+        range.setStart(nodeMap.node, nodeMap.textContentStartOffset)
+        range.setEnd(nodeMap.node, nodeMap.textContentEndOffset)
+
+        ranges.push(range)
+      }
+
+      onNext(ranges)
     }
-
-    rangesList.push(ranges)
-  }
-
-  return rangesList
+    onComplete()
+  })
+  return stop
 }
 
 function getWhiteSpaceCollapse(CSSStyleDeclaration: CSSStyleDeclaration): string {
