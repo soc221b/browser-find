@@ -15,7 +15,7 @@ export default function _Find(): JSX.Element {
     dispatch({ type: 'ClearMatch' })
     dispatch({ type: 'ToggleFinding', value: true })
 
-    const { stop } = find({
+    const { cancel } = find({
       documentElement: document.documentElement,
       text,
       shouldMatchCase,
@@ -33,7 +33,7 @@ export default function _Find(): JSX.Element {
     })
 
     return () => {
-      stop()
+      cancel()
     }
   }, [shouldMatchCase, shouldMatchWholeWord, shouldUseRegularExpression, text])
 
