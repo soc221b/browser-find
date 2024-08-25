@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.15](https://github.com/soc221b/browser-find/compare/v0.3.14...v0.3.15) (2024-08-24)
+
+
+### Bug Fixes
+
+* **deps:** update dependency tsx to v4.17.1 ([#125](https://github.com/soc221b/browser-find/issues/125)) ([44fe30c](https://github.com/soc221b/browser-find/commit/44fe30caf54e6532bb322928fa67ec06f320acc6))
+* **deps:** update dependency tsx to v4.18.0 ([#127](https://github.com/soc221b/browser-find/issues/127)) ([f1eaafd](https://github.com/soc221b/browser-find/commit/f1eaafd5e685a1a42fc44abf3a34a1a97617286a))
+
 ## [0.3.14](https://github.com/soc221b/browser-find/compare/v0.3.13...v0.3.14) (2024-08-18)
 
 
