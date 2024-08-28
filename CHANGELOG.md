@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.17](https://github.com/soc221b/browser-find/compare/v0.3.16...v0.3.17) (2024-08-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @types/webextension-polyfill to v0.12.1 ([#131](https://github.com/soc221b/browser-find/issues/131)) ([414b542](https://github.com/soc221b/browser-find/commit/414b5422040856c673501036c0aec35cf0166860))
+
 ## [0.3.16](https://github.com/soc221b/browser-find/compare/v0.3.15...v0.3.16) (2024-08-27)
 
 
