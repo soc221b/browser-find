@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.24](https://github.com/soc221b/browser-find/compare/v0.3.23...v0.3.24) (2024-10-30)
+
+
+### Bug Fixes
+
+* **deps:** update dependency zustand to v5.0.1 ([#197](https://github.com/soc221b/browser-find/issues/197)) ([d93630b](https://github.com/soc221b/browser-find/commit/d93630bbece203102b7305ba98d19c19f7913e8f))
+
 ## [0.3.23](https://github.com/soc221b/browser-find/compare/v0.3.22...v0.3.23) (2024-10-30)
 
 
