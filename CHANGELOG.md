@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.29](https://github.com/soc221b/browser-find/compare/v0.3.28...v0.3.29) (2025-02-09)
+
+
+### Bug Fixes
+
+* **deps:** update dependency ua-parser-js to v2.0.2 ([#283](https://github.com/soc221b/browser-find/issues/283)) ([6cb2093](https://github.com/soc221b/browser-find/commit/6cb2093813b75160dd82da34c1b00720015aa943))
+
 ## [0.3.28](https://github.com/soc221b/browser-find/compare/v0.3.27...v0.3.28) (2025-02-04)
 
 
