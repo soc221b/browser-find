@@ -52,9 +52,9 @@ export default function Tooltip(): JSX.Element {
     }
   }, [])
   useLayoutEffect(() => {
-    window.addEventListener('blur', handleBlur)
+    window.addEventListener('blur-sm', handleBlur)
     return () => {
-      window.removeEventListener('blur', handleBlur)
+      window.removeEventListener('blur-sm', handleBlur)
     }
 
     function handleBlur() {
