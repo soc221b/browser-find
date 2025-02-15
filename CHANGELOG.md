@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.3.30](https://github.com/soc221b/browser-find/compare/v0.3.29...v0.3.30) (2025-02-15)
+
+
+### Bug Fixes
+
+* **deps:** pin dependencies ([#292](https://github.com/soc221b/browser-find/issues/292)) ([6feaa0f](https://github.com/soc221b/browser-find/commit/6feaa0f9e7cd0d2f15538a8b9ee7aa47bde99a80))
+* **deps:** update react monorepo to v19 (major) ([#231](https://github.com/soc221b/browser-find/issues/231)) ([fc4daa4](https://github.com/soc221b/browser-find/commit/fc4daa474ad57388b0a423e3eb91c8788d2bd550))
+* ua ([#294](https://github.com/soc221b/browser-find/issues/294)) ([8522ab6](https://github.com/soc221b/browser-find/commit/8522ab6e5deda9ef9b0fa988f1f82012ab28e113))
+
 ## [0.3.29](https://github.com/soc221b/browser-find/compare/v0.3.28...v0.3.29) (2025-02-09)
 
 
