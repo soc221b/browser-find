@@ -12,10 +12,33 @@ import FindNext from './components/FindNext'
 import Close from './components/Close'
 import Result from './components/Result'
 import Tooltip from './components/Tooltip'
+import { useLayoutEffect, useState } from 'react'
 
 function App(): JSX.Element {
+  const [inert, setInert] = useState(true)
+  useLayoutEffect(() => {
+    window.addEventListener('focus', handleFocus)
+    return () => {
+      window.removeEventListener('focus', handleFocus)
+    }
+
+    function handleFocus() {
+      setInert(false)
+    }
+  })
+  useLayoutEffect(() => {
+    window.addEventListener('blur', handleBlur)
+    return () => {
+      window.removeEventListener('blur', handleBlur)
+    }
+
+    function handleBlur() {
+      setInert(true)
+    }
+  })
+
   return (
-    <div className="root">
+    <div className="root" inert={inert}>
       <Input></Input>
       <Result></Result>
       <ToggleMatchCase></ToggleMatchCase>
