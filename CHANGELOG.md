@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.33](https://github.com/soc221b/browser-find/compare/v0.3.32...v0.3.33) (2025-02-25)
+
+
+### Bug Fixes
+
+* prevents browser-find from being found/matched during any use of the browser's find-in-page feature ([#310](https://github.com/soc221b/browser-find/issues/310)) ([cfd41c1](https://github.com/soc221b/browser-find/commit/cfd41c1b0dc4ca8e09c95f622ba97d28cb848791))
+
 ## [0.3.32](https://github.com/soc221b/browser-find/compare/v0.3.31...v0.3.32) (2025-02-22)
 
 
