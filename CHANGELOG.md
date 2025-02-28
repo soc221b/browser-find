@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.4.1](https://github.com/soc221b/browser-find/compare/v0.4.0...v0.4.1) (2025-02-28)
+
+
+### Bug Fixes
+
+* [#1](https://github.com/soc221b/browser-find/issues/1) ([b3f856a](https://github.com/soc221b/browser-find/commit/b3f856a1500d33424ee45c7b42db0d43a0879f9a))
+* [#1](https://github.com/soc221b/browser-find/issues/1) ([b1535a4](https://github.com/soc221b/browser-find/commit/b1535a4cc0a2e9176bba7d7226db6bc60071c0fe))
+* find result from the latest interacted element ([b1535a4](https://github.com/soc221b/browser-find/commit/b1535a4cc0a2e9176bba7d7226db6bc60071c0fe)), closes [#1](https://github.com/soc221b/browser-find/issues/1)
+* find result from the latest interacted offset ([#322](https://github.com/soc221b/browser-find/issues/322)) ([b3f856a](https://github.com/soc221b/browser-find/commit/b3f856a1500d33424ee45c7b42db0d43a0879f9a)), closes [#1](https://github.com/soc221b/browser-find/issues/1)
+
 ## [0.4.0](https://github.com/soc221b/browser-find/compare/v0.3.34...v0.4.0) (2025-02-28)
 
 
