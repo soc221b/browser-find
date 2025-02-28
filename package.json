@@ -11,7 +11,7 @@
   },
   "scripts": {
     "lint": "prettier --check .",
-    "test": "jest",
+    "test": "jest --watch",
     "build": "mkdirp dist/v3 && tsx scripts/build-icons && tsx scripts/build.ts chrome && tsx scripts/zip"
   },
   "type": "module",
