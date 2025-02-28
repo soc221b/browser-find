@@ -14,11 +14,14 @@ export default function useChangeSelection() {
     }
 
     function changeSelection() {
-      const focusNode = document.getSelection()?.focusNode ?? null
+      const selection = document.getSelection()
+
+      const focusNode = selection?.focusNode ?? document.body
+      const focusOffset = selection?.focusOffset ?? 0
 
       if (document.querySelector('#browser-find-top-layer')?.contains(focusNode)) return
 
-      dispatch({ type: 'ChangeSelection', selection: focusNode })
+      dispatch({ type: 'ChangeSelection', selection: { focusNode, focusOffset } })
     }
   }, [])
 }

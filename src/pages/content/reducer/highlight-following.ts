@@ -13,11 +13,7 @@ const reducer: Reducer = (state) => {
     return nextState
   }
 
-  const activeElement = state.selection
-  if (activeElement === null) {
-    nextState.matchId = state.matches[0].id
-    return nextState
-  }
+  const selection = state.selection
 
   let first = 0
   let last = state.matches.length - 1
@@ -26,13 +22,22 @@ const reducer: Reducer = (state) => {
     const match = state.matches[mid]
     const range = match.ranges[0]
     const startContainer = range.startContainer
-    if (activeElement.compareDocumentPosition(startContainer) & Node.DOCUMENT_POSITION_PRECEDING) {
+    if (selection.focusNode.compareDocumentPosition(startContainer) & Node.DOCUMENT_POSITION_PRECEDING) {
       first = mid + 1
     } else {
       last = mid
     }
   }
-  const match = state.matches[first]
+
+  const match = (() => {
+    const match = state.matches[first]
+    if (selection.focusOffset <= match.ranges[0].startOffset) {
+      return match
+    } else {
+      return state.matches[(first + 1) % state.matches.length]
+    }
+  })()
+
   nextState.matchId = match.id
   match.ranges[0].startContainer.parentElement?.scrollIntoView({
     behavior: 'instant',

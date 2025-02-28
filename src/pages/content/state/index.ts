@@ -17,7 +17,11 @@ export type State = {
 
   text: string
 
-  selection: null | Node
+  selection: {
+    focusNode: Node
+
+    focusOffset: number
+  }
 }
 
 const initialState: State = {
@@ -39,7 +43,11 @@ const initialState: State = {
 
   text: '',
 
-  selection: null,
+  selection: {
+    focusNode: document.body,
+
+    focusOffset: 0,
+  },
 }
 
 export default initialState
