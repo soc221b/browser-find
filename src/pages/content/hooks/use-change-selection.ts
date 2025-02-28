@@ -1,24 +1,24 @@
 import { useLayoutEffect } from 'react'
 import useStore from '../store'
 
-export default function useChangeFocusNode() {
+export default function useChangeSelection() {
   const dispatch = useStore((state) => state.dispatch)
 
   useLayoutEffect(() => {
-    changeFocusNode()
+    changeSelection()
 
-    window.addEventListener('click', changeFocusNode, true)
+    window.addEventListener('click', changeSelection, true)
 
     return () => {
-      window.removeEventListener('click', changeFocusNode, true)
+      window.removeEventListener('click', changeSelection, true)
     }
 
-    function changeFocusNode() {
+    function changeSelection() {
       const focusNode = document.getSelection()?.focusNode ?? null
 
       if (document.querySelector('#browser-find-top-layer')?.contains(focusNode)) return
 
-      dispatch({ type: 'ChangeFocusNode', focusNode: focusNode })
+      dispatch({ type: 'ChangeSelection', focusNode: focusNode })
     }
   }, [])
 }
