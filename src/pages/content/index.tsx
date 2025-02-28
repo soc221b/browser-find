@@ -6,7 +6,6 @@ import ToggleMatchWholeWord from './components/ToggleMatchWholeWord'
 import ToggleUseRegularExpression from './components/ToggleUseRegularExpression'
 import _Find from './components/_Find'
 import _HotKey from './components/_HotKey'
-import _ActionIcon from './components/_ActionIcon'
 import FindPrevious from './components/FindPrevious'
 import FindNext from './components/FindNext'
 import Close from './components/Close'
@@ -51,7 +50,6 @@ function App(): JSX.Element {
       <Tooltip></Tooltip>
 
       <_HotKey></_HotKey>
-      <_ActionIcon></_ActionIcon>
       <_StyleSheet></_StyleSheet>
       <_Find></_Find>
     </div>
