@@ -17,15 +17,13 @@ function removeAll() {
 }
 
 function addAll() {
-  const icons = ['logo', 'logo-dark']
+  const icon = 'logo'
   const sizes = [16, 32, 48, 128]
 
-  for (const icon of icons) {
-    for (const size of sizes) {
-      sharp(resolve(`../src/assets/img/${icon}.svg`))
-        .resize(size, size)
-        .toFile(resolve(`../public/${icon}-${size}.png`))
-    }
+  for (const size of sizes) {
+    sharp(resolve(`../src/assets/img/${icon}.svg`))
+      .resize(size, size)
+      .toFile(resolve(`../public/${icon}-${size}.png`))
   }
 }
 
