@@ -1,12 +1,12 @@
 import { Action } from '../action'
 import { State } from '../state'
 
-type Reducer = (state: State, action: Action & { type: 'ChangeFocusNode' }) => State
+type Reducer = (state: State, action: Action & { type: 'ChangeSelection' }) => State
 
 const reducer: Reducer = (state, action) => {
   return {
     ...state,
-    focusNode: action.focusNode,
+    selection: action.selection,
   }
 }
 

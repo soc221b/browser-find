@@ -12,10 +12,10 @@ import Close from './components/Close'
 import Result from './components/Result'
 import Tooltip from './components/Tooltip'
 import { useLayoutEffect, useState } from 'react'
-import useChangeFocusNode from './hooks/use-change-focus-node'
+import useChangeSelection from './hooks/use-change-selection'
 
 function App(): JSX.Element {
-  useChangeFocusNode()
+  useChangeSelection()
 
   const [inert, setInert] = useState(false)
   useLayoutEffect(() => {
