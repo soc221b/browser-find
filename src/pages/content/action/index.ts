@@ -1,6 +1,8 @@
+import { ChangeFocusNode } from './change-focus-node'
 import { ClearMatch } from './clear-match'
 import { FindNext } from './find-next'
 import { FindPrevious } from './find-previous'
+import { HighlightFollowing } from './highlight-following'
 import { Match } from './match'
 import { ToggleFinding } from './toggle-finding'
 import { ToggleFocus } from './toggle-focus'
@@ -11,9 +13,11 @@ import { ToggleShouldUseRegularExpression } from './toggle-should-use-regular-ex
 import { Type } from './type'
 
 export type Action =
+  | ChangeFocusNode
   | ClearMatch
   | FindNext
   | FindPrevious
+  | HighlightFollowing
   | Match
   | ToggleFinding
   | ToggleFocus
