@@ -16,6 +16,8 @@ export type State = {
   shouldUseRegularExpression: boolean
 
   text: string
+
+  focusNode: null | Node
 }
 
 const initialState: State = {
@@ -36,6 +38,8 @@ const initialState: State = {
   shouldUseRegularExpression: false,
 
   text: '',
+
+  focusNode: null,
 }
 
 export default initialState

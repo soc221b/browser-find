@@ -1,8 +1,10 @@
 import { Action } from '../action'
 import { State } from '../state'
+import changeFocusNode from './change-focus-node'
 import clearMatch from './clear-match'
 import findNext from './find-next'
 import findPrevious from './find-previous'
+import highlightFollowing from './highlight-following'
 import match from './match'
 import toggleFinding from './toggle-finding'
 import toggleFocus from './toggle-focus'
@@ -16,12 +18,16 @@ type Reducer = (state: State, action: Action) => State
 
 const reducer: Reducer = (state, action) => {
   switch (action.type) {
+    case 'ChangeFocusNode':
+      return changeFocusNode(state, action)
     case 'ClearMatch':
       return clearMatch(state, action)
     case 'FindNext':
       return findNext(state, action)
     case 'FindPrevious':
       return findPrevious(state, action)
+    case 'HighlightFollowing':
+      return highlightFollowing(state, action)
     case 'Match':
       return match(state, action)
     case 'ToggleFinding':

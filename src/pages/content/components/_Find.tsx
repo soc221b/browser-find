@@ -28,6 +28,7 @@ export default function _Find(): JSX.Element {
         })
       },
       onComplete: () => {
+        dispatch({ type: 'HighlightFollowing' })
         dispatch({ type: 'ToggleFinding', value: false })
       },
     })
