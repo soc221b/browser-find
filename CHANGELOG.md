@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.4.0](https://github.com/soc221b/browser-find/compare/v0.3.34...v0.4.0) (2025-02-28)
+
+
+### Features
+
+* change logo icon ([#318](https://github.com/soc221b/browser-find/issues/318)) ([fc403ee](https://github.com/soc221b/browser-find/commit/fc403eedf101de9283d04c277921de1396674db5))
+
+
+### Performance Improvements
+
+* update throttle duration ([#316](https://github.com/soc221b/browser-find/issues/316)) ([4108f73](https://github.com/soc221b/browser-find/commit/4108f738cc809c27fdcc7d2516f9e82bc594201e))
+
 ## [0.3.34](https://github.com/soc221b/browser-find/compare/v0.3.33...v0.3.34) (2025-02-26)
 
 
