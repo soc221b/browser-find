@@ -117,7 +117,7 @@ async function createNodeMaps({ documentElement }: { documentElement: HTMLElemen
   ]
   let i = 0
   while (DFSStack.length) {
-    if (i++ % 200 === 0) {
+    if (i++ % 2000 === 0) {
       await sleep('raf')
     }
     const top = DFSStack[DFSStack.length - 1]
@@ -307,7 +307,7 @@ function matchAll({
 
     let i = 0
     for (const array of innerTextLike.matchAll(regex)) {
-      if (i++ % 200 === 0) {
+      if (i++ % 2000 === 0) {
         await sleep('raf')
       }
       if (isStopped) {
