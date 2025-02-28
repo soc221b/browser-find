@@ -85,7 +85,7 @@ const suits: Suit[] = []
 
   //
   ;(function iframe() {
-    // TODO: contentDocument is null?
+    // TODO: support finding text in iframe
     // const iframe = document.createElement('iframe')
     // iframe.srcdoc = 'a'
     // const body = document.createElement('body')
@@ -104,7 +104,8 @@ const suits: Suit[] = []
 
   //
   ;(function input() {
-    // TODO: we cannot highlight input value, because its textContent is empty, but is there a workaround
+    // TODO: is there a workaround to simulate highlighting input value?
+    // we cannot highlight input value, because its textContent is empty
     // const documentElement = createDocumentElement(`<input value="a">`)
     // suits.push({
     //   documentElement,
@@ -118,8 +119,8 @@ const suits: Suit[] = []
 
   //
   ;(function shadowDOM() {
-    // TODO: e.g., highlights GitHub <relative-time /> custom element
-    //
+    // TODO: support finding text in shadow DOM
+    // e.g., highlights GitHub <relative-time /> custom element
   })()
 })()
 
@@ -213,7 +214,7 @@ const suits: Suit[] = []
         })
       }
 
-      // TODO:
+      // TODO: support finding symbol texts
       // {
       //   const documentElement = createDocumentElement(
       //     `<span style="text-transform: capitalize;">ⓐⓑⓒ (ⓓⓔⓕ) —ⓖⓗⓘ— ⓙkl</span>`,
@@ -278,7 +279,7 @@ const suits: Suit[] = []
         })
       }
 
-      // TODO:
+      // TODO: support finding Greek texts
       // {
       //   const documentElement = createDocumentElement(
       //     `<span style="text-transform: uppercase;">Θα πάμε στο "Θεϊκό φαΐ" ή στη "Νεράιδα"</span>`,
@@ -363,12 +364,14 @@ const suits: Suit[] = []
     })()
   })()
 
-  // TODO: https://developer.mozilla.org/en-US/docs/Web/CSS/text-wrap-mode
+  // TODO: support finding text using text-wrap-mode
+  // https://developer.mozilla.org/en-US/docs/Web/CSS/text-wrap-mode
   ;(function textWrapMode() {
     //
   })()
 
-  // TODO: https://developer.mozilla.org/en-US/docs/Web/CSS/text-wrap-style
+  // TODO: support finding text using text-wrap-style
+  // https://developer.mozilla.org/en-US/docs/Web/CSS/text-wrap-style
   ;(function textWrapStyle() {
     //
   })()
