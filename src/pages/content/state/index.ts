@@ -17,7 +17,7 @@ export type State = {
 
   text: string
 
-  focusNode: null | Node
+  selection: null | Node
 }
 
 const initialState: State = {
@@ -39,7 +39,7 @@ const initialState: State = {
 
   text: '',
 
-  focusNode: null,
+  selection: null,
 }
 
 export default initialState

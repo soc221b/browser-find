@@ -1,5 +1,5 @@
 export type ChangeSelection = {
   type: 'ChangeSelection'
 
-  focusNode: null | Node
+  selection: null | Node
 }

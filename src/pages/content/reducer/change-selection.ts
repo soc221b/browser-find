@@ -6,7 +6,7 @@ type Reducer = (state: State, action: Action & { type: 'ChangeSelection' }) => S
 const reducer: Reducer = (state, action) => {
   return {
     ...state,
-    focusNode: action.focusNode,
+    selection: action.selection,
   }
 }
 

@@ -13,7 +13,7 @@ const reducer: Reducer = (state) => {
     return nextState
   }
 
-  const activeElement = state.focusNode
+  const activeElement = state.selection
   if (activeElement === null) {
     nextState.matchId = state.matches[0].id
     return nextState

@@ -18,7 +18,7 @@ export default function useChangeSelection() {
 
       if (document.querySelector('#browser-find-top-layer')?.contains(focusNode)) return
 
-      dispatch({ type: 'ChangeSelection', focusNode: focusNode })
+      dispatch({ type: 'ChangeSelection', selection: focusNode })
     }
   }, [])
 }
