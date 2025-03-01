@@ -22,8 +22,9 @@ export default function _StyleSheet(): JSX.Element {
 
       #browser-find-top-layer .root {
         position: fixed;
-        top: 20px;
-        right: 40px;
+        top: 0px;
+        right: 0px;
+        margin: 20px;
         width: 500px;
         padding: 8px 12px;
         border-radius: 8px;
