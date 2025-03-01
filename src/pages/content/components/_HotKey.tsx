@@ -37,7 +37,7 @@ export default function _HotKey(): JSX.Element {
       const state = { dispatch, focusing, shouldMatchCase, shouldMatchWholeWord, shouldUseRegularExpression }
       if (shouldOpen({ event, isOSMacOS })) {
         event.preventDefault()
-        state.dispatch({ type: 'ToggleOpen', value: true })
+        state.dispatch({ type: 'Show' })
         focusInput()
         if (shouldSelectAll({ event, state, isOSMacOS })) {
           selectInput()
@@ -47,7 +47,7 @@ export default function _HotKey(): JSX.Element {
 
       if (shouldClose({ event, state })) {
         event.preventDefault()
-        state.dispatch({ type: 'ToggleOpen', value: false })
+        state.dispatch({ type: 'Close' })
         return
       }
 
@@ -148,7 +148,11 @@ export default function _HotKey(): JSX.Element {
       const value = event.target instanceof Node && !!topLayer?.contains(event.target)
       if (focusing === value) return
 
-      dispatch({ type: 'ToggleFocus', value })
+      if (value) {
+        dispatch({ type: 'Focus' })
+      } else {
+        dispatch({ type: 'Blur' })
+      }
     }
   }, [focusing])
   useLayoutEffect(() => {
@@ -162,7 +166,11 @@ export default function _HotKey(): JSX.Element {
       const value = document.activeElement instanceof Node && !!topLayer?.contains(document.activeElement)
       if (focusing === value) return
 
-      dispatch({ type: 'ToggleFocus', value })
+      if (value) {
+        dispatch({ type: 'Focus' })
+      } else {
+        dispatch({ type: 'Blur' })
+      }
     }
   }, [])
 

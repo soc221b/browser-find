@@ -1,28 +1,30 @@
-import { ChangeSelection } from './change-selection'
-import { ClearMatch } from './clear-match'
+import { Blur } from './blur'
+import { Close } from './close'
+import { Complete } from './complete'
 import { FindNext } from './find-next'
 import { FindPrevious } from './find-previous'
-import { HighlightFollowing } from './highlight-following'
-import { Match } from './match'
-import { ToggleFinding } from './toggle-finding'
-import { ToggleFocus } from './toggle-focus'
-import { ToggleOpen } from './toggle-open'
+import { Focus } from './focus'
+import { Input } from './input'
+import { MakeSelection } from './make-selection'
+import { Next } from './next'
+import { Show } from './show'
+import { Subscribe } from './subscribe'
 import { ToggleShouldMatchCase } from './toggle-should-match-case'
 import { ToggleShouldMatchWholeWord } from './toggle-should-match-whole-word'
 import { ToggleShouldUseRegularExpression } from './toggle-should-use-regular-expression'
-import { Type } from './type'
 
 export type Action =
-  | ChangeSelection
-  | ClearMatch
+  | Blur
+  | Close
+  | Complete
   | FindNext
   | FindPrevious
-  | HighlightFollowing
-  | Match
-  | ToggleFinding
-  | ToggleFocus
-  | ToggleOpen
+  | Focus
+  | Input
+  | MakeSelection
+  | Next
+  | Show
+  | Subscribe
   | ToggleShouldMatchCase
   | ToggleShouldMatchWholeWord
   | ToggleShouldUseRegularExpression
-  | Type

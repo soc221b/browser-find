@@ -1,13 +1,14 @@
 import { Action } from '../action'
 import { State } from '../state'
 
-type Reducer = (state: State, action: Action & { type: 'ToggleFinding' }) => State
+type Reducer = (state: State, action: Action & { type: 'Input' }) => State
 
 const reducer: Reducer = (state, action) => {
-  return {
+  const nextState: State = {
     ...state,
-    finding: action.value,
+    text: action.value,
   }
+  return nextState
 }
 
 export default reducer

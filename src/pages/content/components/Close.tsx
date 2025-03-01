@@ -4,11 +4,7 @@ export default function Close(): JSX.Element {
   const dispatch = useStore((state) => state.dispatch)
 
   return (
-    <button
-      onClick={() => dispatch({ type: 'ToggleOpen', value: false })}
-      className="icon"
-      data-tooltip-content="Close <kbd>Escape</kbd>"
-    >
+    <button onClick={() => dispatch({ type: 'Close' })} className="icon" data-tooltip-content="Close <kbd>Escape</kbd>">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         height="24"

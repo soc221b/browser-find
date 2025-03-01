@@ -1,11 +1,11 @@
 export type State = {
-  finding: boolean
+  subscribing: boolean
 
   focusing: boolean
 
-  matchId: null | number
+  highlightId: null | number
 
-  matches: { id: number; ranges: Range[] }[]
+  found: { id: number; ranges: Range[] }[]
 
   open: boolean
 
@@ -25,13 +25,13 @@ export type State = {
 }
 
 const initialState: State = {
-  finding: false,
+  subscribing: false,
 
   focusing: false,
 
-  matchId: null,
+  highlightId: null,
 
-  matches: [],
+  found: [],
 
   open: false,
 

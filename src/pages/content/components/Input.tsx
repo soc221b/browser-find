@@ -17,11 +17,11 @@ export default function Input(): JSX.Element {
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     if (isPasting.current) {
       dispatch({
-        type: 'Type',
+        type: 'Input',
         value: event.target.value.trim().length ? event.target.value.trim() : ' ',
       })
     } else {
-      dispatch({ type: 'Type', value: event.target.value })
+      dispatch({ type: 'Input', value: event.target.value })
     }
   }
 

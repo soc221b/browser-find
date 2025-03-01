@@ -1,12 +1,12 @@
 import useStore from '../store'
 
 export default function FindNext(): JSX.Element {
-  const matches = useStore((state) => state.matches)
+  const found = useStore((state) => state.found)
   const dispatch = useStore((state) => state.dispatch)
 
   return (
     <button
-      disabled={!matches.length}
+      disabled={!found.length}
       onClick={() => dispatch({ type: 'FindNext' })}
       className="icon"
       data-tooltip-content="Next Match <kbd>Enter</kbd>"
