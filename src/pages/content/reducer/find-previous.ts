@@ -6,23 +6,23 @@ import { highlights } from '../utils/highlights'
 type Reducer = (state: State, action: Action & { type: 'FindPrevious' }) => State
 
 const reducer: Reducer = (state) => {
-  const nextState = {
+  const nextState: State = {
     ...state,
     focusing: true,
     open: true,
   }
-  const index = binarySearchIndex(state.matches, state.matchId, (match) => match.id)
+  const index = binarySearchIndex(state.found, state.highlightId, (match) => match.id)
   if (index > 0) {
-    nextState.matchId = state.matches[index - 1].id
+    nextState.highlightId = state.found[index - 1].id
   } else {
-    nextState.matchId = state.matches[state.matches.length - 1]?.id ?? null
+    nextState.highlightId = state.found[state.found.length - 1]?.id ?? null
   }
 
-  state.matches[index]?.ranges.forEach((range) => {
+  state.found[index]?.ranges.forEach((range) => {
     highlights({ range, isAdd: false, isThis: true })
     highlights({ range, isAdd: true, isThis: false })
   })
-  nextState.matches[binarySearchIndex(nextState.matches, nextState.matchId, (match) => match.id)]?.ranges.forEach(
+  nextState.found[binarySearchIndex(nextState.found, nextState.highlightId, (match) => match.id)]?.ranges.forEach(
     (range, index) => {
       if (index === 0) {
         range.startContainer.parentElement?.scrollIntoView({

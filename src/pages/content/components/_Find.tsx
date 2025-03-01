@@ -12,8 +12,7 @@ export default function _Find(): JSX.Element {
   const text = useStore((state) => state.text)
 
   useEffect(() => {
-    dispatch({ type: 'ClearMatch' })
-    dispatch({ type: 'ToggleFinding', value: true })
+    dispatch({ type: 'Subscribe' })
 
     const { cancel } = find({
       documentElement: document.documentElement,
@@ -23,13 +22,12 @@ export default function _Find(): JSX.Element {
       shouldUseRegularExpression,
       onNext: (ranges) => {
         dispatch({
-          type: 'Match',
-          match: { id: id++, ranges },
+          type: 'Next',
+          value: { id: id++, ranges },
         })
       },
       onComplete: () => {
-        dispatch({ type: 'HighlightFollowing' })
-        dispatch({ type: 'ToggleFinding', value: false })
+        dispatch({ type: 'Complete' })
       },
     })
 

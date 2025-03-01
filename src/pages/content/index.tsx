@@ -12,10 +12,10 @@ import Close from './components/Close'
 import Result from './components/Result'
 import Tooltip from './components/Tooltip'
 import { useLayoutEffect, useState } from 'react'
-import useChangeSelection from './hooks/use-change-selection'
+import useMakeSelection from './hooks/use-make-selection'
 
 function App(): JSX.Element {
-  useChangeSelection()
+  useMakeSelection()
 
   const [inert, setInert] = useState(false)
   useLayoutEffect(() => {

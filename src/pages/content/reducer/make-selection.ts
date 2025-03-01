@@ -1,13 +1,14 @@
 import { Action } from '../action'
 import { State } from '../state'
 
-type Reducer = (state: State, action: Action & { type: 'ToggleFocus' }) => State
+type Reducer = (state: State, action: Action & { type: 'MakeSelection' }) => State
 
 const reducer: Reducer = (state, action) => {
-  return {
+  const nextState: State = {
     ...state,
-    focusing: action.value,
+    selection: action.value,
   }
+  return nextState
 }
 
 export default reducer
