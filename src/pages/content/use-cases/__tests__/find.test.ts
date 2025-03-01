@@ -1365,24 +1365,27 @@ suits.forEach(
     function createTestName() {
       const digits = suits.length.toString().split('').length
       const indent = ' '.repeat(4 + digits + 2)
-      const booleanPadMaxLength = 5
+      const padMaxLength = 25
       const testName =
         [
           index.toString().padEnd(digits, ' '),
-          'C'.padEnd(booleanPadMaxLength, ' '),
-          'W'.padEnd(booleanPadMaxLength, ' '),
-          'R'.padEnd(booleanPadMaxLength, ' '),
+          'Match case'.padEnd(padMaxLength, ' '),
+          'Match whole Word'.padEnd(padMaxLength, ' '),
+          'Use regular expression'.padEnd(padMaxLength, ' '),
         ].join('  ') +
         `\n${indent}` +
         [
-          String(shouldMatchCase).padEnd(booleanPadMaxLength, ' '),
-          String(shouldMatchWholeWord).padEnd(booleanPadMaxLength, ' '),
-          String(shouldUseRegularExpression).padEnd(booleanPadMaxLength, ' '),
+          String(shouldMatchCase).padEnd(padMaxLength, ' '),
+          String(shouldMatchWholeWord).padEnd(padMaxLength, ' '),
+          String(shouldUseRegularExpression).padEnd(padMaxLength, ' '),
         ].join('  ') +
         `\n${indent}` +
         `text      : \`${text}\`` +
         `\n${indent}` +
-        `innerHTML : \`${documentElement.innerHTML.replace(/\n/g, '\\n')}\`` +
+        `innerHTML : \`${documentElement.innerHTML
+          .replace(/\n/g, '\\n')
+          .replace(/^<body>/, '')
+          .replace(/<\/body>$/, '')}\`` +
         `\n${indent.slice(0, -1)}`
       return testName
     }
