@@ -91,7 +91,14 @@ function createRegex({
     let flags = ''
     flags += 'gm'
     flags += shouldMatchCase ? '' : 'i'
-    return new RegExp(pattern, flags)
+    const regex = new RegExp(pattern, flags)
+    try {
+      ''.matchAll(regex).next()
+    } catch (e) {
+      console.error('[Chrome Extension Find]', e)
+      throw e
+    }
+    return regex
   } catch {
     return new RegExp('^\\b$', 'gm')
   }
