@@ -10,7 +10,7 @@
     "url": "https://github.com/debdut/browser-extension.git"
   },
   "scripts": {
-    "lint": "prettier --check .",
+    "format": "prettier --write .",
     "test": "jest --watch",
     "build": "mkdirp dist/v3 && tsx scripts/build-icons && tsx scripts/build.ts chrome && tsx scripts/zip"
   },
