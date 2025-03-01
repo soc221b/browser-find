@@ -88,16 +88,16 @@ export default function _StyleSheet(): JSX.Element {
         color: #626262;
       }
 
-      #browser-find-top-layer .icon:disabled {
+      #browser-find-top-layer button.icon:disabled {
         color: #C4C4C4;
       }
 
-      #browser-find-top-layer .icon:hover:not(:disabled),
-      #browser-find-top-layer .icon:focus:not(:disabled) {
+      #browser-find-top-layer button.icon:hover:not(:disabled),
+      #browser-find-top-layer button.icon:focus:not(:disabled) {
         background-color: #f4f4f4;
       }
 
-      #browser-find-top-layer .icon[data-active='true'] {
+      #browser-find-top-layer button.icon[data-active='true'] {
         background-color: #e5e5e5 !important;
       }
 
@@ -147,16 +147,16 @@ export default function _StyleSheet(): JSX.Element {
           color: #A9A9AA;
         }
 
-        #browser-find-top-layer .icon:disabled {
+        #browser-find-top-layer button.icon:disabled {
           color: #535353;
         }
 
-        #browser-find-top-layer .icon:hover:not(:disabled),
-        #browser-find-top-layer .icon:focus:not(:disabled) {
+        #browser-find-top-layer button.icon:hover:not(:disabled),
+        #browser-find-top-layer button.icon:focus:not(:disabled) {
           background-color: #313131;
         }
 
-        #browser-find-top-layer .icon[data-active='true'] {
+        #browser-find-top-layer button.icon[data-active='true'] {
           background-color: #6C6C6B !important;
         }
 
