@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.4.2](https://github.com/soc221b/browser-find/compare/v0.4.1...v0.4.2) (2025-03-01)
+
+
+### Bug Fixes
+
+* alignment ([092ee72](https://github.com/soc221b/browser-find/commit/092ee72d289c892f2072325aaa84a00136023eda))
+* catch error when regular expression too large ([159dca9](https://github.com/soc221b/browser-find/commit/159dca9204e3b15f97ab523a31cdea74b7f2092c))
+* hover loading icon should not change background color ([508ac10](https://github.com/soc221b/browser-find/commit/508ac109082c64b90d26d50c13bb8d3fa9a8f011))
+
 ## [0.4.1](https://github.com/soc221b/browser-find/compare/v0.4.0...v0.4.1) (2025-02-28)
 
 
