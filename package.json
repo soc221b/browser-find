@@ -2,7 +2,7 @@
   "name": "browser-find",
   "private": true,
   "displayName": "Find",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "description": "An extension for Regex Find. Search for regular expressions within webpages",
   "license": "MIT",
   "repository": {
