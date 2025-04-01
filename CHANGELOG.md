@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.5](https://github.com/soc221b/browser-find/compare/v0.4.4...v0.4.5) (2025-04-01)
+
+
+### Bug Fixes
+
+* **deps:** update react monorepo to v19.1.0 ([#361](https://github.com/soc221b/browser-find/issues/361)) ([8bf6f74](https://github.com/soc221b/browser-find/commit/8bf6f7473b92627a674c86001bd9aa7f3f96a65b))
+
 ## [0.4.4](https://github.com/soc221b/browser-find/compare/v0.4.3...v0.4.4) (2025-03-14)
 
 
