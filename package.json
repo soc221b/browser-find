@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@esbuilder/html": "0.0.6",
-    "@tailwindcss/postcss": "4.1.0",
+    "@tailwindcss/postcss": "4.1.1",
     "@types/chrome": "0.0.313",
     "@types/cross-zip": "4.0.2",
     "@types/fs-extra": "11.0.4",
@@ -52,7 +52,7 @@
     "prettier": "3.5.3",
     "rimraf": "6.0.1",
     "sharp": "0.33.5",
-    "tailwindcss": "4.1.0",
+    "tailwindcss": "4.1.1",
     "ts-jest": "29.3.1",
     "typescript": "5.8.2",
     "web-ext": "8.5.0"
