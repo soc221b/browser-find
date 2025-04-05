@@ -1,9 +1,9 @@
 export type Next = {
-  type: 'Next'
+  type: "Next";
 
   value: {
-    id: number
+    id: number;
 
-    ranges: Range[]
-  }
-}
+    ranges: Range[];
+  };
+};

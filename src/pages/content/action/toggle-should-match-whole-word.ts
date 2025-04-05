@@ -1,5 +1,5 @@
 export type ToggleShouldMatchWholeWord = {
-  type: 'ToggleShouldMatchWholeWord'
+  type: "ToggleShouldMatchWholeWord";
 
-  value: boolean
-}
+  value: boolean;
+};

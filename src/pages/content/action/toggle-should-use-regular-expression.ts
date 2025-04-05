@@ -1,5 +1,5 @@
 export type ToggleShouldUseRegularExpression = {
-  type: 'ToggleShouldUseRegularExpression'
+  type: "ToggleShouldUseRegularExpression";
 
-  value: boolean
-}
+  value: boolean;
+};

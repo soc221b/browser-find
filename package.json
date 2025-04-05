@@ -1,20 +1,20 @@
 {
   "name": "browser-find",
-  "private": true,
   "displayName": "Find",
   "version": "0.4.5",
+  "private": true,
   "description": "An extension for Regex Find. Search for regular expressions within webpages",
-  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/debdut/browser-extension.git"
   },
-  "scripts": {
-    "format": "prettier --write .",
-    "test": "jest --watch",
-    "build": "mkdirp dist/v3 && tsx scripts/build-icons && tsx scripts/build.ts chrome && tsx scripts/zip"
-  },
+  "license": "MIT",
   "type": "module",
+  "scripts": {
+    "build": "mkdirp dist/v3 && tsx scripts/build-icons && tsx scripts/build.ts chrome && tsx scripts/zip",
+    "format": "prettier --write .",
+    "test": "jest --watch"
+  },
   "dependencies": {
     "@floating-ui/dom": "1.6.13",
     "@types/webextension-polyfill": "0.12.3",
@@ -50,6 +50,10 @@
     "postcss": "8.5.3",
     "postcss-import": "16.1.0",
     "prettier": "3.5.3",
+    "prettier-plugin-multiline-arrays": "4.0.3",
+    "prettier-plugin-organize-imports": "4.1.0",
+    "prettier-plugin-packagejson": "2.5.10",
+    "prettier-plugin-sort-json": "4.1.1",
     "rimraf": "6.0.1",
     "sharp": "0.34.0",
     "tailwindcss": "4.1.3",

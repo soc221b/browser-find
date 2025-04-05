@@ -1,3 +1,3 @@
 export type Subscribe = {
-  type: 'Subscribe'
-}
+  type: "Subscribe";
+};

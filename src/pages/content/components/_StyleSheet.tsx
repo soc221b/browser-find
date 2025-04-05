@@ -1,12 +1,12 @@
-import { useEffect } from 'react'
-import useStore from '../store'
-import { theOthersKey, thisKey } from '../constants/highlight'
+import { useEffect } from "react";
+import { theOthersKey, thisKey } from "../constants/highlight";
+import useStore from "../store";
 
 export default function _StyleSheet(): React.JSX.Element {
-  const open = useStore((state) => state.open)
+  const open = useStore((state) => state.open);
 
   useEffect(() => {
-    const topLayerStyleSheet = document.createElement('style')
+    const topLayerStyleSheet = document.createElement("style");
     topLayerStyleSheet.textContent = `
       #browser-find-top-layer div,
       #browser-find-top-layer input,
@@ -170,21 +170,21 @@ export default function _StyleSheet(): React.JSX.Element {
           box-shadow: 0px 2px 6px #000000;
         }
       }
-    `
-    document.head.appendChild(topLayerStyleSheet)
+    `;
+    document.head.appendChild(topLayerStyleSheet);
 
     return () => {
-      document.head.removeChild(topLayerStyleSheet)
-    }
-  }, [])
+      document.head.removeChild(topLayerStyleSheet);
+    };
+  }, []);
 
   useEffect(() => {
     if (open === false) {
-      return
+      return;
     }
 
     const removeAllChildren = getAllDocuments(document).map((document) => {
-      const topLayerStyleSheet = document.createElement('style')
+      const topLayerStyleSheet = document.createElement("style");
       topLayerStyleSheet.textContent = `
         ::highlight(${theOthersKey}) {
           background-color: #FEFF03;
@@ -195,32 +195,34 @@ export default function _StyleSheet(): React.JSX.Element {
           background-color: #FF9632 !important;
           color: #000000 !important;
         }
-      `
-      document.head.appendChild(topLayerStyleSheet)
+      `;
+      document.head.appendChild(topLayerStyleSheet);
       return () => {
-        document.head.removeChild(topLayerStyleSheet)
-      }
-    })
+        document.head.removeChild(topLayerStyleSheet);
+      };
+    });
 
     return () => {
-      removeAllChildren.forEach((removeChild) => removeChild())
-    }
-  }, [open])
+      removeAllChildren.forEach((removeChild) => removeChild());
+    };
+  }, [
+    open,
+  ]);
 
-  return <></>
+  return <></>;
 }
 
 function getAllDocuments(document: Document): Document[] {
   return [
     document,
-    ...Array.from(document.querySelectorAll('iframe'))
+    ...Array.from(document.querySelectorAll("iframe"))
       .map((iframe) => {
         if (iframe.contentDocument) {
-          return getAllDocuments(iframe.contentDocument)
+          return getAllDocuments(iframe.contentDocument);
         } else {
-          return []
+          return [];
         }
       })
       .flat(),
-  ]
+  ];
 }

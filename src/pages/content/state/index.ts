@@ -1,28 +1,28 @@
 export type State = {
-  subscribing: boolean
+  subscribing: boolean;
 
-  focusing: boolean
+  focusing: boolean;
 
-  highlightId: null | number
+  highlightId: null | number;
 
-  found: { id: number; ranges: Range[] }[]
+  found: { id: number; ranges: Range[] }[];
 
-  open: boolean
+  open: boolean;
 
-  shouldMatchCase: boolean
+  shouldMatchCase: boolean;
 
-  shouldMatchWholeWord: boolean
+  shouldMatchWholeWord: boolean;
 
-  shouldUseRegularExpression: boolean
+  shouldUseRegularExpression: boolean;
 
-  text: string
+  text: string;
 
   selection: {
-    focusNode: Node
+    focusNode: Node;
 
-    focusOffset: number
-  }
-}
+    focusOffset: number;
+  };
+};
 
 const initialState: State = {
   subscribing: false,
@@ -41,13 +41,13 @@ const initialState: State = {
 
   shouldUseRegularExpression: false,
 
-  text: '',
+  text: "",
 
   selection: {
     focusNode: document.body,
 
     focusOffset: 0,
   },
-}
+};
 
-export default initialState
+export default initialState;

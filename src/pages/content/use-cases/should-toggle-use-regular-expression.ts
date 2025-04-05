@@ -1,27 +1,31 @@
-import { State } from '../state'
-import { IsOSMacOS } from '../utils/ua'
-import { isPressing } from '../utils/is-pressing'
+import { State } from "../state";
+import { isPressing } from "../utils/is-pressing";
+import { IsOSMacOS } from "../utils/ua";
 
 type ShouldToggleUseRegularExpression = (_: {
-  event: KeyboardEvent
-  state: Pick<State, 'focusing'>
-  isOSMacOS: IsOSMacOS
-}) => boolean
+  event: KeyboardEvent;
+  state: Pick<State, "focusing">;
+  isOSMacOS: IsOSMacOS;
+}) => boolean;
 
-const shouldToggleUseRegularExpression: ShouldToggleUseRegularExpression = ({ event, state, isOSMacOS }) => {
+const shouldToggleUseRegularExpression: ShouldToggleUseRegularExpression = ({
+  event,
+  state,
+  isOSMacOS,
+}) => {
   if (state.focusing) {
     if (isOSMacOS()) {
-      if (isPressing({ event, code: 'KeyR', altKey: true, metaKey: true })) {
-        return true
+      if (isPressing({ event, code: "KeyR", altKey: true, metaKey: true })) {
+        return true;
       }
     } else {
-      if (isPressing({ event, code: 'KeyR', altKey: true })) {
-        return true
+      if (isPressing({ event, code: "KeyR", altKey: true })) {
+        return true;
       }
     }
   }
 
-  return false
-}
+  return false;
+};
 
-export default shouldToggleUseRegularExpression
+export default shouldToggleUseRegularExpression;

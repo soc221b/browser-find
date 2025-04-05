@@ -1,8 +1,10 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "automerge": true,
-  "automergeType": "pr",
   "automergeStrategy": "squash",
-  "rangeStrategy": "pin",
-  "extends": ["config:recommended"]
+  "automergeType": "pr",
+  "extends": [
+    "config:recommended"
+  ],
+  "rangeStrategy": "pin"
 }

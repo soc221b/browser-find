@@ -1,14 +1,17 @@
-import { Action } from '../action'
-import { State } from '../state'
+import { Action } from "../action";
+import { State } from "../state";
 
-type Reducer = (state: State, action: Action & { type: 'ToggleShouldUseRegularExpression' }) => State
+type Reducer = (
+  state: State,
+  action: Action & { type: "ToggleShouldUseRegularExpression" },
+) => State;
 
 const reducer: Reducer = (state, action) => {
   const nextState: State = {
     ...state,
     shouldUseRegularExpression: action.value,
-  }
-  return nextState
-}
+  };
+  return nextState;
+};
 
-export default reducer
+export default reducer;

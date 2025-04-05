@@ -1,14 +1,14 @@
-import { Action } from '../action'
-import { State } from '../state'
+import { Action } from "../action";
+import { State } from "../state";
 
-type Reducer = (state: State, action: Action & { type: 'Input' }) => State
+type Reducer = (state: State, action: Action & { type: "Input" }) => State;
 
 const reducer: Reducer = (state, action) => {
   const nextState: State = {
     ...state,
     text: action.value,
-  }
-  return nextState
-}
+  };
+  return nextState;
+};
 
-export default reducer
+export default reducer;

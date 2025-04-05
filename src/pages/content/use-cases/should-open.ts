@@ -1,20 +1,20 @@
-import { IsOSMacOS } from '../utils/ua'
-import { isPressing } from '../utils/is-pressing'
+import { isPressing } from "../utils/is-pressing";
+import { IsOSMacOS } from "../utils/ua";
 
-type ShouldOpen = (_: { event: KeyboardEvent; isOSMacOS: IsOSMacOS }) => boolean
+type ShouldOpen = (_: { event: KeyboardEvent; isOSMacOS: IsOSMacOS }) => boolean;
 
 const shouldOpen: ShouldOpen = ({ event, isOSMacOS }) => {
   if (isOSMacOS()) {
-    if (isPressing({ event, code: 'KeyF', metaKey: true })) {
-      return true
+    if (isPressing({ event, code: "KeyF", metaKey: true })) {
+      return true;
     }
   } else {
-    if (isPressing({ event, code: 'KeyF', ctrlKey: true })) {
-      return true
+    if (isPressing({ event, code: "KeyF", ctrlKey: true })) {
+      return true;
     }
   }
 
-  return false
-}
+  return false;
+};
 
-export default shouldOpen
+export default shouldOpen;

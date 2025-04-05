@@ -1,27 +1,30 @@
-import { useLayoutEffect, useState } from 'react'
+import { useLayoutEffect, useState } from "react";
 
 export default function useInert(): boolean {
-  const [inert, setInert] = useState(false)
+  const [
+    inert,
+    setInert,
+  ] = useState(false);
   useLayoutEffect(() => {
-    window.addEventListener('focus', handleFocus)
+    window.addEventListener("focus", handleFocus);
     return () => {
-      window.removeEventListener('focus', handleFocus)
-    }
+      window.removeEventListener("focus", handleFocus);
+    };
 
     function handleFocus() {
-      setInert(false)
+      setInert(false);
     }
-  })
+  });
   useLayoutEffect(() => {
-    window.addEventListener('blur', handleBlur)
+    window.addEventListener("blur", handleBlur);
     return () => {
-      window.removeEventListener('blur', handleBlur)
-    }
+      window.removeEventListener("blur", handleBlur);
+    };
 
     function handleBlur() {
-      setInert(true)
+      setInert(true);
     }
-  })
+  });
 
-  return inert
+  return inert;
 }

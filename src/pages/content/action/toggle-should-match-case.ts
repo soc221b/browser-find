@@ -1,5 +1,5 @@
 export type ToggleShouldMatchCase = {
-  type: 'ToggleShouldMatchCase'
+  type: "ToggleShouldMatchCase";
 
-  value: boolean
-}
+  value: boolean;
+};

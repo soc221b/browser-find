@@ -1,3 +1,3 @@
 export type Blur = {
-  type: 'Blur'
-}
+  type: "Blur";
+};

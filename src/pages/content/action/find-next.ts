@@ -1,3 +1,3 @@
 export type FindNext = {
-  type: 'FindNext'
-}
+  type: "FindNext";
+};
