@@ -26,12 +26,6 @@ export default function Input(): React.JSX.Element {
   }
 
   return (
-    <input
-      className="input"
-      value={text}
-      onChange={handleChange}
-      onPaste={handlePaste}
-      data-tooltip-content="Find"
-    ></input>
+    <input className="input" value={text} onChange={handleChange} onPaste={handlePaste} data-tooltip-content="Find" />
   )
 }
