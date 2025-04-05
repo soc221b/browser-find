@@ -11,33 +11,13 @@ import FindNext from './components/FindNext'
 import Close from './components/Close'
 import Result from './components/Result'
 import Tooltip from './components/Tooltip'
-import { useLayoutEffect, useState } from 'react'
 import useMakeSelection from './hooks/use-make-selection'
+import useInert from './hooks/use-inert'
 
 function App(): React.JSX.Element {
   useMakeSelection()
 
-  const [inert, setInert] = useState(false)
-  useLayoutEffect(() => {
-    window.addEventListener('focus', handleFocus)
-    return () => {
-      window.removeEventListener('focus', handleFocus)
-    }
-
-    function handleFocus() {
-      setInert(false)
-    }
-  })
-  useLayoutEffect(() => {
-    window.addEventListener('blur', handleBlur)
-    return () => {
-      window.removeEventListener('blur', handleBlur)
-    }
-
-    function handleBlur() {
-      setInert(true)
-    }
-  })
+  const inert = useInert()
 
   return (
     <div className="root" inert={inert}>
