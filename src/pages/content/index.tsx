@@ -14,7 +14,7 @@ import Tooltip from './components/Tooltip'
 import { useLayoutEffect, useState } from 'react'
 import useMakeSelection from './hooks/use-make-selection'
 
-function App(): JSX.Element {
+function App(): React.JSX.Element {
   useMakeSelection()
 
   const [inert, setInert] = useState(false)

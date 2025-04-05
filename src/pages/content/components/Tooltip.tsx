@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useState } from 'react'
 import { computePosition } from '@floating-ui/dom'
 
-export default function Tooltip(): JSX.Element {
+export default function Tooltip(): React.JSX.Element {
   const [tooltip, setTooltip] = useState('')
   const [visible, setVisible] = useState(false)
   const [delayedVisible, setDelayedVisible] = useState(false)

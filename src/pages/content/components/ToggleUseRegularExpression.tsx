@@ -1,7 +1,7 @@
 import useStore from '../store'
 import { isOSMacOS } from '../utils/ua'
 
-export default function ToggleUseRegularExpression(): JSX.Element {
+export default function ToggleUseRegularExpression(): React.JSX.Element {
   const shouldUseRegularExpression = useStore((state) => state.shouldUseRegularExpression)
   const dispatch = useStore((state) => state.dispatch)
 

@@ -1,6 +1,6 @@
 import useStore from '../store'
 
-export default function Close(): JSX.Element {
+export default function Close(): React.JSX.Element {
   const dispatch = useStore((state) => state.dispatch)
 
   return (

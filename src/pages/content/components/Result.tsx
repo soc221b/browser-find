@@ -3,7 +3,7 @@ import useStore from '../store'
 import { focusInput } from '../use-cases/focus-input'
 import { binarySearchIndex } from '../utils/binary-search-index'
 
-export default function Result(): JSX.Element {
+export default function Result(): React.JSX.Element {
   const subscribing = useStore((selector) => selector.subscribing)
   const text = useStore((selector) => selector.text)
   const highlightId = useStore((selector) => selector.highlightId)

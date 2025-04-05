@@ -1,7 +1,7 @@
 import useStore from '../store'
 import { isOSMacOS } from '../utils/ua'
 
-export default function ToggleMatchWholeWord(): JSX.Element {
+export default function ToggleMatchWholeWord(): React.JSX.Element {
   const shouldMatchWholeWord = useStore((state) => state.shouldMatchWholeWord)
   const dispatch = useStore((state) => state.dispatch)
 
