@@ -1,7 +1,7 @@
 import { ChangeEventHandler, ClipboardEventHandler, useRef } from 'react'
 import useStore from '../store'
 
-export default function Input(): JSX.Element {
+export default function Input(): React.JSX.Element {
   const dispatch = useStore((state) => state.dispatch)
   const text = useStore((state) => state.text)
   const isPasting = useRef(false)

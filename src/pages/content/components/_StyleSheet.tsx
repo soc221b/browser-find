@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import useStore from '../store'
 import { theOthersKey, thisKey } from '../constants/highlight'
 
-export default function _StyleSheet(): JSX.Element {
+export default function _StyleSheet(): React.JSX.Element {
   const open = useStore((state) => state.open)
 
   useEffect(() => {

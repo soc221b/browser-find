@@ -1,6 +1,6 @@
 import useStore from '../store'
 
-export default function FindPrevious(): JSX.Element {
+export default function FindPrevious(): React.JSX.Element {
   const found = useStore((state) => state.found)
   const dispatch = useStore((state) => state.dispatch)
 

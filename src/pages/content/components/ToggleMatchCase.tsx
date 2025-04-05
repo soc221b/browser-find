@@ -1,7 +1,7 @@
 import useStore from '../store'
 import { isOSMacOS } from '../utils/ua'
 
-export default function ToggleMatchCase(): JSX.Element {
+export default function ToggleMatchCase(): React.JSX.Element {
   const shouldMatchCase = useStore((state) => state.shouldMatchCase)
   const dispatch = useStore((state) => state.dispatch)
 

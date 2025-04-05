@@ -4,7 +4,7 @@ import useStore from '../store'
 
 let id = 0
 
-export default function _Find(): JSX.Element {
+export default function _Find(): React.JSX.Element {
   const dispatch = useStore((state) => state.dispatch)
   const shouldMatchCase = useStore((state) => state.shouldMatchCase)
   const shouldMatchWholeWord = useStore((state) => state.shouldMatchWholeWord)
