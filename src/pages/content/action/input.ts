@@ -1,5 +1,5 @@
 export type Input = {
-  type: 'Input'
+  type: "Input";
 
-  value: string
-}
+  value: string;
+};

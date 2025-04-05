@@ -1,15 +1,15 @@
-type Sleep = (_: 'raf' | number) => Promise<void>
+type Sleep = (_: "raf" | number) => Promise<void>;
 
 const sleep: Sleep = async (msOrRaf) => {
   return new Promise((resolve) => {
-    if (msOrRaf === 'raf') {
+    if (msOrRaf === "raf") {
       requestAnimationFrame(() => {
-        resolve()
-      })
+        resolve();
+      });
     } else {
-      setTimeout(() => resolve(), msOrRaf)
+      setTimeout(() => resolve(), msOrRaf);
     }
-  })
-}
+  });
+};
 
-export default sleep
+export default sleep;

@@ -1,8 +1,8 @@
-import { Action } from '../action'
-import { State } from '../state'
-import { highlights } from '../utils/highlights'
+import { Action } from "../action";
+import { State } from "../state";
+import { highlights } from "../utils/highlights";
 
-type Reducer = (state: State, action: Action & { type: 'Subscribe' }) => State
+type Reducer = (state: State, action: Action & { type: "Subscribe" }) => State;
 
 const reducer: Reducer = (state) => {
   const nextState: State = {
@@ -10,16 +10,16 @@ const reducer: Reducer = (state) => {
     found: [],
     highlightId: null,
     subscribing: true,
-  }
+  };
 
   state.found.forEach((match) => {
     match.ranges.forEach((range) => {
-      highlights({ range, isAdd: false, isThis: true })
-      highlights({ range, isAdd: false, isThis: false })
-    })
-  })
+      highlights({ range, isAdd: false, isThis: true });
+      highlights({ range, isAdd: false, isThis: false });
+    });
+  });
 
-  return nextState
-}
+  return nextState;
+};
 
-export default reducer
+export default reducer;

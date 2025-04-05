@@ -1,7 +1,15 @@
 {
-  "trailingComma": "all",
+  "jsonRecursiveSort": true,
+  "multilineArraysWrapThreshold": 0,
+  "plugins": [
+    "prettier-plugin-organize-imports",
+    "prettier-plugin-sort-json",
+    "prettier-plugin-multiline-arrays",
+    "prettier-plugin-packagejson"
+  ],
+  "printWidth": 100,
+  "semi": true,
+  "singleQuote": false,
   "tabWidth": 2,
-  "printWidth": 120,
-  "semi": false,
-  "singleQuote": true
+  "trailingComma": "all"
 }

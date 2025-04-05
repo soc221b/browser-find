@@ -1,9 +1,9 @@
 export type MakeSelection = {
-  type: 'MakeSelection'
+  type: "MakeSelection";
 
   value: {
-    focusNode: Node
+    focusNode: Node;
 
-    focusOffset: number
-  }
-}
+    focusOffset: number;
+  };
+};

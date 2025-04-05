@@ -1,18 +1,18 @@
-import { useEffect } from 'react'
-import { find } from '../use-cases/find'
-import useStore from '../store'
+import { useEffect } from "react";
+import useStore from "../store";
+import { find } from "../use-cases/find";
 
-let id = 0
+let id = 0;
 
 export default function _Find(): React.JSX.Element {
-  const dispatch = useStore((state) => state.dispatch)
-  const shouldMatchCase = useStore((state) => state.shouldMatchCase)
-  const shouldMatchWholeWord = useStore((state) => state.shouldMatchWholeWord)
-  const shouldUseRegularExpression = useStore((state) => state.shouldUseRegularExpression)
-  const text = useStore((state) => state.text)
+  const dispatch = useStore((state) => state.dispatch);
+  const shouldMatchCase = useStore((state) => state.shouldMatchCase);
+  const shouldMatchWholeWord = useStore((state) => state.shouldMatchWholeWord);
+  const shouldUseRegularExpression = useStore((state) => state.shouldUseRegularExpression);
+  const text = useStore((state) => state.text);
 
   useEffect(() => {
-    dispatch({ type: 'Subscribe' })
+    dispatch({ type: "Subscribe" });
 
     const { cancel } = find({
       documentElement: document.documentElement,
@@ -22,19 +22,24 @@ export default function _Find(): React.JSX.Element {
       shouldUseRegularExpression,
       onNext: (ranges) => {
         dispatch({
-          type: 'Next',
+          type: "Next",
           value: { id: id++, ranges },
-        })
+        });
       },
       onComplete: () => {
-        dispatch({ type: 'Complete' })
+        dispatch({ type: "Complete" });
       },
-    })
+    });
 
     return () => {
-      cancel()
-    }
-  }, [shouldMatchCase, shouldMatchWholeWord, shouldUseRegularExpression, text])
+      cancel();
+    };
+  }, [
+    shouldMatchCase,
+    shouldMatchWholeWord,
+    shouldUseRegularExpression,
+    text,
+  ]);
 
-  return <></>
+  return <></>;
 }

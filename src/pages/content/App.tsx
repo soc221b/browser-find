@@ -1,22 +1,22 @@
-import _StyleSheet from './components/_StyleSheet'
-import Input from './components/Input'
-import ToggleMatchCase from './components/ToggleMatchCase'
-import ToggleMatchWholeWord from './components/ToggleMatchWholeWord'
-import ToggleUseRegularExpression from './components/ToggleUseRegularExpression'
-import _Find from './components/_Find'
-import _HotKey from './components/_HotKey'
-import FindPrevious from './components/FindPrevious'
-import FindNext from './components/FindNext'
-import Close from './components/Close'
-import Result from './components/Result'
-import Tooltip from './components/Tooltip'
-import useMakeSelection from './hooks/use-make-selection'
-import useInert from './hooks/use-inert'
+import _Find from "./components/_Find";
+import _HotKey from "./components/_HotKey";
+import _StyleSheet from "./components/_StyleSheet";
+import Close from "./components/Close";
+import FindNext from "./components/FindNext";
+import FindPrevious from "./components/FindPrevious";
+import Input from "./components/Input";
+import Result from "./components/Result";
+import ToggleMatchCase from "./components/ToggleMatchCase";
+import ToggleMatchWholeWord from "./components/ToggleMatchWholeWord";
+import ToggleUseRegularExpression from "./components/ToggleUseRegularExpression";
+import Tooltip from "./components/Tooltip";
+import useInert from "./hooks/use-inert";
+import useMakeSelection from "./hooks/use-make-selection";
 
 export default function App(): React.JSX.Element {
-  useMakeSelection()
+  useMakeSelection();
 
-  const inert = useInert()
+  const inert = useInert();
 
   return (
     <div className="root" inert={inert}>
@@ -35,5 +35,5 @@ export default function App(): React.JSX.Element {
       <_StyleSheet></_StyleSheet>
       <_Find></_Find>
     </div>
-  )
+  );
 }

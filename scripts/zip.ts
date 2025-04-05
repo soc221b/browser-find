@@ -1,11 +1,11 @@
-import { sync as rimrafSync } from 'rimraf'
-import { zipSync } from 'cross-zip'
+import { zipSync } from "cross-zip";
+import { sync as rimrafSync } from "rimraf";
 
-main()
+main();
 
 function main() {
-  rimrafSync('dist.zip')
-  zipSync('dist/v3', '../dist.zip')
+  rimrafSync("dist.zip");
+  zipSync("dist/v3", "../dist.zip");
 
-  console.log('Finished.')
+  console.log("Finished.");
 }

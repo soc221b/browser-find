@@ -1,27 +1,45 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "types": ["node", "jest"],
-    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": false,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "strict": true,
+    "baseUrl": ".",
+    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
+    "jsx": "react-jsx",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "module": "esnext",
     "moduleResolution": "node",
-    "resolveJsonModule": true,
     "noEmit": true,
-    "jsx": "react-jsx",
-    "baseUrl": ".",
+    "noFallthroughCasesInSwitch": true,
     "paths": {
-      "@src/*": ["src/*"],
-      "@assets/*": ["src/assets/*"],
-      "@pages/*": ["src/pages/*"],
-      "@lib/*": ["src/lib/*"]
-    }
+      "@assets/*": [
+        "src/assets/*"
+      ],
+      "@lib/*": [
+        "src/lib/*"
+      ],
+      "@pages/*": [
+        "src/pages/*"
+      ],
+      "@src/*": [
+        "src/*"
+      ]
+    },
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "esnext",
+    "types": [
+      "node",
+      "jest"
+    ]
   },
-  "include": ["src", "scripts"]
+  "include": [
+    "src",
+    "scripts"
+  ]
 }

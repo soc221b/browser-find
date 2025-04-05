@@ -6,12 +6,12 @@ export const isPressing = ({
   metaKey,
   shiftKey,
 }: {
-  event: KeyboardEvent
-  code: string
-  altKey?: boolean
-  ctrlKey?: boolean
-  metaKey?: boolean
-  shiftKey?: boolean
+  event: KeyboardEvent;
+  code: string;
+  altKey?: boolean;
+  ctrlKey?: boolean;
+  metaKey?: boolean;
+  shiftKey?: boolean;
 }) => {
   return (
     event.code === code &&
@@ -19,5 +19,5 @@ export const isPressing = ({
     event.ctrlKey === !!ctrlKey &&
     event.metaKey === !!metaKey &&
     event.shiftKey === !!shiftKey
-  )
-}
+  );
+};
