@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.6](https://github.com/soc221b/browser-find/compare/v0.4.5...v0.4.6) (2025-04-07)
+
+
+### Bug Fixes
+
+* type ([#377](https://github.com/soc221b/browser-find/issues/377)) ([3ec1a19](https://github.com/soc221b/browser-find/commit/3ec1a193e0184236a3517f49e850a730127cda5d))
+
 ## [0.4.5](https://github.com/soc221b/browser-find/compare/v0.4.4...v0.4.5) (2025-04-01)
 
 
