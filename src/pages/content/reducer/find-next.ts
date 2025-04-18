@@ -31,8 +31,8 @@ const reducer: Reducer = (state) => {
     if (index === 0) {
       range.startContainer.parentElement?.scrollIntoView({
         behavior: "instant",
-        block: "nearest",
-        inline: "nearest",
+        block: "center",
+        inline: "center",
       });
     }
     highlights({ range, isAdd: true, isThis: true });
