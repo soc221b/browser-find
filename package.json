@@ -29,7 +29,7 @@
   "devDependencies": {
     "@esbuilder/html": "0.0.6",
     "@tailwindcss/postcss": "4.1.4",
-    "@types/chrome": "0.0.316",
+    "@types/chrome": "0.0.317",
     "@types/cross-zip": "4.0.2",
     "@types/fs-extra": "11.0.4",
     "@types/jest": "29.5.14",
