@@ -59,6 +59,6 @@
     "tailwindcss": "4.1.4",
     "ts-jest": "29.3.2",
     "typescript": "5.8.3",
-    "web-ext": "8.5.0"
+    "web-ext": "8.6.0"
   }
 }
