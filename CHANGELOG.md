@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.7](https://github.com/soc221b/browser-find/compare/v0.4.6...v0.4.7) (2025-04-29)
+
+
+### Bug Fixes
+
+* **deps:** update dependency tsx to v4.19.4 ([#399](https://github.com/soc221b/browser-find/issues/399)) ([0481942](https://github.com/soc221b/browser-find/commit/04819424cd2d7383e0ed3aba6a77a10283e4a887))
+
 ## [0.4.6](https://github.com/soc221b/browser-find/compare/v0.4.5...v0.4.6) (2025-04-07)
 
 
