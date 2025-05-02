@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.5.0](https://github.com/soc221b/browser-find/compare/v0.4.7...v0.5.0) (2025-05-02)
+
+
+### Features
+
+* use `scrollIntoViewIfNeeded` ([#389](https://github.com/soc221b/browser-find/issues/389)) ([b150269](https://github.com/soc221b/browser-find/commit/b150269afc600764564db91c1843adee1dfc3842))
+
+
+### Bug Fixes
+
+* **deps:** update dependency zustand to v5.0.4 ([#404](https://github.com/soc221b/browser-find/issues/404)) ([0703489](https://github.com/soc221b/browser-find/commit/07034892269b995d26d23b44ee4d1cf4ed49d8af))
+
 ## [0.4.7](https://github.com/soc221b/browser-find/compare/v0.4.6...v0.4.7) (2025-04-29)
 
 
