@@ -29,11 +29,7 @@ const reducer: Reducer = (state) => {
     binarySearchIndex(nextState.found, nextState.highlightId, (match) => match.id)
   ]?.ranges.forEach((range, index) => {
     if (index === 0) {
-      range.startContainer.parentElement?.scrollIntoView({
-        behavior: "instant",
-        block: "nearest",
-        inline: "nearest",
-      });
+      range.startContainer.parentElement?.scrollIntoViewIfNeeded(true);
     }
     highlights({ range, isAdd: true, isThis: true });
     highlights({ range, isAdd: false, isThis: false });
