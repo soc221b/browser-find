@@ -48,6 +48,12 @@ export default function _HotKey(): React.JSX.Element {
         if (shouldSelectAll({ event, state, isOSMacOS })) {
           selectInput();
         }
+
+        const selection = window.getSelection();
+        if (selection) {
+          state.dispatch({ type: "Input", value: selection.toString() });
+        }
+
         return;
       }
 
