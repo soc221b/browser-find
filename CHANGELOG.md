@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.6.0](https://github.com/soc221b/browser-find/compare/v0.5.1...v0.6.0) (2025-05-22)
+
+
+### Features
+
+* use current selection as initial input ([#421](https://github.com/soc221b/browser-find/issues/421)) ([b30150f](https://github.com/soc221b/browser-find/commit/b30150f7c0bff027a0737f7297ce00e6aa285490))
+
+
+### Bug Fixes
+
+* **deps:** update dependency zustand to v5.0.5 ([#441](https://github.com/soc221b/browser-find/issues/441)) ([93ad2b1](https://github.com/soc221b/browser-find/commit/93ad2b145f35cfcb020fb83acf46b30ab55a74a9))
+
 ## [0.5.1](https://github.com/soc221b/browser-find/compare/v0.5.0...v0.5.1) (2025-05-04)
 
 
