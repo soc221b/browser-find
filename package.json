@@ -38,7 +38,7 @@
     "@types/react-dom": "19.1.6",
     "@types/ua-parser-js": "0.7.39",
     "autoprefixer": "10.4.21",
-    "concurrently": "9.1.2",
+    "concurrently": "9.2.0",
     "cross-zip": "4.0.1",
     "esbuild": "0.25.5",
     "esbuild-style-plugin": "1.6.3",
