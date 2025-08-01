@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.6.2](https://github.com/soc221b/browser-find/compare/v0.6.1...v0.6.2) (2025-08-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @floating-ui/dom to v1.7.3 ([#518](https://github.com/soc221b/browser-find/issues/518)) ([a5ef2a8](https://github.com/soc221b/browser-find/commit/a5ef2a850c4959c8037a36390e97a9952c37bc4b))
+* **deps:** update dependency zustand to v5.0.7 ([#519](https://github.com/soc221b/browser-find/issues/519)) ([a239d49](https://github.com/soc221b/browser-find/commit/a239d49dfd43f6d33cdfc70df9cedb3edc397b92))
+* **deps:** update react monorepo to v19.1.1 ([#514](https://github.com/soc221b/browser-find/issues/514)) ([e43d961](https://github.com/soc221b/browser-find/commit/e43d961e8d8ab36f2fa72b27059323ffb074e9cf))
+
 ## [0.6.1](https://github.com/soc221b/browser-find/compare/v0.6.0...v0.6.1) (2025-06-28)
 
 
