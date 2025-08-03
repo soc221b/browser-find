@@ -57,7 +57,7 @@
     "rimraf": "6.0.1",
     "sharp": "0.34.3",
     "tailwindcss": "4.1.11",
-    "ts-jest": "29.4.0",
+    "ts-jest": "29.4.1",
     "typescript": "5.9.2",
     "web-ext": "8.9.0"
   }
