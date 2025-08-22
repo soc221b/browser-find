@@ -16,7 +16,7 @@
     "test": "jest --watch"
   },
   "dependencies": {
-    "@floating-ui/dom": "1.7.3",
+    "@floating-ui/dom": "1.7.4",
     "@types/webextension-polyfill": "0.12.3",
     "mkdirp": "3.0.1",
     "react": "19.1.1",
