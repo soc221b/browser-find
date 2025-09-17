@@ -55,7 +55,7 @@
     "prettier-plugin-packagejson": "2.5.19",
     "prettier-plugin-sort-json": "4.1.1",
     "rimraf": "6.0.1",
-    "sharp": "0.34.3",
+    "sharp": "0.34.4",
     "tailwindcss": "4.1.13",
     "ts-jest": "29.4.2",
     "typescript": "5.9.2",
