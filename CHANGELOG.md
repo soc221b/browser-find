@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.6.4](https://github.com/soc221b/browser-find/compare/v0.6.3...v0.6.4) (2025-09-19)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @floating-ui/dom to v1.7.4 ([#535](https://github.com/soc221b/browser-find/issues/535)) ([24f2dc0](https://github.com/soc221b/browser-find/commit/24f2dc0285aba0c76d2f238837734b9ea07383e8))
+* **deps:** update dependency tsx to v4.20.5 ([#537](https://github.com/soc221b/browser-find/issues/537)) ([388c8cf](https://github.com/soc221b/browser-find/commit/388c8cf209b0b28ad08caeb50968767510cfbdee))
+* **deps:** update dependency ua-parser-js to v2.0.5 ([#552](https://github.com/soc221b/browser-find/issues/552)) ([afe2a02](https://github.com/soc221b/browser-find/commit/afe2a0214110a5fbda4c80131e5f7c4998b001c7))
+* **deps:** update dependency zustand to v5.0.8 ([#533](https://github.com/soc221b/browser-find/issues/533)) ([ef43a86](https://github.com/soc221b/browser-find/commit/ef43a860d33395ac65916e3016c10648692fe975))
+
 ## [0.6.3](https://github.com/soc221b/browser-find/compare/v0.6.2...v0.6.3) (2025-08-14)
 
 
