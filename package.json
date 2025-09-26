@@ -21,7 +21,7 @@
     "mkdirp": "3.0.1",
     "react": "19.1.1",
     "react-dom": "19.1.1",
-    "tsx": "4.20.5",
+    "tsx": "4.20.6",
     "ua-parser-js": "2.0.5",
     "webextension-polyfill": "0.12.0",
     "zustand": "5.0.8"
