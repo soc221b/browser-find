@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.6.6](https://github.com/soc221b/browser-find/compare/v0.6.5...v0.6.6) (2025-10-02)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @types/webextension-polyfill to v0.12.4 ([#580](https://github.com/soc221b/browser-find/issues/580)) ([4f1ff46](https://github.com/soc221b/browser-find/commit/4f1ff469413bf81a73c38ea8a1bef3724e2fd541))
+* **deps:** update react monorepo to v19.2.0 ([#582](https://github.com/soc221b/browser-find/issues/582)) ([a1e2412](https://github.com/soc221b/browser-find/commit/a1e2412aaf7fcfcf2f761040f163f39bba885221))
+
 ## [0.6.5](https://github.com/soc221b/browser-find/compare/v0.6.4...v0.6.5) (2025-09-26)
 
 
