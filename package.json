@@ -33,7 +33,7 @@
     "@types/cross-zip": "4.0.2",
     "@types/fs-extra": "11.0.4",
     "@types/jest": "30.0.0",
-    "@types/node": "24.10.0",
+    "@types/node": "24.10.1",
     "@types/react": "19.2.3",
     "@types/react-dom": "19.2.2",
     "@types/ua-parser-js": "0.7.39",
