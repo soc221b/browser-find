@@ -50,7 +50,7 @@ export default function _HotKey(): React.JSX.Element {
         }
 
         const selection = window.getSelection();
-        if (selection) {
+        if (selection && 0 < selection.toString().length) {
           state.dispatch({ type: "Input", value: selection.toString() });
         }
 
