@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.6.8](https://github.com/soc221b/browser-find/compare/v0.6.7...v0.6.8) (2025-11-18)
+
+
+### Bug Fixes
+
+* [#1](https://github.com/soc221b/browser-find/issues/1) ([c8f3131](https://github.com/soc221b/browser-find/commit/c8f313118832898c76d864aa9f9d69b7affedf19))
+* keep latest test if current selection is empty ([#625](https://github.com/soc221b/browser-find/issues/625)) ([c8f3131](https://github.com/soc221b/browser-find/commit/c8f313118832898c76d864aa9f9d69b7affedf19))
+
 ## [0.6.7](https://github.com/soc221b/browser-find/compare/v0.6.6...v0.6.7) (2025-10-17)
 
 
