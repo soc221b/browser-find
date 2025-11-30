@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.9](https://github.com/soc221b/browser-find/compare/v0.6.8...v0.6.9) (2025-11-30)
+
+
+### Bug Fixes
+
+* **deps:** update dependency zustand to v5.0.9 ([#633](https://github.com/soc221b/browser-find/issues/633)) ([00648a0](https://github.com/soc221b/browser-find/commit/00648a00ed3807d2d8e771696d90750a1fa74e6f))
+
 ## [0.6.8](https://github.com/soc221b/browser-find/compare/v0.6.7...v0.6.8) (2025-11-18)
 
 
