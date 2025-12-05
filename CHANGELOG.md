@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.6.9](https://github.com/soc221b/browser-find/compare/v0.6.8...v0.6.9) (2025-12-04)
+
+
+### Bug Fixes
+
+* **deps:** update dependency tsx to v4.21.0 ([#635](https://github.com/soc221b/browser-find/issues/635)) ([5c20b3b](https://github.com/soc221b/browser-find/commit/5c20b3b5bb294aeda00cbe09a024ca32d5e75167))
+* **deps:** update dependency zustand to v5.0.9 ([#633](https://github.com/soc221b/browser-find/issues/633)) ([00648a0](https://github.com/soc221b/browser-find/commit/00648a00ed3807d2d8e771696d90750a1fa74e6f))
+* **deps:** update react monorepo to v19.2.1 ([#639](https://github.com/soc221b/browser-find/issues/639)) ([8486c02](https://github.com/soc221b/browser-find/commit/8486c02403d9d792f5e6fe1db4e7e74f6b7a8781))
+
 ## [0.6.8](https://github.com/soc221b/browser-find/compare/v0.6.7...v0.6.8) (2025-11-18)
 
 
