@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.6.10](https://github.com/soc221b/browser-find/compare/v0.6.9...v0.6.10) (2025-12-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency ua-parser-js to v2.0.7 ([#642](https://github.com/soc221b/browser-find/issues/642)) ([1496e32](https://github.com/soc221b/browser-find/commit/1496e329f7978bd686a285041dd6f33bfda5e327))
+* **deps:** update react monorepo to v19.2.2 ([#646](https://github.com/soc221b/browser-find/issues/646)) ([fb578e2](https://github.com/soc221b/browser-find/commit/fb578e22c53a49285123d0b392badd9ed126d934))
+
 ## [0.6.9](https://github.com/soc221b/browser-find/compare/v0.6.8...v0.6.9) (2025-12-04)
 
 
