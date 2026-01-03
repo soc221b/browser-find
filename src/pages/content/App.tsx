@@ -5,6 +5,7 @@ import Close from "./components/Close";
 import FindNext from "./components/FindNext";
 import FindPrevious from "./components/FindPrevious";
 import Input from "./components/Input";
+import Minimap from "./components/Minimap";
 import Result from "./components/Result";
 import ToggleMatchCase from "./components/ToggleMatchCase";
 import ToggleMatchWholeWord from "./components/ToggleMatchWholeWord";
@@ -34,6 +35,7 @@ export default function App(): React.JSX.Element {
       <_HotKey></_HotKey>
       <_StyleSheet></_StyleSheet>
       <_Find></_Find>
+      <Minimap></Minimap>
     </div>
   );
 }
