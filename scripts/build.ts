@@ -112,9 +112,6 @@ async function buildHtmlPage(name: string, entry: string, outdir: string, dev = 
     minify: true,
     target: [
       "chrome58",
-      "firefox57",
-      "safari11",
-      "edge18",
     ],
     loader: {
       ".png": "dataurl",
@@ -158,9 +155,6 @@ async function buildJSPage(name: string, entry: string, outdir: string, dev: boo
     minify: true,
     target: [
       "chrome58",
-      "firefox57",
-      "safari11",
-      "edge18",
     ],
     loader: {
       ".png": "dataurl",
@@ -407,11 +401,7 @@ function toKebabCase(str: string) {
 }
 
 function manifestVersion(browser: BrowserPath): 2 | 3 {
-  if (browser.type === "chrome") {
-    return 3;
-  }
-
-  return 2;
+  return 3;
 }
 
 function GetArgs(): { browsers: string[]; dev: boolean } {
@@ -550,14 +540,6 @@ function LaunchCommand(browser: BrowserPath, profileDir: string) {
     "keep-profile-changes": null,
   };
 
-  if (browser.type === "firefox") {
-    args["source-dir"] = `"${resolve(__dirname, "..", "dist", "v2")}"`;
-    args["firefox-binary"] = `"${browser.path}"`;
-    args["firefox-profile"] = `"${profileDir}"`;
-
-    return getCommand(command, args);
-  }
-
   if (browser.type === "chrome") {
     args["source-dir"] = `"${resolve(__dirname, "..", "dist", "v3")}"`;
     args["target"] = "chromium";
@@ -565,10 +547,6 @@ function LaunchCommand(browser: BrowserPath, profileDir: string) {
     args["chromium-profile"] = `"${profileDir}"`;
 
     return getCommand(command, args);
-  }
-
-  if (browser.type === "safari") {
-    return "echo 'Safari reloading is not supported. Build in XCode and reload manually!'";
   }
 
   return;
