@@ -372,6 +372,10 @@ $RECYCLE.BIN/
 
 # testing
 /coverage
+/playwright-report
+/test-results
+/playwright-log.txt
+/.playwright-user-data
 
 # build
 /dist
