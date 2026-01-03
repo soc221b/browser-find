@@ -1,8 +1,8 @@
 # ci Specification (Delta)
 
-## Requirements
+## ADDED Requirements
 
-### ADDED Requirement: Headful CI Execution
+### Requirement: Headful CI Execution
 
 The CI environment MUST support running E2E tests in headful mode using a virtual display.
 
@@ -14,7 +14,7 @@ The CI environment MUST support running E2E tests in headful mode using a virtua
 - **Then** Playwright should successfully launch Chromium in headful mode.
 - **And** all E2E tests should pass or report failures correctly without "no display" errors.
 
-### ADDED Requirement: CI Build Dependency
+### Requirement: CI Build Dependency
 
 The CI environment MUST build the extension before running E2E tests.
 
