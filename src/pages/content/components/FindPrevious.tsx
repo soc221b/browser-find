@@ -9,7 +9,7 @@ export default function FindPrevious(): React.JSX.Element {
       disabled={!found.length}
       onClick={() => dispatch({ type: "FindPrevious" })}
       className="icon"
-      data-tooltip-content="Previous Match <kbd>Shit</kbd>+<kbd>Enter</kbd>"
+      data-tooltip-content="Previous Match <kbd>Shift</kbd>+<kbd>Enter</kbd>"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
