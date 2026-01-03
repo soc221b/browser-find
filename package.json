@@ -13,7 +13,9 @@
   "scripts": {
     "build": "mkdirp dist/v3 && tsx scripts/build-icons && tsx scripts/build.ts chrome && tsx scripts/zip",
     "format": "prettier --write .",
-    "test": "jest --watch"
+    "test": "npm run test:unit && npm run test:e2e",
+    "test:e2e": "playwright test",
+    "test:unit": "jest"
   },
   "dependencies": {
     "@floating-ui/dom": "1.7.4",
@@ -28,6 +30,7 @@
   },
   "devDependencies": {
     "@esbuilder/html": "0.0.6",
+    "@playwright/test": "^1.57.0",
     "@tailwindcss/postcss": "4.1.18",
     "@types/chrome": "0.1.32",
     "@types/cross-zip": "4.0.2",
