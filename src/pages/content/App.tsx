@@ -20,7 +20,7 @@ export default function App(): React.JSX.Element {
   const inert = useInert();
 
   return (
-    <div className="root" inert={inert}>
+    <div className="root" inert={inert} role="search">
       <Input></Input>
       <Result></Result>
       <ToggleMatchCase></ToggleMatchCase>

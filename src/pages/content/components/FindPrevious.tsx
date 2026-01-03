@@ -10,6 +10,7 @@ export default function FindPrevious(): React.JSX.Element {
       onClick={() => dispatch({ type: "FindPrevious" })}
       className="icon"
       data-tooltip-content="Previous Match <kbd>Shift</kbd>+<kbd>Enter</kbd>"
+      aria-label="Find Previous"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

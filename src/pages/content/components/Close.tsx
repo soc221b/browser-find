@@ -8,6 +8,7 @@ export default function Close(): React.JSX.Element {
       onClick={() => dispatch({ type: "Close" })}
       className="icon"
       data-tooltip-content="Close <kbd>Escape</kbd>"
+      aria-label="Close"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
