@@ -32,6 +32,8 @@ export default function Input(): React.JSX.Element {
       onChange={handleChange}
       onPaste={handlePaste}
       data-tooltip-content="Find"
+      placeholder="Search"
+      aria-label="Search"
     />
   );
 }

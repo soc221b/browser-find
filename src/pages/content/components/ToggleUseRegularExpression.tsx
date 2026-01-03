@@ -7,7 +7,7 @@ export default function ToggleUseRegularExpression(): React.JSX.Element {
 
   return (
     <button
-      data-active={shouldUseRegularExpression}
+      aria-pressed={shouldUseRegularExpression}
       onClick={() =>
         dispatch({
           type: "ToggleShouldUseRegularExpression",
@@ -20,6 +20,7 @@ export default function ToggleUseRegularExpression(): React.JSX.Element {
           ? "Use Regular Expression <kbd>Command</kbd>+<kbd>Option</kbd>+<kbd>R</kbd>"
           : "Use Regular Expression <kbd>Alt</kbd>+<kbd>R</kbd>"
       }
+      aria-label="Use Regular Expression"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

@@ -10,6 +10,7 @@ export default function FindNext(): React.JSX.Element {
       onClick={() => dispatch({ type: "FindNext" })}
       className="icon"
       data-tooltip-content="Next Match <kbd>Enter</kbd>"
+      aria-label="Find Next"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

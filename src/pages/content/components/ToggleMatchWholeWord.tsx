@@ -7,7 +7,7 @@ export default function ToggleMatchWholeWord(): React.JSX.Element {
 
   return (
     <button
-      data-active={shouldMatchWholeWord}
+      aria-pressed={shouldMatchWholeWord}
       onClick={() =>
         dispatch({
           type: "ToggleShouldMatchWholeWord",
@@ -20,6 +20,7 @@ export default function ToggleMatchWholeWord(): React.JSX.Element {
           ? "Match Whole Word <kbd>Command</kbd>+<kbd>Option</kbd>+<kbd>W</kbd>"
           : "Match Whole Word <kbd>Alt</kbd>+<kbd>W</kbd>"
       }
+      aria-label="Match Whole Word"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

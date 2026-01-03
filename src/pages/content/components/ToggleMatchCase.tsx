@@ -7,7 +7,7 @@ export default function ToggleMatchCase(): React.JSX.Element {
 
   return (
     <button
-      data-active={shouldMatchCase}
+      aria-pressed={shouldMatchCase}
       onClick={() =>
         dispatch({
           type: "ToggleShouldMatchCase",
@@ -20,6 +20,7 @@ export default function ToggleMatchCase(): React.JSX.Element {
           ? "Match Case <kbd>Command</kbd>+<kbd>Option</kbd>+<kbd>C</kbd>"
           : "Match Case <kbd>Alt</kbd>+<kbd>C</kbd>"
       }
+      aria-label="Match Case"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

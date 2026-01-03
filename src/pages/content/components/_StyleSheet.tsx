@@ -97,7 +97,7 @@ export default function _StyleSheet(): React.JSX.Element {
         background-color: #f4f4f4;
       }
 
-      #browser-find-top-layer button.icon[data-active='true'] {
+      #browser-find-top-layer button.icon[aria-pressed='true'] {
         background-color: #e5e5e5 !important;
       }
 
@@ -156,7 +156,7 @@ export default function _StyleSheet(): React.JSX.Element {
           background-color: #313131;
         }
 
-        #browser-find-top-layer button.icon[data-active='true'] {
+        #browser-find-top-layer button.icon[aria-pressed='true'] {
           background-color: #6C6C6B !important;
         }
 

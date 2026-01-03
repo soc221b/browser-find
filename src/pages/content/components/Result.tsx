@@ -17,7 +17,7 @@ export default function Result(): React.JSX.Element {
   };
 
   return subscribing ? (
-    <div className="spin icon result">
+    <div className="spin icon result" role="status">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         height="24"
@@ -29,7 +29,7 @@ export default function Result(): React.JSX.Element {
       </svg>
     </div>
   ) : text ? (
-    <div onClick={handleClick} className="result">
+    <div onClick={handleClick} className="result" role="status">
       {`${nth}/${total}`}
     </div>
   ) : (
