@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.7.0](https://github.com/soc221b/browser-find/compare/v0.6.11...v0.7.0) (2026-01-04)
+
+
+### Features
+
+* minimap ([#656](https://github.com/soc221b/browser-find/issues/656)) ([6165980](https://github.com/soc221b/browser-find/commit/6165980aa48587ad056023aca735472e4f85dc27)), closes [#390](https://github.com/soc221b/browser-find/issues/390)
+
+
+### Bug Fixes
+
+* minimap ([5a65f28](https://github.com/soc221b/browser-find/commit/5a65f2813f507b8cb772e0b0eb1ef506117c1d52))
+* the input should not have a placeholder ([aec680e](https://github.com/soc221b/browser-find/commit/aec680ef09e5e55a9249758fddb6a57e52189886))
+* typo ([e24e5df](https://github.com/soc221b/browser-find/commit/e24e5df5d7a0ddc29357e199741db76f0e177ec6))
+
 ## [0.6.11](https://github.com/soc221b/browser-find/compare/v0.6.10...v0.6.11) (2025-12-12)
 
 
