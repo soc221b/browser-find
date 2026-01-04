@@ -50,10 +50,13 @@ export default function Minimap() {
 
   return (
     <div
+      aria-label="Minimap"
+      role="complementary"
       style={{
         position: "fixed",
         top: 0,
         right: 0,
+        width: "6px",
         height: "100vh",
         pointerEvents: "none",
         zIndex: 2147483647, // Max z-index to be safe, or 9999 as per spec
@@ -61,6 +64,7 @@ export default function Minimap() {
     >
       {ticks.map((top, index) => (
         <div
+          aria-label="Match location"
           key={index}
           style={{
             position: "absolute",
