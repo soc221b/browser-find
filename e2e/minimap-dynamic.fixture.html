@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dynamic Content Page</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 20px;
+        font-family: sans-serif;
+      }
+      #container {
+        min-height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Dynamic Content Page</h1>
+    <button id="add-content">Add Target</button>
+    <div id="container">
+      <p>Click the button to add a target.</p>
+    </div>
+
+    <script>
+      document.getElementById("add-content").addEventListener("click", () => {
+        const p = document.createElement("p");
+        p.textContent = "New target added dynamically.";
+        p.className = "target";
+        document.getElementById("container").appendChild(p);
+      });
+    </script>
+  </body>
+</html>

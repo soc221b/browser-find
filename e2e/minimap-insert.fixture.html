@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Minimap Insertion Test</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 20px;
+        font-family: sans-serif;
+      }
+      .spacer {
+        height: 50vh;
+      }
+      #dynamic-content {
+        background: #eee;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Minimap Insertion Test</h1>
+    <button id="insert-content">Insert Content</button>
+
+    <div id="first-target">
+      <p>This is the first target match.</p>
+    </div>
+
+    <div id="insertion-point"></div>
+
+    <div id="second-target">
+      <p>This is the second target match.</p>
+    </div>
+
+    <div class="spacer"></div>
+
+    <script>
+      document.getElementById("insert-content").addEventListener("click", () => {
+        const div = document.createElement("div");
+        div.id = "dynamic-content";
+        div.style.height = "500px";
+        div.textContent = "Inserted content to push the second target down.";
+        document.getElementById("insertion-point").appendChild(div);
+      });
+    </script>
+  </body>
+</html>
