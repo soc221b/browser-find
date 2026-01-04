@@ -12,7 +12,10 @@ export const test = base.extend<{
 }>({
   context: async ({}, use, workerInfo) => {
     const pathToExtension = path.join(__dirname, "../dist/v3");
-    const userDataDir = path.join(__dirname, `../.playwright-user-data-${workerInfo.workerIndex}`);
+    const userDataDir = path.join(
+      __dirname,
+      `../node_modules/.playwright/user-data-${workerInfo.workerIndex}`,
+    );
     const context = await chromium.launchPersistentContext(userDataDir, {
       headless: false, // Extensions only work in headful mode for now in some scenarios, or with specific flags.
       args: [
