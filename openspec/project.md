@@ -36,8 +36,14 @@ A browser extension designed specifically for Google Chrome that enables users t
 ### Testing Strategy
 
 - **Unit Tests:** Jest is used for testing logic, reducers, and utilities.
-- **Location:** `__tests__` directories co-located with the code (e.g., `src/use-cases/__tests__`, `src/utils/__tests__`).
-- **Command:** `npm test` runs Jest in watch mode.
+- **E2E Tests:** Playwright is used for automated end-to-end testing with co-located fixtures and accessibility-based locators.
+- **Location:**
+  - Unit tests: `__tests__` directories co-located with the code (e.g., `src/use-cases/__tests__`, `src/utils/__tests__`).
+  - E2E tests: `e2e/` directory at the project root.
+- **Commands:**
+  - `npm run test` runs both unit and E2E tests.
+  - `npm run test:unit` runs Jest unit tests.
+  - `npm run test:e2e` runs Playwright E2E tests.
 
 ### Git Workflow
 
