@@ -34,4 +34,10 @@ test.describe("Input and Search", () => {
     const result = page.getByRole("status");
     await expect(result).toHaveText("0/0");
   });
+
+  test("should not have a placeholder in the find input", async ({ page }) => {
+    const input = page.getByLabel("Search");
+
+    await expect(input).not.toHaveAttribute("placeholder");
+  });
 });
