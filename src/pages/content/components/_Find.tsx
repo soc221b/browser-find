@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import useStore from "../store";
 import { find } from "../use-cases/find";
 
@@ -10,42 +10,6 @@ export default function _Find(): React.JSX.Element {
   const shouldMatchWholeWord = useStore((state) => state.shouldMatchWholeWord);
   const shouldUseRegularExpression = useStore((state) => state.shouldUseRegularExpression);
   const text = useStore((state) => state.text);
-  const [
-    version,
-    setVersion,
-  ] = useState(0);
-
-  useEffect(() => {
-    let timeoutId: ReturnType<typeof setTimeout>;
-    const observer = new MutationObserver((mutations) => {
-      const hasExternalMutation = mutations.some((mutation) => {
-        let node: Node | null = mutation.target;
-        while (node) {
-          if (node instanceof HTMLElement && node.id === "browser-find-top-layer") {
-            return false;
-          }
-          node = node.parentNode;
-        }
-        return true;
-      });
-
-      if (hasExternalMutation) {
-        clearTimeout(timeoutId);
-        timeoutId = setTimeout(() => {
-          setVersion((v) => v + 1);
-        }, 300);
-      }
-    });
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
-      characterData: true,
-    });
-    return () => {
-      observer.disconnect();
-      clearTimeout(timeoutId);
-    };
-  }, []);
 
   useEffect(() => {
     dispatch({ type: "Subscribe" });
@@ -75,7 +39,6 @@ export default function _Find(): React.JSX.Element {
     shouldMatchWholeWord,
     shouldUseRegularExpression,
     text,
-    version,
   ]);
 
   return <></>;

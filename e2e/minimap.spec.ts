@@ -69,7 +69,7 @@ test.describe("Minimap", () => {
     expect(afterSecondScrollTickBox).toEqual(initialTickBox);
   });
 
-  test("should update when dynamic content is added", async ({
+  test("should not update matches when dynamic content is added", async ({
     page,
     loadFixture,
     getModifier,
@@ -93,8 +93,8 @@ test.describe("Minimap", () => {
     // Add dynamic content
     await page.getByRole("button", { name: "Add Target" }).click();
 
-    // Should now have another "target" (12 + 6 = 18)
-    await expect(ticks).toHaveCount(18);
+    // Should NOT have another "target" (remains 12)
+    await expect(ticks).toHaveCount(12);
   });
 
   test("should update positions when window is resized", async ({
