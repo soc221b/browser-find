@@ -375,7 +375,7 @@ $RECYCLE.BIN/
 /playwright-report
 /test-results
 /playwright-log.txt
-/.playwright-user-data
+/.playwright-user-data*
 
 # build
 /dist

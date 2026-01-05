@@ -49,12 +49,12 @@ The project MUST provide a single command to run all tests (unit and E2E) withou
 
 ### Requirement: Git Exclusion
 
-Playwright-related artifacts and reports MUST be excluded from version control.
+Playwright-related artifacts, reports, and temporary user data MUST be excluded from version control.
 
 #### Scenario: Checking gitignore
 
 - **When** checking `.gitignore`.
-- **Then** it should contain entries for `playwright-report/`, `test-results/`, and other Playwright-specific folders.
+- **Then** it should contain entries for `playwright-report/`, `test-results/`, and other Playwright-specific folders or be stored in ignored directories like `node_modules/`.
 
 ### Requirement: E2E Locator Priority
 
@@ -75,3 +75,13 @@ E2E tests MUST prioritize locators in the following order:
 
 - **When** verifying the state of a toggle button.
 - **Then** the test MUST use `aria-pressed` or `getByRole('button', { pressed: boolean })` instead of `data-*` attributes.
+
+### Requirement: Persistent Context Data Location
+
+Playwright persistent context data MUST be stored within the `node_modules` directory to avoid cluttering the project root and ensure it is excluded from version control.
+
+#### Scenario: Verifying user data directory location
+
+- **Given** the E2E tests are running.
+- **When** the browser context is created.
+- **Then** the `userDataDir` MUST be located under `node_modules/.playwright/`.
