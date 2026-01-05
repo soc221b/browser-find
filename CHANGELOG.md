@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.1](https://github.com/soc221b/browser-find/compare/v0.7.0...v0.7.1) (2026-01-05)
+
+
+### Bug Fixes
+
+* minimap should ignore new matches in dynamic content ([#662](https://github.com/soc221b/browser-find/issues/662)) ([01ac07f](https://github.com/soc221b/browser-find/commit/01ac07f1e575e37ca158fbfa87ef1220ef1e3884))
+
 ## [0.7.0](https://github.com/soc221b/browser-find/compare/v0.6.11...v0.7.0) (2026-01-04)
 
 
