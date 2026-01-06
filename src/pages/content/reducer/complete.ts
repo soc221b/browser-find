@@ -49,6 +49,7 @@ const reducer: Reducer = (state) => {
   });
   highlight.ranges.forEach((range) => {
     highlights({ range, isAdd: true, isThis: true });
+    highlights({ range, isAdd: false, isThis: false });
   });
   return nextState;
 };

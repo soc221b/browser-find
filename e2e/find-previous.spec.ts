@@ -37,4 +37,23 @@ test.describe("Find Previous", () => {
     await prevButton.click();
     await expect(result).toHaveText(`${total}/${total}`);
   });
+
+  test("should highlight matches with correct colors after Previous", async ({
+    page,
+    getHighlightCounts,
+  }) => {
+    const input = page.getByLabel("Search");
+    await input.fill("test");
+
+    const prevButton = page.getByRole("button", { name: "Find Previous" });
+    await prevButton.click();
+
+    // Wait for highlights to be applied
+    await page.waitForTimeout(500);
+
+    const highlights = await getHighlightCounts();
+
+    expect(highlights.thisCount).toBe(4); // Match 3 is 4 characters
+    expect(highlights.theOthersCount).toBe(8); // Matches 1 and 2 are 4+4=8 characters
+  });
 });
