@@ -35,6 +35,19 @@ test.describe("Input and Search", () => {
     await expect(result).toHaveText("0/0");
   });
 
+  test("should highlight matches with correct colors", async ({ page, getHighlightCounts }) => {
+    const input = page.getByLabel("Search");
+    await input.fill("test");
+
+    // Wait for highlights to be applied
+    await page.waitForTimeout(500);
+
+    const highlights = await getHighlightCounts();
+
+    expect(highlights.thisCount).toBe(4); // "test" is 4 characters
+    expect(highlights.theOthersCount).toBe(4); // the other "test" is 4 characters
+  });
+
   test("should not have a placeholder in the find input", async ({ page }) => {
     const input = page.getByLabel("Search");
 

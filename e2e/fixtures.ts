@@ -9,6 +9,7 @@ export const test = base.extend<{
   extensionId: string;
   loadFixture: (filename: string) => Promise<void>;
   getModifier: () => Promise<string>;
+  getHighlightCounts: () => Promise<{ thisCount: number; theOthersCount: number }>;
 }>({
   context: async ({}, use, workerInfo) => {
     const pathToExtension = path.join(__dirname, "../dist/v3");
@@ -48,6 +49,18 @@ export const test = base.extend<{
         return /Mac|iPhone|iPod|iPad/.test(navigator.userAgent);
       });
       return isMac ? "Meta" : "Control";
+    });
+  },
+  getHighlightCounts: async ({ page }, use) => {
+    await use(async () => {
+      return await page.evaluate(() => {
+        const thisKey = "browser-find-found-this";
+        const theOthersKey = "browser-find-found-these-too";
+        return {
+          thisCount: window.CSS.highlights.get(thisKey)?.size ?? NaN,
+          theOthersCount: window.CSS.highlights.get(theOthersKey)?.size ?? NaN,
+        };
+      });
     });
   },
 });
