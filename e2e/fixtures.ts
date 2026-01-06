@@ -8,7 +8,6 @@ export const test = base.extend<{
   context: BrowserContext;
   extensionId: string;
   loadFixture: (filename: string) => Promise<void>;
-  getModifier: () => Promise<string>;
   getHighlightCounts: () => Promise<{ thisCount: number; theOthersCount: number }>;
 }>({
   context: async ({}, use, workerInfo) => {
@@ -17,8 +16,12 @@ export const test = base.extend<{
       __dirname,
       `../node_modules/.playwright/user-data-${workerInfo.workerIndex}`,
     );
+    const isMac = process.platform === "darwin";
     const context = await chromium.launchPersistentContext(userDataDir, {
       headless: false, // Extensions only work in headful mode for now in some scenarios, or with specific flags.
+      userAgent: isMac
+        ? "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.7499.4 Safari/537.36"
+        : undefined,
       args: [
         `--disable-extensions-except=${pathToExtension}`,
         `--load-extension=${pathToExtension}`,
@@ -41,14 +44,8 @@ export const test = base.extend<{
     await use(async (filename: string) => {
       const fixturePath = path.resolve(__dirname, filename);
       await page.goto(`file://${fixturePath}`);
-    });
-  },
-  getModifier: async ({ page }, use) => {
-    await use(async () => {
-      const isMac = await page.evaluate(() => {
-        return /Mac|iPhone|iPod|iPad/.test(navigator.userAgent);
-      });
-      return isMac ? "Meta" : "Control";
+      // Wait for extension to inject its container
+      await page.waitForSelector("#browser-find-top-layer", { state: "attached" });
     });
   },
   getHighlightCounts: async ({ page }, use) => {
