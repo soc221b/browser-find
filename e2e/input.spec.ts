@@ -1,11 +1,9 @@
 import { expect, test } from "./fixtures";
 
 test.describe("Input and Search", () => {
-  test.beforeEach(async ({ page, loadFixture, getModifier }) => {
+  test.beforeEach(async ({ page, loadFixture }) => {
     await loadFixture("input.fixture.html");
-    await page.waitForTimeout(500);
-    const modifier = await getModifier();
-    await page.keyboard.press(`${modifier}+f`);
+    await page.keyboard.press("ControlOrMeta+f");
   });
 
   test("should find multiple matches", async ({ page }) => {
@@ -40,12 +38,11 @@ test.describe("Input and Search", () => {
     await input.fill("test");
 
     // Wait for highlights to be applied
-    await page.waitForTimeout(500);
-
-    const highlights = await getHighlightCounts();
-
-    expect(highlights.thisCount).toBe(4); // "test" is 4 characters
-    expect(highlights.theOthersCount).toBe(4); // the other "test" is 4 characters
+    await expect(async () => {
+      const highlights = await getHighlightCounts();
+      expect(highlights.thisCount).toBe(4); // "test" is 4 characters
+      expect(highlights.theOthersCount).toBe(4); // the other "test" is 4 characters
+    }).toPass();
   });
 
   test("should not have a placeholder in the find input", async ({ page }) => {

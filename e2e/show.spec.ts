@@ -1,33 +1,22 @@
 import { expect, test } from "./fixtures";
 
 test.describe("Show Find Bar", () => {
-  test("should show the find bar when pressing the shortcut", async ({
-    page,
-    loadFixture,
-    getModifier,
-  }) => {
+  test("should show the find bar when pressing the shortcut", async ({ page, loadFixture }) => {
     await loadFixture("show.fixture.html");
-    await page.waitForTimeout(500);
 
     const findBar = page.getByRole("search");
     // Initially hidden (popover is not shown)
     await expect(findBar).toBeHidden();
 
-    const modifier = await getModifier();
-    await page.keyboard.press(`${modifier}+f`);
+    await page.keyboard.press("ControlOrMeta+f");
 
     await expect(findBar).toBeVisible();
     const input = findBar.getByLabel("Search");
     await expect(input).toBeFocused();
   });
 
-  test("should populate find bar with selected text", async ({
-    page,
-    loadFixture,
-    getModifier,
-  }) => {
+  test("should populate find bar with selected text", async ({ page, loadFixture }) => {
     await loadFixture("show.fixture.html");
-    await page.waitForTimeout(500);
 
     // Select some text
     await page.evaluate(() => {
@@ -43,8 +32,7 @@ test.describe("Show Find Bar", () => {
       }
     });
 
-    const modifier = await getModifier();
-    await page.keyboard.press(`${modifier}+f`);
+    await page.keyboard.press("ControlOrMeta+f");
 
     const input = page.getByLabel("Search");
     await expect(input).toBeVisible();

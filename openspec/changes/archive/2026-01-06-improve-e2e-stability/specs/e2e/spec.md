@@ -1,10 +1,4 @@
-# e2e Specification
-
-## Purpose
-
-TBD - created by archiving change setup-playwright-e2e. Update Purpose after archive.
-
-## Requirements
+## MODIFIED Requirements
 
 ### Requirement: Playwright Framework Integration
 
@@ -33,64 +27,7 @@ The project MUST include Playwright for automated E2E testing. Tests MUST be ind
 - **When** I use `page.keyboard.press('ControlOrMeta+f')`.
 - **Then** Playwright should automatically map it to the correct modifier for the current platform.
 
-### Requirement: JSON Reporting
-
-Playwright MUST generate test reports in JSON format.
-
-#### Scenario: Verifying report output
-
-- **When** E2E tests are completed.
-- **Then** a file named `playwright-report/results.json` should exist and contain the test results in JSON format.
-
-### Requirement: Unified Test Command
-
-The project MUST provide a single command to run all tests (unit and E2E) without watch mode by default.
-
-#### Scenario: Running all tests
-
-- **Given** the extension is built.
-- **When** I run `npm test`.
-- **Then** Jest unit tests should run first (non-watch).
-- **And** Playwright E2E tests should run next (non-watch).
-
-### Requirement: Git Exclusion
-
-Playwright-related artifacts, reports, and temporary user data MUST be excluded from version control.
-
-#### Scenario: Checking gitignore
-
-- **When** checking `.gitignore`.
-- **Then** it should contain entries for `playwright-report/`, `test-results/`, and other Playwright-specific folders or be stored in ignored directories like `node_modules/`.
-
-### Requirement: E2E Locator Priority
-
-E2E tests MUST prioritize locators in the following order:
-
-1. `page.getByRole()`
-2. `page.getByLabel()`
-3. `page.getByPlaceholder()`
-4. `page.getByText()`
-5. `page.getByDisplayValue()`
-6. `page.getByAltText()`
-7. `page.getByTitle()`
-8. `page.getByTestId()`
-
-**Tests MUST prefer accessibility-based locators and standard ARIA attributes over implementation-specific attributes (like `data-*`) for verifying state.**
-
-#### Scenario: Testing toggle state
-
-- **When** verifying the state of a toggle button.
-- **Then** the test MUST use `aria-pressed` or `getByRole('button', { pressed: boolean })` instead of `data-*` attributes.
-
-### Requirement: Persistent Context Data Location
-
-Playwright persistent context data MUST be stored within the `node_modules` directory to avoid cluttering the project root and ensure it is excluded from version control.
-
-#### Scenario: Verifying user data directory location
-
-- **Given** the E2E tests are running.
-- **When** the browser context is created.
-- **Then** the `userDataDir` MUST be located under `node_modules/.playwright/`.
+## ADDED Requirements
 
 ### Requirement: Test Stability and Robustness
 

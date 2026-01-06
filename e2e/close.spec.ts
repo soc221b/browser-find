@@ -1,11 +1,9 @@
 import { expect, test } from "./fixtures";
 
 test.describe("Close Find Bar", () => {
-  test.beforeEach(async ({ page, loadFixture, getModifier }) => {
+  test.beforeEach(async ({ page, loadFixture }) => {
     await loadFixture("close.fixture.html");
-    await page.waitForTimeout(500);
-    const modifier = await getModifier();
-    await page.keyboard.press(`${modifier}+f`);
+    await page.keyboard.press("ControlOrMeta+f");
     await expect(page.getByRole("search")).toBeVisible();
   });
 
