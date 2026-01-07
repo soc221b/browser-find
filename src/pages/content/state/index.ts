@@ -22,6 +22,10 @@ export type State = {
 
     focusOffset: number;
   };
+
+  searchVersion: number;
+
+  pendingNavigation: "next" | "previous" | null;
 };
 
 const initialState: State = {
@@ -48,6 +52,10 @@ const initialState: State = {
 
     focusOffset: 0,
   },
+
+  searchVersion: 0,
+
+  pendingNavigation: null,
 };
 
 export default initialState;

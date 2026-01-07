@@ -10,6 +10,7 @@ export default function _Find(): React.JSX.Element {
   const shouldMatchWholeWord = useStore((state) => state.shouldMatchWholeWord);
   const shouldUseRegularExpression = useStore((state) => state.shouldUseRegularExpression);
   const text = useStore((state) => state.text);
+  const searchVersion = useStore((state) => state.searchVersion);
 
   useEffect(() => {
     dispatch({ type: "Subscribe" });
@@ -39,6 +40,7 @@ export default function _Find(): React.JSX.Element {
     shouldMatchWholeWord,
     shouldUseRegularExpression,
     text,
+    searchVersion,
   ]);
 
   return <></>;
