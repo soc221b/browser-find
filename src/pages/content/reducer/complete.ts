@@ -66,11 +66,7 @@ const reducer: Reducer = (state) => {
 
   const highlight = state.found[highlightIndex];
   nextState.highlightId = highlight.id;
-  highlight.ranges[0].startContainer.parentElement?.scrollIntoView({
-    behavior: "instant",
-    block: "nearest",
-    inline: "nearest",
-  });
+  highlight.ranges[0].startContainer.parentElement?.scrollIntoViewIfNeeded(true);
   highlight.ranges.forEach((range) => {
     highlights({ range, isAdd: true, isThis: true });
     highlights({ range, isAdd: false, isThis: false });
