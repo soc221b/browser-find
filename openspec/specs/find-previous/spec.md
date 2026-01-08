@@ -42,6 +42,34 @@ The system SHALL highlight the previous match in the sequence.
 - **AND** finds the new matches
 - **AND** focuses the new match closest to (at or before) the last known anchor position
 
+#### Scenario: No matches exist (Dynamic discovery)
+
+- **WHEN** 0 matches were previously found
+- **AND** new elements containing the search term are added to the DOM
+- **AND** the user triggers "Find Previous"
+- **THEN** the system performs a new search
+- **AND** finds the new matches
+- **AND** focuses the last match
+
+#### Scenario: Only one match exists (Dynamic discovery)
+
+- **WHEN** only 1 match was previously found
+- **AND** new elements containing the search term are added to the DOM
+- **AND** the user triggers "Find Previous"
+- **THEN** the system performs a new search
+- **AND** finds the new matches
+- **AND** focuses the previous match in sequence (wrapping if necessary)
+
+#### Scenario: Wrap around (Dynamic discovery)
+
+- **WHEN** multiple matches exist
+- **AND** the focus is on the first match
+- **AND** new elements containing the search term are added to the DOM
+- **AND** the user triggers "Find Previous"
+- **THEN** the system performs a new search
+- **AND** finds the new matches
+- **AND** focuses the last match in the updated list
+
 ### Requirement: Visual Highlighting
 
 The system MUST visually distinguish the active match from other matches.

@@ -6,7 +6,6 @@ export default function FindNext(): React.JSX.Element {
 
   return (
     <button
-      disabled={!found.length}
       onClick={() => dispatch({ type: "FindNext" })}
       className="icon"
       data-tooltip-content="Next Match <kbd>Enter</kbd>"
