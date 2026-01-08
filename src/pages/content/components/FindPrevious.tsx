@@ -6,7 +6,6 @@ export default function FindPrevious(): React.JSX.Element {
 
   return (
     <button
-      disabled={!found.length}
       onClick={() => dispatch({ type: "FindPrevious" })}
       className="icon"
       data-tooltip-content="Previous Match <kbd>Shift</kbd>+<kbd>Enter</kbd>"

@@ -10,6 +10,9 @@ const reducer: Reducer = (state) => {
   const index = binarySearchIndex(state.found, state.highlightId, (match) => match.id);
   let nextHighlightId: number | null = null;
 
+  const isWrappingAround = index <= 0;
+  const shouldReSearch = state.found.length <= 1 || isWrappingAround;
+
   if (index > 0) {
     nextHighlightId = state.found[index - 1].id;
   } else {
@@ -19,7 +22,7 @@ const reducer: Reducer = (state) => {
   const nextIndex = binarySearchIndex(state.found, nextHighlightId, (match) => match.id);
   const nextMatch = state.found[nextIndex];
 
-  if (nextMatch && !isMatchValid(nextMatch)) {
+  if (shouldReSearch || (nextMatch && !isMatchValid(nextMatch))) {
     const currentMatch = state.found[index];
     return {
       ...state,
