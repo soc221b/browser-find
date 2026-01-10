@@ -120,7 +120,7 @@ async function createNodeMaps({
   let nodeMaps: NodeMap[] = [];
 
   let DFSStack: {
-    parentElement: null | ChildNode;
+    parentElement: null | Node;
     nextChildNodeIndex: number;
   }[] = [
     {
@@ -139,7 +139,11 @@ async function createNodeMaps({
       continue;
     }
 
-    const parentElement = top.parentElement as Element;
+    const parentElement = (
+      top.parentElement.nodeType === Node.ELEMENT_NODE
+        ? top.parentElement
+        : (top.parentElement as ShadowRoot).host
+    ) as Element;
     const childNodes = top.parentElement.childNodes;
     const childNodeIndex = top.nextChildNodeIndex;
     if (childNodes.length <= childNodeIndex) {
@@ -148,6 +152,7 @@ async function createNodeMaps({
     }
 
     const childNode = childNodes[childNodeIndex];
+    // console.log("Visiting node:", childNode.nodeName, childNode.nodeType);
     switchLabel: switch (childNode.nodeType) {
       case Node.ELEMENT_NODE: {
         const element = childNode as Element;
@@ -186,6 +191,13 @@ async function createNodeMaps({
         }
         if (CSSStyleDeclaration.visibility === "hidden") {
           break switchLabel;
+        }
+
+        if (element.shadowRoot) {
+          DFSStack.push({
+            parentElement: element.shadowRoot,
+            nextChildNodeIndex: 0,
+          });
         }
 
         DFSStack.push({
