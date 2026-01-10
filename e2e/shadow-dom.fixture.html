@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fixture: Shadow DOM</title>
+  </head>
+  <body>
+    <div id="open-shadow"></div>
+    <div id="nested-shadow"></div>
+    <div id="mixed-shadow">
+      Light DOM Text
+      <div id="mixed-shadow-root"></div>
+    </div>
+
+    <script>
+      // Open Shadow DOM
+      const openDiv = document.getElementById("open-shadow");
+      const openRoot = openDiv.attachShadow({ mode: "open" });
+      openRoot.innerHTML = "<p>Shadow Content</p>";
+
+      // Nested Shadow DOM
+      const nestedDiv = document.getElementById("nested-shadow");
+      const nestedRoot = nestedDiv.attachShadow({ mode: "open" });
+      nestedRoot.innerHTML = '<div id="inner-shadow"></div>';
+      const innerDiv = nestedRoot.getElementById("inner-shadow");
+      const innerRoot = innerDiv.attachShadow({ mode: "open" });
+      innerRoot.innerHTML = "<span>Nested Shadow Content</span>";
+
+      // Mixed Light and Shadow DOM
+      const mixedDiv = document.getElementById("mixed-shadow-root");
+      const mixedRoot = mixedDiv.attachShadow({ mode: "open" });
+      mixedRoot.innerHTML = "<i>More Shadow Content</i>";
+    </script>
+  </body>
+</html>

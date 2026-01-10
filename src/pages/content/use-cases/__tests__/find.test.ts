@@ -119,8 +119,24 @@ const suits: Suit[] = [];
 
   //
   (function shadowDOM() {
-    // TODO: support finding text in shadow DOM
-    // e.g., highlights GitHub <relative-time /> custom element
+    {
+      const documentElement = createDocumentElement(`<div></div>`);
+      const div = documentElement.querySelector("div")!;
+      const shadowRoot = div.attachShadow({ mode: "open" });
+      shadowRoot.textContent = "a";
+      suits.push({
+        documentElement,
+        text: "a",
+        shouldMatchCase: false,
+        shouldMatchWholeWord: false,
+        shouldUseRegularExpression: false,
+        expected: [
+          [
+            createRange(shadowRoot.childNodes[0], 0, 1),
+          ],
+        ],
+      });
+    }
   })();
 })();
 
