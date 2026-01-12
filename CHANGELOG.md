@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.8.0](https://github.com/soc221b/browser-find/compare/v0.7.1...v0.8.0) (2026-01-12)
+
+
+### Features
+
+* discover new matches on navigation ([#667](https://github.com/soc221b/browser-find/issues/667)) ([4ef8467](https://github.com/soc221b/browser-find/commit/4ef84670f8a005b0fb604829ac8863adc5d05e98))
+* handle missing matches during navigation with automatic recovery ([#665](https://github.com/soc221b/browser-find/issues/665)) ([fa23e31](https://github.com/soc221b/browser-find/commit/fa23e31b2bee1b9425dd075be8a5a7c3b463e678))
+* support shadow dom ([#671](https://github.com/soc221b/browser-find/issues/671)) ([0ab8f81](https://github.com/soc221b/browser-find/commit/0ab8f81bda57239894b2626948b664ab31d7b24c))
+
+
+### Bug Fixes
+
+* **deps:** update dependency zustand to v5.0.10 ([#675](https://github.com/soc221b/browser-find/issues/675)) ([be0fcf9](https://github.com/soc221b/browser-find/commit/be0fcf9aa1245d3ae30d21273035e9ae6215092a))
+* scroll into view only if needed ([#669](https://github.com/soc221b/browser-find/issues/669)) ([3dd1d43](https://github.com/soc221b/browser-find/commit/3dd1d430ea470e68e00cdc5920c20a69daa84ee4))
+
 ## [0.7.1](https://github.com/soc221b/browser-find/compare/v0.7.0...v0.7.1) (2026-01-05)
 
 
