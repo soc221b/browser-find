@@ -580,7 +580,7 @@ function DevBrowserExt(browsers: string[]) {
   }
 
   if (matchedBrowsers.length === 0) {
-    commands.push("sleep 100000"); // TODO: A more elegant way of doing nothing?
+    commands.push('node -e "setInterval(() => {}, 1e9)"');
   }
 
   const { result } = concurrently(commands);

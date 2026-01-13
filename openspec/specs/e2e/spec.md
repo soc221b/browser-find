@@ -84,13 +84,14 @@ E2E tests MUST prioritize locators in the following order:
 
 ### Requirement: Persistent Context Data Location
 
-Playwright persistent context data MUST be stored within the `node_modules` directory to avoid cluttering the project root and ensure it is excluded from version control.
+Playwright persistent context data MUST be stored within the `node_modules` directory to avoid cluttering the project root and ensure it is excluded from version control. **The path MUST be correctly resolved for the host operating system to ensure stability across platforms (macOS, Linux, Windows).**
 
 #### Scenario: Verifying user data directory location
 
 - **Given** the E2E tests are running.
 - **When** the browser context is created.
 - **Then** the `userDataDir` MUST be located under `node_modules/.playwright/`.
+- **AND** the path MUST be valid for the current OS.
 
 ### Requirement: Test Stability and Robustness
 
@@ -131,3 +132,14 @@ E2E tests MUST use non-trivial scenarios to verify functionality. This includes 
 - **When** I navigate to the next or previous match.
 - **Then** the `thisCount` MUST update to reflect the length of the currently active match.
 - **And** the `theOthersCount` MUST update to reflect the sum of all other matches.
+
+### Requirement: Cross-Platform Fixture Loading
+
+The test suite MUST reliably load local HTML fixtures across all supported operating systems.
+
+#### Scenario: Loading a fixture on Windows
+
+- **GIVEN** the test suite is running on Windows.
+- **WHEN** `loadFixture` is called.
+- **THEN** it MUST use `pathToFileURL` to generate a valid `file:///` URL.
+- **AND** the browser MUST successfully navigate to the fixture.

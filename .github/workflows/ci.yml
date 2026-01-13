@@ -40,7 +40,10 @@ jobs:
         run: npx jest
 
   e2e:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
 
     steps:
       - uses: actions/checkout@v6
@@ -58,8 +61,13 @@ jobs:
       - name: Install Playwright
         run: npx playwright install --with-deps chromium
 
-      - name: Run E2E tests
+      - name: Run E2E tests (Linux)
+        if: runner.os == 'Linux'
         run: xvfb-run npm run test:e2e
+
+      - name: Run E2E tests (Windows)
+        if: runner.os == 'Windows'
+        run: npm run test:e2e
 
   build:
     runs-on: ubuntu-latest
