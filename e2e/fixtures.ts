@@ -11,10 +11,12 @@ export const test = base.extend<{
   getHighlightCounts: () => Promise<{ thisCount: number; theOthersCount: number }>;
 }>({
   context: async ({}, use, workerInfo) => {
-    const pathToExtension = path.resolve(__dirname, "../dist/v3");
+    const pathToExtension = path.resolve(__dirname, "..", "dist", "v3");
     const userDataDir = path.resolve(
       __dirname,
-      `../node_modules/.playwright/user-data-${workerInfo.workerIndex}`,
+      "..",
+      ".playwright-user-data",
+      `worker-${workerInfo.workerIndex}`,
     );
     const isMac = process.platform === "darwin";
     const context = await chromium.launchPersistentContext(userDataDir, {

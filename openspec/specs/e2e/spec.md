@@ -8,7 +8,7 @@ TBD - created by archiving change setup-playwright-e2e. Update Purpose after arc
 
 ### Requirement: Playwright Framework Integration
 
-The project MUST include Playwright for automated E2E testing. Tests MUST be independent, black-boxed, and use dedicated, co-located HTML fixture files for each spec to ensure test isolation and avoid side effects from shared global fixtures. **These fixtures MUST follow a standard minimal HTML5 template (including `lang="en"`, `meta charset`, and `viewport`) to ensure a consistent and modern testing environment.** **Locators MUST follow a prioritized strategy focused on accessibility and user-centricity, similar to `testing-library`.** **Tests SHOULD use platform-agnostic modifier keys like `ControlOrMeta` for keyboard interactions to ensure cross-platform compatibility.**
+The project MUST include Playwright for automated E2E testing. Tests MUST be independent, black-boxed, and use dedicated, co-located HTML fixture files for each spec to ensure test isolation and avoid side effects from shared global fixtures. **These fixtures MUST follow a standard minimal HTML5 template (including `lang="en"`, `meta charset`, and `viewport`) to ensure a consistent and modern testing environment.** **Locators MUST follow a prioritized strategy focused on accessibility and user-centricity, similar to `testing-library`.** **Tests SHOULD use platform-agnostic modifier keys like `ControlOrMeta` for keyboard interactions to ensure cross-platform compatibility.** **Fixture loading MUST ensure the extension is ready and the container is attached before proceeding with test steps.**
 
 #### Scenario: Running E2E tests with dedicated co-located fixtures
 
@@ -16,7 +16,8 @@ The project MUST include Playwright for automated E2E testing. Tests MUST be ind
 - **And** a dedicated HTML fixture file is co-located with the spec file (e.g., `spec-name.fixture.html`).
 - **And** the fixture follows the standard minimal HTML5 template.
 - **When** I run the E2E tests using `loadFixture(filename)`.
-- **Then** Playwright should load the specific fixture file.
+- **Then** Playwright should successfully wait for the extension service worker to be ready.
+- **AND** Playwright should load the specific fixture file.
 - **And** the extension should be successfully injected into the page.
 
 #### Scenario: Using prioritized locators in E2E tests
@@ -143,3 +144,13 @@ The test suite MUST reliably load local HTML fixtures across all supported opera
 - **WHEN** `loadFixture` is called.
 - **THEN** it MUST use `pathToFileURL` to generate a valid `file:///` URL.
 - **AND** the browser MUST successfully navigate to the fixture.
+
+### Requirement: Robust Extension Injection
+
+The extension MUST robustly inject its container into the page regardless of the page's lifecycle state at the time of injection. It MUST handle cases where the content script runs after the `DOMContentLoaded` event has already fired.
+
+#### Scenario: Injecting after DOMContentLoaded
+
+- **Given** a web page that has already finished loading (`document.readyState` is "complete").
+- **When** the extension content script is executed.
+- **Then** it MUST immediately initialize and append the `#browser-find-top-layer` to the `document.body`.
