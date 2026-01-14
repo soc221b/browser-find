@@ -11,11 +11,13 @@ import ToggleMatchCase from "./components/ToggleMatchCase";
 import ToggleMatchWholeWord from "./components/ToggleMatchWholeWord";
 import ToggleUseRegularExpression from "./components/ToggleUseRegularExpression";
 import Tooltip from "./components/Tooltip";
+import useHistoryTracking from "./hooks/use-history-tracking";
 import useInert from "./hooks/use-inert";
 import useMakeSelection from "./hooks/use-make-selection";
 
 export default function App(): React.JSX.Element {
   useMakeSelection();
+  useHistoryTracking();
 
   const inert = useInert();
 

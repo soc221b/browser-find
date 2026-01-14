@@ -1,3 +1,7 @@
+export type SearchSnapshot = {
+  text: string;
+};
+
 export type State = {
   subscribing: boolean;
 
@@ -26,6 +30,12 @@ export type State = {
   searchVersion: number;
 
   pendingNavigation: "next" | "previous" | null;
+
+  history: SearchSnapshot[];
+
+  historyIndex: number;
+
+  lastCommittedText: string;
 };
 
 const initialState: State = {
@@ -56,6 +66,14 @@ const initialState: State = {
   searchVersion: 0,
 
   pendingNavigation: null,
+
+  history: [
+    { text: "" },
+  ],
+
+  historyIndex: 0,
+
+  lastCommittedText: "",
 };
 
 export default initialState;

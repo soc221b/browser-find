@@ -6,11 +6,13 @@ import shouldClose from "../use-cases/should-close";
 import shouldFindNext from "../use-cases/should-find-next";
 import shouldFindPrevious from "../use-cases/should-find-previous";
 import shouldOpen from "../use-cases/should-open";
+import shouldRedo from "../use-cases/should-redo";
 import shouldSelectAll from "../use-cases/should-select-all";
 import shouldToggleMatchCase from "../use-cases/should-toggle-match-case";
 import shouldToggleMatchWholeWord from "../use-cases/should-toggle-match-whole-word";
 import shouldToggleUseRegularExpression from "../use-cases/should-toggle-use-regular-expression";
 import shouldStopPropagationKeyDown from "../use-cases/should-trap-key-down";
+import shouldUndo from "../use-cases/should-undo";
 import { isOSMacOS } from "../utils/ua";
 
 export default function _HotKey(): React.JSX.Element {
@@ -141,6 +143,20 @@ export default function _HotKey(): React.JSX.Element {
     };
 
     function handleKeydown(event: KeyboardEvent) {
+      if (shouldUndo({ event, state: { focusing }, isOSMacOS })) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        dispatch({ type: "Undo" });
+        return;
+      }
+
+      if (shouldRedo({ event, state: { focusing }, isOSMacOS })) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        dispatch({ type: "Redo" });
+        return;
+      }
+
       if (
         shouldStopPropagationKeyDown({
           event,
@@ -177,9 +193,9 @@ export default function _HotKey(): React.JSX.Element {
     focusing,
   ]);
   useLayoutEffect(() => {
-    window.addEventListener("focus", handleFocus);
+    window.addEventListener("focus", handleFocus, { capture: true });
     return () => {
-      window.removeEventListener("focus", handleFocus);
+      window.removeEventListener("focus", handleFocus, { capture: true });
     };
 
     function handleFocus() {
@@ -194,7 +210,9 @@ export default function _HotKey(): React.JSX.Element {
         dispatch({ type: "Blur" });
       }
     }
-  }, []);
+  }, [
+    focusing,
+  ]);
 
   return <></>;
 }

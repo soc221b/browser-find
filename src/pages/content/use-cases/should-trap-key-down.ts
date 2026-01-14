@@ -64,6 +64,9 @@ const shouldStopPropagationKeyDown: ShouldStopPropagationKeyDown = ({
       if (isPressing({ event, code: "KeyZ", ctrlKey: true, shiftKey: true })) {
         return true;
       }
+      if (isPressing({ event, code: "KeyY", ctrlKey: true })) {
+        return true;
+      }
       if (isPressing({ event, code: "ArrowLeft", ctrlKey: true })) {
         return true;
       }
