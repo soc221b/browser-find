@@ -43,9 +43,14 @@ export const test = base.extend<{
     await use(extensionId);
   },
   loadFixture: async ({ page }, use) => {
+    page.on('console', msg => console.log(msg.text()));
     await use(async (filename: string) => {
       const fixturePath = path.resolve(__dirname, filename);
-      await page.goto(pathToFileURL(fixturePath).href);
+      if (process.platform === "win32") {
+        await page.goto(pathToFileURL(fixturePath).href.replace('file:///', '').replace(/\\/g, '/'));
+      } else {
+        await page.goto(pathToFileURL(fixturePath).href);
+      }
       // Wait for extension to inject its container
       await page.waitForSelector("#browser-find-top-layer", { state: "attached" });
     });
