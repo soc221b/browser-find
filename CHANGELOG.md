@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.9.0](https://github.com/soc221b/browser-find/compare/v0.8.0...v0.9.0) (2026-01-16)
+
+
+### Features
+
+* undo / redo ([#683](https://github.com/soc221b/browser-find/issues/683)) ([dc32288](https://github.com/soc221b/browser-find/commit/dc322884dedb7fa194b3ee57fd52124bab210749))
+
+
+### Bug Fixes
+
+* **deps:** update dependency ua-parser-js to v2.0.8 ([#678](https://github.com/soc221b/browser-find/issues/678)) ([9ff584b](https://github.com/soc221b/browser-find/commit/9ff584b706c3fa7c4403b9200d7835908ff0d315))
+
 ## [0.8.0](https://github.com/soc221b/browser-find/compare/v0.7.1...v0.8.0) (2026-01-12)
 
 
