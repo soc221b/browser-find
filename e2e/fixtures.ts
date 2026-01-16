@@ -1,6 +1,6 @@
 import { test as base, chromium, type BrowserContext } from "@playwright/test";
 import path from "path";
-import { fileURLToPath } from "url";
+import { fileURLToPath, pathToFileURL } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -11,10 +11,12 @@ export const test = base.extend<{
   getHighlightCounts: () => Promise<{ thisCount: number; theOthersCount: number }>;
 }>({
   context: async ({}, use, workerInfo) => {
-    const pathToExtension = path.join(__dirname, "../dist/v3");
-    const userDataDir = path.join(
+    const pathToExtension = path.resolve(__dirname, "..", "dist", "v3");
+    const userDataDir = path.resolve(
       __dirname,
-      `../node_modules/.playwright/user-data-${workerInfo.workerIndex}`,
+      "..",
+      ".playwright-user-data",
+      `worker-${workerInfo.workerIndex}`,
     );
     const isMac = process.platform === "darwin";
     const context = await chromium.launchPersistentContext(userDataDir, {
@@ -41,9 +43,14 @@ export const test = base.extend<{
     await use(extensionId);
   },
   loadFixture: async ({ page }, use) => {
+    page.on('console', msg => console.log(msg.text()));
     await use(async (filename: string) => {
       const fixturePath = path.resolve(__dirname, filename);
-      await page.goto(`file://${fixturePath}`);
+      if (process.platform === "win32") {
+        await page.goto(pathToFileURL(fixturePath).href.replace('file:///', '').replace(/\\/g, '/'));
+      } else {
+        await page.goto(pathToFileURL(fixturePath).href);
+      }
       // Wait for extension to inject its container
       await page.waitForSelector("#browser-find-top-layer", { state: "attached" });
     });

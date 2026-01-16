@@ -1,4 +1,5 @@
 import { mkdirpSync } from "mkdirp";
+import { fileURLToPath } from "node:url";
 import { rimrafSync } from "rimraf";
 import sharp from "sharp";
 
@@ -33,5 +34,5 @@ function addAll() {
 }
 
 function resolve(specifier: string) {
-  return import.meta.resolve(specifier).replace(/^file:\/\//, "");
+  return fileURLToPath(import.meta.resolve(specifier));
 }

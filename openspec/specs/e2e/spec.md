@@ -8,7 +8,7 @@ TBD - created by archiving change setup-playwright-e2e. Update Purpose after arc
 
 ### Requirement: Playwright Framework Integration
 
-The project MUST include Playwright for automated E2E testing. Tests MUST be independent, black-boxed, and use dedicated, co-located HTML fixture files for each spec to ensure test isolation and avoid side effects from shared global fixtures. **These fixtures MUST follow a standard minimal HTML5 template (including `lang="en"`, `meta charset`, and `viewport`) to ensure a consistent and modern testing environment.** **Locators MUST follow a prioritized strategy focused on accessibility and user-centricity, similar to `testing-library`.** **Tests SHOULD use platform-agnostic modifier keys like `ControlOrMeta` for keyboard interactions to ensure cross-platform compatibility.**
+The project MUST include Playwright for automated E2E testing. Tests MUST be independent, black-boxed, and use dedicated, co-located HTML fixture files for each spec to ensure test isolation and avoid side effects from shared global fixtures. **These fixtures MUST follow a standard minimal HTML5 template (including `lang="en"`, `meta charset`, and `viewport`) to ensure a consistent and modern testing environment.** **Locators MUST follow a prioritized strategy focused on accessibility and user-centricity, similar to `testing-library`.** **Tests SHOULD use platform-agnostic modifier keys like `ControlOrMeta` for keyboard interactions to ensure cross-platform compatibility.** **Fixture loading MUST ensure the extension is ready and the container is attached before proceeding with test steps.**
 
 #### Scenario: Running E2E tests with dedicated co-located fixtures
 
@@ -16,7 +16,8 @@ The project MUST include Playwright for automated E2E testing. Tests MUST be ind
 - **And** a dedicated HTML fixture file is co-located with the spec file (e.g., `spec-name.fixture.html`).
 - **And** the fixture follows the standard minimal HTML5 template.
 - **When** I run the E2E tests using `loadFixture(filename)`.
-- **Then** Playwright should load the specific fixture file.
+- **Then** Playwright should successfully wait for the extension service worker to be ready.
+- **AND** Playwright should load the specific fixture file.
 - **And** the extension should be successfully injected into the page.
 
 #### Scenario: Using prioritized locators in E2E tests
@@ -84,13 +85,14 @@ E2E tests MUST prioritize locators in the following order:
 
 ### Requirement: Persistent Context Data Location
 
-Playwright persistent context data MUST be stored within the `node_modules` directory to avoid cluttering the project root and ensure it is excluded from version control.
+Playwright persistent context data MUST be stored within the `node_modules` directory to avoid cluttering the project root and ensure it is excluded from version control. **The path MUST be correctly resolved for the host operating system to ensure stability across platforms (macOS, Linux, Windows).**
 
 #### Scenario: Verifying user data directory location
 
 - **Given** the E2E tests are running.
 - **When** the browser context is created.
 - **Then** the `userDataDir` MUST be located under `node_modules/.playwright/`.
+- **AND** the path MUST be valid for the current OS.
 
 ### Requirement: Test Stability and Robustness
 
@@ -131,3 +133,24 @@ E2E tests MUST use non-trivial scenarios to verify functionality. This includes 
 - **When** I navigate to the next or previous match.
 - **Then** the `thisCount` MUST update to reflect the length of the currently active match.
 - **And** the `theOthersCount` MUST update to reflect the sum of all other matches.
+
+### Requirement: Cross-Platform Fixture Loading
+
+The test suite MUST reliably load local HTML fixtures across all supported operating systems.
+
+#### Scenario: Loading a fixture on Windows
+
+- **GIVEN** the test suite is running on Windows.
+- **WHEN** `loadFixture` is called.
+- **THEN** it MUST use `pathToFileURL` to generate a valid `file:///` URL.
+- **AND** the browser MUST successfully navigate to the fixture.
+
+### Requirement: Robust Extension Injection
+
+The extension MUST robustly inject its container into the page regardless of the page's lifecycle state at the time of injection. It MUST handle cases where the content script runs after the `DOMContentLoaded` event has already fired.
+
+#### Scenario: Injecting after DOMContentLoaded
+
+- **Given** a web page that has already finished loading (`document.readyState` is "complete").
+- **When** the extension content script is executed.
+- **Then** it MUST immediately initialize and append the `#browser-find-top-layer` to the `document.body`.
