@@ -75,7 +75,7 @@ jobs:
         with:
           path: |
             ~/.cache/ms-playwright
-            ~\AppData\Local\ms-playwright
+            ~/AppData/Local/ms-playwright
           key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
           restore-keys: |
             ${{ runner.os }}-playwright-
