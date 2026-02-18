@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.1](https://github.com/soc221b/browser-find/compare/v0.9.0...v0.9.1) (2026-02-18)
+
+
+### Bug Fixes
+
+* should work on windows ([#687](https://github.com/soc221b/browser-find/issues/687)) ([970d997](https://github.com/soc221b/browser-find/commit/970d99783426b1c7af3b02163d645e47881dba96))
+
 ## [0.9.0](https://github.com/soc221b/browser-find/compare/v0.8.0...v0.9.0) (2026-01-16)
 
 
