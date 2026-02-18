@@ -4,6 +4,8 @@ test.describe("Undo and Redo", () => {
   test.beforeEach(async ({ page, loadFixture }) => {
     await loadFixture("input.fixture.html");
     await page.keyboard.press("ControlOrMeta+f");
+    const input = page.getByLabel("Search");
+    await expect(input).toBeFocused();
   });
 
   test("should undo text input", async ({ page }) => {
