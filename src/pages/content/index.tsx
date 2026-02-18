@@ -2,6 +2,8 @@ import { createRoot } from "react-dom/client";
 import App from "./App";
 
 function init() {
+  if (document.getElementById("browser-find-top-layer")) return;
+
   const topLayerContainer = document.createElement("div");
   topLayerContainer.id = "browser-find-top-layer";
   topLayerContainer.popover = "manual";
@@ -11,4 +13,8 @@ function init() {
   root.render(<App />);
 }
 
-document.addEventListener("DOMContentLoaded", init);
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", init, { once: true });
+} else {
+  init();
+}
