@@ -99,16 +99,12 @@ export const test = base.extend<
       await page.goto(fixtureUrl);
       const topLayerSelector = "#browser-find-top-layer";
 
-      // Windows CI can intermittently miss extension auto-injection for local fixture pages.
-      // Fall back to directly injecting the built content script to keep E2E behavior deterministic.
-      try {
-        await page.waitForSelector(topLayerSelector, { state: "attached", timeout: 3000 });
-      } catch {
+      if (process.platform === "win32") {
         await page.addScriptTag({
           path: path.join(__dirname, "../dist/v3/content/index.js"),
         });
-        await page.waitForSelector(topLayerSelector, { state: "attached", timeout: 10000 });
       }
+      await page.waitForSelector(topLayerSelector, { state: "attached", timeout: 3000 });
     });
   },
   getHighlightCounts: async ({ page }, use) => {
