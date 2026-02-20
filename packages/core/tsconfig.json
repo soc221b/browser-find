@@ -1,0 +1,42 @@
+{
+  "compilerOptions": {
+    "allowImportingTsExtensions": true,
+    "erasableSyntaxOnly": true,
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "module": "ESNext",
+    "moduleDetection": "force",
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "noEmit": true,
+
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true,
+
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "paths": {
+      "@/*": [
+        "./lib/*"
+      ]
+    },
+    "skipLibCheck": true,
+
+    /* Linting */
+    "strict": true,
+    "target": "ES2022",
+    "types": [
+      "vite/client",
+      "vitest/globals"
+    ],
+    "useDefineForClassFields": true,
+    "verbatimModuleSyntax": true
+  },
+  "include": [
+    "lib",
+    "tests"
+  ]
+}

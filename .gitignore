@@ -371,15 +371,15 @@ $RECYCLE.BIN/
 /node_modules
 
 # testing
-/coverage
-/playwright-report
-/test-results
-/playwright-log.txt
-/.playwright-user-data*
+coverage
+playwright-report
+test-results
+playwright-log.txt
+.playwright-user-data*
 
 # build
-/dist
-/dist.zip
+dist
+dist.zip
 
 # etc
 .idea

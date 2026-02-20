@@ -1,18 +1,12 @@
-import sleep from "../utils/sleep";
+import { sleep } from "./sleep";
 
-type Find = (_: {
+export type Find = (_: {
   documentElement: HTMLElement;
-
   text: string;
-
   shouldMatchCase: boolean;
-
   shouldMatchWholeWord: boolean;
-
   shouldUseRegularExpression: boolean;
-
   onNext: (ranges: Range[]) => void;
-
   onComplete: () => void;
 }) => {
   cancel: () => void;
@@ -28,11 +22,11 @@ export const find: Find = ({
   onComplete,
 }) => {
   let isCancelled = false;
-  let cancel1 = () => {
+  const cancel1 = () => {
     isCancelled = true;
   };
   let cancel2: undefined | (() => void);
-  (async () => {
+  void (async () => {
     await sleep("raf");
     if (isCancelled) {
       return;
@@ -73,7 +67,7 @@ export const find: Find = ({
   };
 };
 
-function createRegex({
+export function createRegex({
   text,
   shouldMatchCase,
   shouldMatchWholeWord,
@@ -88,7 +82,7 @@ function createRegex({
     let pattern = text;
     pattern = shouldUseRegularExpression
       ? pattern
-      : pattern.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"); // https://stackoverflow.com/a/9310752/7122623
+      : pattern.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
     pattern = shouldMatchWholeWord ? `\\b${pattern}\\b` : `${pattern}`;
     let flags = "";
     flags += "gm";
@@ -96,9 +90,9 @@ function createRegex({
     const regex = new RegExp(pattern, flags);
     try {
       "".matchAll(regex).next();
-    } catch (e) {
-      console.error("[Chrome Extension Find]", e);
-      throw e;
+    } catch (error) {
+      console.error("[Chrome Extension Find]", error);
+      throw error;
     }
     return regex;
   } catch {
@@ -112,14 +106,15 @@ type NodeMap = {
   textContentEndOffset: number;
   innerTextLike: string;
 };
-async function createNodeMaps({
+
+export async function createNodeMaps({
   documentElement,
 }: {
   documentElement: HTMLElement;
 }): Promise<NodeMap[]> {
   let nodeMaps: NodeMap[] = [];
 
-  let DFSStack: {
+  const DFSStack: {
     parentElement: null | Node;
     nextChildNodeIndex: number;
   }[] = [
@@ -152,7 +147,6 @@ async function createNodeMaps({
     }
 
     const childNode = childNodes[childNodeIndex];
-    // console.log("Visiting node:", childNode.nodeName, childNode.nodeType);
     switchLabel: switch (childNode.nodeType) {
       case Node.ELEMENT_NODE: {
         const element = childNode as Element;
@@ -184,12 +178,11 @@ async function createNodeMaps({
           break;
         }
 
-        // FIXME: performance
-        const CSSStyleDeclaration = getComputedStyle(element);
-        if (CSSStyleDeclaration.display === "none") {
+        const style = getComputedStyle(element);
+        if (style.display === "none") {
           break switchLabel;
         }
-        if (CSSStyleDeclaration.visibility === "hidden") {
+        if (style.visibility === "hidden") {
           break switchLabel;
         }
 
@@ -207,15 +200,15 @@ async function createNodeMaps({
         break;
       }
       case Node.TEXT_NODE: {
-        const CSSStyleDeclaration = getComputedStyle(parentElement);
-        const whiteSpaceCollapse = getWhiteSpaceCollapse(CSSStyleDeclaration);
+        const style = getComputedStyle(parentElement);
+        const whiteSpaceCollapse = getWhiteSpaceCollapse(style);
         if (childNode.textContent && childNode.textContent.trim()) {
           const firstIndexAfterLeadingSpace = childNode.textContent.match(/\S/)?.index ?? -1;
           const firstIndexOfTrailingSpace = childNode.textContent.match(/\s+$/)?.index ?? -1;
           const textContentLowerCase = childNode.textContent.toLowerCase();
           childNode.textContent.split("").forEach((textContentPart, index) => {
             let innerTextLike = textContentPart;
-            switch (CSSStyleDeclaration.textTransform) {
+            switch (style.textTransform) {
               case "uppercase":
                 innerTextLike = innerTextLike.toUpperCase();
                 break;
@@ -260,9 +253,8 @@ async function createNodeMaps({
               }
             }
 
-            let textContentStartOffset = index;
-
-            let textContentEndOffset = textContentStartOffset + innerTextLike.length;
+            const textContentStartOffset = index;
+            const textContentEndOffset = textContentStartOffset + innerTextLike.length;
 
             nodeMaps.push({
               node: childNode,
@@ -276,13 +268,14 @@ async function createNodeMaps({
             let node: ChildNode = childNode;
             let shouldCollapse = true;
             while (node.parentElement !== null) {
-              const CSSStyleDeclaration = getComputedStyle(node.parentElement);
-              const whiteSpaceCollapse = getWhiteSpaceCollapse(CSSStyleDeclaration);
-              if (whiteSpaceCollapse === "collapse") {
+              const parentStyle = getComputedStyle(node.parentElement);
+              const parentWhiteSpaceCollapse = getWhiteSpaceCollapse(parentStyle);
+              if (parentWhiteSpaceCollapse === "collapse") {
                 if (node.parentElement.lastChild === node) {
                   node = node.parentElement;
                 } else {
                   if (nodeMaps.length && /\s/.test(nodeMaps[nodeMaps.length - 1].innerTextLike)) {
+                    // noop
                   } else {
                     shouldCollapse = false;
                   }
@@ -390,14 +383,12 @@ function matchAll({
   return stop;
 }
 
-function getWhiteSpaceCollapse(CSSStyleDeclaration: CSSStyleDeclaration): string {
-  if ((CSSStyleDeclaration as any).whiteSpaceCollapse) {
-    return (CSSStyleDeclaration as any).whiteSpaceCollapse;
-  } else {
-    // whiteSpaceCollapse is undefined in JSDOM
+function getWhiteSpaceCollapse(style: CSSStyleDeclaration): string {
+  if ((style as { whiteSpaceCollapse?: string }).whiteSpaceCollapse) {
+    return (style as { whiteSpaceCollapse?: string }).whiteSpaceCollapse ?? "collapse";
   }
 
-  if (CSSStyleDeclaration.whiteSpace) {
+  if (style.whiteSpace) {
     return (
       {
         normal: "collapse",
@@ -406,10 +397,8 @@ function getWhiteSpaceCollapse(CSSStyleDeclaration: CSSStyleDeclaration): string
         "pre-wrap": "preserve",
         "pre-line": "preserve-breaks",
         "break-spaces": "break-spaces",
-      }[CSSStyleDeclaration.whiteSpace] ?? "collapse"
+      }[style.whiteSpace] ?? "collapse"
     );
-  } else {
-    // whiteSpace is undefined in JSDOM
   }
 
   return "collapse";
