@@ -20,10 +20,10 @@
         "src/assets/*"
       ],
       "@browser-find/core": [
-        "../core/src/index.ts"
+        "../core/lib/main.ts"
       ],
       "@browser-find/core/*": [
-        "../core/src/*"
+        "../core/lib/*"
       ],
       "@lib/*": [
         "src/lib/*"

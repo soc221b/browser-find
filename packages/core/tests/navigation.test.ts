@@ -4,7 +4,7 @@ import {
   planPreviousNavigation,
   resolveHighlightIndexOnComplete,
   type SearchMatch,
-} from "../../navigation";
+} from "@/navigation";
 
 describe("navigation helpers", () => {
   it("plans next navigation and wraps at end", () => {

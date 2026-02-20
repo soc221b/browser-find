@@ -1,28 +1,42 @@
 {
   "compilerOptions": {
-    "allowJs": false,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
+    "allowImportingTsExtensions": true,
+    "erasableSyntaxOnly": true,
     "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
     ],
-    "module": "esnext",
+    "module": "ESNext",
+    "moduleDetection": "force",
+    /* Bundler mode */
     "moduleResolution": "bundler",
     "noEmit": true,
-    "resolveJsonModule": true,
+
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true,
+
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "paths": {
+      "@/*": [
+        "./lib/*"
+      ]
+    },
     "skipLibCheck": true,
+
+    /* Linting */
     "strict": true,
-    "target": "esnext",
+    "target": "ES2022",
     "types": [
-      "node",
-      "jest"
-    ]
+      "vite/client",
+      "vitest/globals"
+    ],
+    "useDefineForClassFields": true,
+    "verbatimModuleSyntax": true
   },
   "include": [
-    "src",
-    "vite.config.ts"
+    "lib",
+    "tests"
   ]
 }
