@@ -1,0 +1,32 @@
+{
+  "name": "@browser-find/core",
+  "version": "0.1.0",
+  "description": "Core DOM find engine and navigation helpers for browser-find",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "node -e \"require('fs').rmSync('dist', { recursive: true, force: true })\" && tsc -p tsconfig.build.json",
+    "dev": "tsc -p tsconfig.build.json --watch",
+    "test": "jest",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "devDependencies": {
+    "@types/jest": "30.0.0",
+    "@types/node": "24.10.9",
+    "jest": "30.2.0",
+    "jest-environment-jsdom": "30.2.0",
+    "ts-jest": "29.4.6",
+    "typescript": "5.9.3"
+  }
+}

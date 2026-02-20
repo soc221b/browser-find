@@ -1,4 +1,4 @@
-import { find } from "../find";
+import { find } from "../../find";
 
 type Suit = {
   documentElement: HTMLElement;
