@@ -1497,13 +1497,7 @@ suits.forEach(
     },
     index,
   ) => {
-    it(createTestName(), async () => {
-      // arrange
-      let onComplete = () => {};
-      const onCompletePromise = new Promise<void>((resolve) => (onComplete = resolve));
-      const actual: Range[][] = [];
-      const onNext = (ranges: Range[]) => actual.push(ranges);
-
+    it(createTestName(), () => {
       // act
       const regex = createRegex({
         text,
@@ -1511,13 +1505,10 @@ suits.forEach(
         shouldMatchWholeWord,
         shouldUseRegularExpression,
       });
-      find({
+      const actual = Array.from(find({
         element,
         regex,
-        onNext,
-        onComplete,
-      });
-      await onCompletePromise;
+      }));
 
       // assert
       try {
@@ -1580,6 +1571,17 @@ suits.forEach(
     }
   },
 );
+
+it("should stop iteration when regex produces empty matches", () => {
+  const element = createDocumentElement(`<span>a</span>`);
+
+  const actual = Array.from(find({
+    element,
+    regex: /(?:)/gm,
+  }));
+
+  expect(actual).toEqual([]);
+});
 
 function createDocumentElement(bodyInnerHTML: string): HTMLElement {
   const body = document.createElement("body");

@@ -1,52 +1,48 @@
-import { sleep } from "./sleep";
-
 export type Find = (_: {
   element: Element;
   regex: RegExp;
-  onNext: (ranges: Range[]) => void;
-  onComplete: () => void;
-}) => {
-  cancel: () => void;
-};
+}) => IterableIterator<Range[]>;
 
-export const find: Find = ({
+export const find: Find = function* ({
   element,
   regex,
-  onNext,
-  onComplete,
-}) => {
-  let isCancelled = false;
-  const cancel1 = () => {
-    isCancelled = true;
-  };
-  let cancel2: undefined | (() => void);
-  void (async () => {
-    await sleep("raf");
-    if (isCancelled) {
-      return;
+}) {
+  const nodeMaps = createNodeMaps({ element });
+
+  const innerTextLikeIndexToNodeMapIndex: Record<number, number> = {};
+  let innerTextLike = "";
+  for (const [
+    index,
+    nodeMap,
+  ] of nodeMaps.entries()) {
+    innerTextLikeIndexToNodeMapIndex[innerTextLike.length] = index;
+    innerTextLike += nodeMap.innerTextLike;
+  }
+
+  for (const array of innerTextLike.matchAll(regex)) {
+    if (array[0] === "") {
+      break;
     }
 
-    const nodeMaps = await createNodeMaps({ element });
+    const ranges: Range[] = [];
 
-    await sleep("raf");
-    if (isCancelled) {
-      return;
+    for (
+      let innerTextLikeIndex = array.index;
+      innerTextLikeIndex < array.index + array[0].length;
+      ++innerTextLikeIndex
+    ) {
+      const range = new Range();
+
+      const nodeMapIndex = innerTextLikeIndexToNodeMapIndex[innerTextLikeIndex];
+      const nodeMap = nodeMaps[nodeMapIndex];
+      range.setStart(nodeMap.node, nodeMap.textContentStartOffset);
+      range.setEnd(nodeMap.node, nodeMap.textContentEndOffset);
+
+      ranges.push(range);
     }
 
-    cancel2 = matchAll({
-      regex,
-      nodeMaps,
-      onNext,
-      onComplete,
-    });
-  })();
-
-  return {
-    cancel: () => {
-      cancel1();
-      cancel2?.();
-    },
-  };
+    yield ranges;
+  }
 };
 
 export function createRegex({
@@ -89,11 +85,11 @@ type NodeMap = {
   innerTextLike: string;
 };
 
-export async function createNodeMaps({
+export function createNodeMaps({
   element,
 }: {
   element: Element;
-}): Promise<NodeMap[]> {
+}): NodeMap[] {
   let nodeMaps: NodeMap[] = [];
 
   const DFSStack: {
@@ -105,11 +101,7 @@ export async function createNodeMaps({
       nextChildNodeIndex: 0,
     },
   ];
-  let i = 0;
   while (DFSStack.length) {
-    if (i++ % 2000 === 0) {
-      await sleep("raf");
-    }
     const top = DFSStack[DFSStack.length - 1];
     if (top.parentElement === null) {
       DFSStack.pop();
@@ -297,72 +289,6 @@ export async function createNodeMaps({
   });
 
   return nodeMaps;
-}
-
-function matchAll({
-  nodeMaps,
-  regex,
-  onNext,
-  onComplete,
-}: {
-  nodeMaps: NodeMap[];
-  regex: RegExp;
-  onNext: (ranges: Range[]) => void;
-  onComplete: () => void;
-}): () => void {
-  let isStopped = false;
-  const stop = () => {
-    isStopped = true;
-  };
-  setTimeout(async () => {
-    const innerTextLikeIndexToNodeMapIndex: Record<number, number> = {};
-    let innerTextLike = "";
-    for (const [
-      index,
-      nodeMap,
-    ] of nodeMaps.entries()) {
-      innerTextLikeIndexToNodeMapIndex[innerTextLike.length] = index;
-      innerTextLike += nodeMap.innerTextLike;
-    }
-
-    let i = 0;
-    for (const array of innerTextLike.matchAll(regex)) {
-      if (i++ % 2000 === 0) {
-        await sleep("raf");
-      }
-      if (isStopped) {
-        return;
-      }
-      if (array[0] === "") {
-        break;
-      }
-
-      const ranges: Range[] = [];
-
-      for (
-        let innerTextLikeIndex = array.index;
-        innerTextLikeIndex < array.index + array[0].length;
-        ++innerTextLikeIndex
-      ) {
-        if (isStopped) {
-          return;
-        }
-
-        const range = new Range();
-
-        const nodeMapIndex = innerTextLikeIndexToNodeMapIndex[innerTextLikeIndex];
-        const nodeMap = nodeMaps[nodeMapIndex];
-        range.setStart(nodeMap.node, nodeMap.textContentStartOffset);
-        range.setEnd(nodeMap.node, nodeMap.textContentEndOffset);
-
-        ranges.push(range);
-      }
-
-      onNext(ranges);
-    }
-    onComplete();
-  });
-  return stop;
 }
 
 function getWhiteSpaceCollapse(style: CSSStyleDeclaration): string {

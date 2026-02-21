@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import useStore from "../store";
 import { createRegex, find } from "@browser-find/core";
+import sleep from "../utils/sleep";
 
 let id = 0;
 
@@ -22,22 +23,33 @@ export default function _Find(): React.JSX.Element {
       shouldUseRegularExpression,
     });
 
-    const { cancel } = find({
+    const iterator = find({
       element: document.documentElement,
       regex,
-      onNext: (ranges) => {
-        dispatch({
-          type: "Next",
-          value: { id: id++, ranges },
-        });
-      },
-      onComplete: () => {
-        dispatch({ type: "Complete" });
-      },
     });
 
+    let isCancelled = false;
+    void (async () => {
+      await sleep("raf");
+
+      while (!isCancelled) {
+        const result = iterator.next();
+        if (result.done) {
+          dispatch({ type: "Complete" });
+          return;
+        }
+
+        dispatch({
+          type: "Next",
+          value: { id: id++, ranges: result.value },
+        });
+
+        await sleep("raf");
+      }
+    })();
+
     return () => {
-      cancel();
+      isCancelled = true;
     };
   }, [
     shouldMatchCase,
