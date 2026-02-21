@@ -1583,6 +1583,43 @@ it("should stop iteration when regex produces empty matches", () => {
   expect(actual).toEqual([]);
 });
 
+it("should reject potentially catastrophic regular expressions", () => {
+  const regex = createRegex({
+    text: "(x+x+)+y",
+    shouldMatchCase: false,
+    shouldMatchWholeWord: false,
+    shouldUseRegularExpression: true,
+  });
+
+  const element = createDocumentElement(`<span>x+x+y</span>`);
+  const actual = Array.from(find({
+    element,
+    regex,
+  }));
+
+  expect(regex.source).toBe("^\\b$");
+  expect(regex.flags).toBe("gm");
+  expect(actual).toEqual([]);
+});
+
+it("should treat potentially catastrophic pattern text as literal in non-regex mode", () => {
+  const regex = createRegex({
+    text: "(x+x+)+y",
+    shouldMatchCase: false,
+    shouldMatchWholeWord: false,
+    shouldUseRegularExpression: false,
+  });
+
+  const element = createDocumentElement(`<span>(x+x+)+y</span>`);
+  const actual = Array.from(find({
+    element,
+    regex,
+  }));
+
+  expect(actual).toHaveLength(1);
+  expect(actual[0]).toHaveLength("(x+x+)+y".length);
+});
+
 function createDocumentElement(bodyInnerHTML: string): HTMLElement {
   const body = document.createElement("body");
   body.innerHTML = bodyInnerHTML;

@@ -9,6 +9,7 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, "lib/main.ts"),
       fileName: "index",
+      formats: ["es"],
     },
   },
   resolve: {

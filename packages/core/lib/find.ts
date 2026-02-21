@@ -1,3 +1,5 @@
+import safeRegex from "safe-regex";
+
 export type Find = (_: {
   element: Element;
   regex: RegExp;
@@ -66,6 +68,9 @@ export function createRegex({
     flags += "gm";
     flags += shouldMatchCase ? "" : "i";
     const regex = new RegExp(pattern, flags);
+    if (!safeRegex(regex)) {
+      throw new Error("[Chrome Extension Find] Potentially catastrophic regular expression");
+    }
     try {
       "".matchAll(regex).next();
     } catch (error) {
