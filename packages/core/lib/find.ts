@@ -1,11 +1,8 @@
 import { sleep } from "./sleep";
 
 export type Find = (_: {
-  documentElement: HTMLElement;
-  text: string;
-  shouldMatchCase: boolean;
-  shouldMatchWholeWord: boolean;
-  shouldUseRegularExpression: boolean;
+  element: Element;
+  regex: RegExp;
   onNext: (ranges: Range[]) => void;
   onComplete: () => void;
 }) => {
@@ -13,11 +10,8 @@ export type Find = (_: {
 };
 
 export const find: Find = ({
-  documentElement,
-  text,
-  shouldMatchCase,
-  shouldMatchWholeWord,
-  shouldUseRegularExpression,
+  element,
+  regex,
   onNext,
   onComplete,
 }) => {
@@ -32,19 +26,7 @@ export const find: Find = ({
       return;
     }
 
-    const regex = createRegex({
-      text,
-      shouldMatchCase,
-      shouldMatchWholeWord,
-      shouldUseRegularExpression,
-    });
-
-    await sleep("raf");
-    if (isCancelled) {
-      return;
-    }
-
-    const nodeMaps = await createNodeMaps({ documentElement });
+    const nodeMaps = await createNodeMaps({ element });
 
     await sleep("raf");
     if (isCancelled) {
@@ -108,9 +90,9 @@ type NodeMap = {
 };
 
 export async function createNodeMaps({
-  documentElement,
+  element,
 }: {
-  documentElement: HTMLElement;
+  element: Element;
 }): Promise<NodeMap[]> {
   let nodeMaps: NodeMap[] = [];
 
@@ -119,7 +101,7 @@ export async function createNodeMaps({
     nextChildNodeIndex: number;
   }[] = [
     {
-      parentElement: documentElement,
+      parentElement: element,
       nextChildNodeIndex: 0,
     },
   ];

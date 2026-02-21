@@ -1,7 +1,7 @@
-import { find } from "@/find";
+import { createRegex, find } from "@/find";
 
 type Suit = {
-  documentElement: HTMLElement;
+  element: Element;
 
   text: string;
 
@@ -20,7 +20,7 @@ const suits: Suit[] = [];
   (function browserFindTopLayer() {
     const documentElement = createDocumentElement(`<div id="browser-find-top-layer">a</div>`);
     suits.push({
-      documentElement,
+      element: documentElement,
       text: "a",
       shouldMatchCase: false,
       shouldMatchWholeWord: false,
@@ -35,7 +35,7 @@ const suits: Suit[] = [];
   (function script() {
     const documentElement = createDocumentElement(`<script>"a"</script>`);
     suits.push({
-      documentElement,
+      element: documentElement,
       text: "a",
       shouldMatchCase: false,
       shouldMatchWholeWord: false,
@@ -48,7 +48,7 @@ const suits: Suit[] = [];
   (function noscript() {
     const documentElement = createDocumentElement(`<noscript>a</noscript>`);
     suits.push({
-      documentElement,
+      element: documentElement,
       text: "a",
       shouldMatchCase: false,
       shouldMatchWholeWord: false,
@@ -61,7 +61,7 @@ const suits: Suit[] = [];
   (function style() {
     const documentElement = createDocumentElement(`<style>a {}</style>`);
     suits.push({
-      documentElement,
+      element: documentElement,
       text: "a",
       shouldMatchCase: false,
       shouldMatchWholeWord: false,
@@ -74,7 +74,7 @@ const suits: Suit[] = [];
   (function option() {
     const documentElement = createDocumentElement(`<select><option>a</option></select>`);
     suits.push({
-      documentElement,
+      element: documentElement,
       text: "a",
       shouldMatchCase: false,
       shouldMatchWholeWord: false,
@@ -125,7 +125,7 @@ const suits: Suit[] = [];
       const shadowRoot = div.attachShadow({ mode: "open" });
       shadowRoot.textContent = "a";
       suits.push({
-        documentElement,
+        element: documentElement,
         text: "a",
         shouldMatchCase: false,
         shouldMatchWholeWord: false,
@@ -145,7 +145,7 @@ const suits: Suit[] = [];
   (function srOnly() {
     const documentElement = createDocumentElement(`<span class="sr-only">a</span>`);
     suits.push({
-      documentElement,
+      element: documentElement,
       text: "a",
       shouldMatchCase: false,
       shouldMatchWholeWord: false,
@@ -161,7 +161,7 @@ const suits: Suit[] = [];
     (function none() {
       const documentElement = createDocumentElement(`<span style="display: none;">a</span>`);
       suits.push({
-        documentElement,
+        element: documentElement,
         text: "a",
         shouldMatchCase: false,
         shouldMatchWholeWord: false,
@@ -176,7 +176,7 @@ const suits: Suit[] = [];
     (function hidden() {
       const documentElement = createDocumentElement(`<span style="visibility: hidden;">a</span>`);
       suits.push({
-        documentElement,
+        element: documentElement,
         text: "a",
         shouldMatchCase: false,
         shouldMatchWholeWord: false,
@@ -196,7 +196,7 @@ const suits: Suit[] = [];
           `<span style="text-transform: none;">Lorem ipsum dolor sit amet, consectetur adipisicing elit…</span>`,
         );
         suits.push({
-          documentElement,
+          element: documentElement,
           text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit…",
           shouldMatchCase: true,
           shouldMatchWholeWord: false,
@@ -223,7 +223,7 @@ const suits: Suit[] = [];
           `<span style="text-transform: capitalize;">(this) "is" [a] –short– -test- «for» *the* _css_ ¿capitalize? ?¡transform!</span>`,
         );
         suits.push({
-          documentElement,
+          element: documentElement,
           text: '(This) "Is" [A] –Short– -Test- «For» *The* _css_ ¿Capitalize? ?¡Transform!',
           shouldMatchCase: true,
           shouldMatchWholeWord: false,
@@ -273,7 +273,7 @@ const suits: Suit[] = [];
           `<span style="text-transform: capitalize;">The Dutch word: "ijsland" starts with a digraph.</span>`,
         );
         suits.push({
-          documentElement,
+          element: documentElement,
           text: 'The Dutch Word: "Ijsland" Starts With A Digraph.',
           shouldMatchCase: true,
           shouldMatchWholeWord: false,
@@ -300,7 +300,7 @@ const suits: Suit[] = [];
           `<span style="text-transform: uppercase;">Lorem ipsum dolor sit amet, consectetur adipisicing elit…</span>`,
         );
         suits.push({
-          documentElement,
+          element: documentElement,
           text: "LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT…",
           shouldMatchCase: true,
           shouldMatchWholeWord: false,
@@ -353,7 +353,7 @@ const suits: Suit[] = [];
           `<span style="text-transform: lowercase;">Lorem ipsum dolor sit amet, consectetur adipisicing elit…</span>`,
         );
         suits.push({
-          documentElement,
+          element: documentElement,
           text: "lorem ipsum dolor sit amet, consectetur adipisicing elit…",
           shouldMatchCase: true,
           shouldMatchWholeWord: false,
@@ -377,7 +377,7 @@ const suits: Suit[] = [];
           `<span style="text-transform: lowercase;">Σ IS A greek LETTER that appears SEVERAL TIMES IN ΟΔΥΣΣΕΥΣ.</span>`,
         );
         suits.push({
-          documentElement,
+          element: documentElement,
           text: "σ is a greek letter that appears several times in οδυσσευς.",
           shouldMatchCase: true,
           shouldMatchWholeWord: false,
@@ -401,7 +401,7 @@ const suits: Suit[] = [];
           `<span style="text-transform: lowercase;">Ĩ is a Lithuanian LETTER as is J́</span>`,
         );
         suits.push({
-          documentElement,
+          element: documentElement,
           text: "ĩ is a lithuanian letter as is j́",
           shouldMatchCase: true,
           shouldMatchWholeWord: false,
@@ -441,7 +441,7 @@ const suits: Suit[] = [];
         `<div style="text-wrap: wrap; width: 250px"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aut cum eum id quos est.</p></div>`,
       );
       suits.push({
-        documentElement,
+        element: documentElement,
         text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aut cum eum id quos est.",
         shouldMatchCase: false,
         shouldMatchWholeWord: false,
@@ -466,7 +466,7 @@ const suits: Suit[] = [];
         `<div style="text-wrap: nowrap; width: 250px"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aut cum eum id quos est.</p></div>`,
       );
       suits.push({
-        documentElement,
+        element: documentElement,
         text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aut cum eum id quos est.",
         shouldMatchCase: false,
         shouldMatchWholeWord: false,
@@ -491,7 +491,7 @@ const suits: Suit[] = [];
         `<div style="text-wrap: balance; width: 250px"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aut cum eum id quos est.</p></div>`,
       );
       suits.push({
-        documentElement,
+        element: documentElement,
         text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aut cum eum id quos est.",
         shouldMatchCase: false,
         shouldMatchWholeWord: false,
@@ -516,7 +516,7 @@ const suits: Suit[] = [];
         `<div style="text-wrap: pretty; width: 250px"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aut cum eum id quos est.</p></div>`,
       );
       suits.push({
-        documentElement,
+        element: documentElement,
         text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aut cum eum id quos est.",
         shouldMatchCase: false,
         shouldMatchWholeWord: false,
@@ -541,7 +541,7 @@ const suits: Suit[] = [];
         `<div style="text-wrap: stable; width: 250px"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aut cum eum id quos est.</p></div>`,
       );
       suits.push({
-        documentElement,
+        element: documentElement,
         text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aut cum eum id quos est.",
         shouldMatchCase: false,
         shouldMatchWholeWord: false,
@@ -569,7 +569,7 @@ const suits: Suit[] = [];
         `<div style="white-space-collapse: collapse; width: 250px"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aut cum eum id quos est.</p></div>`,
       );
       suits.push({
-        documentElement,
+        element: documentElement,
         text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aut cum eum id quos est.",
         shouldMatchCase: false,
         shouldMatchWholeWord: false,
@@ -594,7 +594,7 @@ const suits: Suit[] = [];
         `<div style="white-space-collapse: preserve; width: 250px"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aut cum eum id quos est.</p></div>`,
       );
       suits.push({
-        documentElement,
+        element: documentElement,
         text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aut cum eum id quos est.",
         shouldMatchCase: false,
         shouldMatchWholeWord: false,
@@ -619,7 +619,7 @@ const suits: Suit[] = [];
         `<div style="white-space-collapse: preserve-breaks; width: 250px"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aut cum eum id quos est.</p></div>`,
       );
       suits.push({
-        documentElement,
+        element: documentElement,
         text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aut cum eum id quos est.",
         shouldMatchCase: false,
         shouldMatchWholeWord: false,
@@ -644,7 +644,7 @@ const suits: Suit[] = [];
         `<div style="white-space-collapse: break-spaces; width: 250px"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aut cum eum id quos est.</p></div>`,
       );
       suits.push({
-        documentElement,
+        element: documentElement,
         text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aut cum eum id quos est.",
         shouldMatchCase: false,
         shouldMatchWholeWord: false,
@@ -672,7 +672,7 @@ const suits: Suit[] = [];
           `<span style="white-space: normal;">a\n</span><span>b</span>`,
         );
         suits.push({
-          documentElement,
+          element: documentElement,
           text: "a b",
           shouldMatchCase: false,
           shouldMatchWholeWord: false,
@@ -692,7 +692,7 @@ const suits: Suit[] = [];
           `<span style="white-space: normal;">a  </span><span>b</span>`,
         );
         suits.push({
-          documentElement,
+          element: documentElement,
           text: "a b",
           shouldMatchCase: false,
           shouldMatchWholeWord: false,
@@ -712,7 +712,7 @@ const suits: Suit[] = [];
           `<span style="white-space: normal;"> a</span>`,
         );
         suits.push({
-          documentElement,
+          element: documentElement,
           text: "a",
           shouldMatchCase: false,
           shouldMatchWholeWord: false,
@@ -730,7 +730,7 @@ const suits: Suit[] = [];
           `<span style="white-space: normal;"> a</span>`,
         );
         suits.push({
-          documentElement,
+          element: documentElement,
           text: " a",
           shouldMatchCase: false,
           shouldMatchWholeWord: false,
@@ -747,7 +747,7 @@ const suits: Suit[] = [];
           `<span style="white-space: nowrap;">a\n</span><span>b</span>`,
         );
         suits.push({
-          documentElement,
+          element: documentElement,
           text: "a b",
           shouldMatchCase: false,
           shouldMatchWholeWord: false,
@@ -767,7 +767,7 @@ const suits: Suit[] = [];
           `<span style="white-space: nowrap;">a  </span><span>b</span>`,
         );
         suits.push({
-          documentElement,
+          element: documentElement,
           text: "a b",
           shouldMatchCase: false,
           shouldMatchWholeWord: false,
@@ -787,7 +787,7 @@ const suits: Suit[] = [];
           `<span style="white-space: nowrap;"> a</span>`,
         );
         suits.push({
-          documentElement,
+          element: documentElement,
           text: "a",
           shouldMatchCase: false,
           shouldMatchWholeWord: false,
@@ -805,7 +805,7 @@ const suits: Suit[] = [];
           `<span style="white-space: nowrap;"> a</span>`,
         );
         suits.push({
-          documentElement,
+          element: documentElement,
           text: " a",
           shouldMatchCase: false,
           shouldMatchWholeWord: false,
@@ -822,7 +822,7 @@ const suits: Suit[] = [];
           `<span style="white-space: pre;">a\n</span><span>b</span>`,
         );
         suits.push({
-          documentElement,
+          element: documentElement,
           text: "a ",
           shouldMatchCase: false,
           shouldMatchWholeWord: false,
@@ -836,7 +836,7 @@ const suits: Suit[] = [];
           `<span style="white-space: pre;">a  </span><span>b</span>`,
         );
         suits.push({
-          documentElement,
+          element: documentElement,
           text: "a  b",
           shouldMatchCase: false,
           shouldMatchWholeWord: false,
@@ -855,7 +855,7 @@ const suits: Suit[] = [];
       {
         const documentElement = createDocumentElement(`<span style="white-space: pre;"> a</span>`);
         suits.push({
-          documentElement,
+          element: documentElement,
           text: "a",
           shouldMatchCase: false,
           shouldMatchWholeWord: false,
@@ -871,7 +871,7 @@ const suits: Suit[] = [];
       {
         const documentElement = createDocumentElement(`<span style="white-space: pre;"> a</span>`);
         suits.push({
-          documentElement,
+          element: documentElement,
           text: " a",
           shouldMatchCase: false,
           shouldMatchWholeWord: false,
@@ -888,7 +888,7 @@ const suits: Suit[] = [];
       {
         const documentElement = createDocumentElement(`<span style="white-space: pre;"> a</span>`);
         suits.push({
-          documentElement,
+          element: documentElement,
           text: "  a",
           shouldMatchCase: false,
           shouldMatchWholeWord: false,
@@ -905,7 +905,7 @@ const suits: Suit[] = [];
           `<span style="white-space: pre-wrap;">a\n</span><span>b</span>`,
         );
         suits.push({
-          documentElement,
+          element: documentElement,
           text: "a ",
           shouldMatchCase: false,
           shouldMatchWholeWord: false,
@@ -919,7 +919,7 @@ const suits: Suit[] = [];
           `<span style="white-space: pre-wrap;">a  </span><span>b</span>`,
         );
         suits.push({
-          documentElement,
+          element: documentElement,
           text: "a  b",
           shouldMatchCase: false,
           shouldMatchWholeWord: false,
@@ -940,7 +940,7 @@ const suits: Suit[] = [];
           `<span style="white-space: pre-wrap;">a\n</span>\nb`,
         );
         suits.push({
-          documentElement,
+          element: documentElement,
           text: " b",
           shouldMatchCase: false,
           shouldMatchWholeWord: false,
@@ -954,7 +954,7 @@ const suits: Suit[] = [];
           `<span style="white-space: pre-wrap;"> a</span>`,
         );
         suits.push({
-          documentElement,
+          element: documentElement,
           text: "a",
           shouldMatchCase: false,
           shouldMatchWholeWord: false,
@@ -972,7 +972,7 @@ const suits: Suit[] = [];
           `<span style="white-space: pre-wrap;"> a</span>`,
         );
         suits.push({
-          documentElement,
+          element: documentElement,
           text: " a",
           shouldMatchCase: false,
           shouldMatchWholeWord: false,
@@ -991,7 +991,7 @@ const suits: Suit[] = [];
           `<span style="white-space: pre-wrap;"> a</span>`,
         );
         suits.push({
-          documentElement,
+          element: documentElement,
           text: "  a",
           shouldMatchCase: false,
           shouldMatchWholeWord: false,
@@ -1008,7 +1008,7 @@ const suits: Suit[] = [];
           `<span style="white-space: pre-line;">a\n</span><span>b</span>`,
         );
         suits.push({
-          documentElement,
+          element: documentElement,
           text: "a ",
           shouldMatchCase: false,
           shouldMatchWholeWord: false,
@@ -1022,7 +1022,7 @@ const suits: Suit[] = [];
           `<span style="white-space: pre-line;">a  </span><span>b</span>`,
         );
         suits.push({
-          documentElement,
+          element: documentElement,
           text: "a b",
           shouldMatchCase: false,
           shouldMatchWholeWord: false,
@@ -1042,7 +1042,7 @@ const suits: Suit[] = [];
           `<span style="white-space: pre-line;"> a</span>`,
         );
         suits.push({
-          documentElement,
+          element: documentElement,
           text: "a",
           shouldMatchCase: false,
           shouldMatchWholeWord: false,
@@ -1060,7 +1060,7 @@ const suits: Suit[] = [];
           `<span style="white-space: pre-line;"> a</span>`,
         );
         suits.push({
-          documentElement,
+          element: documentElement,
           text: " a",
           shouldMatchCase: false,
           shouldMatchWholeWord: false,
@@ -1077,7 +1077,7 @@ const suits: Suit[] = [];
           `<span style="white-space: break-spaces;">a\n</span><span>b</span>`,
         );
         suits.push({
-          documentElement,
+          element: documentElement,
           text: "a ",
           shouldMatchCase: false,
           shouldMatchWholeWord: false,
@@ -1091,7 +1091,7 @@ const suits: Suit[] = [];
           `<span style="white-space: break-spaces;">a  </span><span>b</span>`,
         );
         suits.push({
-          documentElement,
+          element: documentElement,
           text: "a  b",
           shouldMatchCase: false,
           shouldMatchWholeWord: false,
@@ -1112,7 +1112,7 @@ const suits: Suit[] = [];
           `<span style="white-space: break-spaces;"> a</span>`,
         );
         suits.push({
-          documentElement,
+          element: documentElement,
           text: "a",
           shouldMatchCase: false,
           shouldMatchWholeWord: false,
@@ -1130,7 +1130,7 @@ const suits: Suit[] = [];
           `<span style="white-space: break-spaces;"> a</span>`,
         );
         suits.push({
-          documentElement,
+          element: documentElement,
           text: " a",
           shouldMatchCase: false,
           shouldMatchWholeWord: false,
@@ -1149,7 +1149,7 @@ const suits: Suit[] = [];
           `<span style="white-space: break-spaces;"> a</span>`,
         );
         suits.push({
-          documentElement,
+          element: documentElement,
           text: "  a",
           shouldMatchCase: false,
           shouldMatchWholeWord: false,
@@ -1166,7 +1166,7 @@ const suits: Suit[] = [];
   {
     const documentElement = createDocumentElement(`a`);
     suits.push({
-      documentElement,
+      element: documentElement,
       text: "A",
       shouldMatchCase: false,
       shouldMatchWholeWord: false,
@@ -1182,7 +1182,7 @@ const suits: Suit[] = [];
   {
     const documentElement = createDocumentElement(`a`);
     suits.push({
-      documentElement,
+      element: documentElement,
       text: "A",
       shouldMatchCase: true,
       shouldMatchWholeWord: false,
@@ -1194,7 +1194,7 @@ const suits: Suit[] = [];
   {
     const documentElement = createDocumentElement(`A`);
     suits.push({
-      documentElement,
+      element: documentElement,
       text: "A",
       shouldMatchCase: true,
       shouldMatchWholeWord: false,
@@ -1213,7 +1213,7 @@ const suits: Suit[] = [];
   {
     const documentElement = createDocumentElement(`abc`);
     suits.push({
-      documentElement,
+      element: documentElement,
       text: "a",
       shouldMatchCase: false,
       shouldMatchWholeWord: false,
@@ -1229,7 +1229,7 @@ const suits: Suit[] = [];
   {
     const documentElement = createDocumentElement(`abc`);
     suits.push({
-      documentElement,
+      element: documentElement,
       text: "a",
       shouldMatchCase: false,
       shouldMatchWholeWord: true,
@@ -1241,7 +1241,7 @@ const suits: Suit[] = [];
   {
     const documentElement = createDocumentElement(`abc`);
     suits.push({
-      documentElement,
+      element: documentElement,
       text: "abc",
       shouldMatchCase: false,
       shouldMatchWholeWord: true,
@@ -1262,7 +1262,7 @@ const suits: Suit[] = [];
   {
     const documentElement = createDocumentElement(`\\d`);
     suits.push({
-      documentElement,
+      element: documentElement,
       text: "\\d",
       shouldMatchCase: false,
       shouldMatchWholeWord: false,
@@ -1279,7 +1279,7 @@ const suits: Suit[] = [];
   {
     const documentElement = createDocumentElement(`\\d`);
     suits.push({
-      documentElement,
+      element: documentElement,
       text: "\\d",
       shouldMatchCase: false,
       shouldMatchWholeWord: false,
@@ -1291,7 +1291,7 @@ const suits: Suit[] = [];
   {
     const documentElement = createDocumentElement(`\\d`);
     suits.push({
-      documentElement,
+      element: documentElement,
       text: "\\\\d",
       shouldMatchCase: false,
       shouldMatchWholeWord: false,
@@ -1311,7 +1311,7 @@ const suits: Suit[] = [];
   {
     const documentElement = createDocumentElement(`a <span>b</span>`);
     suits.push({
-      documentElement,
+      element: documentElement,
       text: "a b",
       shouldMatchCase: false,
       shouldMatchWholeWord: false,
@@ -1329,7 +1329,7 @@ const suits: Suit[] = [];
   {
     const documentElement = createDocumentElement(`a\n<span>b</span>`);
     suits.push({
-      documentElement,
+      element: documentElement,
       text: "a b",
       shouldMatchCase: false,
       shouldMatchWholeWord: false,
@@ -1347,7 +1347,7 @@ const suits: Suit[] = [];
   {
     const documentElement = createDocumentElement(`a \n \n <span>b</span>`);
     suits.push({
-      documentElement,
+      element: documentElement,
       text: "a b",
       shouldMatchCase: false,
       shouldMatchWholeWord: false,
@@ -1365,7 +1365,7 @@ const suits: Suit[] = [];
   {
     const documentElement = createDocumentElement(`a \n \n b`);
     suits.push({
-      documentElement,
+      element: documentElement,
       text: "a b",
       shouldMatchCase: false,
       shouldMatchWholeWord: false,
@@ -1383,7 +1383,7 @@ const suits: Suit[] = [];
   {
     const documentElement = createDocumentElement(`<span>a</span> <span>b</span>`);
     suits.push({
-      documentElement,
+      element: documentElement,
       text: "a b",
       shouldMatchCase: false,
       shouldMatchWholeWord: false,
@@ -1401,7 +1401,7 @@ const suits: Suit[] = [];
   {
     const documentElement = createDocumentElement(`<span>a </span><span> b</span>`);
     suits.push({
-      documentElement,
+      element: documentElement,
       text: "a b",
       shouldMatchCase: false,
       shouldMatchWholeWord: false,
@@ -1419,7 +1419,7 @@ const suits: Suit[] = [];
   {
     const documentElement = createDocumentElement(`<span>a</span><span> b</span>`);
     suits.push({
-      documentElement,
+      element: documentElement,
       text: "a b",
       shouldMatchCase: false,
       shouldMatchWholeWord: false,
@@ -1437,7 +1437,7 @@ const suits: Suit[] = [];
   {
     const documentElement = createDocumentElement(`<span>a</span>\n`);
     suits.push({
-      documentElement,
+      element: documentElement,
       text: "a ",
       shouldMatchCase: false,
       shouldMatchWholeWord: false,
@@ -1449,7 +1449,7 @@ const suits: Suit[] = [];
   {
     const documentElement = createDocumentElement(`<span>a &nbsp; b</span>`);
     suits.push({
-      documentElement,
+      element: documentElement,
       text: "a   b",
       shouldMatchCase: false,
       shouldMatchWholeWord: false,
@@ -1469,7 +1469,7 @@ const suits: Suit[] = [];
   {
     const documentElement = createDocumentElement(`<span>a</span>\n<span>b</span>`);
     suits.push({
-      documentElement,
+      element: documentElement,
       text: "a b",
       shouldMatchCase: false,
       shouldMatchWholeWord: false,
@@ -1488,7 +1488,7 @@ const suits: Suit[] = [];
 suits.forEach(
   (
     {
-      documentElement,
+      element,
       text,
       shouldMatchCase,
       shouldMatchWholeWord,
@@ -1505,12 +1505,15 @@ suits.forEach(
       const onNext = (ranges: Range[]) => actual.push(ranges);
 
       // act
-      find({
-        documentElement,
+      const regex = createRegex({
         text,
         shouldMatchCase,
         shouldMatchWholeWord,
         shouldUseRegularExpression,
+      });
+      find({
+        element,
+        regex,
         onNext,
         onComplete,
       });
@@ -1568,7 +1571,7 @@ suits.forEach(
         `\n${indent}` +
         `text      : \`${text}\`` +
         `\n${indent}` +
-        `innerHTML : \`${documentElement.innerHTML
+        `innerHTML : \`${element.innerHTML
           .replace(/\n/g, "\\n")
           .replace(/^<body>/, "")
           .replace(/<\/body>$/, "")}\`` +

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import useStore from "../store";
-import { find } from "../use-cases/find";
+import { createRegex, find } from "@browser-find/core";
 
 let id = 0;
 
@@ -15,12 +15,16 @@ export default function _Find(): React.JSX.Element {
   useEffect(() => {
     dispatch({ type: "Subscribe" });
 
-    const { cancel } = find({
-      documentElement: document.documentElement,
+    const regex = createRegex({
       text,
       shouldMatchCase,
       shouldMatchWholeWord,
       shouldUseRegularExpression,
+    });
+
+    const { cancel } = find({
+      element: document.documentElement,
+      regex,
       onNext: (ranges) => {
         dispatch({
           type: "Next",
