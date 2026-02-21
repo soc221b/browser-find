@@ -24,5 +24,8 @@
     "typescript": "~5.9.3",
     "vite": "^7.2.4",
     "vitest": "^4.0.18"
+  },
+  "dependencies": {
+    "safe-regex": "^2.1.1"
   }
 }
