@@ -1,79 +1,53 @@
-import sleep from "../utils/sleep";
+import safeRegex from "safe-regex";
 
-type Find = (_: {
-  documentElement: HTMLElement;
+export type Find = (_: {
+  element: Element;
+  regex: RegExp;
+}) => IterableIterator<Range[]>;
 
-  text: string;
+export const find: Find = function* ({
+  element,
+  regex,
+}) {
+  const nodeMaps = createNodeMaps({ element });
 
-  shouldMatchCase: boolean;
+  const innerTextLikeIndexToNodeMapIndex: Record<number, number> = {};
+  let innerTextLike = "";
+  for (const [
+    index,
+    nodeMap,
+  ] of nodeMaps.entries()) {
+    innerTextLikeIndexToNodeMapIndex[innerTextLike.length] = index;
+    innerTextLike += nodeMap.innerTextLike;
+  }
 
-  shouldMatchWholeWord: boolean;
+  for (const array of innerTextLike.matchAll(regex)) {
+    if (array[0] === "") {
+      break;
+    }
 
-  shouldUseRegularExpression: boolean;
+    const ranges: Range[] = [];
 
-  onNext: (ranges: Range[]) => void;
+    for (
+      let innerTextLikeIndex = array.index;
+      innerTextLikeIndex < array.index + array[0].length;
+      ++innerTextLikeIndex
+    ) {
+      const range = new Range();
 
-  onComplete: () => void;
-}) => {
-  cancel: () => void;
+      const nodeMapIndex = innerTextLikeIndexToNodeMapIndex[innerTextLikeIndex];
+      const nodeMap = nodeMaps[nodeMapIndex];
+      range.setStart(nodeMap.node, nodeMap.textContentStartOffset);
+      range.setEnd(nodeMap.node, nodeMap.textContentEndOffset);
+
+      ranges.push(range);
+    }
+
+    yield ranges;
+  }
 };
 
-export const find: Find = ({
-  documentElement,
-  text,
-  shouldMatchCase,
-  shouldMatchWholeWord,
-  shouldUseRegularExpression,
-  onNext,
-  onComplete,
-}) => {
-  let isCancelled = false;
-  let cancel1 = () => {
-    isCancelled = true;
-  };
-  let cancel2: undefined | (() => void);
-  (async () => {
-    await sleep("raf");
-    if (isCancelled) {
-      return;
-    }
-
-    const regex = createRegex({
-      text,
-      shouldMatchCase,
-      shouldMatchWholeWord,
-      shouldUseRegularExpression,
-    });
-
-    await sleep("raf");
-    if (isCancelled) {
-      return;
-    }
-
-    const nodeMaps = await createNodeMaps({ documentElement });
-
-    await sleep("raf");
-    if (isCancelled) {
-      return;
-    }
-
-    cancel2 = matchAll({
-      regex,
-      nodeMaps,
-      onNext,
-      onComplete,
-    });
-  })();
-
-  return {
-    cancel: () => {
-      cancel1();
-      cancel2?.();
-    },
-  };
-};
-
-function createRegex({
+export function createRegex({
   text,
   shouldMatchCase,
   shouldMatchWholeWord,
@@ -88,17 +62,20 @@ function createRegex({
     let pattern = text;
     pattern = shouldUseRegularExpression
       ? pattern
-      : pattern.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"); // https://stackoverflow.com/a/9310752/7122623
+      : pattern.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
     pattern = shouldMatchWholeWord ? `\\b${pattern}\\b` : `${pattern}`;
     let flags = "";
     flags += "gm";
     flags += shouldMatchCase ? "" : "i";
     const regex = new RegExp(pattern, flags);
+    if (!safeRegex(regex)) {
+      throw new Error("[Chrome Extension Find] Potentially catastrophic regular expression");
+    }
     try {
       "".matchAll(regex).next();
-    } catch (e) {
-      console.error("[Chrome Extension Find]", e);
-      throw e;
+    } catch (error) {
+      console.error("[Chrome Extension Find]", error);
+      throw error;
     }
     return regex;
   } catch {
@@ -112,27 +89,24 @@ type NodeMap = {
   textContentEndOffset: number;
   innerTextLike: string;
 };
-async function createNodeMaps({
-  documentElement,
+
+export function createNodeMaps({
+  element,
 }: {
-  documentElement: HTMLElement;
-}): Promise<NodeMap[]> {
+  element: Element;
+}): NodeMap[] {
   let nodeMaps: NodeMap[] = [];
 
-  let DFSStack: {
+  const DFSStack: {
     parentElement: null | Node;
     nextChildNodeIndex: number;
   }[] = [
     {
-      parentElement: documentElement,
+      parentElement: element,
       nextChildNodeIndex: 0,
     },
   ];
-  let i = 0;
   while (DFSStack.length) {
-    if (i++ % 2000 === 0) {
-      await sleep("raf");
-    }
     const top = DFSStack[DFSStack.length - 1];
     if (top.parentElement === null) {
       DFSStack.pop();
@@ -152,7 +126,6 @@ async function createNodeMaps({
     }
 
     const childNode = childNodes[childNodeIndex];
-    // console.log("Visiting node:", childNode.nodeName, childNode.nodeType);
     switchLabel: switch (childNode.nodeType) {
       case Node.ELEMENT_NODE: {
         const element = childNode as Element;
@@ -184,12 +157,11 @@ async function createNodeMaps({
           break;
         }
 
-        // FIXME: performance
-        const CSSStyleDeclaration = getComputedStyle(element);
-        if (CSSStyleDeclaration.display === "none") {
+        const style = getComputedStyle(element);
+        if (style.display === "none") {
           break switchLabel;
         }
-        if (CSSStyleDeclaration.visibility === "hidden") {
+        if (style.visibility === "hidden") {
           break switchLabel;
         }
 
@@ -207,15 +179,15 @@ async function createNodeMaps({
         break;
       }
       case Node.TEXT_NODE: {
-        const CSSStyleDeclaration = getComputedStyle(parentElement);
-        const whiteSpaceCollapse = getWhiteSpaceCollapse(CSSStyleDeclaration);
+        const style = getComputedStyle(parentElement);
+        const whiteSpaceCollapse = getWhiteSpaceCollapse(style);
         if (childNode.textContent && childNode.textContent.trim()) {
           const firstIndexAfterLeadingSpace = childNode.textContent.match(/\S/)?.index ?? -1;
           const firstIndexOfTrailingSpace = childNode.textContent.match(/\s+$/)?.index ?? -1;
           const textContentLowerCase = childNode.textContent.toLowerCase();
           childNode.textContent.split("").forEach((textContentPart, index) => {
             let innerTextLike = textContentPart;
-            switch (CSSStyleDeclaration.textTransform) {
+            switch (style.textTransform) {
               case "uppercase":
                 innerTextLike = innerTextLike.toUpperCase();
                 break;
@@ -260,9 +232,8 @@ async function createNodeMaps({
               }
             }
 
-            let textContentStartOffset = index;
-
-            let textContentEndOffset = textContentStartOffset + innerTextLike.length;
+            const textContentStartOffset = index;
+            const textContentEndOffset = textContentStartOffset + innerTextLike.length;
 
             nodeMaps.push({
               node: childNode,
@@ -276,13 +247,14 @@ async function createNodeMaps({
             let node: ChildNode = childNode;
             let shouldCollapse = true;
             while (node.parentElement !== null) {
-              const CSSStyleDeclaration = getComputedStyle(node.parentElement);
-              const whiteSpaceCollapse = getWhiteSpaceCollapse(CSSStyleDeclaration);
-              if (whiteSpaceCollapse === "collapse") {
+              const parentStyle = getComputedStyle(node.parentElement);
+              const parentWhiteSpaceCollapse = getWhiteSpaceCollapse(parentStyle);
+              if (parentWhiteSpaceCollapse === "collapse") {
                 if (node.parentElement.lastChild === node) {
                   node = node.parentElement;
                 } else {
                   if (nodeMaps.length && /\s/.test(nodeMaps[nodeMaps.length - 1].innerTextLike)) {
+                    // noop
                   } else {
                     shouldCollapse = false;
                   }
@@ -324,80 +296,12 @@ async function createNodeMaps({
   return nodeMaps;
 }
 
-function matchAll({
-  nodeMaps,
-  regex,
-  onNext,
-  onComplete,
-}: {
-  nodeMaps: NodeMap[];
-  regex: RegExp;
-  onNext: (ranges: Range[]) => void;
-  onComplete: () => void;
-}): () => void {
-  let isStopped = false;
-  const stop = () => {
-    isStopped = true;
-  };
-  setTimeout(async () => {
-    const innerTextLikeIndexToNodeMapIndex: Record<number, number> = {};
-    let innerTextLike = "";
-    for (const [
-      index,
-      nodeMap,
-    ] of nodeMaps.entries()) {
-      innerTextLikeIndexToNodeMapIndex[innerTextLike.length] = index;
-      innerTextLike += nodeMap.innerTextLike;
-    }
-
-    let i = 0;
-    for (const array of innerTextLike.matchAll(regex)) {
-      if (i++ % 2000 === 0) {
-        await sleep("raf");
-      }
-      if (isStopped) {
-        return;
-      }
-      if (array[0] === "") {
-        break;
-      }
-
-      const ranges: Range[] = [];
-
-      for (
-        let innerTextLikeIndex = array.index;
-        innerTextLikeIndex < array.index + array[0].length;
-        ++innerTextLikeIndex
-      ) {
-        if (isStopped) {
-          return;
-        }
-
-        const range = new Range();
-
-        const nodeMapIndex = innerTextLikeIndexToNodeMapIndex[innerTextLikeIndex];
-        const nodeMap = nodeMaps[nodeMapIndex];
-        range.setStart(nodeMap.node, nodeMap.textContentStartOffset);
-        range.setEnd(nodeMap.node, nodeMap.textContentEndOffset);
-
-        ranges.push(range);
-      }
-
-      onNext(ranges);
-    }
-    onComplete();
-  });
-  return stop;
-}
-
-function getWhiteSpaceCollapse(CSSStyleDeclaration: CSSStyleDeclaration): string {
-  if ((CSSStyleDeclaration as any).whiteSpaceCollapse) {
-    return (CSSStyleDeclaration as any).whiteSpaceCollapse;
-  } else {
-    // whiteSpaceCollapse is undefined in JSDOM
+function getWhiteSpaceCollapse(style: CSSStyleDeclaration): string {
+  if ((style as { whiteSpaceCollapse?: string }).whiteSpaceCollapse) {
+    return (style as { whiteSpaceCollapse?: string }).whiteSpaceCollapse ?? "collapse";
   }
 
-  if (CSSStyleDeclaration.whiteSpace) {
+  if (style.whiteSpace) {
     return (
       {
         normal: "collapse",
@@ -406,10 +310,8 @@ function getWhiteSpaceCollapse(CSSStyleDeclaration: CSSStyleDeclaration): string
         "pre-wrap": "preserve",
         "pre-line": "preserve-breaks",
         "break-spaces": "break-spaces",
-      }[CSSStyleDeclaration.whiteSpace] ?? "collapse"
+      }[style.whiteSpace] ?? "collapse"
     );
-  } else {
-    // whiteSpace is undefined in JSDOM
   }
 
   return "collapse";

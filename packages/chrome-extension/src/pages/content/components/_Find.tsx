@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import useStore from "../store";
-import { find } from "../use-cases/find";
+import { createRegex, find } from "@browser-find/core";
+import sleep from "../utils/sleep";
 
 let id = 0;
 
@@ -15,25 +16,40 @@ export default function _Find(): React.JSX.Element {
   useEffect(() => {
     dispatch({ type: "Subscribe" });
 
-    const { cancel } = find({
-      documentElement: document.documentElement,
+    const regex = createRegex({
       text,
       shouldMatchCase,
       shouldMatchWholeWord,
       shouldUseRegularExpression,
-      onNext: (ranges) => {
-        dispatch({
-          type: "Next",
-          value: { id: id++, ranges },
-        });
-      },
-      onComplete: () => {
-        dispatch({ type: "Complete" });
-      },
     });
 
+    const iterator = find({
+      element: document.documentElement,
+      regex,
+    });
+
+    let isCancelled = false;
+    void (async () => {
+      await sleep("raf");
+
+      while (!isCancelled) {
+        const result = iterator.next();
+        if (result.done) {
+          dispatch({ type: "Complete" });
+          return;
+        }
+
+        dispatch({
+          type: "Next",
+          value: { id: id++, ranges: result.value },
+        });
+
+        await sleep("raf");
+      }
+    })();
+
     return () => {
-      cancel();
+      isCancelled = true;
     };
   }, [
     shouldMatchCase,

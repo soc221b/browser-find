@@ -22,7 +22,7 @@ jobs:
         run: npm ci
 
       - name: Format
-        run: npx prettier --check .
+        run: npm run format:check
 
   test:
     runs-on: ${{ matrix.os }}
@@ -42,7 +42,7 @@ jobs:
         run: npm ci
 
       - name: Test
-        run: npx jest
+        run: npm run test:unit
 
   e2e:
     runs-on: ${{ matrix.os }}
@@ -117,7 +117,7 @@ jobs:
       - uses: mnao305/chrome-extension-upload@v5.0.0
         if: ${{ github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, 'chore:') && contains(github.event.head_commit.message, 'release') }}
         with:
-          file-path: dist.zip
+          file-path: packages/chrome-extension/dist.zip
           extension-id: akaeoepndhnhffnginkbdcoigbpnnljh
           client-id: ${{ secrets.CLIENT_ID }}
           client-secret: ${{ secrets.CLIENT_SECRET }}

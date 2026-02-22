@@ -19,6 +19,12 @@
       "@assets/*": [
         "src/assets/*"
       ],
+      "@browser-find/core": [
+        "../core/lib/main.ts"
+      ],
+      "@browser-find/core/*": [
+        "../core/lib/*"
+      ],
       "@lib/*": [
         "src/lib/*"
       ],
