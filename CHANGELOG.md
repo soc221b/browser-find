@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.9.2](https://github.com/soc221b/browser-find/compare/v0.9.1...v0.9.2) (2026-03-06)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @floating-ui/dom to v1.7.5 ([#699](https://github.com/soc221b/browser-find/issues/699)) ([60b7922](https://github.com/soc221b/browser-find/commit/60b7922e6c6eb4edcc328edff2abb9606575d3ab))
+* **deps:** update dependency @floating-ui/dom to v1.7.6 ([#711](https://github.com/soc221b/browser-find/issues/711)) ([8dedef4](https://github.com/soc221b/browser-find/commit/8dedef4b4aeae90b5a1fc36be3ea928c06125168))
+* **deps:** update dependency @types/webextension-polyfill to v0.12.5 ([#700](https://github.com/soc221b/browser-find/issues/700)) ([2407d0d](https://github.com/soc221b/browser-find/commit/2407d0d6f9d515af66dc3db30316d2a1d1363146))
+* **deps:** update dependency ua-parser-js to v2.0.9 ([#701](https://github.com/soc221b/browser-find/issues/701)) ([566c8e0](https://github.com/soc221b/browser-find/commit/566c8e0acdaf49f354fac7eea41c5916527ae300))
+* **deps:** update dependency zustand to v5.0.11 ([#702](https://github.com/soc221b/browser-find/issues/702)) ([9fa7ec5](https://github.com/soc221b/browser-find/commit/9fa7ec51a1b97b5ac383f0ae6665216b9eab2ae3))
+* **deps:** update react monorepo ([#703](https://github.com/soc221b/browser-find/issues/703)) ([a15fa00](https://github.com/soc221b/browser-find/commit/a15fa00e5b172c5c9a15dc4de4f1495c9ebb88d6))
+
 ## [0.9.1](https://github.com/soc221b/browser-find/compare/v0.9.0...v0.9.1) (2026-02-18)
 
 
