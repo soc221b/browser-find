@@ -114,8 +114,8 @@ test.describe("Scroll Behavior", () => {
 test.describe("Scroll Overlap Fix", () => {
   test.beforeEach(async ({ page, loadFixture }) => {
     await loadFixture("scroll-overlap.fixture.html");
-    await page.setViewportSize({ width: 800, height: 600 });
     await page.keyboard.press("ControlOrMeta+f");
+    await page.setViewportSize({ width: 800, height: 600 });
   });
 
   test("should scroll to reveal match hidden behind the find bar", async ({ page }) => {
