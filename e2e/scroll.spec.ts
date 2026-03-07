@@ -110,3 +110,36 @@ test.describe("Scroll Behavior", () => {
     }).toPass();
   });
 });
+
+test.describe("Scroll Overlap Fix", () => {
+  test.beforeEach(async ({ page, loadFixture }) => {
+    await loadFixture("scroll-overlap.fixture.html");
+    await page.setViewportSize({ width: 800, height: 600 });
+    await page.keyboard.press("ControlOrMeta+f");
+  });
+
+  test("should scroll to reveal match hidden behind the find bar", async ({ page }) => {
+    // Pre-scroll so that the match (at page y=500) lands in the find bar zone
+    // (approximately viewport y=40, which is behind the find bar at the top-right).
+    await page.evaluate(() => window.scrollTo(0, 460));
+
+    const input = page.getByLabel("Search");
+    await input.fill("overlap-target");
+    await expect(page.getByRole("status")).toHaveText("1/1");
+
+    await expect(async () => {
+      const { findBarBottom, matchTop } = await page.evaluate(() => {
+        const findBar = document.querySelector("#browser-find-top-layer .root");
+        const match = document.getElementById("overlap-match");
+        if (!findBar || !match) throw new Error("Elements not found");
+        return {
+          findBarBottom: findBar.getBoundingClientRect().bottom,
+          matchTop: match.getBoundingClientRect().top,
+        };
+      });
+      // The match should not be covered by the find bar
+      expect(matchTop).toBeGreaterThanOrEqual(findBarBottom);
+    }).toPass();
+  });
+});
+

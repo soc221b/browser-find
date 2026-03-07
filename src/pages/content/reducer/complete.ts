@@ -1,6 +1,7 @@
 import { Action } from "../action";
 import { State } from "../state";
 import { highlights } from "../utils/highlights";
+import { scrollToReveal } from "../utils/scroll-to-reveal";
 
 type Reducer = (state: State, action: Action & { type: "Complete" }) => State;
 
@@ -66,7 +67,8 @@ const reducer: Reducer = (state) => {
 
   const highlight = state.found[highlightIndex];
   nextState.highlightId = highlight.id;
-  highlight.ranges[0].startContainer.parentElement?.scrollIntoViewIfNeeded(true);
+  const highlightParent = highlight.ranges[0].startContainer.parentElement;
+  if (highlightParent) scrollToReveal(highlightParent);
   highlight.ranges.forEach((range) => {
     highlights({ range, isAdd: true, isThis: true });
     highlights({ range, isAdd: false, isThis: false });

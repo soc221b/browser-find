@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="height: 2000px; position: relative;">
+      <!--
+        This match is at page y=500, right-side. When the page is pre-scrolled
+        so the match appears in the find bar zone (top-right of viewport), the
+        extension should scroll to reveal it below the find bar.
+      -->
+      <span id="overlap-match" style="position: absolute; top: 500px; right: 100px;">overlap-target</span>
+    </div>
+  </body>
+</html>
