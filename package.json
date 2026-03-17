@@ -32,7 +32,7 @@
     "@esbuilder/html": "0.0.6",
     "@playwright/test": "1.58.2",
     "@tailwindcss/postcss": "4.2.1",
-    "@types/chrome": "0.1.37",
+    "@types/chrome": "0.1.38",
     "@types/cross-zip": "4.0.2",
     "@types/fs-extra": "11.0.4",
     "@types/jest": "30.0.0",
