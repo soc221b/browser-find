@@ -23,19 +23,11 @@ export default function _HotKey(): React.JSX.Element {
   const shouldUseRegularExpression = useStore((state) => state.shouldUseRegularExpression);
   const focusing = useStore((state) => state.focusing);
 
-  useLayoutEffect(() => {
-    const popover = document.querySelector("#browser-find-top-layer") as any;
-    if (!popover) return;
-    if (open) {
-      if (!popover.matches(":popover-open")) {
-        popover.showPopover();
-      }
-    } else {
-      if (popover.matches(":popover-open")) {
-        popover.hidePopover();
-      }
-    }
-  }, [open]);
+  if (open) {
+    (document.querySelector("#browser-find-top-layer") as any)?.showPopover();
+  } else {
+    (document.querySelector("#browser-find-top-layer") as any)?.hidePopover();
+  }
 
   useEffect(() => {
     window.addEventListener("keydown", handleKeydown);

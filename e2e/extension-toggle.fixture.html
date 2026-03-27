@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fixture: Extension Toggle</title>
+  </head>
+  <body>
+    <script>
+      // Simulate the orphaned element left behind when Chrome disables the extension.
+      // The JS context is destroyed (all event listeners gone) but DOM mutations persist,
+      // so the bare container remains in the document when the extension is re-enabled.
+      const orphan = document.createElement("div");
+      orphan.id = "browser-find-top-layer";
+      orphan.setAttribute("popover", "manual");
+      document.body.appendChild(orphan);
+    </script>
+    <p>This is a simple test page for Browser Find.</p>
+  </body>
+</html>
