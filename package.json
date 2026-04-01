@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@esbuilder/html": "0.0.6",
-    "@playwright/test": "1.59.0",
+    "@playwright/test": "1.59.1",
     "@tailwindcss/postcss": "4.2.2",
     "@types/chrome": "0.1.38",
     "@types/cross-zip": "4.0.2",
