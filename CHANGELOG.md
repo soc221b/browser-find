@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.9.3](https://github.com/soc221b/browser-find/compare/v0.9.2...v0.9.3) (2026-05-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency zustand to v5.0.12 ([#723](https://github.com/soc221b/browser-find/issues/723)) ([7bf9374](https://github.com/soc221b/browser-find/commit/7bf9374275b3b80fc8237864e4f9a28819b3af1c))
+* **deps:** update dependency zustand to v5.0.13 ([#757](https://github.com/soc221b/browser-find/issues/757)) ([5001a0e](https://github.com/soc221b/browser-find/commit/5001a0edd5e778a7ae0b73af6a4356c30ba48a99))
+* **deps:** update react monorepo to v19.2.5 ([#742](https://github.com/soc221b/browser-find/issues/742)) ([78c7550](https://github.com/soc221b/browser-find/commit/78c7550db571d005656c2d14eacd8ed9f1ec3aa9))
+
 ## [0.9.2](https://github.com/soc221b/browser-find/compare/v0.9.1...v0.9.2) (2026-03-06)
 
 
