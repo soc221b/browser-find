@@ -45,7 +45,7 @@
     "cross-zip": "4.0.1",
     "esbuild": "0.28.0",
     "esbuild-style-plugin": "1.6.3",
-    "fs-extra": "11.3.4",
+    "fs-extra": "11.3.5",
     "get-installed-browsers": "0.1.7",
     "jest": "30.3.0",
     "jest-environment-jsdom": "30.3.0",
