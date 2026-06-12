@@ -43,7 +43,7 @@
     "autoprefixer": "10.5.0",
     "concurrently": "10.0.3",
     "cross-zip": "4.0.1",
-    "esbuild": "0.28.0",
+    "esbuild": "0.28.1",
     "esbuild-style-plugin": "1.6.3",
     "fs-extra": "11.3.5",
     "get-installed-browsers": "0.1.7",
