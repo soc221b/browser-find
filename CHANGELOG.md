@@ -1,5 +1,28 @@
 # Changelog
 
+## [0.9.3](https://github.com/soc221b/browser-find/compare/v0.9.2...v0.9.3) (2026-07-21)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @floating-ui/dom to v1.8.0 ([#816](https://github.com/soc221b/browser-find/issues/816)) ([192b149](https://github.com/soc221b/browser-find/commit/192b149949b4d75b77aaae9b0c09f49b7d563458))
+* **deps:** update dependency tsx to v4.21.1 ([#768](https://github.com/soc221b/browser-find/issues/768)) ([f403a11](https://github.com/soc221b/browser-find/commit/f403a1126bdfc0144aca0718ea98d87fd3a78a09))
+* **deps:** update dependency tsx to v4.22.0 ([#769](https://github.com/soc221b/browser-find/issues/769)) ([1653828](https://github.com/soc221b/browser-find/commit/1653828b35f15c0bdcd24e880fa8ee918f26a7c8))
+* **deps:** update dependency tsx to v4.22.1 ([#770](https://github.com/soc221b/browser-find/issues/770)) ([7b28956](https://github.com/soc221b/browser-find/commit/7b28956adc9aa42ae2af71f578bac9437fbf2fa9))
+* **deps:** update dependency tsx to v4.22.2 ([#771](https://github.com/soc221b/browser-find/issues/771)) ([26f5abc](https://github.com/soc221b/browser-find/commit/26f5abc9625598645125f2854573dbe7230b14b2))
+* **deps:** update dependency tsx to v4.22.3 ([#774](https://github.com/soc221b/browser-find/issues/774)) ([95106aa](https://github.com/soc221b/browser-find/commit/95106aacf25e40676bf334c1b1c0c9dea49cc22c))
+* **deps:** update dependency tsx to v4.22.4 ([#780](https://github.com/soc221b/browser-find/issues/780)) ([74d61b2](https://github.com/soc221b/browser-find/commit/74d61b2b5b6314a02b8e7086c356c3718ee0d919))
+* **deps:** update dependency tsx to v4.22.5 ([#812](https://github.com/soc221b/browser-find/issues/812)) ([2af9853](https://github.com/soc221b/browser-find/commit/2af9853edd479e025881f260f1bc98feaf76d109))
+* **deps:** update dependency tsx to v4.23.0 ([#813](https://github.com/soc221b/browser-find/issues/813)) ([3844146](https://github.com/soc221b/browser-find/commit/38441463f33ea1214b5ec66caddcf591508a9c1e))
+* **deps:** update dependency tsx to v4.23.1 ([#819](https://github.com/soc221b/browser-find/issues/819)) ([d8d9b42](https://github.com/soc221b/browser-find/commit/d8d9b42c5f97d6e9fad635d24542475ebc24e8d2))
+* **deps:** update dependency ua-parser-js to v2.0.10 ([#776](https://github.com/soc221b/browser-find/issues/776)) ([0ae9897](https://github.com/soc221b/browser-find/commit/0ae9897d5ba7f0e7b768168ab2b250ecb964c980))
+* **deps:** update dependency zustand to v5.0.12 ([#723](https://github.com/soc221b/browser-find/issues/723)) ([7bf9374](https://github.com/soc221b/browser-find/commit/7bf9374275b3b80fc8237864e4f9a28819b3af1c))
+* **deps:** update dependency zustand to v5.0.13 ([#757](https://github.com/soc221b/browser-find/issues/757)) ([5001a0e](https://github.com/soc221b/browser-find/commit/5001a0edd5e778a7ae0b73af6a4356c30ba48a99))
+* **deps:** update dependency zustand to v5.0.14 ([#778](https://github.com/soc221b/browser-find/issues/778)) ([de2c889](https://github.com/soc221b/browser-find/commit/de2c8896c054b918d317c09b393ffd9f1b2cd688))
+* **deps:** update react monorepo ([#782](https://github.com/soc221b/browser-find/issues/782)) ([4516ef1](https://github.com/soc221b/browser-find/commit/4516ef1a5c971661cd64922dcf59e8f2aa66efdd))
+* **deps:** update react monorepo to v19.2.5 ([#742](https://github.com/soc221b/browser-find/issues/742)) ([78c7550](https://github.com/soc221b/browser-find/commit/78c7550db571d005656c2d14eacd8ed9f1ec3aa9))
+* **deps:** update react monorepo to v19.2.6 ([#758](https://github.com/soc221b/browser-find/issues/758)) ([b20d80f](https://github.com/soc221b/browser-find/commit/b20d80faabecc3a143d295599edba43eb716b013))
+
 ## [0.9.2](https://github.com/soc221b/browser-find/compare/v0.9.1...v0.9.2) (2026-03-06)
 
 
