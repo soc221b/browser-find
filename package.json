@@ -26,7 +26,7 @@
     "tsx": "4.23.12",
     "ua-parser-js": "2.0.10",
     "webextension-polyfill": "0.12.0",
-    "zustand": "5.0.14"
+    "zustand": "5.0.15"
   },
   "devDependencies": {
     "@esbuilder/html": "0.0.6",
