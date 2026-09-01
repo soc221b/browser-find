@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@floating-ui/dom": "1.8.0",
-    "@types/webextension-polyfill": "0.12.5",
+    "@types/webextension-polyfill": "0.12.6",
     "mkdirp": "3.0.1",
     "react": "19.2.8",
     "react-dom": "19.2.8",
