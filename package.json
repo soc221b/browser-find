@@ -38,7 +38,7 @@
     "@types/jest": "30.0.0",
     "@types/node": "24.13.3",
     "@types/react": "19.2.18",
-    "@types/react-dom": "19.2.5",
+    "@types/react-dom": "19.2.7",
     "@types/ua-parser-js": "0.7.39",
     "autoprefixer": "10.5.4",
     "concurrently": "10.0.5",
