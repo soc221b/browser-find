@@ -119,6 +119,7 @@ jobs:
         with:
           file-path: dist.zip
           extension-id: akaeoepndhnhffnginkbdcoigbpnnljh
+          publisher-id: ${{ secrets.PUBLISHER_ID }}
           client-id: ${{ secrets.CLIENT_ID }}
           client-secret: ${{ secrets.CLIENT_SECRET }}
           refresh-token: ${{ secrets.REFRESH_TOKEN }}
