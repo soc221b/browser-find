@@ -59,12 +59,6 @@ export default function _HotKey(): React.JSX.Element {
         return;
       }
 
-      if (shouldClose({ event, state })) {
-        event.preventDefault();
-        state.dispatch({ type: "Close" });
-        return;
-      }
-
       if (shouldFindNext({ event, state, isOSMacOS })) {
         event.preventDefault();
         state.dispatch({ type: "FindNext" });
@@ -143,6 +137,13 @@ export default function _HotKey(): React.JSX.Element {
     };
 
     function handleKeydown(event: KeyboardEvent) {
+      if (shouldClose({ event, state: { focusing } })) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        dispatch({ type: "Close" });
+        return;
+      }
+
       if (shouldUndo({ event, state: { focusing }, isOSMacOS })) {
         event.preventDefault();
         event.stopImmediatePropagation();
@@ -198,10 +199,11 @@ export default function _HotKey(): React.JSX.Element {
       window.removeEventListener("focus", handleFocus, { capture: true });
     };
 
-    function handleFocus() {
+    function handleFocus(event: FocusEvent) {
       const topLayer = document.querySelector("#browser-find-top-layer");
       const value =
         document.activeElement instanceof Node && !!topLayer?.contains(document.activeElement);
+      if (value) event.stopImmediatePropagation();
       if (focusing === value) return;
 
       if (value) {

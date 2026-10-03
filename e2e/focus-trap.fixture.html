@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fixture: Focus Trap</title>
+  </head>
+  <body>
+    <div id="trap">
+      <input
+        id="trapped"
+        role="combobox"
+        aria-label="Trapped"
+        aria-controls="dropdown"
+        aria-expanded="true"
+        aria-autocomplete="list"
+      />
+      <ul id="dropdown" role="listbox" aria-label="Dropdown">
+        <li role="option">Suggestion</li>
+      </ul>
+    </div>
+    <p>This is a page with a focus trap for Browser Find.</p>
+    <script>
+      const trap = document.getElementById("trap");
+      const trapped = document.getElementById("trapped");
+      document.addEventListener(
+        "focus",
+        (event) => {
+          if (event.target instanceof HTMLElement && !trap.contains(event.target)) {
+            trapped.focus();
+          }
+        },
+        { capture: true },
+      );
+      document.addEventListener(
+        "keydown",
+        (event) => {
+          if (event.key === "Escape") {
+            trapped.setAttribute("aria-expanded", "false");
+            document.getElementById("dropdown").hidden = true;
+          }
+        },
+        { capture: true },
+      );
+      trapped.focus();
+    </script>
+  </body>
+</html>
