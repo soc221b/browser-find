@@ -71,7 +71,7 @@ export const test = base.extend<
     );
     const isMac = process.platform === "darwin";
     const context = await chromium.launchPersistentContext(userDataDir, {
-      headless: false, // Extensions only work in headful mode for now in some scenarios, or with specific flags.
+      channel: "chromium",
       userAgent: isMac
         ? "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.7499.4 Safari/537.36"
         : undefined,
