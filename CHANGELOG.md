@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.4](https://github.com/soc221b/browser-find/compare/v0.9.3...v0.9.4) (2026-10-06)
+
+
+### Bug Fixes
+
+* keep focus and Escape away from page handlers II ([bb5dbd3](https://github.com/soc221b/browser-find/commit/bb5dbd340b9f3c183690575fca1f64ce859be05b))
+
 ## [0.9.3](https://github.com/soc221b/browser-find/compare/v0.9.2...v0.9.3) (2026-10-03)
 
 
