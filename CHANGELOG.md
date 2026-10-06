@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.5](https://github.com/soc221b/browser-find/compare/v0.9.4...v0.9.5) (2026-10-06)
+
+
+### Bug Fixes
+
+* stop highlights from flickering while typing ([#895](https://github.com/soc221b/browser-find/issues/895)) ([a892192](https://github.com/soc221b/browser-find/commit/a8921920a40e761b5b173e31f27604b802c8d4c5))
+
 ## [0.9.4](https://github.com/soc221b/browser-find/compare/v0.9.3...v0.9.4) (2026-10-06)
 
 
