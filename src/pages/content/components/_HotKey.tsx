@@ -195,8 +195,10 @@ export default function _HotKey(): React.JSX.Element {
   ]);
   useLayoutEffect(() => {
     window.addEventListener("focus", handleFocus, { capture: true });
+    window.addEventListener("focusin", handleFocus, { capture: true });
     return () => {
       window.removeEventListener("focus", handleFocus, { capture: true });
+      window.removeEventListener("focusin", handleFocus, { capture: true });
     };
 
     function handleFocus(event: FocusEvent) {
@@ -215,6 +217,21 @@ export default function _HotKey(): React.JSX.Element {
   }, [
     focusing,
   ]);
+  useLayoutEffect(() => {
+    window.addEventListener("blur", handleBlur, { capture: true });
+    window.addEventListener("focusout", handleBlur, { capture: true });
+    return () => {
+      window.removeEventListener("blur", handleBlur, { capture: true });
+      window.removeEventListener("focusout", handleBlur, { capture: true });
+    };
+
+    function handleBlur(event: FocusEvent) {
+      const topLayer = document.querySelector("#browser-find-top-layer");
+      if (event.relatedTarget instanceof Node && topLayer?.contains(event.relatedTarget)) {
+        event.stopImmediatePropagation();
+      }
+    }
+  }, []);
 
   return <></>;
 }
