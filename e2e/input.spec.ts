@@ -45,6 +45,34 @@ test.describe("Input and Search", () => {
     }).toPass();
   });
 
+  test("should keep highlights while the query is changing", async ({
+    page,
+    getHighlightCounts,
+  }) => {
+    const input = page.getByLabel("Search");
+    await input.fill("test");
+    await expect(async () => {
+      expect((await getHighlightCounts()).thisCount).toBe(4);
+    }).toPass();
+
+    await page.evaluate(() => {
+      (window as any).wasEmpty = false;
+      const check = () => {
+        let size = 0;
+        CSS.highlights.forEach((highlight) => (size += highlight.size));
+        if (size === 0) (window as any).wasEmpty = true;
+        requestAnimationFrame(check);
+      };
+      check();
+    });
+    await input.press("Backspace");
+    await expect(async () => {
+      expect((await getHighlightCounts()).thisCount).toBe(3);
+    }).toPass();
+
+    expect(await page.evaluate(() => (window as any).wasEmpty)).toBe(false);
+  });
+
   test("should not have a placeholder in the find input", async ({ page }) => {
     const input = page.getByLabel("Search");
 

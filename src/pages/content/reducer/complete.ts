@@ -9,7 +9,12 @@ const reducer: Reducer = (state) => {
     ...state,
     subscribing: false,
     pendingNavigation: null,
+    stale: [],
   };
+  state.stale.forEach((range) => {
+    highlights({ range, isAdd: false, isThis: true });
+    highlights({ range, isAdd: false, isThis: false });
+  });
 
   if (state.found.length === 0) {
     return nextState;

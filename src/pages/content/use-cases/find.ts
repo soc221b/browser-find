@@ -45,14 +45,11 @@ export const find: Find = ({
       shouldUseRegularExpression,
     });
 
-    await sleep("raf");
-    if (isCancelled) {
-      return;
-    }
+    const nodeMaps = await createNodeMaps({
+      documentElement,
+      isCancelled: () => isCancelled,
+    });
 
-    const nodeMaps = await createNodeMaps({ documentElement });
-
-    await sleep("raf");
     if (isCancelled) {
       return;
     }
@@ -114,8 +111,10 @@ type NodeMap = {
 };
 async function createNodeMaps({
   documentElement,
+  isCancelled,
 }: {
   documentElement: HTMLElement;
+  isCancelled: () => boolean;
 }): Promise<NodeMap[]> {
   let nodeMaps: NodeMap[] = [];
 
@@ -128,10 +127,14 @@ async function createNodeMaps({
       nextChildNodeIndex: 0,
     },
   ];
-  let i = 0;
+  let yieldAt = performance.now() + 8;
   while (DFSStack.length) {
-    if (i++ % 2000 === 0) {
+    if (performance.now() > yieldAt) {
       await sleep("raf");
+      if (isCancelled()) {
+        return [];
+      }
+      yieldAt = performance.now() + 8;
     }
     const top = DFSStack[DFSStack.length - 1];
     if (top.parentElement === null) {
@@ -352,7 +355,7 @@ function matchAll({
 
     let i = 0;
     for (const array of innerTextLike.matchAll(regex)) {
-      if (i++ % 2000 === 0) {
+      if (++i % 2000 === 0) {
         await sleep("raf");
       }
       if (isStopped) {

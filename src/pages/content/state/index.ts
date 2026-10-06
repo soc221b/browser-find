@@ -11,6 +11,8 @@ export type State = {
 
   found: { id: number; ranges: Range[] }[];
 
+  stale: Range[];
+
   open: boolean;
 
   shouldMatchCase: boolean;
@@ -46,6 +48,8 @@ const initialState: State = {
   highlightId: null,
 
   found: [],
+
+  stale: [],
 
   open: false,
 
