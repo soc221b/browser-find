@@ -23,15 +23,34 @@
     <script>
       const trap = document.getElementById("trap");
       const trapped = document.getElementById("trapped");
-      document.addEventListener(
+      for (const type of [
         "focus",
-        (event) => {
-          if (event.target instanceof HTMLElement && !trap.contains(event.target)) {
-            trapped.focus();
-          }
-        },
-        { capture: true },
-      );
+        "focusin",
+      ]) {
+        document.addEventListener(
+          type,
+          (event) => {
+            if (event.target instanceof HTMLElement && !trap.contains(event.target)) {
+              trapped.focus();
+            }
+          },
+          { capture: true },
+        );
+      }
+      for (const type of [
+        "blur",
+        "focusout",
+      ]) {
+        document.addEventListener(
+          type,
+          (event) => {
+            if (event.relatedTarget instanceof HTMLElement && !trap.contains(event.relatedTarget)) {
+              trapped.focus();
+            }
+          },
+          { capture: true },
+        );
+      }
       document.addEventListener(
         "keydown",
         (event) => {

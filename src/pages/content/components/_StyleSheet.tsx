@@ -18,6 +18,7 @@ export default function _StyleSheet(): React.JSX.Element {
         padding: 0;
         border: 0;
         margin: 0;
+        pointer-events: auto;
       }
 
       #browser-find-top-layer .root {
