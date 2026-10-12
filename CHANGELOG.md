@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.6](https://github.com/soc221b/browser-find/compare/v0.9.5...v0.9.6) (2026-10-12)
+
+
+### Bug Fixes
+
+* refocus the input when the window regains focus ([#901](https://github.com/soc221b/browser-find/issues/901)) ([4be3191](https://github.com/soc221b/browser-find/commit/4be31918382db085a72892ab562035347691a0ee))
+
 ## [0.9.5](https://github.com/soc221b/browser-find/compare/v0.9.4...v0.9.5) (2026-10-06)
 
 
