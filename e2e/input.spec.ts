@@ -6,6 +6,34 @@ test.describe("Input and Search", () => {
     await page.keyboard.press("ControlOrMeta+f");
   });
 
+  test("should refocus the input when the window regains focus", async ({ page }) => {
+    const input = page.getByLabel("Search");
+    await expect(input).toBeFocused();
+
+    await page.evaluate(() => window.dispatchEvent(new FocusEvent("blur")));
+    await expect(input).not.toBeFocused();
+
+    await page.evaluate(() => window.dispatchEvent(new FocusEvent("focus")));
+    await expect(input).toBeFocused();
+  });
+
+  test("should not steal focus from a page element when the window regains focus", async ({
+    page,
+  }) => {
+    const input = page.getByLabel("Search");
+    await expect(input).toBeFocused();
+
+    await page.evaluate(() => window.dispatchEvent(new FocusEvent("blur")));
+    await expect(input).not.toBeFocused();
+
+    await page.evaluate(() => {
+      window.dispatchEvent(new FocusEvent("focus"));
+      document.querySelector<HTMLInputElement>("[aria-label='Page field']")?.focus();
+    });
+    await expect(page.getByLabel("Page field")).toBeFocused();
+    await expect(input).not.toBeFocused();
+  });
+
   test("should find multiple matches", async ({ page }) => {
     const input = page.getByLabel("Search");
     await input.fill("test");

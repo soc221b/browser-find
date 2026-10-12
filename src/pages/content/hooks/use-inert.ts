@@ -1,10 +1,12 @@
-import { useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
+import { focusInput } from "../use-cases/focus-input";
 
 export default function useInert(): boolean {
   const [
     inert,
     setInert,
   ] = useState(false);
+  const wasInputFocused = useRef(false);
   useLayoutEffect(() => {
     window.addEventListener("focus", handleFocus);
     return () => {
@@ -13,6 +15,10 @@ export default function useInert(): boolean {
 
     function handleFocus() {
       setInert(false);
+      if (!wasInputFocused.current) return;
+      setTimeout(() => {
+        if (document.activeElement === document.body) focusInput();
+      });
     }
   });
   useLayoutEffect(() => {
@@ -22,6 +28,7 @@ export default function useInert(): boolean {
     };
 
     function handleBlur() {
+      wasInputFocused.current = !!document.activeElement?.matches("#browser-find-top-layer .input");
       setInert(true);
     }
   });
