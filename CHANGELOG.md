@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.8](https://github.com/soc221b/browser-find/compare/v0.9.7...v0.9.8) (2026-10-14)
+
+
+### Bug Fixes
+
+* hide the find bar after navigating back or forward ([#907](https://github.com/soc221b/browser-find/issues/907)) ([d96d3c0](https://github.com/soc221b/browser-find/commit/d96d3c0897d311aa451aa30dd202c5c16c49897f))
+
 ## [0.9.7](https://github.com/soc221b/browser-find/compare/v0.9.6...v0.9.7) (2026-10-14)
 
 
