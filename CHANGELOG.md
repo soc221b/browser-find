@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.7](https://github.com/soc221b/browser-find/compare/v0.9.6...v0.9.7) (2026-10-14)
+
+
+### Bug Fixes
+
+* keep search state across page loads in the same tab ([#905](https://github.com/soc221b/browser-find/issues/905)) ([9199141](https://github.com/soc221b/browser-find/commit/91991414ca4ef893c8f86d26f8ae7c9a0662a72a))
+
 ## [0.9.6](https://github.com/soc221b/browser-find/compare/v0.9.5...v0.9.6) (2026-10-12)
 
 
