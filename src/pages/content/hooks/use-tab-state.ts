@@ -8,11 +8,9 @@ export default function useTabState() {
   useEffect(() => {
     let isTouched = false;
 
-    sendMessage({ type: "Load" }).then((value?: Restore["value"]) => {
-      if (value && !isTouched) dispatch({ type: "Restore", value });
-    });
-
-    return useStore.subscribe((state, prevState) => {
+    load();
+    window.addEventListener("pageshow", handlePageShow);
+    const unsubscribe = useStore.subscribe((state, prevState) => {
       const value: Restore["value"] = {
         text: state.text,
         shouldMatchCase: state.shouldMatchCase,
@@ -29,6 +27,24 @@ export default function useTabState() {
       isTouched = true;
       sendMessage({ type: "Save", value });
     });
+
+    return () => {
+      window.removeEventListener("pageshow", handlePageShow);
+      unsubscribe();
+    };
+
+    function load() {
+      isTouched = false;
+      sendMessage({ type: "Load" }).then((value?: Restore["value"]) => {
+        if (value && !isTouched) dispatch({ type: "Restore", value });
+      });
+    }
+
+    function handlePageShow(event: PageTransitionEvent) {
+      if (!event.persisted) return;
+      dispatch({ type: "Close" });
+      load();
+    }
   }, [
     dispatch,
   ]);
