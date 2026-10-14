@@ -9,6 +9,7 @@ import { Input } from "./input";
 import { MakeSelection } from "./make-selection";
 import { Next } from "./next";
 import { Redo } from "./redo";
+import { Restore } from "./restore";
 import { Show } from "./show";
 import { Subscribe } from "./subscribe";
 import { ToggleShouldMatchCase } from "./toggle-should-match-case";
@@ -28,6 +29,7 @@ export type Action =
   | MakeSelection
   | Next
   | Redo
+  | Restore
   | Show
   | Subscribe
   | ToggleShouldMatchCase
