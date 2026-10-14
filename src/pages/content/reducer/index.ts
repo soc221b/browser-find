@@ -11,6 +11,7 @@ import input from "./input";
 import makeSelection from "./make-selection";
 import next from "./next";
 import redo from "./redo";
+import restore from "./restore";
 import show from "./show";
 import subscribe from "./subscribe";
 import toggleShouldMatchCase from "./toggle-should-match-case";
@@ -45,6 +46,8 @@ const reducer: Reducer = (state, action) => {
       return next(state, action);
     case "Redo":
       return redo(state, action);
+    case "Restore":
+      return restore(state, action);
     case "Show":
       return show(state, action);
     case "Subscribe":

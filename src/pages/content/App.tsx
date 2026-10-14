@@ -14,10 +14,12 @@ import Tooltip from "./components/Tooltip";
 import useHistoryTracking from "./hooks/use-history-tracking";
 import useInert from "./hooks/use-inert";
 import useMakeSelection from "./hooks/use-make-selection";
+import useTabState from "./hooks/use-tab-state";
 
 export default function App(): React.JSX.Element {
   useMakeSelection();
   useHistoryTracking();
+  useTabState();
 
   const inert = useInert();
 
