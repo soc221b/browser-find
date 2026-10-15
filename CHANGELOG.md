@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.9](https://github.com/soc221b/browser-find/compare/v0.9.8...v0.9.9) (2026-10-15)
+
+
+### Bug Fixes
+
+* **deps:** update react monorepo to v19.3.1 ([#909](https://github.com/soc221b/browser-find/issues/909)) ([194bcf8](https://github.com/soc221b/browser-find/commit/194bcf87cd577d2a34eea7c2cd0ee23b3f8d8dbf))
+
 ## [0.9.8](https://github.com/soc221b/browser-find/compare/v0.9.7...v0.9.8) (2026-10-14)
 
 
