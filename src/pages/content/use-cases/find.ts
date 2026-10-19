@@ -168,6 +168,11 @@ async function createNodeMaps({
           "NOSCRIPT",
           "STYLE",
           "SELECT",
+          "TEXTAREA",
+          "CANVAS",
+          "VIDEO",
+          "AUDIO",
+          "OBJECT",
         ];
         if (ignoredTagNames.includes(element.tagName)) {
           break;
