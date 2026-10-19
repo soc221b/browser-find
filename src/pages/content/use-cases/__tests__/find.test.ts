@@ -84,6 +84,19 @@ const suits: Suit[] = [];
   })();
 
   //
+  (function textarea() {
+    const documentElement = createDocumentElement(`<textarea>a</textarea>`);
+    suits.push({
+      documentElement,
+      text: "a",
+      shouldMatchCase: false,
+      shouldMatchWholeWord: false,
+      shouldUseRegularExpression: false,
+      expected: [],
+    });
+  })();
+
+  //
   (function iframe() {
     const documentElement = document.createElement("div");
     document.body.appendChild(documentElement);
