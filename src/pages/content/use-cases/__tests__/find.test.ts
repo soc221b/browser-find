@@ -85,21 +85,24 @@ const suits: Suit[] = [];
 
   //
   (function iframe() {
-    // TODO: support finding text in iframe
-    // const iframe = document.createElement('iframe')
-    // iframe.srcdoc = 'a'
-    // const body = document.createElement('body')
-    // body.appendChild(iframe)
-    // const documentElement = document.createElement('html')
-    // documentElement.appendChild(body)
-    // suits.push({
-    //   documentElement,
-    //   text: 'a',
-    //   shouldMatchCase: false,
-    //   shouldMatchWholeWord: false,
-    //   shouldUseRegularExpression: false,
-    //   expected: [[expect.anything()]],
-    // })
+    const documentElement = document.createElement("div");
+    document.body.appendChild(documentElement);
+    const iframe = document.createElement("iframe");
+    documentElement.appendChild(iframe);
+    const iframeBody = iframe.contentDocument!.body;
+    iframeBody.textContent = "a";
+    suits.push({
+      documentElement,
+      text: "a",
+      shouldMatchCase: false,
+      shouldMatchWholeWord: false,
+      shouldUseRegularExpression: false,
+      expected: [
+        [
+          createRange(iframeBody.childNodes[0], 0, 1),
+        ],
+      ],
+    });
   })();
 
   //
