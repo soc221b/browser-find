@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.9.9](https://github.com/soc221b/browser-find/compare/v0.9.8...v0.9.9) (2026-10-23)
+
+
+### Bug Fixes
+
+* **deps:** update dependency zustand to v5.0.16 ([#914](https://github.com/soc221b/browser-find/issues/914)) ([aeef76f](https://github.com/soc221b/browser-find/commit/aeef76fc7bc17609ffb35e9e3a186c8a336bc109))
+* **deps:** update react monorepo to v19.3.1 ([#909](https://github.com/soc221b/browser-find/issues/909)) ([194bcf8](https://github.com/soc221b/browser-find/commit/194bcf87cd577d2a34eea7c2cd0ee23b3f8d8dbf))
+* ignore text in textarea and other unrendered fallback content ([edd982f](https://github.com/soc221b/browser-find/commit/edd982f747dc1cd4fef699821fb42e2036c48031))
+* scroll to the match itself when its parent is taller than the viewport ([5609068](https://github.com/soc221b/browser-find/commit/56090681050877d056d4b2c917237de2fb4ed2de))
+
 ## [0.9.8](https://github.com/soc221b/browser-find/compare/v0.9.7...v0.9.8) (2026-10-14)
 
 
