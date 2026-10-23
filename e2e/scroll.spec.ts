@@ -110,3 +110,45 @@ test.describe("Scroll Behavior", () => {
     }).toPass();
   });
 });
+
+test.describe("Scroll Behavior with a tall parent element", () => {
+  test.beforeEach(async ({ page, loadFixture }) => {
+    await loadFixture("scroll-tall-parent.fixture.html");
+    await page.keyboard.press("ControlOrMeta+f");
+    await page.setViewportSize({
+      width: 800,
+      height: 600,
+    });
+  });
+
+  test("should scroll when navigating to a non-visible match (Next)", async ({ page }) => {
+    const input = page.getByLabel("Search");
+    await input.fill("target");
+
+    await expect(page.getByRole("status")).toHaveText("1/3");
+
+    await page.keyboard.press("Enter");
+    await expect(page.getByRole("status")).toHaveText("2/3");
+
+    await expect(async () => {
+      const scrollY = await page.evaluate(() => window.scrollY);
+      expect(scrollY).toBeGreaterThanOrEqual(500);
+      expect(scrollY).toBeLessThanOrEqual(1000);
+    }).toPass();
+  });
+
+  test("should scroll when navigating to a non-visible match (Previous)", async ({ page }) => {
+    const input = page.getByLabel("Search");
+    await input.fill("target");
+
+    await expect(page.getByRole("status")).toHaveText("1/3");
+
+    await page.keyboard.press("Shift+Enter");
+    await expect(page.getByRole("status")).toHaveText("3/3");
+
+    await expect(async () => {
+      const scrollY = await page.evaluate(() => window.scrollY);
+      expect(scrollY).toBe(1260);
+    }).toPass();
+  });
+});

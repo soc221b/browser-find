@@ -1,6 +1,7 @@
 import { Action } from "../action";
 import { State } from "../state";
 import { highlights } from "../utils/highlights";
+import { scrollIntoViewIfNeeded } from "../utils/scroll-into-view-if-needed";
 
 type Reducer = (state: State, action: Action & { type: "Complete" }) => State;
 
@@ -71,7 +72,7 @@ const reducer: Reducer = (state) => {
 
   const highlight = state.found[highlightIndex];
   nextState.highlightId = highlight.id;
-  highlight.ranges[0].startContainer.parentElement?.scrollIntoViewIfNeeded(true);
+  scrollIntoViewIfNeeded(highlight.ranges[0]);
   highlight.ranges.forEach((range) => {
     highlights({ range, isAdd: true, isThis: true });
     highlights({ range, isAdd: false, isThis: false });
