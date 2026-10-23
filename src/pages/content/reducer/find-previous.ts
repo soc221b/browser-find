@@ -3,6 +3,7 @@ import { State } from "../state";
 import { binarySearchIndex } from "../utils/binary-search-index";
 import { highlights } from "../utils/highlights";
 import isMatchValid from "../utils/is-match-valid";
+import { scrollIntoViewIfNeeded } from "../utils/scroll-into-view-if-needed";
 
 type Reducer = (state: State, action: Action & { type: "FindPrevious" }) => State;
 
@@ -53,7 +54,7 @@ const reducer: Reducer = (state) => {
     binarySearchIndex(nextState.found, nextState.highlightId, (match) => match.id)
   ]?.ranges.forEach((range, index) => {
     if (index === 0) {
-      range.startContainer.parentElement?.scrollIntoViewIfNeeded(true);
+      scrollIntoViewIfNeeded(range);
     }
     highlights({ range, isAdd: true, isThis: true });
     highlights({ range, isAdd: false, isThis: false });
