@@ -128,7 +128,7 @@ async function buildHtmlPage(name: string, entry: string, outdir: string, dev = 
         postcss: {
           plugins: [
             require("postcss-import"),
-            require("tailwindcss"),
+            require("@tailwindcss/postcss"),
             require("autoprefixer"),
           ],
         },
@@ -168,7 +168,7 @@ async function buildJSPage(name: string, entry: string, outdir: string, dev: boo
         postcss: {
           plugins: [
             require("postcss-import"),
-            require("tailwindcss"),
+            require("@tailwindcss/postcss"),
             require("autoprefixer"),
           ],
         },
