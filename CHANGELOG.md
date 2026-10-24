@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.10](https://github.com/soc221b/browser-find/compare/v0.9.9...v0.9.10) (2026-10-24)
+
+
+### Bug Fixes
+
+* open a detail element when the matched range is inside it ([#916](https://github.com/soc221b/browser-find/issues/916)) ([e07aa50](https://github.com/soc221b/browser-find/commit/e07aa500af816a19ae812bf908b4e608fe320750))
+
 ## [0.9.9](https://github.com/soc221b/browser-find/compare/v0.9.8...v0.9.9) (2026-10-23)
 
 
