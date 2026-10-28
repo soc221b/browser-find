@@ -27,7 +27,7 @@ test.describe("Navigation", () => {
     await page.keyboard.press("ControlOrMeta+f");
 
     await expect(page.getByLabel("Search")).toHaveValue("Apple");
-    await expect(page.getByRole("status")).toHaveText("1/3");
+    await expect(page.getByRole("status")).toHaveText("0/3");
   });
 
   test("should hide the find bar and keep the other states after navigating back and forward in the same tab", async ({
@@ -69,7 +69,7 @@ test.describe("Navigation", () => {
     await page.keyboard.press("ControlOrMeta+f");
 
     await expect(page.getByLabel("Search")).toHaveValue("Apple");
-    await expect(page.getByRole("status")).toHaveText("1/2");
+    await expect(page.getByRole("status")).toHaveText("0/2");
   });
 
   test("should keep the find bar open after navigating within an SPA", async ({ page }) => {

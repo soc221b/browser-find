@@ -33,6 +33,8 @@ export type State = {
 
   pendingNavigation: "next" | "previous" | null;
 
+  shouldHighlight: boolean;
+
   history: SearchSnapshot[];
 
   historyIndex: number;
@@ -70,6 +72,8 @@ const initialState: State = {
   searchVersion: 0,
 
   pendingNavigation: null,
+
+  shouldHighlight: true,
 
   history: [
     { text: "" },

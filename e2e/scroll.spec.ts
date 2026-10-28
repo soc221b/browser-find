@@ -109,6 +109,34 @@ test.describe("Scroll Behavior", () => {
       expect(scrollY).toBe(0);
     }).toPass();
   });
+
+  test("should not highlight or scroll to any match when re-opening the find bar", async ({
+    page,
+  }) => {
+    const input = page.getByLabel("Search");
+    await input.fill("target");
+    await expect(page.getByRole("status")).toHaveText("1/3");
+
+    await page.keyboard.press("Shift+Enter");
+    await expect(page.getByRole("status")).toHaveText("3/3");
+    await expect(async () => {
+      const scrollY = await page.evaluate(() => window.scrollY);
+      expect(scrollY).toBe(1500);
+    }).toPass();
+
+    await page.keyboard.press("Escape");
+    await expect(page.getByRole("search")).toBeHidden();
+
+    await page.keyboard.press("ControlOrMeta+f");
+    await expect(input).toBeFocused();
+    await expect(page.getByRole("status")).toHaveText("0/3");
+
+    const scrollY = await page.evaluate(() => window.scrollY);
+    expect(scrollY).toBe(1500);
+
+    await page.keyboard.press("Enter");
+    await expect(page.getByRole("status")).toHaveText("1/3");
+  });
 });
 
 test.describe("Scroll Behavior with a tall parent element", () => {

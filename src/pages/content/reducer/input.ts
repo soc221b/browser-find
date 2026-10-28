@@ -7,6 +7,7 @@ const reducer: Reducer = (state, action) => {
   const nextState: State = {
     ...state,
     text: action.value,
+    shouldHighlight: state.shouldHighlight || action.value !== state.text,
   };
   return nextState;
 };

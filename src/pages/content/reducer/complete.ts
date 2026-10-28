@@ -10,6 +10,7 @@ const reducer: Reducer = (state) => {
     ...state,
     subscribing: false,
     pendingNavigation: null,
+    shouldHighlight: true,
     stale: [],
   };
   state.stale.forEach((range) => {
@@ -17,7 +18,7 @@ const reducer: Reducer = (state) => {
     highlights({ range, isAdd: false, isThis: false });
   });
 
-  if (state.found.length === 0) {
+  if (state.found.length === 0 || !(state.shouldHighlight || state.pendingNavigation)) {
     return nextState;
   }
 
