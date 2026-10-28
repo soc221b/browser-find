@@ -9,6 +9,7 @@ const reducer: Reducer = (state) => {
     focusing: true,
     open: true,
     searchVersion: state.open ? state.searchVersion : state.searchVersion + 1,
+    shouldHighlight: state.open && state.shouldHighlight,
   };
   return nextState;
 };
