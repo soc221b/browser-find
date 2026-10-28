@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.11](https://github.com/soc221b/browser-find/compare/v0.9.10...v0.9.11) (2026-10-28)
+
+
+### Bug Fixes
+
+* do not highlight or scroll to a match when re-opening the find bar ([#923](https://github.com/soc221b/browser-find/issues/923)) ([34c2fee](https://github.com/soc221b/browser-find/commit/34c2fee688565fd25654d52e37dae1a651613f7e))
+
 ## [0.9.10](https://github.com/soc221b/browser-find/compare/v0.9.9...v0.9.10) (2026-10-24)
 
 
