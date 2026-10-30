@@ -1,5 +1,5 @@
 export function scrollIntoViewIfNeeded(range: Range) {
-  openAncestorDetails(range.startContainer);
+  revealAncestors(range.startContainer);
   range.startContainer.parentElement?.scrollIntoViewIfNeeded(true);
 
   const window = range.startContainer.ownerDocument?.defaultView;
@@ -12,8 +12,12 @@ export function scrollIntoViewIfNeeded(range: Range) {
   }
 }
 
-function openAncestorDetails(node: Node) {
+function revealAncestors(node: Node) {
   for (let element = node.parentElement; element; element = element.parentElement) {
+    if (element instanceof HTMLElement && element.hidden === "until-found") {
+      element.dispatchEvent(new Event("beforematch", { bubbles: true }));
+      element.removeAttribute("hidden");
+    }
     if (
       element instanceof HTMLDetailsElement &&
       !element.open &&
