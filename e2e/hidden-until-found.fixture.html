@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+  <body>
+    <div id="first" hidden="until-found">target</div>
+    <div id="outer" hidden="until-found">
+      <div id="inner" hidden="until-found">target</div>
+    </div>
+    <div id="hidden" hidden>target</div>
+    <script>
+      document.addEventListener("beforematch", (event) => {
+        event.target.dataset.hiddenOnBeforematch = event.target.hidden;
+      });
+    </script>
+  </body>
+</html>
