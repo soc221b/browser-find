@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.12](https://github.com/soc221b/browser-find/compare/v0.9.11...v0.9.12) (2026-10-30)
+
+
+### Bug Fixes
+
+* reveal hidden="until-found" ancestors of the current match ([#926](https://github.com/soc221b/browser-find/issues/926)) ([d3b28f0](https://github.com/soc221b/browser-find/commit/d3b28f001c9babfbe5b8607fd5333ad473b97278))
+
 ## [0.9.11](https://github.com/soc221b/browser-find/compare/v0.9.10...v0.9.11) (2026-10-28)
 
 
