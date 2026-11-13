@@ -42,7 +42,7 @@
     "@types/ua-parser-js": "0.7.39",
     "autoprefixer": "10.6.2",
     "concurrently": "10.0.6",
-    "cross-zip": "4.0.1",
+    "cross-zip": "4.1.0",
     "esbuild": "0.28.2",
     "esbuild-style-plugin": "1.6.3",
     "fs-extra": "11.4.1",
